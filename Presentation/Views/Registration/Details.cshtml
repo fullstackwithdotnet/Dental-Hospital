@@ -1,0 +1,254 @@
+﻿@model DIMS.ViewModels.OPDPatientRegistrationViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RegDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RegDateDisplay)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OpNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OpNo)
+        </dd>
+
+        
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TitleName)
+            @Html.DisplayFor(model => model.PatientName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Dob)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DobDisplay)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Age)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Age)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AlterPhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AlterPhone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaritalStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaritalStatus)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Area)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Area)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CountryId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CountryName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StateId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StateName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CityId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CityName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PinCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PinCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AadharNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AadharNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BloodGroupId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BloodGroupName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoryName)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Occupation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Occupation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReligionId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Religion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Education)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Education)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Birthmark)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Birthmark)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaymodeId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaymodeName)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiscountPer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiscountPer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalAmt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalAmt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NetAmt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NetAmt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaidAmt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaidAmt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MLCProblem)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MLCProblem)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PatientId }) |
+    @Html.ActionLink("Registration", "Create")
+
+    
+</p>

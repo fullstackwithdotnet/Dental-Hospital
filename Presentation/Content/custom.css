@@ -1,0 +1,211 @@
+﻿ .OnlyNumber {
+   }
+ 
+ .RightCenter
+ {
+  text-align:center;
+ }
+
+ .analysisList{
+      font: 15px arial, sans-serif;
+
+ } 
+ .abbreviations{
+      font: 10px arial, sans-serif;
+      height:400px;
+ }
+
+.subHeading {
+     font-weight:bold;
+     color: #357ebd;
+     text-transform:uppercase;
+}
+
+.subHeading1 {
+     color: #268cba;
+     /*font-weight:bold;*/
+     text-transform:capitalize;
+}
+ 
+.subHeadWithStartCap {
+    /*text-transform: lowercase;*/
+      color: #268cba;
+}
+
+.subHeadWithStartCap::first-letter {
+     color: #268cba;
+     /*font-weight:bold;*/
+     text-transform:capitalize;
+}
+
+ 
+.messagebox {
+     color:brown;
+     font-size:15px; 
+     font-weight:bolder ;
+     /*background-color:burlywood;*/
+     padding:2px;
+}
+
+.notextborderred{
+    border-style: none;
+}
+
+   .pagination a {
+    border-radius: 5px;
+    margin: 0 4px;
+    margin-bottom: .5rem;
+     
+       
+}
+.pagination a.active {
+    border-radius: 5px;
+    
+}
+
+.paginationtab{
+        padding:10px 10px!important; 
+        font-size:15px!important;
+  
+    }
+
+.paginationApprovaltab{
+        padding:10px 10px!important; 
+        font-size:15px!important;
+        
+         
+    }
+
+#back2Top {
+    width: 40px;
+    line-height: 40px;
+    overflow: hidden;
+    z-index: 999;
+    display: none;
+    cursor: pointer;
+    -moz-transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    transform: rotate(270deg);
+    position: fixed;
+    bottom: 50px;
+    right: 0;
+    background-color: #DDD;
+    color: #555;
+    text-align: center;
+    font-size: 25px;
+    text-decoration: none;
+}
+#back2Top:hover {
+    background-color: #DDF;
+    color: #000;
+}
+
+
+ .notification {
+        background-color: #555;
+        color: white;
+        text-decoration: none;
+        padding: 15px 26px;
+        position: relative;
+        display: inline-block;
+        border-radius: 2px;
+    }
+
+        .notification:hover {
+            background: red;
+        }
+
+        .notification .badge {
+            position: absolute;
+            opacity:0.70;
+            top: -15px;
+            right: -3px;
+            padding: 5px 5px;
+            border-radius: 25%;
+            background-color:#ff6a00;
+              
+            color: white;
+               /*color: black;*/
+        }
+
+        
+        .CenterAlign {
+      text-align:center;
+    }
+	
+	
+	
+	
+	/* Customize the label (the container) */
+.container-checkbox {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.container-checkbox .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+ background-color: #337ab794;
+}
+
+/* On mouse-over, add a grey background color */
+.container-checkbox:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container-checkbox input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.container-checkbox .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container-checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container-checkbox .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.form-control{
+	border: 1px solid #88b2d5 !important;
+}

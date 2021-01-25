@@ -1,0 +1,58 @@
+﻿@model IEnumerable<DIMS.ViewModels.StudentAllotmentViewModel>
+@{
+    ViewBag.Title = "_ProdedureNoteDetails";
+}
+
+  <table class="table table-bordered">
+    <tr>
+        <th>
+
+        </th>
+        <th class="col-md-1">
+            @Html.DisplayNameFor(model => model.DisplayAllotDate)
+        </th>
+        <th class="col-md-2">
+            @Html.DisplayNameFor(model => model.StudentName)
+        </th>        
+        <th class="col-md-1 hidden">
+            @Html.DisplayNameFor(model => model.DoctorApproval)
+        </th>
+        <th class="col-md-3">
+            @Html.DisplayNameFor(model => model.DoctorName)
+        </th>
+        <th class="col-md-5">
+           Provisional Notes
+        </th>
+    </tr>
+    @{int i = 0;}
+    @foreach (var item in Model)
+    {
+        i++;
+        <tr>
+            <td>
+                <span>@i</span>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DisplayAllotDate)
+                @Html.HiddenFor(modelItem => item.AllotId)
+                @Html.HiddenFor(modelItem => item.StudentId)
+                @Html.HiddenFor(modelItem => item.DoctorId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentName)
+            </td>
+             
+            <td hidden>
+                @Html.DisplayFor(modelItem => item.DoctorApproval)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DoctorName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProcedureNotes)
+            </td>
+        </tr>
+    }
+
+</table>
+

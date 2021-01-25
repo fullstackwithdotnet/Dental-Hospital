@@ -1,0 +1,228 @@
+﻿@model DIMS.ViewModels.CONSViewModel
+
+@{
+    int index = 0;
+}
+
+<div class="panel-group" id="accordion">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseEight">Bleaching<span class="small text-fuchsia"> (click to expand/collapse)</span></a>
+        </h4>
+    </div>
+    <div id="collapseEight" class="panel-collapse collapse" style="height: auto;">
+        <div class="panel-body">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.ToothNumbersD, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(x => x.ToothNumbersD, Model.ToothLister, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">@Html.HiddenFor(model => model.BleachingId)</div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.BlVitalityTesting, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.BlVitalityTesting, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.PhotographsCasts, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.PhotographsCasts, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.BlRadiographicInterpretation, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.BlRadiographicInterpretation, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.DiscolouredToothShade, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.DiscolouredToothShade, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.AdjacentToothShade, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.AdjacentToothShade, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.BleachingProcedure, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.BleachingProcedure, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.BReview1, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.BReview1, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.BReview2, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.BReview2, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.BReview3, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.BReview3, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.ProsthesisType, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.ProsthesisType, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group form-group-sm">
+                                <div class="col-md-offset-4">
+                                    <a href="#" class="btnBleach btn btn-success" id="btnBleachingAdd">Add</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="tbBleachingDetails">
+                            <tr style="font-size:x-small">
+                                <th hidden>
+                                    @Html.DisplayNameFor(model => model.ConservativeId)
+                                    @Html.DisplayNameFor(model => model.BleachingId)
+                                </th>
+                                <th colspan="2">
+                                    Action
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ToothNumbersD)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.BlVitalityTesting)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.PhotographsCasts)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.BlRadiographicInterpretation)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DiscolouredToothShade)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AdjacentToothShade)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.BleachingProcedure)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.BReview1)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.BReview2)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.BReview3)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ProsthesisType)
+                                </th>
+                                <th></th>
+                            </tr>
+
+                            @foreach (var item in Model.BlList)
+                            {
+                                <tr style="font-size:x-small">
+                                    <td class="hidden">
+                                        @Html.TextBoxFor(modelItem => item.ConservativeId, new { @class = "col-sm-10", @id = "BlList[" + index + "]_" + "ConservativeId", @Name = "BlList[" + index + "]." + "ConservativeId" })
+                                        @Html.TextBoxFor(modelItem => item.BleachingId, new { @class = "col-sm-10 js_BleachingId", @id = "BlList[" + index + "]_" + "BleachingId", @Name = "BlList[" + index + "]." + "BleachingId" })
+                                    </td>
+
+                                    <td>
+                                        <button type="button" class="BleachingToothEdit btn btn-primary btn-xs" data-id="@item.BleachingId">
+                                            <i class="glyphicon glyphicon-pencil"></i>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="BleachingToothdelete btn btn-danger btn-xs" data-id="@item.BleachingId">
+                                            <i class="glyphicon glyphicon-trash"></i>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ToothNumber, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.ToothNumber, new { @class = "form-control mHidden", @id = "BlList[" + index + "]_" + "ToothNumber", @Name = "BlList[" + index + "]." + "ToothNumber" })
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BlVitalityTesting, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.BlVitalityTesting, new { @class = "form-control js_BlVitalityTesting", @id = "BlList[" + index + "]_" + "BlVitalityTesting", @Name = "BlList[" + index + "]." + "BlVitalityTesting" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PhotographsCasts, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.PhotographsCasts, new { @class = "form-control js_PhotographsCasts", @id = "BlList[" + index + "]_" + "PhotographsCasts", @Name = "BlList[" + index + "]." + "PhotographsCasts" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BlRadiographicInterpretation, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.BlRadiographicInterpretation, new { @class = "form-control js_BlRadiographicInterpretation", @id = "BlList[" + index + "]_" + "BlRadiographicInterpretation", @Name = "BlList[" + index + "]." + "BlRadiographicInterpretation" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DiscolouredToothShade, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.DiscolouredToothShade, new { @class = "form-control js_DiscolouredToothShade", @id = "BlList[" + index + "]_" + "DiscolouredToothShade", @Name = "BlList[" + index + "]." + "DiscolouredToothShade" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AdjacentToothShade, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.AdjacentToothShade, new { @class = "form-control js_AdjacentToothShade", @id = "BlList[" + index + "]_" + "AdjacentToothShade", @Name = "BlList[" + index + "]." + "AdjacentToothShade" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BleachingProcedure, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.BleachingProcedure, new { @class = "form-control js_BleachingProcedure", @id = "BlList[" + index + "]_" + "BleachingProcedure", @Name = "BlList[" + index + "]." + "BleachingProcedure" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BReview1, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.BReview1, new { @class = "form-control js_BReview1", @id = "BlList[" + index + "]_" + "BReview1", @Name = "BlList[" + index + "]." + "BReview1" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BReview2, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.BReview2, new { @class = "form-control js_BReview2", @id = "BlList[" + index + "]_" + "BReview2", @Name = "BlList[" + index + "]." + "BReview2" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BReview3, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.BReview3, new { @class = "form-control js_BReview3", @id = "BlList[" + index + "]_" + "BReview3", @Name = "BlList[" + index + "]." + "BReview3" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ProsthesisType, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.ProsthesisType, new { @class = "form-control js_ProsthesisType", @id = "BlList[" + index + "]_" + "ProsthesisType", @Name = "BlList[" + index + "]." + "ProsthesisType" })
+                                    </td>
+
+                                </tr>
+                                index++;
+                            }
+
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

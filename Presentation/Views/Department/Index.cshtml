@@ -1,0 +1,44 @@
+﻿@model IEnumerable<DIMS.ViewModels.DepartmentViewModal>
+
+@{
+    ViewBag.Title = "Department";
+}
+
+<h2>Department List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th class="hidden">
+            @Html.DisplayNameFor(model => model.DeptId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeptCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeptName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td class="hidden">
+            @Html.DisplayFor(modelItem => item.DeptId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeptCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeptName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.DeptId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.DeptId }) |
+        </td>
+    </tr>
+}
+
+</table>

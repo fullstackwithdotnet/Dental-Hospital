@@ -1,0 +1,63 @@
+﻿@model DIMS.ViewModels.PatientInformationViewModel
+
+
+
+<div class="row">
+    @Html.LabelFor(x => x.OpNo, new { @class = "col-md-1" })
+    <div class="col-md-3">
+        @Html.DisplayFor(x => x.OpNo)
+    </div>
+    @Html.LabelFor(x => x.PatientName, new { @class = "col-md-2 " })
+    <div class="col-md-3">
+        @Html.DisplayFor(x => x.PatientName)
+    </div>
+    @Html.LabelFor(x => x.AgeGender, new { @class = "col-md-1 " })
+    <div class="col-md-2">
+        @Html.DisplayFor(x => x.AgeGender)
+    </div>
+</div>
+<div class="row ">
+    @Html.LabelFor(x => x.Phone, new { @class = "col-md-1 " })
+    <div class="col-md-3">
+        @Html.DisplayFor(x => x.Phone)
+    </div>
+    @Html.LabelFor(x => x.Area, new { @class = "col-md-2 " })
+    <div class="col-md-3">
+        @Html.DisplayFor(x => x.Area)
+    </div>
+    @Html.LabelFor(x => x.CategoryName, new { @class = "col-md-1 " })
+    <div class="col-md-2">
+        @Html.DisplayFor(x => x.CategoryName)
+    </div>
+</div>
+<div class="row">
+    @Html.LabelFor(x => x.DoctorId, new { @class = "col-md-1 " })
+    <div class="col-md-3 dropdown">
+        @Html.DropDownListFor(model => model.DoctorId, new SelectList(Model.Doctorlist, "DoctorId", "DoctorName"), htmlAttributes: new { @class = "form-control" })
+    </div>
+    @Html.LabelFor(x => x.AllotedTo, new { @class = "col-md-2" })
+    <div class="col-md-3">
+        @Html.DisplayFor(x => x.StudentName)
+        @Html.HiddenFor(x => x.StudentId)
+        @Html.HiddenFor(x => x.AllotId)
+    </div>
+    @Html.LabelFor(x => x.DueAmount, new { @class = "col-md-1 " })
+
+    @if (Model.DueAmount > 0)
+    {
+        <div class="col-md-1 text-bold text-red">
+            @Html.DisplayFor(x => x.DueAmount)
+        </div>
+    }
+    else
+    {
+        <div class="col-md-1 text-bold text-green">
+            @Html.DisplayFor(x => x.DueAmount)
+        </div>
+    }
+    @Html.HiddenFor(x => x.DueAmount)
+</div>
+
+
+
+

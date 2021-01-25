@@ -1,0 +1,195 @@
+﻿@model DIMS.ViewModels.DeptHomeViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+ 
+ @functions
+{
+     public string GetUrl()
+     {
+         var user = User as DIMS.Infrastructure.CustomPrincipal;
+         return user.GetRootUrl();
+     }
+}
+<h4>Periodontics Patient List</h4>
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-2 form-group form-group-sm">
+                        @Html.LabelFor(x => x.SearchAllotByDateRange, new { @class = "control-label" })
+                    </div>
+                    <div class="col-md-3 form-group form-group-sm">
+                        @Html.EditorFor(model => model.SearchAllotByDateRange, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="col-md-7 form-group form-group-sm">
+                        @Html.HiddenFor(model => model.DeptId)
+                        @Html.HiddenFor(model => model.ControllerName)
+                        @Html.HiddenFor(model => model.AccessYNo)
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Treatment</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table id="tbAllotSearch" class="table table-bordered table-hover" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-md-1">DATE </th>
+                                            <th class="col-md-1">Time</th>
+                                            <th class="col-md-1">OP #</th>
+                                            <th class="col-md-2">PATIENT NAME</th>
+                                            <th class="col-md-1">AGE</th>
+                                            <th class="col-md-1">PHONE</th>
+                                            <th class="col-md-3">ALLOTED TO</th>
+                                            <th class="col-md-1"></th>
+                                            <th class="col-md-1"></th>
+                                            <th class="col-md-1"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+     
+            </div>
+        </div>
+    </div>
+}
+
+@Html.Partial("../StudentAllotment/_DeleteAllotment")
+@section scripts {
+    <script>
+         $(document).ready(function () {
+        var start = moment();
+        var end = moment();
+        $('#SearchAllotByDateRange').daterangepicker({
+            startDate: start,
+            endDate: end,
+            locale: {
+                format: 'DD/MM/YYYY'
+            },
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            }
+        }, cb);
+        function cb(start, end) {
+            $('#SearchAllotByDateRange span').html(start.format('YYYY/MM/DD') + ' - ' + end.format('YYYY/MM/DD'));
+        }
+        cb(start, end);
+
+
+        var SearchAllotvalue = function () {
+
+            var itemIndex = $("#tbAllotSearch input.iHidden").length;
+            $('#tbAllotSearch tbody').empty();
+            
+            //var $From_Date = $("#From_Date").val();
+            //var $To_Date = $("#To_Date").val();
+            var selected = $("#SearchAllotByDateRange").val();
+            var from = selected.split("-");
+            var fromdate = $.trim(from[0]);
+            var todate = $.trim(from[1]);
+
+            var $From_Date = fromdate.split("/").reverse().join("-");
+            var $To_Date = todate.split("/").reverse().join("-");
+
+            //var $From_Date = $("#From_Date").val();
+            //var $To_Date = $("#To_Date").val();
+
+            var $DeptId = $("#DeptId").val();
+            var $ControllerName = $("#ControllerName").val();
+            var $Access = $("#AccessYNo").val();
+
+            $.ajax({
+                type: "POST",
+                // url: rootUrl + "/StudentAllotment/GetAllotSearchList",
+                url: '@Url.Action("GetAllotSearchListWithDiagnosis", "StudentAllotment")',
+                data: '{From_Date: "' + $From_Date + ' ",To_Date: "' + $To_Date + ' ",DeptId: "' + $DeptId + ' ",ControllerName: "' + $ControllerName + ' "}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    tbAllottable = $('#tbAllotSearch').DataTable();
+                    tbAllottable.destroy();
+                    $('#tbAllotSearch').dataTable({
+                        data: data,
+                        columns: [
+                            { 'data': 'AllotDate' },
+                            { 'data': "AllotTime" },
+                            { 'data': 'OpNo' },
+                            { 'data': 'PatientName' },
+                            { 'data': 'Age' },
+                            { 'data': 'Phone' },
+                            { 'data': 'StudentName' },
+                            {
+                                'data': 'DeleteLink',
+                                'searchable': false,
+                                'sortable': false,
+                                'render': function (DeleteLink) {
+                                    if ($Access == 'True') {
+                                        return '<a ' +  DeleteLink + ' class="btn btn-danger btn-xs">Cancel Allot</a>';
+                                    }
+                                    else {
+                                        return '<a href="#"></a>';
+                                    }
+                                }
+                            },
+                            {
+                                'data': 'DiagnosisLink',
+                                'searchable': false,
+                                'sortable': false,
+                                'render': function (DiagnosisLink) {
+                                    return '<a href=' + '/' +DiagnosisLink + ' class="btn btn-info btn-xs" >Diagnosis Casesheet</a>';
+                                }
+                            },
+                            {
+                                'data': 'Link',
+                                'searchable': false,
+                                'sortable': false,
+                                'render': function (Link) {                                   
+                                    return '<a href=' + Link + ' class="btn btn-success btn-xs" >Treatment</a>';
+                                }
+                            },
+                        ]
+                    })
+                },
+            })
+            //$('#ReferralSearchTable').hide();
+            //$('#AllotSearchTable').show();
+            //$('#ScheduleSearchTable').hide();
+            //$('#ScheduleApprovedTable').hide();
+        }
+        SearchAllotvalue();
+        $('#SearchAllotByDateRange').on('change', function () {
+            SearchAllotvalue();
+        });
+    });
+        var showCancelAllotment = function (Id) {
+            var url = "@GetUrl()/StudentAllotment/Delete?Id=" + Id + "";
+            $("#myModelBodyDivDelete").load(url, function () {
+                $("#myModelDelete").modal("show");
+            })
+        }
+        //$(function () {
+        //    $("#btnSearchAllot").trigger("click");
+        //})
+    </script>
+}

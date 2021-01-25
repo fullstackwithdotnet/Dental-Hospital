@@ -1,0 +1,120 @@
+﻿@using DIMS.Helpers
+@model DIMS.ViewModels.ItemSupplierViewModel
+
+@{
+    ViewBag.Title = "Create New Supplier";
+    var result = ViewBag.Result;
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="form-horizontal">
+        <div class="box box-default box-solid">
+            <div class="box-header with-border">
+                <h4 class="box-title">@ViewBag.Title For Inventory</h4>
+            </div>
+            <div class="box-body">
+                @if (result != null && result.Success && !ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+                {
+                    @BootstrapAlert.BootstrapCustomAlertHtmlString(result.Message, BootstrapAlertType.Success)
+                }
+                @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+                {
+                    foreach (var modelError in Html.ViewData.ModelState.SelectMany(keyValuePair => keyValuePair.Value.Errors))
+                    {
+                        @BootstrapAlert.BootstrapCustomAlertHtmlString(@modelError.ErrorMessage, BootstrapAlertType.Danger)
+                    }
+                }
+                @Html.ValidationSummary(true)
+
+                <div class="row">
+                    <div class="col-md-8">
+
+                        <div class="form-group form-group-sm required">
+                            @Html.LabelFor(model => model.ItemSupplierName, new { @class = "control-label col-md-3" })
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(x => x.ItemSupplierName, new { @class = "form-control", @maxLength = "30", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.ItemSupplierName)
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.Phone, new { @class = "control-label col-md-3" })
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(x => x.Phone, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Phone)
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-3" })
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Email)
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.Address, new { @class = "control-label col-md-3" })
+                            <div class="col-md-6">
+                                @Html.TextAreaFor(x => x.Address, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Address)
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.ContactPersonName, new { @class = "control-label col-md-3" })
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(x => x.ContactPersonName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ContactPersonName)
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.ContactPersonEmail, new { @class = "control-label col-md-3" })
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(x => x.ContactPersonEmail, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ContactPersonEmail)
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.ContactPersonPhone, new { @class = "control-label col-md-3" })
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(x => x.ContactPersonPhone, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ContactPersonPhone)
+                            </div>
+                        </div>
+                        
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-3" })
+                            <div class="col-md-6">
+                                @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Description)
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-offset-5 col-md-10">
+                                <input type="submit" value="Save" class="fa fa-save btn btn-success" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section scripts {
+
+}

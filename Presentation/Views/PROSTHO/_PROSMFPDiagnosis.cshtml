@@ -1,0 +1,45 @@
+﻿@using Metron.Entities
+@model DIMS.ViewModels.PROSMFPViewModel
+
+@functions{
+    public string GetClassFromProperties(string propertyName)
+    {
+        var props = Model.Proplist.FirstOrDefault<PROSMFPCasesheetProperties>(x => x.PropertyName == propertyName);
+
+        if (props != null && props.PropertyVisibility == "N")
+        {
+            return "display:none";
+        }
+
+        return "";
+    }
+}
+
+
+    
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+
+        <div id="divDiagnosis" >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(model => model.Diagnosis, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.Diagnosis, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divSummary" >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(model => model.Summary, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.Summary, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+

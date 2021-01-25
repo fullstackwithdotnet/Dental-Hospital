@@ -1,0 +1,58 @@
+﻿@model IEnumerable<DIMS.ViewModels.GroupViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@*<h2>Doctor List</h2>*@
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="box box-default box-solid">
+    <div class="box-header with-border">
+        <h4 class="box-title">Group List</h4>
+    </div>
+    <div class="box-body">
+        <table class="table table-bordered">
+            <tr>
+                <th>
+                    S.No
+                </th>
+                <th class="hidden">
+                    @Html.DisplayNameFor(model => model.GroupId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GroupName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DeptName)
+                </th>
+                <th>Action</th>
+            </tr>
+            @{int i = 0;}
+            @foreach (var item in Model)
+            {
+                i++;
+            <tr>
+                <td>
+                    <span>@i</span>
+                </td>
+                <td class="hidden">
+                    @Html.DisplayFor(modelItem => item.GroupId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GroupName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeptName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.GroupId })
+                </td>
+            </tr>
+            }
+
+        </table>
+    </div>
+</div>

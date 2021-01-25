@@ -1,0 +1,96 @@
+﻿@model IEnumerable<DIMS.ViewModels.RadioRegistrationViewModel>
+
+@{
+    string modelName = ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix;
+    int index = 0;
+}
+@functions{
+    string GetId(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}]_{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+    string GetName(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}].{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+}
+
+
+<table class="table table-bordered">
+    <tr>
+        <th>Sl.No</th>
+        <th class="hidden">
+            @Html.DisplayNameFor(model => model.LabId)
+            @Html.DisplayNameFor(model => model.LabDetId)
+            @Html.DisplayNameFor(model => model.ServiceId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServiceName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TeethNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GroupName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TestDone)
+        </th>
+        <th>Action</th>
+        @{int i = 0;}
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        i++;
+        <tr>
+            <td>
+                <span>@i</span>
+            </td>
+            <td class="hidden">
+                @Html.TextBoxFor(modelItem => item.LabId, new { @class = "col-sm-10", @id = GetId("LabId", index), @Name = GetName("LabId", index) })
+                @Html.TextBoxFor(modelItem => item.ResultId, new { @class = "col-sm-10", @id = GetId("ResultId", index), @Name = GetName("ResultId", index) })
+                @Html.TextBoxFor(modelItem => item.LabDetId, new { @class = "col-sm-10", @id = GetId("LabDetId", index), @Name = GetName("LabDetId", index) })
+                @Html.TextBoxFor(modelItem => item.ServiceId, new { @class = "col-sm-10", @id = GetId("ServiceId", index), @Name = GetName("ServiceId", index) })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServiceName)
+                @Html.HiddenFor(modelItem => item.ServiceName, new { @class = "form-control", @id = GetId("ServiceName", index), @Name = GetName("ServiceName", index) })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeethNo)
+                @Html.HiddenFor(modelItem => item.TeethNo, new { @class = "form-control", @id = GetId("TeethNo", index), @Name = GetName("TeethNo", index) })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GroupName)
+                @Html.HiddenFor(modelItem => item.GroupName, new { @class = "form-control", @id = GetId("GroupName", index), @Name = GetName("GroupName", index) })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TestDone)
+                @Html.HiddenFor(modelItem => item.TestDone, new { @class = "form-control", @id = GetId("TestDone", index), @Name = GetName("TestDone", index) })
+            </td>
+            <td>
+                @Html.ActionLink("Result", "TestItemCreate", new { serviceId = item.ServiceId, LabDetId = item.LabDetId, resultId = item.ResultId })     
+            </td>
+        </tr>
+        index++;
+    }
+
+</table>
+
+
+
+@*<div class="container" style="width:70%;margin-top:2%">
+    <div class="modal fade" id="myModel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h3 class="modal-title"></h3>
+                </div>
+                <div class="modal-body" id="myModelBodyDiv">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@

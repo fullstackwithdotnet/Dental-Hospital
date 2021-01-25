@@ -1,0 +1,87 @@
+﻿@model DIMS.ViewModels.LaboratoryRegistrationViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm("Create", "Laboratory", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true)
+
+
+        <div class="box box-info ">
+            <div class="box-header with-border" style="background-color:aliceblue;">
+                <h3 class="box-title"> Patient Information</h3>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        @Html.Partial("../Laboratory/_LabInformationDetails", Model)
+                        @Html.HiddenFor(x => x.LaboratoryId)
+                        @Html.HiddenFor(x => x.PatientId)
+                        @Html.HiddenFor(x => x.LaboratoryResultId)
+                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box box-info ">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.SampleCollectedDate, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-2">
+                                @Html.EditorFor(x => x.SampleCollectedDate, new { @class = "form-control" })
+                            </div>
+                            @Html.LabelFor(x => x.SampleCollectedTime, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-2">
+                                @Html.TextBoxFor(model => model.SampleCollectedTime, htmlAttributes: new { @class = "timepicker form-control" })
+                            </div>
+                            @Html.LabelFor(x => x.SampleCollectedBy, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-2">
+                                @Html.TextBoxFor(x => x.SampleCollectedBy, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <center>
+                                <a class="btn btn-warning btn-sm" target="_blank" href="@Url.Action("Report", "Laboratory", new { Id = Model.LaboratoryId })">Print <i class="fa fa-print"></i> </a>
+                             </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        <div class="box box-info">
+            <div class="box-header with-border" style="background-color:aliceblue;">
+                <h4 class="box-title"> Test Name Details</h4>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                           @Html.Partial("../Laboratory/_TestEditInformationDetails", Model.TestNameEditList,
+                             new ViewDataDictionary()
+                             {
+                                 TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "TestNameEditList" }
+                             })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            @Html.ActionLink("Back to List", "Search")
+        </div>
+    </div>
+
+}
+
+

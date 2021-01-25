@@ -1,0 +1,44 @@
+﻿@model IEnumerable<DIMS.ViewModels.FollowupViewModal>
+
+@{
+    ViewBag.Title = "_PatientFollowUpList";
+}
+<h5>Previous Appointments</h5>
+<table class="table table-bordered">
+    <tr>
+        <th>
+
+        </th>
+        <th class="col-md-1">
+            @Html.DisplayNameFor(model => model.FollowupDateDisplay)
+        </th>
+        <th class="col-md-1">
+            @Html.DisplayNameFor(model => model.FollowupTimeDisplay)
+        </th>
+        <th class="col-md-10">
+            @Html.DisplayNameFor(model => model.FollowupReason)
+        </th>
+
+    </tr>
+    @{int i = 0;}
+    @foreach (var item in Model)
+    {
+        i++;
+        <tr>
+            <td>
+                <span>@i</span>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FollowupDateDisplay)
+                @Html.HiddenFor(modelItem => item.FollowupId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FollowupTimeDisplay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FollowupReason)
+            </td>
+        </tr>
+    }
+
+</table>

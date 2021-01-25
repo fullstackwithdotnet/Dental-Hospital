@@ -1,0 +1,428 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width initial-scale=1.0" />
+    <title>METRON</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    <link href="~/Content/toast-alert/toastr.css" rel="stylesheet" />
+    @Styles.Render("~/Content/themes/base/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/typing.plugin.js"></script>
+    <script src="~/Scripts/daterangepicker.js"></script>
+    @RenderSection("header", required: false)
+</head>
+<body class="hold-transition sidebar-mini skin-yellow-light">
+    <div class="wrapper">
+        <header class="main-header">
+            @*<a href="@Url.Action("Index","Chart")" class="logo">*@
+            <a href="@Url.Action("Index", "Home")" class="logo">
+                <span class="logo-mini"><b>HKES</b></span>
+                <span class="logo-lg"><b>HKES</b></span>
+                <span class="logo-lg"><img src="~/Content/CollegeLogo/MIniLogRoyalTp.jpg" class="img-responsive thumbnail" style="margin-top:0!important" alt="Royal Dental College" /></span>
+            </a>
+
+
+            <nav class="navbar navbar-static-top">
+                <a class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown user user-menu">
+                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="~/Content/Images/avatar.png" class="user-image" alt="User Image">
+                                <span class="hidden-xs">@User.Identity.Name</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- User image -->
+                                <li class="user-header">
+                                    <img src="~/Content/Images/avatar.png" class="img-circle" alt="User Image">
+                                    <p>
+                                        @User.Identity.Name
+                                    </p>
+                                </li>
+                                <!-- Menu Footer-->
+                                <li class="user-footer">
+                                    @*<div class="pull-left">
+                                            <a class="btn btn-default btn-flat">Profile</a>
+                                        </div>*@
+                                    <div class="pull-right">
+                                        <a href="@Url.Action("LogOut", "Account")" class="btn btn-default btn-flat">Sign out</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- Control Sidebar Toggle Button -->
+                        @*<li>
+                                <a  data-toggle="control-sidebar" title="Patient Information"><i class="fa fa-gears"></i></a>
+                            </li>*@
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar user panel -->
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        <img src="~/Content/Images/avatar.png" class="img-circle" alt="User Image">
+                    </div>
+                    <div class="pull-left info">
+                        <p class="text-uppercase"> @User.Identity.Name</p>
+                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                    </div>
+                </div>
+
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu" data-widget="tree" date-api="tree" data-accordian=0>
+                    <li class="header">MAIN NAVIGATION</li>
+                    <li class="treeview">
+                        <a title="Out Patient Registration Department">
+                            <i class="fa fa-circle-o text-red"></i><span>OPD</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="active"><a href="@Url.Action("Create", "Registration")"><i class=""></i>Registration</a></li>
+                            <li><a href="@Url.Action("Search", "Registration")"><i class=""></i>OPD Search</a></li>
+                            <li><a href="@Url.Action("Search", "OPDRevisitRegistration")"><i class=""></i>Appointment List</a></li>
+                            <li><a href="@Url.Action("RevisitSearch", "OPDRevisitRegistration")"><i class=""></i>Revisit Search</a></li>
+                            @*<li><a href="@Url.Action("SearchDetails", "Registration")"><i class=""></i>Search</a></li>*@
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a title="Oral Medicine and Radiology Department">
+                            <i class="fa fa-circle-o text-lime"></i><span>OMR</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="active"><a href="@Url.Action("CreateOpd", "OMR")"><i class=""></i>OMR OPD Regstration</a></li>
+                            <li><a href="@Url.Action("Index", "OMR")"><i class=""></i> Allotment</a></li>
+                            <li><a href="@Url.Action("TreatmentIndex", "OMR")"><i class=""></i>Treatment</a></li>
+                            <li><a href="@Url.Action("Search", "OMR")"><i class=""></i> Patient Search</a></li>
+                            <li><a href="@Url.Action("ApprovalQueue", "OMR")"><i class=""></i> Approval</a></li>
+                            <li><a href="@Url.Action("DeptAppointmentSearch", "OMR")"><i class=""></i> Appointment list</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a title="Oral MaxilloFacial Srugery Department">
+                            <i class="fa fa-circle-o text-primary"></i><span>OMFS</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="active"><a href="@Url.Action("CreateOpd", "OMFS")"><i class=""></i>OMFS OPD Regstration</a></li>
+                            <li><a href="@Url.Action("Index", "OMFS")"><i class=""></i>Allotment</a></li>
+                            <li><a href="@Url.Action("OPTreatmentIndex", "OMFS")"><i class=""></i>Treatment</a></li>
+                            <li><a href="@Url.Action("OMFSPatientSearch", "OMFS")"><i class=""></i> Patient Search</a></li>
+                            <li><a href="@Url.Action("ApprovalQueue", "OMFS")"><i class=""></i> Approval</a></li>
+                            <li><a href="@Url.Action("DeptAppointmentSearch", "OMFS")"><i class=""></i> Appointment list</a></li>
+                            @*<li><a href="@Url.Action("IPScheduleApproval", "OMFS")"><i class=""></i> IP Schedule Approval</a></li>
+        <li><a href="@Url.Action("IPAllotment", "OMFS")"><i class=""></i> IP Allotment</a></li>
+        <li><a href="@Url.Action("IPTreatmentIndex", "OMFS")"><i class=""></i> IP Treatment</a></li>*@
+
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a title="Periodontics Department">
+                            <i class="fa fa-circle-o text-teal"></i><span>Periodontics</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="active"><a href="@Url.Action("CreateOpd", "PERIO")"><i class=""></i>PERIO OPD Regstration</a></li>
+                            <li><a href="@Url.Action("Index", "PERIO")"><i class=""></i> Allotment</a></li>
+                            <li><a href="@Url.Action("TreatmentIndex", "PERIODiagnosis")"><i class=""></i> Diagnosis</a></li>
+                            <li><a href="@Url.Action("TreatmentIndex", "PERIO")"><i class=""></i>Treatment</a></li>
+                            <li><a href="@Url.Action("Search", "PERIO")"><i class=""></i> Patient Search</a></li>
+                            <li><a href="@Url.Action("ApprovalQueue", "PERIO")"><i class=""></i> Approval</a></li>
+                            <li><a href="@Url.Action("DeptAppointmentSearch", "PERIO")"><i class=""></i> Appointment list</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a title="Pedodontics Department">
+                            <i class="fa fa-circle-o text-gray"></i><span>Pedodontics</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="active"><a href="@Url.Action("CreateOpd", "PEDO")"><i class=""></i>PEDO OPD Regstration</a></li>
+                            <li><a href="@Url.Action("Index", "PEDO")"><i class=""></i> Allotment</a></li>
+                            <li><a href="@Url.Action("TreatmentIndex", "PEDO")"><i class=""></i>Treatment</a></li>
+                            <li><a href="@Url.Action("Search", "PEDO")"><i class=""></i> Patient Search</a></li>
+                            <li><a href="@Url.Action("ApprovalQueue", "PEDO")"><i class=""></i> Approval</a></li>
+                            <li><a href="@Url.Action("DeptAppointmentSearch", "PEDO")"><i class=""></i> Appointment list</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a title="Prosthodontics Department">
+                            <i class="fa fa-circle-o text-maroon"></i><span>Prosthodontics</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="active"><a href="@Url.Action("CreateOpd", "PROSTHO")"><i class=""></i>PROSTHO OPD Regstration</a></li>
+                            <li><a href="@Url.Action("Index", "PROSTHO")"><i class=""></i> Allotment</a></li>
+                            <li><a href="@Url.Action("TreatmentIndex", "PROSTHO")"><i class=""></i>Treatment</a></li>
+                            <li><a href="@Url.Action("Search", "PROSTHO")"><i class=""></i> Patient Search</a></li>
+                            <li><a href="@Url.Action("ApprovalQueue", "PROSTHO")"><i class=""></i> Approval</a></li>
+                            <li><a href="@Url.Action("DeptAppointmentSearch", "PROSTHO")"><i class=""></i> Appointment list</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a title="Public Health / Community Dentistry">
+                            <i class="fa fa-circle-o text-yellow"></i> <span>PHD</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="active"><a href="@Url.Action("CreateOpd", "PHD")"><i class=""></i>PHD OPD Regstration</a></li>
+
+                            <li><a href="@Url.Action("Index", "PHD")"><i class=""></i> Allotment</a></li>
+                            <li><a href="@Url.Action("TreatmentIndex", "PHD")"><i class=""></i>Treatment</a></li>
+                            <li><a href="@Url.Action("Search", "PHD")"><i class=""></i> Patient Search</a></li>
+                            <li><a href="@Url.Action("ApprovalQueue", "PHD")"><i class=""></i> Approval</a></li>
+                            <li><a href="@Url.Action("DeptAppointmentSearch", "PHD")"><i class=""></i> Appointment list</a></li>
+                        </ul>
+
+                    </li>
+                    <li class="treeview">
+                        <a title="Orthodontics Department">
+                            <i class="fa fa-circle-o text-purple"></i> <span>Orthodontics</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="active"><a href="@Url.Action("CreateOpd", "ORTHO")"><i class=""></i>ORTHO OPD Regstration</a></li>
+                            <li><a href="@Url.Action("Index", "Ortho")"><i class=""></i> Allotment</a></li>
+                            <li><a href="@Url.Action("TreatmentIndex", "Ortho")"><i class=""></i>Treatment</a></li>
+                            <li><a href="@Url.Action("Search", "Ortho")"><i class=""></i> Patient Search</a></li>
+                            <li><a href="@Url.Action("ApprovalQueue", "Ortho")"><i class=""></i> Approval</a></li>
+                            <li><a href="@Url.Action("DeptAppointmentSearch", "Ortho")"><i class=""></i> Appointment list</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="treeview">
+                        <a title="Conservative Department">
+                            <i class="fa fa-circle-o text-fuchsia"></i> <span>Conservative</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="active"><a href="@Url.Action("CreateOpd", "CONS")"><i class=""></i>Conservative OPD Regstration</a></li>
+                            <li><a href="@Url.Action("Index", "CONS")"><i class=""></i> Allotment</a></li>
+                            <li><a href="@Url.Action("TreatmentIndex", "CONS")"><i class=""></i>Treatment</a></li>
+                            <li><a href="@Url.Action("Search", "CONS")"><i class=""></i> Patient Search</a></li>
+                            <li><a href="@Url.Action("ApprovalQueue", "CONS")"><i class=""></i> Approval</a></li>
+                            <li><a href="@Url.Action("DeptAppointmentSearch", "CONS")"><i class=""></i> Appointment list</a></li>
+                        </ul>
+                    </li>
+
+                    @*<li class="treeview">
+                            <a title="Implantology">
+                                <i class="fa fa-circle-o text-olive"></i> <span>Implants</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a><i class=""></i>Allotment</a></li>
+                            </ul>
+                        </li>*@
+
+
+
+                    <li class="treeview">
+                        <a title="Oral Pathology Department">
+                            <i class="fa fa-circle-o text-aqua"></i> <span>Oral Pathology</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="active"><a href="@Url.Action("CreateOpd", "OralPathology")"><i class=""></i>Oral Pathology OPD Regstration</a></li>
+                            <li><a href="@Url.Action("Index", "OralPathology")"><i class=""></i> Allotment</a></li>
+                            <li><a href="@Url.Action("TreatmentIndex", "OralPathology")"><i class=""></i>Treatment</a></li>
+                            <li><a href="@Url.Action("Search", "OralPathology")"><i class=""></i> Patient Search</a></li>
+                            <li><a href="@Url.Action("ApprovalQueue", "OralPathology")"><i class=""></i> Approval</a></li>
+                            <li><a href="@Url.Action("DeptAppointmentSearch", "OralPathology")"><i class=""></i> Appointment list</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a title="Billing">
+                            <i class="fa fa-rupee text-gray"></i> <span>Billing</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="@Url.Action("Index", "Billing")"><i class=""></i>New Bills</a></li>
+                            <li><a href="@Url.Action("Search", "Billing")"><i class=""></i>Paid Bills</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a title="Laboratory">
+                            <i class="fa fa-circle-o text-aqua"></i> <span>Laboratory</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="@Url.Action("Index", "Laboratory")"><i class=""></i> Patient List</a></li>
+                            <li><a href="@Url.Action("Search", "Laboratory")"><i class=""></i> Result Entry</a></li>
+                            <li><a href="@Url.Action("Index", "LaboratoryTemplate")"><i class=""></i> Test Definer</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a title="Radiology">
+                            <i class="fa fa-circle-o text-olive"></i> <span>Radiology</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="@Url.Action("Index", "Radiology")"><i class=""></i> Patient List</a></li>
+                            <li><a href="@Url.Action("Search", "Radiology")"><i class=""></i> Result Entry</a></li>
+                            <li><a href="@Url.Action("Index", "RadiologyTemplate")"><i class=""></i> Test Definer</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="treeview">
+                        <a title="Radiology">
+                            <i class="fa fa-circle-o text-yellow"></i> <span>Inventory</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="@Url.Action("Index", "ItemIssue")"><i class=""></i> Issue Item</a></li>
+                            <li><a href="@Url.Action("Index", "ItemStock")"><i class=""></i> Add Item Stock</a></li>
+                            <li><a href="@Url.Action("Index", "Item")"><i class=""></i> Add Item</a></li>
+                            <li><a href="@Url.Action("Index", "ItemCategory")"><i class=""></i> Item Category</a></li>
+                            <li><a href="@Url.Action("Index", "ItemStore")"><i class=""></i> Item Store</a></li>
+                            <li><a href="@Url.Action("Index", "ItemSupplier")"><i class=""></i> Item Supplier</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="treeview">
+                        <a title="Radiology">
+                            <i class="fa fa-circle-o text-red"></i> <span>Library</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="@Url.Action("Index", "Books")"><i class=""></i> Books List</a></li>
+                            <li><a href="@Url.Action("Index", "BookIssue")"><i class=""></i> Issue Return</a></li>
+                            <li><a href="#"><i class=""></i> Add Student</a></li>
+                            <li><a href="#"><i class=""></i> Add Staff Member</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="treeview">
+                        <a title="Reports">
+                            <i class="fa fa-newspaper-o text-gray"></i> <span>Reports</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+
+                            <li><a href="@Url.Action("ReferralSearch", "Report")"><i class=""></i>Referral Details</a></li>
+                            <li><a href="@Url.Action("RefferalReportByDepartment", "Report")"><i class=""></i>Department Refferals</a></li>
+                            <li><a href="@Url.Action("TreatmentSearch", "Report")"><i class=""></i>Treatment Details</a></li>
+                            <li><a href="@Url.Action("PatientSearch", "Report")"><i class=""></i>Patient Visitwise Details</a></li>
+                            @*<li><a href="@Url.Action("CategorySearch", "Report")"><i class=""></i>Patient Census Category</a></li>*@
+                            <li><a href="@Url.Action("CensusReport", "Report")"><i class=""></i>Census Report</a></li>
+                            <li><a href="@Url.Action("OPRegistrationCollection", "Report")"><i class=""></i>RegistrationWise Collection </a></li>
+                            <li><a href="@Url.Action("CategoryWiseCollectionReport", "Report")"><i class=""></i>Categorywise Collection </a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a title="Management Information Reports">
+                            <i class="fa fa-info text-gray"></i> <span>MIR</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="@Url.Action("BillwiseCollectionReport", "Report")"><i class=""></i>BillWise Collection</a></li>
+                            <li><a href="@Url.Action("CollectionReport", "Report")"><i class=""></i>Collection Report</a></li>
+                            <li><a href="@Url.Action("StudentWiseSearch", "Report")"><i class=""></i>Studentwise Report</a></li>
+                            @*<li><a href="@Url.Action("ConfigurationDetails", "Configuration")"><i class=""></i>DCards</a></li>
+                                <li><a href="@Url.Action("ConfigurationRevisitDetails", "Configuration")"><i class=""></i>DRevisitCards</a></li>*@
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a title="Master Settings">
+                            <i class="fa fa-gears text-gray"></i> <span>Settings</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="@Url.Action("Index", "Designation")"><i class=""></i> Designation</a></li>
+                            <li><a href="@Url.Action("Index", "Doctor")"><i class=""></i> Doctor</a></li>
+                            <li><a href="@Url.Action("Index", "BillingServices")"><i class=""></i> Services</a></li>
+                            <li><a href="@Url.Action("SubServicesList", "BillingServices")"><i class=""></i>Child Services</a></li>
+                            <li><a href="@Url.Action("Index", "StudentRegistration")"><i class=""></i> Student Registration</a></li>
+                            <li><a href="@Url.Action("Create", "StudentTransfer")"><i class=""></i> Student Transfer</a></li>
+                            <li><a href="@Url.Action("Index", "User")"><i class=""></i> User Management</a></li>
+                            @*<li><a href="@Url.Action("Index", "StudentSchedule")"><i class=""></i> Student Schedule</a></li>*@
+                            <li><a href="@Url.Action("Index", "Group")"><i class=""></i> Group</a></li>
+                        </ul>
+                    </li>
+                    @* <li><a><i class="fa fa-book"></i> <span>Documentation</span></a></li>*@
+                </ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <section class="content">
+                @RenderBody()
+            </section>
+        </div>
+        <!-- /.content-wrapper -->
+        <footer class="main-footer no-print">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 2.019.03.01 <!--year.month.sequence(01)--><!--build published year date as version-->
+            </div>
+            <strong>Developed By <a href="http://metronsolution.com/" target="_blank">Metron Solutions.</a></strong>
+        </footer>
+        <a id="back2Top" title="Back to top" href="#">&#10148;</a>
+    </div>
+
+
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Content/toast-alert/toastr.js"></script>
+    <script src="~/Content/toast-alert/sstoast.js"></script>
+    <script>
+        function AjaxCall(url, data, type) {
+            return $.ajax({
+                url: url,
+                type: type ? type : 'GET',
+                data: data,
+                contentType: 'application/json'
+            });
+        }
+       
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

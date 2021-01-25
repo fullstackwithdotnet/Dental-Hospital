@@ -1,0 +1,1089 @@
+﻿@model DIMS.ViewModels.PERIOViewModel
+<style>
+    .colss {
+        width: auto !important;
+        padding-right: 8px !important;
+        padding-left: 8px !important;
+        float: left;
+        position: relative;
+        min-height: 1px;
+    }
+
+    .txtsmall {
+        width: 15px;
+        padding: 2px;
+        -webkit-box-sizing: initial;
+    }
+
+    .tablenew {
+        width: auto !important;
+    }
+
+        .tablenew > tbody > tr > td {
+            padding: 0;
+        }
+
+    .pclass {
+        text-align: center;
+        margin: 0 !important;
+    }
+</style>
+
+
+
+<div class="form-horizontal">
+    @Html.ValidationSummary(true)
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">GINGIVAL INDEX(GI) </h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="table-responsive jssum">
+                            <div class="colss">
+                                <p class="pclass">18</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT18_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT18_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr id="calculateTotal">
+                                        <td>@Html.TextBoxFor(x => x.GT18_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT18_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">17</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT17_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT17_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT17_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT17_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">16</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT16_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT16_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT16_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT16_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">15</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT15_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT15_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT15_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT15_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">14</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT14_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT14_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT14_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT14_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">13</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT13_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT13_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT13_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT13_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">12</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT12_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT12_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT12_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT12_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">11</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT11_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT11_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT11_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT11_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">21</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT21_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT21_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT21_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT21_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">22</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT22_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT22_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT22_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT22_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">23</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT23_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT23_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT23_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT23_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">24</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT24_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT24_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT24_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT24_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">25</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT25_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT25_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT25_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT25_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">26</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT26_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT26_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT26_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT26_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">27</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT27_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT27_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT27_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT27_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">28</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT28_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT28_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT28_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT28_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">48</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT48_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT48_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT48_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT48_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">47</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT47_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT47_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT47_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT47_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">46</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT46_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT46_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT46_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT46_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">45</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT45_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT45_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT45_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT45_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">44</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT44_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT44_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT44_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT44_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">43</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT43_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT43_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT43_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT43_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">42</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT42_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT42_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT42_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT42_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">41</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT41_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT41_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT41_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT41_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">31</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT31_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT31_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT31_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT31_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">32</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT32_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT32_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT32_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT32_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">33</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT33_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT33_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT33_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT33_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">34</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT34_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT34_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT34_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT34_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">35</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT35_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT35_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT35_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT35_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">36</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT36_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT36_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT36_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT36_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">37</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT37_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT37_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT37_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT37_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">38</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT38_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT38_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.GT38_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.GT38_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-md-4">
+                                @Html.Label("GI Score  =  Total Scores / Number of Teeth X 4  = ", new { @class = "control-label" })
+                            </div>
+                            <div class="col-md-1">
+                                @Html.TextBoxFor(x => x.GITotal, new { @readonly = "readonly", @class = "form-control" })
+                            </div>
+                            <div class="col-md-2">
+                                <a id="btnCalculate" class="btn btn-success">Calculate</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <div class="row">
+        <div class="col-md-12">
+           <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">ORAL HYGIENE INDEX-SIMPLIFIED(OHI-2) BY GREEN & VERMILLION </h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="table-responsive">
+                            <div class="col-md-6">
+                                <h5 class="subHeading1">Simplified Debris Index(DI-S)</h5>
+                                <div class="col-md-6">
+                                    <table class="table tablenew table-bordered">
+                                        <tr>
+                                            <td>@Html.LabelFor(x => x.T16, new { @class = "col-lg-6 control-label" })</td>
+                                            <td>@Html.LabelFor(x => x.T11, new { @class = "col-lg-6 control-label" })</td>
+                                            <td>@Html.LabelFor(x => x.T26, new { @class = "col-lg-6 control-label" })</td>
+                                            <td>@Html.LabelFor(x => x.Total, new { @class = "col-lg-6 control-label" })</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.DIT_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.DIT_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.DIT_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.DIUpperTotal, new { @class = "txtsmall", @readonly = "readonly", })</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.DIT_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.DIT_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.DIT_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.DILowerTotal, new { @class = "txtsmall", @readonly = "readonly", })</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.LabelFor(x => x.T46, new { @class = "col-lg-6 control-label" })</td>
+                                            <td>@Html.LabelFor(x => x.T31, new { @class = "col-lg-6 control-label" })</td>
+                                            <td>@Html.LabelFor(x => x.T36, new { @class = "col-lg-6 control-label" })</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-md-3">
+                                    @Html.Label("DI-S Score  = ", new { @class = "control-label" })
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(x => x.DITotal, new { @readonly = "readonly", @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <h5 class="subHeading1">Simplified Calculus Index(CI-S)</h5>
+                                <div class="col-md-6">
+                                    <table class="table tablenew table-bordered">
+                                        <tr>
+                                            <td>@Html.LabelFor(x => x.T16, new { @class = "col-lg-6 control-label" })</td>
+                                            <td>@Html.LabelFor(x => x.T11, new { @class = "col-lg-6 control-label" })</td>
+                                            <td>@Html.LabelFor(x => x.T26, new { @class = "col-lg-6 control-label" })</td>
+                                            <td>@Html.LabelFor(x => x.Total, new { @class = "col-lg-6 control-label" })</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.CIT_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.CIT_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.CIT_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.CIUpperTotal, new { @class = "txtsmall", @readonly = "readonly", })</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.CIT_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.CIT_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.CIT_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.CILowerTotal, new { @class = "txtsmall", @readonly = "readonly", })</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.LabelFor(x => x.T46, new { @class = "col-lg-6 control-label" })</td>
+                                            <td>@Html.LabelFor(x => x.T31, new { @class = "col-lg-6 control-label" })</td>
+                                            <td>@Html.LabelFor(x => x.T36, new { @class = "col-lg-6 control-label" })</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-md-3">
+                                    @Html.Label("CI-S Score  = ", new { @class = "control-label" })
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(x => x.CITotal, new { @readonly = "readonly", @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="col-md-3">
+                                    @Html.Label("OHI-S Score = DI-S + CI-S  = ", new { @class = "control-label" })
+                                </div>
+                                <div class="col-md-1">
+                                    @Html.TextBoxFor(x => x.OHITotal, new { @readonly = "readonly", @class = "form-control" })
+                                </div>
+                                <div class="col-md-2">
+                                    <a id="CalculateOral" class="btn btn-success">Calculate</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <div class="row">
+        <div class="col-md-12">
+           <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">PERIODONTAL POCKETS </h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="table-responsive">
+                            <div class="colss">
+                                <p class="pclass">18</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T18_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T18_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T18_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T18_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T18_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T18_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">17</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T17_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T17_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T17_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T17_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T17_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T17_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">16</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T16_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T16_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T16_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T16_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T16_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T16_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">15</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T15_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T15_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T15_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T15_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T15_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T15_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">14</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T14_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T14_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T14_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T14_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T14_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T14_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">13</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T13_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T13_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T13_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T13_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T13_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T13_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">12</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T12_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T12_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T12_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T12_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T12_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T12_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">11</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T11_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T11_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T11_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T11_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T11_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T11_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">21</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T21_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T21_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T21_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T21_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T21_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T21_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">22</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T22_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T22_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T22_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T22_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T22_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T22_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">23</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T23_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T23_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T23_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T23_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T23_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T23_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">24</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T24_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T24_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T24_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T24_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T24_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T24_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">25</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T25_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T25_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T25_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T25_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T25_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T25_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">26</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T26_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T26_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T26_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T26_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T26_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T26_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">27</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T27_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T27_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T27_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T27_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T27_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T27_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">28</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T28_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T28_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T28_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T28_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T28_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T28_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">48</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T48_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T48_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T48_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T48_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T48_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T48_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">47</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T47_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T47_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T47_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T47_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T47_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T47_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">46</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T46_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T46_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T46_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T46_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T46_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T46_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">45</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T45_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T45_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T45_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T45_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T45_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T45_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">44</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T44_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T44_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T44_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T44_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T44_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T44_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">43</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T43_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T43_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T43_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T43_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T43_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T43_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">42</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T42_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T42_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T42_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T42_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T42_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T42_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">41</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T41_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T41_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T41_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T41_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T41_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T41_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">31</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T31_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T31_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T31_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T31_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T31_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T31_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">32</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T32_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T32_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T32_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T32_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T32_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T32_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">33</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T33_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T33_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T33_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T33_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T33_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T33_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">34</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T34_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T34_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T34_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T34_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T34_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T34_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">35</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T35_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T35_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T35_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T35_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T35_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T35_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">36</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T36_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T36_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T36_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T36_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T36_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T36_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">37</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T37_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T37_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T37_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T37_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T37_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T37_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">38</p>
+                                <table class="table tablenew table-bordered">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T38_1, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T38_2, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T38_3, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.T38_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T38_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                        <td>@Html.TextBoxFor(x => x.T38_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>     
+</div>

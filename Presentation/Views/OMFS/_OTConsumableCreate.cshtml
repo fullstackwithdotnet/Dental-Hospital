@@ -1,0 +1,44 @@
+﻿@model DIMS.ViewModels.OMFSIPOtConsumablesDetailsViewModel
+
+@helper CreateCheckbox(string value)
+{
+    @Html.CheckBox("chkBox", !string.IsNullOrEmpty(value), new { @class = "checkbox-inline" })
+}
+
+@functions {
+    object getHtmlAttributes(string value, string CssClass)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            return new { @class = CssClass, disabled = "disabled" };
+        }
+        return new { @class = CssClass };
+    }
+}
+
+
+
+<div class="col-md-12">
+    <div class="row">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(x => x.ProductName, new { @class = "col-md-2 control-label" })
+            <div class="col-md-3">
+                @Html.DropDownListFor(model => model.ProductName, new SelectList(Model.OTProductList, "ProductId", "ProductName"), htmlAttributes: new { @class = "form-control" })
+            </div>
+            @Html.LabelFor(x => x.MaterialQty, new { @class = "col-md-1 control-label" })
+            <div class="col-md-2">
+                @Html.TextBoxFor(x => x.MaterialQty, new { @class = "form-control" })
+            </div>
+            @Html.LabelFor(x => x.MaterialRate, new { @class = "col-md-1 control-label" })
+            <div class="col-md-2">
+                @Html.TextBoxFor(x => x.MaterialRate, new { @class = "form-control" })
+            </div>
+            <div class="col-md-1">
+                <a href="#" class="btn btn-success" id="btnConsumableAdd">Add</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

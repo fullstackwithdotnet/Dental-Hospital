@@ -1,0 +1,56 @@
+﻿@model DIMS.ViewModels.FollowupViewModal
+@{
+    ViewBag.Title = "_PatientFollowUp";
+}
+
+<div class="col-md-12">
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <div>
+                <center>
+                    @Html.CheckBoxFor(x => x.chkProcedure)
+                    @Html.LabelFor(x => x.chkProcedure, new { @class = "control-label" })
+                </center>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(x => x.FollowupDate, new { @class = "col-md-2 control-label" })
+            <div class="col-md-2">
+                @Html.EditorFor(x => x.FollowupDate)
+                @Html.ValidationMessageFor(x => x.FollowupDate)
+            </div>
+ 
+
+            @Html.LabelFor(x => x.FollowupTime, new { @class = "col-md-2 control-label" })
+            <div class="col-md-2">
+                @Html.TextBoxFor(x => x.FollowupTime, htmlAttributes: new { @class = "timepicker form-control" })
+                @Html.ValidationMessageFor(x => x.FollowupTime)
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(x => x.FollowupReason, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(x => x.FollowupReason, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            $('#FollowupDate').datetimepicker();
+        });
+    </script>
+}

@@ -1,0 +1,169 @@
+﻿
+@model DIMS.ViewModels.ReportSearchViewModel
+
+<div class="box box-info">
+    <div class="box-body">
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <td style="border-top:none">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.From_Date, new { @class = "control-label" })
+                        </div>
+                    </td>
+                    <td style="border-top:none">
+                        <div class="form-group form-group-sm">
+                            @Html.EditorFor(model => model.From_Date, new { htmlAttributes = new { Value = Model.From_Date.ToString("yyyy-MM-dd") } })
+                        </div>
+                    </td>
+                    <td style="border-top:none">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.To_Date, new { @class = "control-label" })
+                        </div>
+                    </td>
+                    <td style="border-top:none">
+                        <div class="form-group form-group-sm">
+                            @Html.EditorFor(model => model.To_Date, new { htmlAttributes = new { Value = Model.From_Date.ToString("yyyy-MM-dd") } })
+                        </div>
+                    </td>
+                    <td style="border-top:none">
+                        <div class="form-group form-group-sm">
+                            @Html.DropDownListFor(model => model.DeptId, new SelectList(Model.Departmentlist, "DeptId", "DeptName"), htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </td>
+                    <td style="border-top:none">
+                        <div class="form-group form-group-sm">
+                            <a id="btnTreatmentSearch"> <i class="fa fa-search fa fa-search btn btn-success"> Search</i></a>
+
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title"> Treatment Details</h3>
+            </div>
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table id="tbTreatmentDetails" class="table table-bordered table-hover" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th class="col-md-1">S.NO</th>
+                                <th class="col-md-1">DATE </th>
+                                <th class="col-md-1">OP #</th>
+                                <th class="col-md-6">PATIENT NAME</th>
+                                <th class="col-md-1">AGE</th>
+                                <th class="col-md-1">GENDER</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="~/Content/buttons.dataTables.min.css" rel="stylesheet" />
+
+
+
+@section scripts {
+    <script src="~/Scripts/dataTables.buttons.min.js"></script>
+    <script src="~/Scripts/buttons.flash.min.js"></script>
+    <script src="~/Scripts/jszip.min.js"></script>
+    <script src="~/Scripts/pdfmake.min.js"></script>
+    <script src="~/Scripts/vfs_fonts.js"></script>
+    <script src="~/Scripts/buttons.html5.min.js"></script>
+    <script src="~/Scripts/buttons.print.min.js"></script>
+    <script type="text/jscript">
+
+        $(document).ready(function () {
+
+            $('#btnTreatmentSearch').on('click', function (e) {
+                e.preventDefault();
+                Searchvalue();
+            });
+
+            var Searchvalue = function () {
+                $('#tbTreatmentDetails tbody').empty();
+                
+                var $From_Date = $("#From_Date").val();
+                var $To_Date = $("#To_Date").val();
+                var $DeptId = $("#DeptId").val();
+                var $DeptName = $("#DeptId option:selected").text();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetTreatmentDetailsList", "Report")',
+                    data: '{From_Date: "' + $From_Date + ' ",To_Date: "' + $To_Date + ' ",DeptId: "' + $DeptId + ' "}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        table = $('#tbTreatmentDetails').DataTable();
+                        table.destroy();
+                        $('#tbTreatmentDetails').dataTable({
+                            data: data,
+                            columns: [
+                                { 'data': 'RowNum' },
+                                { 'data': 'DisplayDate' },
+                                { 'data': 'OpNo' },
+                                { 'data': 'PatientName' },
+                                { 'data': 'Age' },
+                                { 'data': 'GenderName' },
+                            ],
+                            "dom": "Bfrtip",
+                            "buttons": [
+                                {
+                                    extend:'copy',
+                                    className:'copyButton',
+                                    text:'<i class ="fa fa-clone"></i>Copy'
+
+                                },
+                                {
+                                    extend: 'excel',
+                                    text: '<i class ="fa fa-file-excel-o"></i>Excel'
+
+                                },
+                                 {
+                                     extend: 'pdf',
+                                     text: '<i class ="fa fa-file-pdf-o"></i>Pdf'
+
+                                 },
+                                 {
+                                     extend: 'csv',
+                                     text: '<i class ="fa fa-file-excel-o"></i>CSV'
+
+                                 },
+                                 {
+                                     extend: 'print',
+                                     messageTop: '<h3 class="text-center" style="margin-bottom:0;margin-top:0;">Treatment List</h3><br/><h4 class="text-center" style="margin-bottom:0;margin-top:0;"> From &nbsp ' + $From_Date + ' &nbsp To &nbsp  ' + $To_Date + '</h4><br/><h4 class="text-center" style="margin-top:0;">  Department : ' + $DeptName + '</h4>',
+                                     customize: function ( win ) {
+                                         $(win.document.body)
+                                             .css( 'font-size', '10pt' )
+                                             .prepend(
+                                                 '<img src="~/Content/logo-fade.png" style="position:absolute; top:0; left:0;" />'
+                                             );
+
+                                         $(win.document.body).find( 'table' )
+                                             .addClass( 'compact' )
+                                             .css( 'font-size', 'inherit' );
+                                     }
+                                 }
+                               ]
+                        })
+                    },
+                })
+            }
+            Searchvalue();
+        });
+
+
+    </script>
+}

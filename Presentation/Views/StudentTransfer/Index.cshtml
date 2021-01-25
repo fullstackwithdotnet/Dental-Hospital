@@ -1,0 +1,19 @@
+﻿
+@model DIMS.ViewModels.StudentScheduleViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+<h4>Student Schedule Search</h4>
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel-body">
+                <div>
+                    @Html.ActionLink("Student Transfer", "Create")
+                </div>
+            </div>
+        </div>
+    </div>
+}

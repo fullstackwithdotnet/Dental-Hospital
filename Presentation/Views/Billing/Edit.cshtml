@@ -1,0 +1,219 @@
+﻿
+@model DIMS.ViewModels.BillingViewModal
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Billing</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <div class="form-group">
+                            @Html.Partial("../PatientInformation/_PatientAllotmentDetails", Model.patientInformationViewModel)
+                            @Html.HiddenFor(model => model.BillId)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BillNo, new { @class = "col-md-2  control-label" })
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(x => x.BillNo, new { @class = "form-control " })
+                        @Html.TextBoxFor(x => x.PatientId, new { @class = "hidden" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(x => x.BillDateTime, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(x => x.BillDateTime, new { @class = "form-control ", @readonly = "readonly" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                @Html.LabelFor(x => x.DeptName, new { @class = "col-md-1" })
+                <div class="col-md-3">
+                    @Html.DisplayFor(x => x.DeptName, new { @class = "col-md-2" })
+                </div>
+                @Html.LabelFor(x => x.CreatedBy, new { @class = "col-md-1" })
+                <div class="col-md-2">
+                    @Html.DisplayFor(x => x.CreatedBy, new { @class = "col-md-2" })
+                </div>
+            </div>
+        </div>
+        @*<div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <div class="form-group">
+                            @Html.Partial("../Billing/BilllingServiceList", Model.BillServicesList,
+                                new ViewDataDictionary()
+                                {
+                                    TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "BillServicesList" }
+                                })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-8">
+                        </div>
+                        @Html.LabelFor(x => x.BillAmount, new { @class = "col-md-2" })
+                        <div class="col-md-1">
+                            @Html.TextBoxFor(x => x.BillAmount, new { @class = " form-control col-md-3", @readonly = "readonly" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="=col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(x => x.DiscountGivenBy, new { @class = "col-md-2" })
+                    <div class="col-md-2">
+                        @Html.DisplayFor(x => x.DiscountGivenBy, new { @class = "col-md-2" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="=col-md-12">
+                <div class="form-group">
+                    @Html.LabelFor(x => x.DiscountPurpose, new { @class = "col-md-2" })
+                    <div class="col-md-2">
+                        @Html.DisplayFor(x => x.DiscountPurpose, new { @class = "col-md-2" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <div class="form-group">
+                            @Html.Partial("../Billing/ViewBillPayment", Model.billingPaymentViewModal)
+                        </div>
+                        <div class="form-group">
+                            @Html.Partial("../Billing/BillingPayment", Model.BillPaymentList,
+                                 new ViewDataDictionary()
+                                 {
+                                     TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "CreateBillPaymentList" }
+                                 })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-3">
+                            @Html.LabelFor(x => x.ReceivedAmount, new { @class = "col-md-10" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.ReceivedAmount, new { @class = " form-control col-md-5", @readonly = "readonly" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-3">
+                            @Html.LabelFor(x => x.DueBalance, new { @class = "col-md-10" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.DueBalance, new { @class = " form-control col-md-5", @readonly = "readonly" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-2">
+                            @Html.LabelFor(x => x.SubTotal, new { @class = "col-md-10" })
+                        </div>
+                        <div class="col-md-10">
+                            @Html.DisplayFor(x => x.SubTotal, new { @class = "col-md-4" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-2">
+                            @Html.LabelFor(x => x.gst, new { @class = "col-md-10" })
+                        </div>
+                        <div class="col-md-10">
+                            @Html.DisplayFor(x => x.gst, new { @class = "col-md-4" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-2">
+                            @Html.LabelFor(x => x.Total, new { @class = "col-md-10" })
+                        </div>
+                        <div class="col-md-10">
+                            @Html.DisplayFor(x => x.Total, new { @class = "col-md-4" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-2">
+                            @Html.LabelFor(x => x.Pay, new { @class = "col-md-10" })
+                        </div>
+                        <div class="col-md-10">
+                            @Html.DisplayFor(x => x.Pay, new { @class = "col-md-4" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.Remarks, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(x => x.Remarks, new { @class = "col-md-6" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+
+}

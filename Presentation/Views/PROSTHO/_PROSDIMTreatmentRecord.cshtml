@@ -1,0 +1,420 @@
+﻿@using Metron.Entities
+@model DIMS.ViewModels.PROSDIMViewModel
+
+@functions{
+    public string GetClassFromProperties(string propertyName)
+    {
+        var props = Model.Proplist.FirstOrDefault<PROSDIMCasesheetProperties>(x => x.PropertyName == propertyName);
+
+        if (props != null && props.PropertyVisibility == "N")
+        {
+            return "display:none";
+        }
+
+        return "";
+    }
+}
+<div class="form-horizontal">
+    @Html.ValidationSummary(true)
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">1.Diagnosis,Treatment Plan,Discussion</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.DiagnosisTpDiscDate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(x => x.DiagnosisTpDisc, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">2.Treatment Option Selected</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.TreatmentOptionSelDate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(x => x.TreatmentOptionSel, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">3.Pre Medication</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.PreMedicationDate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(x => x.PreMedication, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">4.Implant Placement/grafting &/or membrane/suturing</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.ImplantPlacementDate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(x => x.ImplantPlacementDesc, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">5.Post Medication</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.PostMedicationDate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(x => x.PostMedication, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">6.Suture Removal</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.SutureRemovalDate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(x => x.SutureRemoval, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">7.2nd Stage Surgery</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.SecondStageSurgeryDate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(x => x.SecondStageSurgery, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">8.Try In</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.TryInDate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(x => x.TryIn, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">9.Impression --Implant Level/Abutment Level</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.ImpressionImpAbutDate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(x => x.ImpressionImpAbut, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">10.Jig Trial/Jaw Relation Record</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.JigTrialDate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(x => x.JigTrial, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">11.Prosthesis Insertion</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.ProsthesisInsertionDate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(x => x.ProsthesisInsertion, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">12.Review</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.ReviewDate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(x => x.Review, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

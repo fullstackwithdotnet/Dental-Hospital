@@ -1,0 +1,746 @@
+﻿ @model DIMS.ViewModels.OMFSOPViewModel
+
+ 
+  <div class="row">
+    <h5 style="color: #357ebd">ABBREVIATIONS</h5>
+    <input type="text" readonly="readonly" id="txtSampleAbbreviation" style="font-weight:bold" />
+    <div class="js_Abbr">
+        <div class="row">
+
+            <div class="form-group">
+                <div class="col-md-3">
+                    <button type="button" style="background-color: mediumslateblue; width: 70%" data-id="F1" class="btn btn-xs">F1-Class1</button>
+                </div>    
+                <div class="col-md-3">
+                    <button type="button" style="background-color: yellowgreen; width: 70%" data-id="I" class="btn btn-xs">I-Implant</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" style="background-color: lightsteelblue; width: 70%" data-id="RS" class="btn btn-xs">RS-Root Stumps</button>
+                </div>               
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-3">
+                    <button type="button" style="background-color: orange; width: 70%" data-id="F2" class="btn btn-xs">F2-Class2</button>
+                </div>  
+                <div class="col-md-3">
+                    <button type="button" style="background-color: darkkhaki; width: 70%" data-id="T" class="btn btn-xs">T-Trauma</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" style="background-color: orchid; width: 70%" data-id="RCT" class="btn btn-xs">RCT-Root Canal Treated</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-3">
+                    <button type="button" style="background-color: lawngreen; width: 70%" data-id="F3" class="btn btn-xs">F3-Class3</button>
+                </div>               
+                <div class="col-md-3">
+                    <button type="button" style="background-color: lightsalmon; width: 70%" data-id="D" class="btn btn-xs">D-Decayed</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" style="background-color: firebrick;color:white; width: 70%" data-id="F" class="btn btn-xs">F-Fracture</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-3">
+                    <button type="button" style="background-color: ThreeDShadow; width: 70%" data-id="F4" class="btn btn-xs">F4-Class4</button>
+                </div>               
+                <div class="col-md-3">
+                    <button type="button" style="background-color: palegoldenrod; width: 70%" data-id="M" class="btn btn-xs">M-Missing</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" style="background-color: gold; width: 70%" data-id="b" class="btn btn-xs">b-Bridge</button>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-3">
+                    <button type="button" style="background-color: mediumturquoise; width: 70%" data-id="F5" class="btn btn-xs">F5-Class5</button>
+                </div>                 
+                <div class="col-md-3">
+                    <button type="button" style="background-color: rosybrown; width: 70%" data-id="IMP" class="btn btn-xs">IMP-Impacted</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" style="background-color: mistyrose; width: 70%" data-id="O" class="btn btn-xs">O-Other pathology</button>
+                </div>
+
+            </div>
+        </div>
+         
+        <div class="row">
+            <div class="form-group">
+               
+                <div class="col-md-3">
+                    <button type="button" style="width: 100px" data-id="" class="btn btn-xs">Clear</button>
+                </div>
+                @*<div class="col-md-3">
+                        <button type="button" style="width: 100px" data-id="" class="btn btn-xs">Clear</button>
+                    </div>*@
+                <div class="col-md-6">
+                    @*<input type="Text" readonly="readonly" id="txtbtnOthers" />*@
+                    @Html.TextBoxFor(x => x.AbbreviationOthers, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row js_Teeth">
+    <div class="panel-group" id="accordion">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed">Permanent Dentition <span class="small text-fuchsia"> (click to expand/collapse)</span></a>
+            </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse in" style="height: auto;">
+            <div class="panel-body">
+                <table class="table no-border">
+                    <tr>
+                        <th class="text-center">
+                            <center><img src="~/Content/Images/TeethImages/18.png" class="img-responsive" alt="18" /></center>
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/17.png" class="img-responsive" alt="17" />
+                            </center>
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/16.png" class="img-responsive" alt="16" />
+                            </center>
+
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/15.png" class="img-responsive" alt="15" />
+                            </center>
+
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/14.png" class="img-responsive" alt="14" />
+                            </center>
+
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/13.png" class="img-responsive" alt="13" />
+                            </center>
+
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/12.png" class="img-responsive" alt="12" />
+                            </center>
+
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/11.png" class="img-responsive" alt="11" />
+                            </center>
+
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/21.png" class="img-responsive" alt="21" />
+                            </center>
+
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/22.png" class="img-responsive" alt="22" />
+                            </center>
+
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/23.png" class="img-responsive" alt="23" />
+                            </center>
+
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/24.png" class="img-responsive" alt="24" />
+                            </center>
+
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/25.png" class="img-responsive" alt="25" />
+                            </center>
+
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/26.png" class="img-responsive" alt="26" />
+                            </center>
+
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/27.png" class="img-responsive" alt="27" />
+                            </center>
+
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/28.png" class="img-responsive" alt="28" />
+                            </center>
+
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T18)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T17)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T16)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T15)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T14)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T13)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T12)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T11)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T21)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T22)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T23)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T24)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T25)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T26)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T27)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T28)
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T18, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T17, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T16, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T15, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T14, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T13, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T12, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T11, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T21, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T22, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T23, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T24, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T25, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T26, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T27, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T28, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T48, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T47, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T46, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T45, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T44, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T43, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T42, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T41, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T31, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T32, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T33, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T34, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T35, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T36, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T37, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T38, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T48)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T47)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T46)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T45)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T44)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T43)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T42)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T41)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T31)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T32)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T33)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T34)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T35)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T36)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T37)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T38)
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/48.png" class="img-responsive" alt="48" />
+                            </center>
+
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/47.png" class="img-responsive" alt="47" />
+                            </center>
+
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/46.png" class="img-responsive" alt="46" />
+                            </center>
+
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/45.png" class="img-responsive" alt="45" />
+                            </center>
+
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/44.png" class="img-responsive" alt="44" />
+                            </center>
+
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/43.png" class="img-responsive" alt="43" />
+                            </center>
+
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/42.png" class="img-responsive" alt="42" />
+                            </center>
+
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/41.png" class="img-responsive" alt="41" />
+                            </center>
+
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/31.png" class="img-responsive" alt="31" />
+                            </center>
+
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/32.png" class="img-responsive" alt="32" />
+                            </center>
+
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/33.png" class="img-responsive" alt="33" />
+                            </center>
+
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/34.png" class="img-responsive" alt="34" />
+                            </center>
+
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/35.png" class="img-responsive" alt="35" />
+                            </center>
+
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/36.png" class="img-responsive" alt="36" />
+                            </center>
+
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/37.png" class="img-responsive" alt="37" />
+                            </center>
+
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/38.png" class="img-responsive" alt="38" />
+                            </center>
+
+                        </th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Primary Dentition <span class="small text-fuchsia "> (click to expand/collapse)</span></a>
+        </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse" style="height: auto;">
+        <div class="panel-body">
+            <table class="table no-border">
+                <tbody>
+                    <tr>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/55.png" class="img-responsive" alt="55" />
+                            </center>
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/54.png" class="img-responsive" alt="54" />
+                            </center>
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/53.png" class="img-responsive" alt="53" />
+                            </center>
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/52.png" class="img-responsive" alt="52" />
+                            </center>
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/51.png" class="img-responsive" alt="51" />
+                            </center>
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/61.png" class="img-responsive" alt="61" />
+                            </center>
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/62.png" class="img-responsive" alt="62" />
+                            </center>
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/63.png" class="img-responsive" alt="63" />
+                            </center>
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/64.png" class="img-responsive" alt="64" />
+                            </center>
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/65.png" class="img-responsive" alt="65" />
+                            </center>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T55)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T54)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T53)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T52)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T51)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T61)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T62)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T63)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T64)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T65)
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T55, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T54, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T53, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T52, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T51, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T61, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T62, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T63, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T64, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T65, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T85, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T84, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T83, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T82, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T81, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T71, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T72, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T73, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T74, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                        <th class="text-center">
+                            @Html.TextAreaFor(x => x.T75, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T85)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T84)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T83)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T82)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T81)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T71)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T72)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T73)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T74)
+                        </th>
+                        <th class="text-center">
+                            @Html.LabelFor(x => x.T75)
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/85.png" class="img-responsive" alt="85" />
+                            </center>
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/84.png" class="img-responsive" alt="84" />
+                            </center>
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/83.png" class="img-responsive" alt="83" />
+                            </center>
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/82.png" class="img-responsive" alt="82" />
+                            </center>
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/81.png" class="img-responsive" alt="81" />
+                            </center>
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/71.png" class="img-responsive" alt="71" />
+                            </center>
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/72.png" class="img-responsive" alt="72" />
+                            </center>
+                        </th>
+                        <th class="text-center">
+                            <center><img src="~/Content/Images/TeethImages/73.png" class="img-responsive" alt="73" /></center>
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/74.png" class="img-responsive" alt="74" />
+                            </center>
+                        </th>
+                        <th class="text-center">
+                            <center>
+                                <img src="~/Content/Images/TeethImages/75.png" class="img-responsive" alt="75" />
+                            </center>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+

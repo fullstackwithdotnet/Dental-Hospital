@@ -1,0 +1,187 @@
+﻿@model DIMS.ViewModels.LaboratoryRegistrationViewModel
+@functions
+{
+    public string GetUrl()
+    {
+        var user = User as DIMS.Infrastructure.CustomPrincipal;
+        return user.GetRootUrl();
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default collapsed-box">
+            <div class="box-header with-border">
+                <h3 class="box-title">Laboratory</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.LaboratoryNo, new { @class = " control-label col-md-4" })
+                            <div class="col-md-8 dropdown">
+                                @Html.DropDownListFor(model => model.LaboratoryId, new SelectList(Model.LaboratoryList, "LaboratoryId", "LaboratoryNo"), "Select", htmlAttributes: new { @class = "form-control col-md-2", @id = "LaboratoryNo" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <table id="tblLabprint" style="display:none">
+                            <tr>
+                                <td><a class="" target="_blank"></a></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <table class="table table-bordered" id="tblRadiologyforLaboratory" style="display:none">
+                        <tr>
+                            @if (Model.LabDetforLaboratory != null)
+                            {
+                                foreach (var item in Model.LabDetforLaboratory)
+                                {
+                                    <td></td>
+                                    <td>
+                                        @Html.DisplayFor(x => item.ServiceName)
+                                        @Html.HiddenFor(x => item.ServiceName)
+                                    </td>
+                                }
+                            }
+                        </tr>
+                        @*<tr>
+                            <td colspan="2">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            @if (Model.LabHeaderforLaboratory != null)
+                                            {
+                                                foreach (var item in Model.LabHeaderforLaboratory)
+                                                {
+                                                    @Html.DisplayFor(x => item.ServiceItems)
+                                                }
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @if (Model.LabHeaderforLaboratory != null)
+                                            {
+                                                foreach (var item in Model.LabHeaderforLaboratory)
+                                                {
+                                                    @Html.DisplayFor(x => item.Result)
+                                                }
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @if (Model.FileUploadlistforLaboratory != null)
+                                            {
+                                                <table class="table table-bordered" id="tblFileUploadforLaboratory">
+                                                    @foreach (var file in Model.FileUploadlistforLaboratory.ToList())
+                                                    {
+                                                        <tr>
+                                                            <td></td>
+                                                            <td class="col-md-2">
+                                                                @Html.DisplayFor(modelItem => file.FileTypeName)
+                                                                @Html.HiddenFor(x => file.FileTypeName, new { @class = "jHidden" })
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => file.FileName)
+                                                            </td>
+                                                            <td colspan="3">
+                                                                <a target="_blank" href="@Url.Action(file.FileDisplayPath, new { Controller = "Content/Upload/" })"> View </a>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </table>
+                                            }
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>*@
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+
+    $("#LaboratoryNo").change(function () {
+        
+        var $LabId = $("#LaboratoryNo");
+        var $PatientId = $("#PatientId").val();
+        if ($LabId.val() != 0) {
+
+            var markupprint = "<td><a href='/Laboratory/Report/" + $LabId.val() + "' target=_blank>View</a></td>";
+            var markupFinal = "<tr>" + markupprint + "</tr>";
+            $("#tblLabprint tbody").append(markupFinal);
+            $("#tblLabprint").show();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetLabDetForLaboratory", "Laboratory")',
+                dataType: 'json',
+                data: { LaboratoryId: $LabId.val(), PatientId: $PatientId },
+                success: function (data) {
+                    $('#tblRadiologyforLaboratory tr').not(function () { return !!$(this).has('th').length; }).remove();
+                    $.each(data.LabDetforLaboratory, function (i, item) {
+                        
+                        var itemIndex = $("#tblRadiologyforLaboratory input.iHidden").length;
+                        var ServiceName = item.ServiceName;
+                        var markupFinalmarkupServiceItems = '';
+                        var markupFinalmarkupResult = '';
+                        //$.each(data.LabHeaderforLaboratory, function (i, item2) {
+                        //    if (item.LaboratoryDetId == item2.LaboratoryDetId) {
+                        //        var ServiceItems = item2.ServiceItems;
+                        //        var markupServiceItems = ServiceItems + "<input type='hidden' id='RadioHeaderforRadiography[" + itemIndex + "]_ServiceItems' class='form-control'  name='RadioHeaderforRadiography[" + itemIndex + "].ServiceItems' value='" + ServiceItems + "'>";
+                        //        markupFinalmarkupServiceItems = markupFinalmarkupServiceItems + "<td>" + markupServiceItems + "</td>";
+
+                        //        var Result = item2.Result;
+                        //        var markupResult = Result + "<input type='hidden' id='RadioHeaderforRadiography[" + itemIndex + "]_Result' class='form-control'  name='RadioHeaderforRadiography[" + itemIndex + "].Result' value='" + Result + "'>";
+                        //        markupFinalmarkupResult = markupFinalmarkupResult + "<td>" + markupResult + "</td>";
+                        //    }
+                        //});
+                        var markupServiceName = "<td><strong>Test Name</strong></td><td  colspan='6'> " + ServiceName + "<input type='hidden' id='RadioDetforRadiography[" + itemIndex + "]_ServiceName' class='form-control'  name='RadioDetforRadiography[" + itemIndex + "].ServiceName' value='" + ServiceName + "'> </td>";
+                        var markupFinal = "<tr>" + markupServiceName + "</tr>";
+                        @*var markupFinalFile = '';
+                        $.each(data.FileUploadlistforLaboratory, function (i, item1) {
+                            if (item.LaboratoryDetId == item1.TestDetId) {
+                                var itemIndex = $("#tblFileUploadforLaboratory input.jHidden").length;
+                                var FileTypeName = item1.FileTypeName;
+                                var FileName = item1.FileName;
+                                var FileDisplayPath = item1.FileDisplayPath;
+                                var markupEmpty = "<td></td>";
+                                var markupFileTypeName = "<td>" + FileTypeName + "<input type='hidden' id='FileUploadlistforRadiography[" + itemIndex + "]_FileTypeName' class='form-control'  name='FileUploadlistforRadiography[" + itemIndex + "].FileTypeName' value='" + FileTypeName + "'></td>";
+                                var markupFileName = "<td>" + FileName + "<input type='hidden' id='FileUploadlistforRadiography[" + itemIndex + "]_FileName' class='form-control'  name='FileUploadlistforRadiography[" + itemIndex + "].FileName' value='" + FileName + "'></td>";
+                                var markupFileDisplayPath = "<td colspan='4'><a href='@GetUrl()/Content/Upload/" + item1.FileDisplayPath + "' target=_blank>View</a></td>";
+                                markupFinalFile = markupFinalFile + "<tr>" + markupEmpty + markupFileTypeName + markupFileName + markupFileDisplayPath + "</tr>";
+                                $("#tblFileUploadforLaboratory tbody").append(markupFinalFile)
+                            }
+                        });*@
+                        $("#tblRadiologyforLaboratory tbody").append(markupFinal)
+                        $("#tblRadiologyforLaboratory").show();
+                        $("#ShowPrint").show();
+                    })
+                }
+            });
+            return false;
+        }
+        else {
+            $("#tblRadiologyforLaboratory").hide();
+            $("#tblLabprint").hide();
+            $("#tblLabprint tr").remove();
+        }
+    });
+</script> 

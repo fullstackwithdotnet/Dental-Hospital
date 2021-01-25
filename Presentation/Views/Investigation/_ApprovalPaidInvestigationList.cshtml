@@ -1,0 +1,109 @@
+﻿@model IEnumerable<DIMS.ViewModels.BillingViewModal>
+@{
+    ViewBag.Title = "_PaidInvestigationList";
+}
+
+@{
+    string modelName = ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix;
+    int index = 0;
+}
+@functions{
+    string GetId(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}]_{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+    string GetName(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}].{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+}
+
+
+<h5><strong>Paid Treatments</strong></h5>
+<table id="tbPaidTreatments" class="table">
+    <tr>
+
+        <th class="col-md-1">
+            @Html.DisplayNameFor(model => model.BillNo)
+        </th>
+        <th class="col-md-1">
+            @Html.DisplayNameFor(model => model.BillDateTimeDisplay)
+        </th>
+        <th class="col-md-2">
+            @Html.DisplayNameFor(model => model.ServiceName)
+        </th>
+        <th class="col-md-1">
+            @Html.DisplayNameFor(model => model.ServiceQty)
+        </th>
+        @*<th class="col-md-1">
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th class="col-md-1">
+                @Html.DisplayNameFor(model => model.DiscountAmt)
+            </th>*@
+        <th class="col-md-1">
+            @Html.DisplayNameFor(model => model.NetAmount)
+        </th>
+        <th class="col-md-1">
+            @Html.DisplayNameFor(model => model.DiscountPer)
+        </th>
+        <th class="col-md-1">
+            @Html.DisplayNameFor(model => model.PaidAmount)
+        </th>
+        <th class="col-md-1">
+            @Html.DisplayNameFor(model => model.PayableAmount)
+        </th>
+        <th class="col-md-1">
+            @Html.DisplayNameFor(model => model.TreatmentStatusName)
+        </th>
+
+
+    </tr>
+    @{int i = 0;}
+    @foreach (var item in Model)
+    {
+        i++;
+        <tr>
+            <td>
+                <span>@i )     </span>
+                @Html.DisplayFor(modelItem => item.BillNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillDateTimeDisplay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServiceName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServiceQty)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiscountAmt)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.NetAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.DiscountPer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaidAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PayableAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TreatmentStatusName)
+            </td>
+
+
+
+        </tr>
+    }
+
+</table>
+
+

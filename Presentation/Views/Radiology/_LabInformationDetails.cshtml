@@ -1,0 +1,43 @@
+﻿@model DIMS.ViewModels.RadioRegistrationViewModel
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(x => x.OpNo, new { @class = "col-md-2" })
+                <div class="col-md-2">
+                    @Html.DisplayFor(x => x.OpNo, new { @class = "col-md-2" })
+                </div>
+                @Html.LabelFor(x => x.PatientName, new { @class = "col-md-2 " })
+                <div class="col-md-2">
+                    @Html.DisplayFor(x => x.PatientName, new { @class = "col-md-2 " })
+                </div>
+                @Html.LabelFor(x => x.AgeGender, new { @class = "col-md-2 " })
+                <div class="col-md-2">
+                    @Html.DisplayFor(x => x.AgeGender, new { @class = "col-md-2 " })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(x => x.CreatedDateDisplay, new { @class = "col-md-2" })
+                <div class="col-md-2">
+                    @Html.DisplayFor(x => x.CreatedDateDisplay, new { @class = "col-md-2" })
+                </div>
+                @Html.LabelFor(x => x.LabNo, new { @class = "col-md-2 " })
+                <div class="col-md-2">
+                    @Html.DisplayFor(x => x.LabNo, new { @class = "col-md-2 " })
+                </div>
+                @Html.LabelFor(x => x.DeptCode, new { @class = "col-md-2 " })
+                <div class="col-md-2">
+                    @Html.DisplayFor(x => x.DeptCode, new { @class = "col-md-2 " })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

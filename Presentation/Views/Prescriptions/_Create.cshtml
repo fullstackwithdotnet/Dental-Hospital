@@ -1,0 +1,73 @@
+﻿@model  DIMS.ViewModels.PrescriptionsViewModel
+
+
+
+<div class="row">
+    <div class="form-group form-group-sm">
+        <div class="col-md-2">
+           @Html.LabelFor(x=>x.TypeId)
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(x => x.PresMedication)
+        </div>
+        <div class="col-md-1">
+            @Html.LabelFor(x => x.PresStrength)
+        </div>
+        <div class="col-md-1">
+            @Html.LabelFor(x => x.PrescriptionQty)
+        </div>
+        <div class="col-md-1">
+            @Html.LabelFor(x => x.PresFrequency)
+        </div>
+        <div class="col-md-1">
+            @Html.LabelFor(x => x.PresDays)
+        </div>
+        <div class="col-md-2">
+            @Html.LabelFor(x => x.PresTimes)
+        </div>
+    </div>
+    <div class="form-group form-group-sm">
+        <div class="col-md-2">
+            @Html.DropDownListFor(model => model.TypeId, new SelectList(Model.Typelist, "CodeId", "CodeDescription"), htmlAttributes: new { @class = "form-control", @id = "PresTypeId" })
+        </div>
+        <div class="col-md-4">
+            @Html.TextBoxFor(model => model.PresMedication, new { placeholder = "Medication", @class = "form-control", maxlength = "25" })
+        </div>
+        <div class="col-md-1">
+            @Html.TextBoxFor(model => model.PresStrength, new { placeholder = "Ex: 100mg", @class = "form-control", maxlength = "7" })
+        </div>
+        <div class="col-md-1">
+            @Html.TextBoxFor(model => model.PrescriptionQty, new { placeholder = "Qty", @class = "form-control OnlyNumber", pattern = "\\d*", maxlength = "2" })
+        </div>
+
+        <div class="col-md-1">
+            @Html.TextBoxFor(model => model.PresFrequency, new { placeholder = "Ex: 1-0-1", @class = "form-control" })
+        </div>
+
+        <div class="col-md-1">
+            @Html.TextBoxFor(model => model.PresDays, new { placeholder = "Days", @class = "form-control" })
+        </div>
+
+        <div class="col-md-2">
+            @Html.TextBoxFor(model => model.PresTimes, new { placeholder = "Ex: After Food", @class = "form-control" })
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="form-group form-group-sm">
+        <div class="col-md-10">
+            @Html.LabelFor(x => x.PresNotes)
+         </div>
+    </div>
+    <div class="form-group form-group-sm">
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.PresNotes, new { placeholder = "Notes", @class = "form-control" })
+        </div>
+        <div class="col-md-2">
+            <a id="btnPrescriptionAdd" class="btn btn-primary btn-xs"> Add Medicine</a>
+        </div>
+    </div>
+</div>
+
+

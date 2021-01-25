@@ -1,0 +1,95 @@
+﻿@model IEnumerable<DIMS.ViewModels.PrescriptionsViewModel>
+ @{
+     string modelName = ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix;
+     int index = 0;
+}
+@functions{
+    string GetId(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}]_{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+    string GetName(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}].{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+}
+
+<div class="table-responsive">
+    <table id="tbPrescriptionsDetails" class="table">
+        <tr>
+            <th class="col-md-2">
+                @Html.DisplayNameFor(model => model.TypeId)
+            </th>
+            <th class="col-md-2">
+                @Html.DisplayNameFor(model => model.PresMedication)
+            </th>
+            <th class="col-md-1">
+                @Html.DisplayNameFor(model => model.PresStrength)
+            </th>
+            <th class="col-md-1">
+                @Html.DisplayNameFor(model => model.PrescriptionQty)
+            </th>
+            <th class="col-md-1">
+                @Html.DisplayNameFor(model => model.PresFrequency)
+            </th>
+            <th class="col-md-1">
+                @Html.DisplayNameFor(model => model.PresDays)
+            </th>
+            <th class="col-md-1">
+                @Html.DisplayNameFor(model => model.PresTimes)
+            </th>
+            <th class="col-md-3">
+                @Html.DisplayNameFor(model => model.PresNotes)
+            </th>
+            <th class="col-md-1"></th>
+        </tr>
+
+        @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TypeName)
+            @Html.HiddenFor(modelItem => item.PrescriptionId, new { @class = "form-control iHidden", @id = GetId("PrescriptionId", index), @Name = GetName("PrescriptionId", index) })
+            @Html.HiddenFor(modelItem => item.TypeId, new { @class = "form-control", @id = GetId("TypeId", index), @Name = GetName("TypeId", index) })
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PresMedication)
+            @Html.HiddenFor(modelItem => item.PresMedication, new { @class = "form-control jcssMedication", @id = GetId("PresMedication", index), @Name = GetName("PresMedication", index) })
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PresStrength)
+            @Html.HiddenFor(modelItem => item.PresStrength, new { @class = "form-control", @id = GetId("PresStrength", index), @Name = GetName("PresStrength", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PrescriptionQty)
+            @Html.HiddenFor(modelItem => item.PrescriptionQty, new { @class = "form-control", @id = GetId("PrescriptionQty", index), @Name = GetName("PrescriptionQty", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PresFrequency)
+            @Html.HiddenFor(modelItem => item.PresFrequency, new { @class = "form-control", @id = GetId("PresFrequency", index), @Name = GetName("PresFrequency", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PresDays)
+            @Html.HiddenFor(modelItem => item.PresDays, new { @class = "form-control", @id = GetId("PresDays", index), @Name = GetName("PresDays", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PresTimes)
+            @Html.HiddenFor(modelItem => item.PresTimes, new { @class = "form-control", @id = GetId("PresTimes", index), @Name = GetName("PresTimes", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PresNotes)
+            @Html.HiddenFor(modelItem => item.PresNotes, new { @class = "form-control", @id = GetId("PresNotes", index), @Name = GetName("PresNotes", index) })
+        </td>
+        <td>
+            <button type="button" class="Prescriptionsdelete btn btn-danger btn-xs" data-id="@item.PrescriptionId">
+                <i class="glyphicon glyphicon-trash"></i>
+            </button>
+        </td>
+    </tr>
+        index++;
+    }
+    </table>
+
+    </div>

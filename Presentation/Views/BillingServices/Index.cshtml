@@ -1,0 +1,92 @@
+﻿@model DIMS.ViewModels.BillingServicesViewModal
+
+@{
+    ViewBag.Title = "Index";
+}
+
+ 
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="box box-default box-solid">
+    <div class="box-header with-border">
+        <h3 class="box-title"> Billing Services Details</h3>
+    </div>
+    <div class="box-body">
+        <div class="col-md-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(x => x.DeptId, new { @class = " control-label col-md-4" })
+                <div class="col-md-8 dropdown">
+                    @Html.DropDownListFor(model => model.DeptId, new SelectList(Model.DepartmentList, "DeptId", "DeptName"),  htmlAttributes: new { @class = "form-control col-md-2" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table id="tbServiceSearch" class="table table-bordered table-hover" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th class="col-md-2">SERVICE CODE </th>
+                            <th class="col-md-3">SERVICE NAME</th>
+                            <th class="col-md-2">GROUP</th>
+                            <th class="col-md-2">AMOUNT</th>
+                            @*<th class="col-md-1">GST %</th>*@
+                            <th class="col-md-1">DEPARTMENT</th>
+                            <th class="col-md-1"></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div> 
+</div>
+ 
+@section scripts {
+    <script type="text/jscript">
+
+        $(document).ready(function () {
+            $("#DeptId").change(function () {
+                Searchvalue();
+            });
+
+            var Searchvalue = function () {
+                var $DeptId = $('#DeptId').val();
+                $('#tbServiceSearch tbody').empty();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetServiceDetailsById", "BillingServices")',
+                    data: '{DeptId: "' + $DeptId + ' "}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        table = $('#tbServiceSearch').DataTable();
+                        table.destroy();
+                        $('#tbServiceSearch').dataTable({
+                            data: data.ServicesList,
+                            columns: [
+                                { 'data': 'ServiceCode' },
+                                { 'data': 'ServiceName' },
+                                { 'data': 'GroupName' },
+                                { 'data': 'ServiceAmount' },                               
+                                { 'data': 'DeptCode' },
+                                {
+                                    'data': 'Link',
+                                    'searchable': false,
+                                    'sortable': false,
+                                    'render': function (Link) {
+                                        return '<a href=' + Link + '>Edit</a>';
+                                    }
+                                },
+
+
+                            ]
+                        })
+                    },
+                })
+            }
+            Searchvalue();
+        });
+    </script>
+}

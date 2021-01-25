@@ -1,0 +1,188 @@
+﻿ @model DIMS.ViewModels.RadioRegistrationViewModel
+
+@functions
+{
+    public string GetUrl()
+    {
+        var user = User as DIMS.Infrastructure.CustomPrincipal;
+        return user.GetRootUrl();
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default collapsed-box">
+            <div class="box-header with-border">
+                <h3 class="box-title">Radiography</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.LabNo, new { @class = " control-label col-md-4" })
+                            <div class="col-md-8 dropdown">
+                                @Html.DropDownListFor(model => model.LabId, new SelectList(Model.RadioList, "LabId", "LabNo"), "Select", htmlAttributes: new { @class = "form-control col-md-2", @id = "LabNo" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <table id="tblradioprint" style="display:none">
+                            <tr>
+                                <td><a class=""></a></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <table class="table table-bordered" id="tblRadiologyforradiography" style="display:none">
+                        <tr>
+                            @if (Model.RadioDetforRadiography != null)
+                            {
+                                foreach (var item in Model.RadioDetforRadiography)
+                                {
+                                    <td></td>
+                                    <td>
+                                        @Html.DisplayFor(x => item.ServiceName)
+                                        @Html.HiddenFor(x => item.ServiceName)
+                                    </td>
+                                }
+                            }
+                        </tr>
+                        @*<tr>
+                                <td colspan="2">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                @if (Model.RadioHeaderforRadiography != null)
+                                                {
+                                                    foreach (var item in Model.RadioHeaderforRadiography)
+                                                    {
+                                                        @Html.DisplayFor(x => item.ServiceItems)
+                                                    }
+                                                }
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                @if (Model.RadioHeaderforRadiography != null)
+                                                {
+                                                    foreach (var item in Model.RadioHeaderforRadiography)
+                                                    {
+                                                        @Html.DisplayFor(x => item.Result)
+                                                    }
+                                                }
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                @if (Model.FileUploadlistforRadiography != null)
+                                                {
+                                                    <table class="table table-bordered" id="tblFileUploadforRadiography">
+                                                        @foreach (var file in Model.FileUploadlistforRadiography.ToList())
+                                                        {
+                                                            <tr>
+                                                                <td></td>
+                                                                <td class="col-md-2">
+                                                                    @Html.DisplayFor(modelItem => file.FileTypeName)
+                                                                    @Html.HiddenFor(x => file.FileTypeName, new { @class = "jHidden" })
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => file.FileName)
+                                                                </td>
+                                                                <td colspan="3">
+                                                                    <a target="_blank" href="@Url.Action(file.FileDisplayPath, new { Controller = "Content/Upload/" })"> View </a>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    </table>
+                                                }
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>*@
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+
+    $("#LabNo").change(function () {
+        
+        var $LabId = $("#LabNo");
+        var $PatientId = $("#PatientId").val();
+        if ($LabId.val() != 0) {
+
+            var markupprint = "<td><a href='/Radiology/RadiologyReport/" + $LabId.val() + "' target=_blank>View</a></td>";
+            var markupFinal = "<tr>" + markupprint + "</tr>";
+            $("#tblradioprint tbody").append(markupFinal);
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetRadioDetForRadiography", "Radiology")',
+                dataType: 'json',
+                data: { LabId: $LabId.val(), PatientId: $PatientId },
+                success: function (data) {
+                    $('#tblRadiologyforradiography tr').not(function () { return !!$(this).has('th').length; }).remove();
+                    $.each(data.RadioDetforRadiography, function (i, item) {
+                        
+                        var itemIndex = $("#tblRadiologyforradiography input.iHidden").length;
+                        var ServiceName = item.ServiceName;
+                        var markupFinalmarkupServiceItems = '';
+                        var markupFinalmarkupResult = '';
+                        //$.each(data.RadioHeaderforRadiography, function (i, item2) {
+                        //    if (item.LabDetId == item2.LabDetId) {
+                        //        var ServiceItems = item2.ServiceItems;
+                        //        var markupServiceItems = ServiceItems + "<input type='hidden' id='RadioHeaderforRadiography[" + itemIndex + "]_ServiceItems' class='form-control'  name='RadioHeaderforRadiography[" + itemIndex + "].ServiceItems' value='" + ServiceItems + "'>";
+                        //        markupFinalmarkupServiceItems = markupFinalmarkupServiceItems + "<td>" + markupServiceItems + "</td>";
+
+                        //        var Result = item2.Result;
+                        //        var markupResult = Result + "<input type='hidden' id='RadioHeaderforRadiography[" + itemIndex + "]_Result' class='form-control'  name='RadioHeaderforRadiography[" + itemIndex + "].Result' value='" + Result + "'>";
+                        //        markupFinalmarkupResult = markupFinalmarkupResult + "<td>" + markupResult + "</td>";
+                        //    }
+                        //});
+                        var markupServiceName = "<td><strong>Test Name</strong></td><td  colspan='6'> " + ServiceName + "<input type='hidden' id='RadioDetforRadiography[" + itemIndex + "]_ServiceName' class='form-control'  name='RadioDetforRadiography[" + itemIndex + "].ServiceName' value='" + ServiceName + "'> </td>";
+                        var markupFinal = "<tr>" + markupServiceName + "</tr>";
+                        var markupFinalFile = '';
+                        @*$.each(data.FileUploadlistforRadiography, function (i, item1) {
+                            if (item.LabDetId == item1.TestDetId) {
+                                var itemIndex = $("#tblFileUploadforRadiography input.jHidden").length;
+                                var FileTypeName = item1.FileTypeName;
+                                var FileName = item1.FileName;
+                                var FileDisplayPath = item1.FileDisplayPath;
+                                var markupEmpty = "<td></td>";
+                                var markupFileTypeName = "<td>" + FileTypeName + "<input type='hidden' id='FileUploadlistforRadiography[" + itemIndex + "]_FileTypeName' class='form-control'  name='FileUploadlistforRadiography[" + itemIndex + "].FileTypeName' value='" + FileTypeName + "'></td>";
+                                var markupFileName = "<td>" + FileName + "<input type='hidden' id='FileUploadlistforRadiography[" + itemIndex + "]_FileName' class='form-control'  name='FileUploadlistforRadiography[" + itemIndex + "].FileName' value='" + FileName + "'></td>";
+                                var markupFileDisplayPath = "<td colspan='4'><a href='@GetUrl()/Content/Upload/" + item1.FileDisplayPath + "' target=_blank>View</a></td>";
+                                markupFinalFile = markupFinalFile + "<tr>" + markupEmpty + markupFileTypeName + markupFileName + markupFileDisplayPath + "</tr>";
+                                $("#tblFileUploadforRadiography tbody").append(markupFinalFile)
+                            }
+                        });*@
+                        $("#tblRadiologyforradiography tbody").append(markupFinal)
+                        $("#tblRadiologyforradiography").show();
+                     })
+                }
+            });
+            $("#tblradioprint").show();
+            return false;
+        }
+        else {
+            $("#tblRadiologyforradiography").hide();
+            $("#tblradioprint").hide();
+            $("#tblradioprint tr").remove();
+        }
+    });
+</script> 

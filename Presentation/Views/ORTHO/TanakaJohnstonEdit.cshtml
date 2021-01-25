@@ -1,0 +1,151 @@
+﻿@model DIMS.ViewModels.OrthoAnalysisViewModal
+@{
+
+    ViewBag.Title = "Steiner Analysis";
+}
+
+<h2>@Html.DisplayFor(x => x.AnalysisDisplayName)</h2>
+
+@using (Html.BeginForm("SaveTanaka", "Ortho", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-md-12">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                            @Html.LabelFor(x => x.TanakaMesiodistal, new { @class = "col-md-6 control-label" })
+                                        <div class="col-md-3">
+                                            @Html.TextBoxFor(x => x.TanakaMesiodistal, new { @class = "form-control col-md-4" })
+                                            @Html.HiddenFor(x => x.AnalysisId)
+                                            @Html.HiddenFor(x=>x.OrthoId)
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                            @Html.LabelFor(x => x.TanakaMandibular, new { @class = "col-md-6 control-label" })
+                                        <div class="col-md-3">
+                                            @Html.TextBoxFor(x => x.TanakaMandibular, new { @class = "form-control col-md-4" ,@readonly="readonly"})
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />    
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                            @Html.LabelFor(x => x.TanakaMeriodistal, new { @class = "col-md-6 control-label" })
+                                        <div class="col-md-3">
+                                            @Html.TextBoxFor(x => x.TanakaMeriodistal, new { @class = "form-control col-md-4" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                            @Html.LabelFor(x => x.TanakaMaxillary, new { @class = "col-md-6 control-label" })
+                                        <div class="col-md-3">
+                                            @Html.TextBoxFor(x => x.TanakaMaxillary, new { @class = "form-control col-md-4", @readonly = "readonly" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />                             
+                                
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <h5><strong>Formulas :</strong></h5>
+                                </div>
+                                <div class="row">
+                                    <strong>
+                                       i) Estimated width of mandibular canine & premolars 
+                                        <br />
+                                        = ½ mesiodistal width of four lower Incisor + 10.5mm
+                                    </strong>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <strong>
+                                       ii) Estimated width of maxillary canine & premolars
+                                        <br />
+                                        = ½ meriodistal width of four lower Incisors +11mm
+                                    </strong>
+                                </div>
+                            </div>
+
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Inference, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-4">
+                                    @Html.TextAreaFor(x => x.Inference, new { @class = "form-control col-md-4" })
+                                </div>
+                                <div class="col-md-8 hidden">
+                                    @Html.TextAreaFor(x => x.InferenceId, new { @class = "form-control col-md-4" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-md-offset-4">
+            <div class="form-group">
+                <div class="col-sm-1">
+                    <input type="submit"  value="Save" class="fa fa-save btn btn-success"/>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+
+
+
+@section scripts {
+    <script type="text/javascript">
+
+        $("#TanakaMesiodistal").change(function () {
+            
+            calculationMand();
+        });
+
+        var calculationMand = function () {
+            var $TanakaMesiodistal = 0; var $TanakaMandibular = 0;//TanakaMandibular
+            $TanakaMesiodistal = parseFloat($("#TanakaMesiodistal").val());
+            $TanakaMandibular = parseFloat(($TanakaMesiodistal / 2) + 10.5).toFixed(2);
+            $("#TanakaMandibular").val($TanakaMandibular);
+
+        }
+
+        $("#TanakaMeriodistal").change(function () {
+            
+            calculationMax();
+        });
+
+        var calculationMax = function () {
+            var $TanakaMeriodistal = 0; var $TanakaMaxillary = 0;
+            $TanakaMeriodistal = parseFloat($("#TanakaMeriodistal").val());
+            $TanakaMaxillary = parseFloat(($TanakaMeriodistal / 2) + 11).toFixed(2);
+            $("#TanakaMaxillary").val($TanakaMaxillary);
+
+        }
+    </script>
+
+}

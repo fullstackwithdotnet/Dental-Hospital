@@ -1,0 +1,30 @@
+﻿@model DateTime?
+@{
+    var isRequired = false;
+    var dateFormat = "{0:yyyy-MM-dd}";
+    var property = ViewData.ModelMetadata.ContainerType.GetProperty(ViewData.ModelMetadata.PropertyName);
+    if (property != null)
+    {
+        isRequired = property.CustomAttributes.Any(x => x.AttributeType == typeof(System.ComponentModel.DataAnnotations.RequiredAttribute));
+    }
+    var additionalAttrs = "";
+    var attrs = Html.GetUnobtrusiveValidationAttributes(ViewData.TemplateInfo.HtmlFieldPrefix, ViewData.ModelMetadata);
+    foreach (var item in attrs)
+    {
+        if (item.Key == "data-val-required" && !isRequired)
+        {
+            continue;
+        }
+        additionalAttrs += string.Format(" {0}=\"{1}\"", item.Key, item.Value);
+    }
+}
+<div class="input-group date">
+    <input type="text" class="form-control date-picker"  maxlength="10"
+           name="@ViewData.TemplateInfo.GetFullHtmlFieldName("")"
+           id="@ViewData.TemplateInfo.GetFullHtmlFieldName("")"
+           value="@(Model.HasValue ? string.Format(dateFormat, Model.Value) : string.Empty)"
+           @Html.Raw(additionalAttrs) />
+    <span class="input-group-addon">
+        <span class="glyphicon glyphicon-calendar ui-datepicker-trigger"></span>
+    </span>
+</div>

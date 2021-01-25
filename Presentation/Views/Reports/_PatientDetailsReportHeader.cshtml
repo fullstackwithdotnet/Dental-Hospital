@@ -1,0 +1,84 @@
+﻿@model DIMS.ViewModels.PatientInformationViewModel
+
+@functions{
+    public string IsVisible(string propertyName)
+    {
+        if (propertyName == null)
+        {
+            return "display:none";
+        }
+        return "";
+    }
+
+}
+
+
+<style>
+    .col30 {
+        width: 30%;
+        padding: 5px !important;
+    }
+
+    .col40 {
+        width: 40%;
+        padding: 5px !important;
+    }
+
+    .col50 {
+        width: 50%;
+        padding: 5px !important;
+    }
+
+    .col60 {
+        width: 60%;
+        padding: 5px !important;
+    }
+
+    .col70 {
+        width: 70%;
+        padding: 5px !important;
+    }
+
+    .col80 {
+        width: 80%;
+        padding: 5px !important;
+    }
+
+    .col35 {
+        width: 35%;
+        padding: 5px !important;
+    }
+
+    .col625 {
+        width: 6%;
+        padding: 5px !important;
+    }
+
+    .col10 {
+        width: 10%;
+        padding: 5px !important;
+    }
+</style>
+
+<table class="table table-bordered">
+
+    <tr style='@IsVisible(@Model.OpNo.ToString())'>
+        <td class="col25">@Html.DisplayNameFor(model => model.OpNo)</td>
+        <td class="col25">@Html.DisplayFor(model => model.OpNo)</td>
+        <td class="col25">@Html.DisplayNameFor(model => model.PatientName)</td>
+        <td class="col25">@Html.DisplayFor(model => model.PatientName)</td>
+    </tr>     
+    <tr style='@IsVisible(@Model.AgeGender)'>
+        <td class="col25">@Html.DisplayNameFor(model => model.AgeGender)</td>
+        <td class="col25">@Html.DisplayFor(model => model.AgeGender)</td>
+        <td class="col25">@Html.DisplayNameFor(model => model.Area)</td>
+        <td class="col25">@Html.DisplayFor(model => model.Area)</td>
+    </tr>
+    <tr style='@IsVisible(@Model.Phone)'>
+        <td class="col25">@Html.DisplayNameFor(model => model.Phone)</td>
+        <td colspan="3">@Html.DisplayFor(model => model.Phone)</td>
+    </tr>
+
+</table>
+
+

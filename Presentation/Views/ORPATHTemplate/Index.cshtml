@@ -1,0 +1,113 @@
+﻿@model DIMS.ViewModels.TemplateSearchViewModal
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@*<h2>Doctor List</h2>*@
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+<div class="box box-default box-solid">
+    <div class="box-header with-border">
+        <h3 class="box-title">Oral Pathology Test Definer</h3>
+    </div>
+    <div class="box-body">
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <td>
+                        <div class="form-group form-group-sm">
+                            @Html.DisplayNameFor(model => model.From_Date)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group form-group-sm">
+                            @Html.EditorFor(model => model.From_Date, new { htmlAttributes = new { Value = Model.From_Date.ToString("yyyy-MM-dd") } })
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group form-group-sm">
+                            @Html.DisplayNameFor(model => model.To_Date)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group form-group-sm">
+                            @Html.EditorFor(model => model.To_Date, new { htmlAttributes = new { Value = Model.From_Date.ToString("yyyy-MM-dd") } })
+                            @Html.HiddenFor(model => model.DeptId)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group form-group-sm">
+                            <a href="#" id="btnOrpathTemplateSearch" class="btn btn-success btn-sm"> Search</a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="table-responsive">
+                <table id="tbOrpathTemplateSearch" class="table table-bordered table-hover" style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th class="col-md-1"> Service Name </th>
+                            <th class="col-md-1">Group Name </th>
+                            <th class="col-md-1">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script>
+
+        $('#btnOrpathTemplateSearch').on('click', function (e) {
+            e.preventDefault();
+            SearchRadioTemplatevalue();
+
+        });
+        var SearchRadioTemplatevalue = function () {
+            $('#tbOrpathTemplateSearch tbody').empty();
+            
+            var $From_Date = $("#From_Date").val();
+            var $To_Date = $("#To_Date").val();
+            var $DeptId = $("#DeptId").val();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetTemplateSearchList", "ORPATHTemplate")',
+                data: '{From_Date: "' + $From_Date + ' ",To_Date: "' + $To_Date + ' ",DeptId: "' + $DeptId + ' "}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    table = $('#tbOrpathTemplateSearch').DataTable();
+                    table.destroy();
+                    $('#tbOrpathTemplateSearch').dataTable({
+                        data: data,
+                        columns: [
+                            { 'data': 'ServiceName' },
+                            { 'data': 'GroupName' },
+                            {
+                                'data': 'Link',
+                                'searchable': false,
+                                'sortable': false,
+                                'render': function (Link) {
+                                    return '<a href=' + Link + '>Edit</a>';
+                                }
+                            },
+
+
+                        ]
+                    })
+                },
+            })
+        }
+        SearchRadioTemplatevalue();
+    </script>
+}

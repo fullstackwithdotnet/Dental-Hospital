@@ -1,0 +1,82 @@
+﻿ @using Metron.Entities @model DIMS.ViewModels.OrthoViewModal
+
+@helper CreateCheckbox(string value)
+{
+    @Html.CheckBox("chkBox", !string.IsNullOrEmpty(value), new { @class = "checkbox-inline" })
+}
+
+@helper CreateCheckbox_1(string Name, string value)
+{
+string chkName = "chk" + Name;
+    @Html.CheckBox(chkName, !string.IsNullOrEmpty(value), new { @class = "checkbox-inline" })
+}
+@functions {
+    object getHtmlAttributes(string value, string CssClass)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            return new { @class = CssClass, disabled = "disabled" };
+        }
+        return new { @class = CssClass };
+    }
+}
+@functions{
+    public string GetClassFromProperties(string propertyName)
+    {
+        var props = Model.Proplist.FirstOrDefault<ORTHOCasesheetProperties>(x => x.PropertyName == propertyName);
+
+        if (props != null && props.PropertyVisibility == "N")
+        {
+            return "display:none";
+        }
+
+        return "";
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+
+    </div>
+    <div class="col-md-6">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(x => x.FunctionalExamination, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(x => x.FunctionalExamination, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(x => x.HabitsDesc, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(x => x.HabitsDesc, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(x => x.InvestigationsInterpretation, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(x => x.InvestigationsInterpretation, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(x => x.RadiographInterpretation, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(x => x.RadiographInterpretation, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(x => x.Diagnosis, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(x => x.Diagnosis, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(x => x.FixedMechanotheraphyId, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8 ">
+                @Html.DropDownListFor(model => model.FixedMechanotheraphyId, new SelectList(Model.FixedMechanotheraphyList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+            </div>
+        </div>
+    </div>
+</div>

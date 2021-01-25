@@ -1,0 +1,678 @@
+﻿@model DIMS.ViewModels.BillingViewModal
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@{
+    int index = 0;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-info">
+                    <div class="box-body">
+                        @Html.Partial("../PatientInformation/_PatientAllotmentDetails", Model.patientInformationViewModel)
+                        <hr>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.DeptName, new { @class = "col-md-2" })
+                            <div class="col-md-4">
+                                @Html.DisplayFor(x => x.DeptName, new { @class = "col-md-2" })
+                            </div>
+                            @Html.LabelFor(x => x.BillDateTime, new { @class = "col-md-2" })
+                            <div class="col-md-2">
+                                @Html.EditorFor(x => x.BillDateTime, new { @class = "form-control ", @readonly = "readonly" })
+                                @Html.TextBoxFor(x => x.PatientId, new { @class = "hidden" })
+                                @Html.TextBoxFor(x => x.DeptId, new { @class = "hidden" })
+                                @Html.TextBoxFor(x => x.BillId, new { @class = " hidden" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="box box-info">
+                    <div class="box-body">
+                        <div class="table-responsive">
+                            <table id="tbDetails" class="table col-md-12">
+                                <tr>
+                                    <th class="col-md-3">@Html.DisplayNameFor(model => model.ServiceName)</th>
+                                    <th class="col-md-1">@Html.DisplayNameFor(model => model.Qty)</th>
+                                    <th class="col-md-1">@Html.DisplayNameFor(model => model.Rate)</th>
+                                    <th class="col-md-1">@Html.DisplayNameFor(model => model.NetAmount)</th>
+                                    <th class="col-md-1">@Html.DisplayNameFor(model => model.PayableAmount)</th>
+                                    <th class="col-md-1">@Html.DisplayNameFor(model => model.DiscountPer)</th>
+                                    <th class="col-md-1">@Html.DisplayNameFor(model => model.DisAmt)</th>
+                                    <th class="col-md-1 hidden">@Html.DisplayNameFor(model => model.SGST)</th>
+                                    <th class="col-md-1 hidden">@Html.DisplayNameFor(model => model.CGST)</th>
+                                    <th class="col-md-1">@Html.DisplayNameFor(model => model.TotalAmountafterTax)</th>
+                                </tr>
+                                @foreach (var item in Model.BillServicesList)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.HiddenFor(modelItem => item.BillQueueId, new { @class = "form-control", @id = "BillServicesList[" + index + "]_" + "BillQueueId", @Name = "BillServicesList[" + index + "]." + "BillQueueId" })
+                                            @Html.HiddenFor(modelItem => item.ServiceId, new { @class = "form-control", @id = "BillServicesList[" + index + "]_" + "ServiceId", @Name = "BillServicesList[" + index + "]." + "ServiceId" })
+                                            @Html.CheckBoxFor(modelItem => item.IsChecked, new { @class = "js_getChecked", @id = "BillServicesList[" + index + "]_" + "IsChecked", @Name = "BillServicesList[" + index + "]." + "IsChecked" })
+                                            @Html.DisplayFor(modelItem => item.ServiceName)
+                                            @Html.HiddenFor(modelItem => item.ServiceName, new { @class = "form-control", @id = "BillServicesList[" + index + "]_" + "ServiceName", @Name = "BillServicesList[" + index + "]." + "ServiceName" })
+                                            @Html.HiddenFor(modelItem => item.TeethNo, new { @class = "form-control", @id = "BillServicesList[" + index + "]_" + "TeethNo", @Name = "BillServicesList[" + index + "]." + "TeethNo" })
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Qty)
+                                            @Html.HiddenFor(modelItem => item.Qty, new { @class = "form-control", @id = "BillServicesList[" + index + "]_" + "Qty", @Name = "BillServicesList[" + index + "]." + "Qty" })
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Rate)
+                                            @Html.HiddenFor(modelItem => item.Rate, new { @class = "form-control", @id = "BillServicesList[" + index + "]_" + "Rate", @Name = "BillServicesList[" + index + "]." + "Rate" })
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(modelItem => item.NetAmount, new { @class = "form-control js_getNetamount", @readonly = "readonly", @id = "BillServicesList[" + index + "]_" + "NetAmount", @Name = "BillServicesList[" + index + "]." + "NetAmount" })
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(modelItem => item.PayableAmount, new { @class = "form-control js_getPayableAmount OnlyNumber", @readonly = "readonly", @id = "BillServicesList[" + index + "]_" + "PayableAmount", @Name = "BillServicesList[" + index + "]." + "PayableAmount" })
+                                        </td>
+                                        @if (item.DeptId == (int)DIMS.Enums.Department.RADIO || item.DeptId == (int)DIMS.Enums.Department.LAB)
+                                        {
+                                            <td>
+                                                @Html.TextBoxFor(modelItem => item.DiscountPer, new { @class = "form-control js_getDisPer  OnlyNumber", @id = "BillServicesList[" + index + "]_" + "DiscountPer", @Name = "BillServicesList[" + index + "]." + "DiscountPer" })
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                @Html.TextBoxFor(modelItem => item.DiscountPer, new { @class = "form-control js_getDisPer OnlyNumber", @id = "BillServicesList[" + index + "]_" + "DiscountPer", @Name = "BillServicesList[" + index + "]." + "DiscountPer" })
+                                            </td>
+                                        }
+                                        <td>
+                                            @*@Html.DisplayFor(modelItem => item.DisAmt)*@
+                                            @Html.TextBoxFor(modelItem => item.DiscountAmt, new { @class = "form-control input-sm  js_getDisPeramount OnlyNumber", @id = "BillServicesList[" + index + "]_" + "DiscountAmt", @Name = "BillServicesList[" + index + "]." + "DiscountAmt" })
+                                        </td>
+                                        <td class="hidden">
+                                            @Html.TextBoxFor(modelItem => item.PaidAmount, new { @class = "form-control js_getPaidAmount OnlyNumber", @id = "BillServicesList[" + index + "]_" + "PaidAmount", @Name = "BillServicesList[" + index + "]." + "PaidAmount" })
+                                        </td>
+                                        <td class="hidden">
+                                            @Html.HiddenFor(modelItem => item.Amount, new { @class = "form-control", @id = "BillServicesList[" + index + "]_" + "Amount", @Name = "BillServicesList[" + index + "]." + "Amount" })
+                                            @Html.HiddenFor(modelItem => item.GstPercentage, new { @class = "form-control js_getGst", @id = "BillServicesList[" + index + "]_" + "GstPercentage", @Name = "BillServicesList[" + index + "]." + "GstPercentage" })
+                                            @Html.TextBoxFor(modelItem => item.SGST, new { @class = "form-control input-sm js_getSgst", @readonly = "readonly", @id = "BillServicesList[" + index + "]_" + "SGST", @Name = "BillServicesList[" + index + "]." + "SGST" })
+                                        </td>
+                                        <td class="hidden">
+                                            @Html.TextBoxFor(modelItem => item.CGST, new { @class = "form-control input-sm js_getCgst", @readonly = "readonly", @id = "BillServicesList[" + index + "]_" + "CGST", @Name = "BillServicesList[" + index + "]." + "CGST" })
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(modelItem => item.TotalAmountafterTax, new { @class = "form-control input-sm js_getafterTax", @readonly = "readonly", @id = "BillServicesList[" + index + "]_" + "TotalAmountafterTax", @Name = "BillServicesList[" + index + "]." + "TotalAmountafterTax" })
+                                        </td>
+                                        @*<td>
+                                                @if (item.BalanceAmount > 0)
+                                                    {
+                                                    <span class="badge">Credit</span>
+                                                    }
+                                            </td>*@
+                                    </tr>
+                                    index++;
+                                }
+                                <tr>
+                                    <td colspan="2"></td>
+                                    <td>@Html.LabelFor(x => x.Label, new { @class = "col-md-1" })</td>
+                                    <td class="hidden">@Html.TextBoxFor(x => x.BalanceAmt, new { @class = "hidden" })</td>
+                                    <td>@Html.TextBoxFor(x => x.NetAmountB, new { @class = " form-control input-sm", @readonly = "readonly" })</td>
+                                    <td></td>
+                                    <td></td>
+                                    @*<td>@Html.TextBoxFor(x => x.TotDisPer, new { @class = " form-control input-sm", @readonly = "readonly" })</td>*@
+                                    <td class="hidden">@Html.TextBoxFor(x => x.TotDisAmount, new { @class = " form-control input-sm", @readonly = "readonly" })</td>
+                                    <td class="hidden">@Html.TextBoxFor(x => x.SGST, new { @class = " form-control input-sm", @readonly = "readonly" })</td>
+                                    <td class="hidden">@Html.TextBoxFor(x => x.CGST, new { @class = " form-control input-sm", @readonly = "readonly" })</td>
+                                    <td></td>
+                                    <td>@Html.TextBoxFor(x => x.TotalAmountafterTax, new { @class = " form-control input-sm", @readonly = "readonly" })</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="box box-info">
+                    <div class="box-body">
+                        @Html.Partial("../Billing/ViewBillPayment", Model)
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            @Html.LabelFor(x => x.Remarks, new { @class = "col-md-2" })
+                                            <div class="col-md-8">
+                                                @Html.TextAreaFor(x => x.Remarks, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            @Html.LabelFor(x => x.TaxableAmount, new { @class = "col-md-6" })
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(x => x.TaxableAmount, new { @class = " form-control", @readonly = "readonly" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            @Html.LabelFor(x => x.BillAmount, new { @class = "col-md-6" })
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(x => x.BillAmount, new { @class = " form-control", @readonly = "readonly" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row hidden">
+                                        <div class="form-group form-group-sm">
+                                            @Html.LabelFor(x => x.gst, new { @class = "col-md-6" })
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(x => x.gst, new { @class = " form-control col-md-5", @readonly = "readonly" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            @Html.LabelFor(x => x.DueBalance, new { @class = "col-md-6" })
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(x => x.DueBalance, new { @class = " form-control col-md-5", @readonly = "readonly" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm hidden">
+                            <div class="col-md-2">
+                                Discount Given By
+                            </div>
+                            <div class="col-md-2">
+                                @Html.DisplayFor(x => x.DiscountGivenBy, new { @class = "col-md-6" })
+                            </div>
+                            <div class="col-md-2">
+                                Discount Purpose
+                            </div>
+                            <div class="col-md-2">
+                                @Html.DisplayFor(x => x.DiscountPurpose, new { @class = "col-md-6" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div>
+                    <center>
+                        <input type="submit" value="Submit" id="btnBill" class="fa fa-save btn btn-success" />
+                    </center>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+}
+
+@section scripts
+{
+    <script>
+
+        $(function () {
+            $('#btnBill').on('click', function () {
+                
+                var $total = 0;
+                var $CashReceived = parseFloat($("#CashReceived").val());
+                var $CardReceived = parseFloat($("#CardReceived").val());
+                var $TotalAmountafterTax = parseFloat($("#TotalAmountafterTax").val());
+                if ($CashReceived != 0 && $CardReceived != 0) {
+                    $total = parseFloat($CashReceived + $CardReceived).toFixed(2);
+                }
+                else {
+                    $total = $CashReceived;
+                }
+
+                if ($TotalAmountafterTax != $total) {
+                    alert("Check payable amount to save");
+                    $("#CashReceived").val($TotalAmountafterTax);
+                    return false;
+                }
+                else {
+                    var $this = $(this);
+                    $this.hide();
+                }
+
+
+            //$('#btnBill').on('click', function () {
+            //    if (confirm("Are you sure you want to submit ?")) {
+            //        var $this = $(this);
+            //        $this.hide();
+            //    }
+            //    else {
+            //        return false;
+            //    }            
+            });
+
+        $("#thReference").hide();
+        $('#tdReferenceNo').hide();
+        // $('#tdReferenceNo2').hide();
+
+        $("#CashReceived").on("keyup", function () {
+            calculateReceivedAmount();
+        });
+
+        $("#CardReceived").on("keyup", function () {
+            calculateReceivedAmount();
+        });
+
+        function calculateReceivedAmount() {
+            
+            var sum = 0; var Due = 0; var Amount = 0;
+            var CashReceived = parseFloat($("#CashReceived").val());
+            var CardReceived = parseFloat($("#CardReceived").val());
+            Amount = parseFloat($("#BillAmount").val());
+            if (CashReceived != 0 || CardReceived != 0) {
+                sum = CashReceived + CardReceived;
+                if (sum > Amount) {
+                    alert('Received amount should not be Greater than Total Amount');
+                    calculatePayment();
+                }
+            }
+        }
+
+
+        $("#AmountReceived").on("keyup", function () {
+            calculateSum();
+        });
+
+        function calculateSum() {
+            var sum = 0; var Due = 0; var Amount = 0;
+            var AmountReceived = parseFloat($("#AmountReceived").val());
+            Amount = parseFloat($("#BillAmount").val());
+            $("#AmountReceived").each(function () {
+                if ((AmountReceived <= Amount) && this.value.length != 0) {
+                    sum += parseFloat(this.value);
+                }
+                else if (AmountReceived > Amount) {
+                    alert("Not more than Bill Amount");
+                    $("#AmountReceived").val('');
+                }
+                $("#BillAmount").val(sum.toFixed(2));
+                Due = Amount - sum;
+                $("#DueBalance").val(Due.toFixed(2));
+            });
+        }
+
+
+        function calculatePayment() {
+            var sum = 0; var Due = 0; var Amount = 0;
+            var AmountReceived = parseFloat($("#CashReceived").val());
+            Amount = parseFloat($("#TotalAmountafterTax").val());
+            if ((AmountReceived <= Amount)) {
+                sum = Amount - AmountReceived;
+                $("#CardReceived").val(parseFloat(sum).toFixed(2));
+            }
+            else if (AmountReceived > Amount) {
+                alert("Not more than Bill Amount");
+                $("#CashReceived").val(parseFloat(Amount).toFixed(2));
+            }
+        }
+
+        $("#Payment").change(function () {
+            var dropdowntext = $("#CodeId option:selected").text();
+            var PaymodeId = $("#CodeId").val();
+            if (dropdowntext != "Cash") {
+                $("#thReference").show();
+                $('#tdReferenceNo').show();
+                $('#CardReferenceNo').show();
+                $('#CardReferenceNo').val('');
+                $('#CardReferenceNo').focus();
+            }
+            else {
+                $("#thReference").hide();
+                $('#tdReferenceNo').hide();
+                $('#CardReferenceNo').hide();
+                $('#CardReferenceNo').val('');
+                $('#CardReferenceNo').focus();
+            }
+        });
+
+        $("#PaymentAdd").change(function () {
+            var dropdowntext = $("#PaymodeId option:selected").text();
+            var PaymodeId = $("#PaymodeId").val();
+            //  if (dropdowntext != "Cash") {
+            $('#tdReferenceNo2').show();
+            $('#ReferenceNo').show();
+            $('#ReferenceNo').val('');
+
+            //}
+
+        });
+
+        $(".js_getChecked").click(function () {
+            
+            var $this = $(this);
+            var sum = 0; var total = 0; var sumsgst = 0; var sumcgst = 0; var sumamount = 0;
+            var Amount = $(this); var sumdisper = 0; var sumdisamt = 0;
+            var disper = parseFloat(Amount.closest('tr').find('.js_getDisPer').val());
+            var disamt = parseFloat(Amount.closest('tr').find('.js_getDisPeramount').val());
+            var amount = parseFloat(Amount.closest('tr').find('.js_getPayableAmount').val());
+            var sgst = parseFloat(Amount.closest('tr').find('.js_getSgst').val());
+            var cgst = parseFloat(Amount.closest('tr').find('.js_getCgst').val());
+            var totaltax = parseFloat(Amount.closest('tr').find('.js_getafterTax').val());
+
+            var $discountper = parseFloat($("#TotDisPer").val());
+            var $discountAmt = parseFloat($("#TotDisAmount").val());
+            var AmountReceived = parseFloat($("#BillAmount").val());
+            var $sgst = parseFloat($("#SGST").val());
+            var $cgst = parseFloat($("#CGST").val());
+            var $totaltax = parseFloat($("#TotalAmountafterTax").val());
+            var $netamt = parseFloat($("#NetAmountB").val());
+            if ($this.is(":unchecked")) {
+                sumdisper = parseFloat(($discountper - disper).toFixed(2));
+                sumdisamt = parseFloat(($discountAmt - disamt).toFixed(2));
+                sum = (AmountReceived - amount).toFixed(2);
+                sumsgst = parseFloat(($sgst - sgst).toFixed(2));
+                sumcgst = parseFloat(($cgst - cgst).toFixed(2));
+                sumamount = Math.round(($totaltax - totaltax));
+                $("#TotDisPer").val(sumdisper);
+                $("#TotDisAmount").val(sumdisamt);
+                $("#BillAmount").val(sum);
+                $("#SGST").val(sumsgst);
+                $("#CGST").val(sumcgst);
+                $("#TotalAmountafterTax").val(sumamount);
+                $("#BillAmount").val(sumamount);
+                $("#CashReceived").val(sumamount);
+                $("#TaxableAmount").val(sumamount);
+
+                var $Amount = parseFloat($("#BalanceAmt").val());
+                if (sumamount == 0) {
+                    alert('Add atleast one Service ');
+                    $('#gst').val(0);
+                    $('#DueBalance').val($netamt);
+
+                }
+                else if ($Amount > 0 && sum > 0) {
+                    $balance = parseFloat($netamt - sumamount).toFixed(2);
+                    $("#DueBalance").val(parseFloat($balance).toFixed(2));
+                    $("#Total").val(parseFloat(sum).toFixed(2));
+                    var totalgst = parseFloat(sumsgst + sumcgst).toFixed(2);
+                    $('#gst').val(parseFloat(totalgst));
+                }
+            }
+            else {
+                $("#AmountReceived").val('');
+                var adddisper = parseFloat(($discountper + disper).toFixed(2));
+                var adddisamt = parseFloat(($discountAmt + disamt).toFixed(2));
+                total = (AmountReceived + amount).toFixed(2);
+                var sumsgst = parseFloat(($sgst + sgst).toFixed(2));
+                var sumcgst = parseFloat(($cgst + cgst).toFixed(2));
+                var sumamount = Math.round(($totaltax + totaltax));
+                var totalamount = parseFloat((sumsgst + sumcgst).toFixed(2));
+                $("#TotDisPer").val(adddisper);
+                $("#TotDisAmount").val(adddisamt);
+                $("#AmountReceived").val(total);
+                $("#BillAmount").val(sumamount);
+                $("#CashReceived").val(sumamount);
+                $("#BillAmount").val(sumamount);
+                $("#SGST").val(sumsgst);
+                $("#CGST").val(sumcgst);
+                $("#gst").val(totalamount);
+                $("#TotalAmountafterTax").val(sumamount);
+                $("#TaxableAmount").val(sumamount);
+                var $netamt = parseFloat($("#NetAmountB").val());
+                var $Amount = parseFloat($("#BalanceAmt").val());
+                $totalamount = parseFloat($("#BillAmount").val());
+                if ($netamt > sumamount) {
+                    $balance = $netamt - sumamount;
+                    $("#DueBalance").val($balance.toFixed(2));
+                }
+                else {
+                    $("#DueBalance").val(0);
+                }
+            }
+        });
+
+        $('.js_getPayableAmount').change(function () {
+            
+            var $Total = 0; var $Sgst = 0; var $totalamt = 0; var $totalsgst = 0; var sumAmount = 0;
+            var $Gst = parseFloat($(this).closest('tr').find('.js_getGst').val());
+            var $Amont = parseFloat($(this).closest('tr').find('.js_getPayableAmount').val());
+            var $netamount = parseFloat($(this).closest('tr').find('.js_getNetamount').val());
+            $Total = ($Amont * $Gst) / 100;
+            $Sgst = $Total / 2;
+            $totalamt = $Amont + $Total;
+            parseFloat($(this).closest('tr').find('.js_getSgst').val($Sgst));
+            $(this).closest('tr').find('.js_getCgst').val($Sgst);
+            $(this).closest('tr').find('.js_getafterTax').val($totalamt);
+            var AmountReceived = parseFloat($("#BillAmount").val());
+            calculateSum();
+            calculateSgst();
+            calculateCgst();
+            calculateTotal();
+        });
+
+        $('.js_getDisPer').change(function () {
+            
+            var $disper = 0; var $totalamt = 0; var sumAmount = 0; var $disamount = 0;
+            var $dispercentage = parseFloat($(this).closest('tr').find('.js_getDisPer').val());
+            var $payamount = parseFloat($(this).closest('tr').find('.js_getPayableAmount').val());
+            if (isNaN($dispercentage)) {
+                parseFloat($(this).closest('tr').find('.js_getDisPeramount').val(0));
+                parseFloat($(this).closest('tr').find('.js_getafterTax').val($payamount));
+                parseFloat($("#BillAmount").val($payamount));
+            }
+            else if ($dispercentage > 100)
+            {
+                alert("Discount Should not be Greater than 100")
+                parseFloat($(this).closest('tr').find('.js_getDisPer').val(0));
+            }
+            else
+            {
+                $disamount = ($dispercentage * $payamount) / 100;
+                sumAmount = $payamount - $disamount;
+                parseFloat($(this).closest('tr').find('.js_getafterTax').val(sumAmount));
+                $(this).closest('tr').find('.js_getDisPeramount').val($disamount);
+                var AmountReceived = parseFloat($("#BillAmount").val());
+            }
+            calculatedisper();
+            calculateDisAmt();
+            calculateSum();
+            calculateSgst();
+            calculateCgst();
+            calculateTotal();
+        });
+
+        $('.js_getDisPeramount').change(function () {
+            
+            var $disper = 0; var $totalamt = 0; var sumAmount = 0; var $disamount = 0;
+            var $disamount = parseFloat($(this).closest('tr').find('.js_getDisPeramount').val());
+            var $payamount = parseFloat($(this).closest('tr').find('.js_getPayableAmount').val());
+            if (isNaN($disamount)) {
+                parseFloat($(this).closest('tr').find('.js_getDisPer').val(0));
+                parseFloat($(this).closest('tr').find('.js_getafterTax').val($payamount));
+                parseFloat($("#BillAmount").val(0));
+            }
+            if ($disamount > 0)
+            {
+                $disper = ($disamount * 100) / $payamount;
+                if ($disper >= 100) {
+                    alert("Discount Should not be Greater than 100");
+                    parseFloat($(this).closest('tr').find('.js_getDisPer').val(0));
+                    parseFloat($(this).closest('tr').find('.js_getDisPeramount').val(0));
+                    parseFloat($(this).closest('tr').find('.js_getafterTax').val($payamount));
+                }
+                else
+                {
+                    sumAmount = $payamount - $disamount;
+                    parseFloat($(this).closest('tr').find('.js_getafterTax').val(sumAmount));
+                    $(this).closest('tr').find('.js_getDisPer').val($disper);
+                    var AmountReceived = parseFloat($("#BillAmount").val());
+                }
+            }
+            calculatedisper();
+            calculateDisAmt();
+            calculateSum();
+            calculateSgst();
+            calculateCgst();
+            calculateTotal();
+        });
+
+        function calculatedisper() {
+            var sumAmount = 0; var $balance = 0; var $totalamount = 0;
+            $('.js_getDisPer').change(function () {
+                var Amount = $(this);
+                var netamount = parseFloat(Amount.closest('tr').find('.js_getNetamount').val());
+                if (netamount > Amount) {
+                    alert("Not more than Bill Amount");
+                }
+                else if (netamount < Amount) {
+                    sumAmount += parseFloat(Amount.closest('tr').find('.js_getDisPer').val());
+                }
+            });
+            $('#TotDisPer').val(parseFloat(sumAmount).toFixed(2));
+
+        }
+
+        function calculateDisAmt() {
+            var sumAmount = 0; var $balance = 0; var $totalamount = 0;
+            $('.js_getDisPeramount').each(function () {
+                var Amount = $(this);
+                var netamount = parseFloat(Amount.closest('tr').find('.js_getNetamount').val());
+                if (netamount > Amount) {
+                    alert("Not more than Bill Amount");
+                }
+                else if (netamount < Amount) {
+                    sumAmount += parseFloat(Amount.closest('tr').find('.js_getDisPeramount').val());
+                }
+            });
+            $('#TotDisAmount').val(parseFloat(sumAmount).toFixed(2));
+        }
+
+        function calculateSgst() {
+            var sumAmount = 0; var $balance = 0; var $totalamount = 0;
+            $('.js_getSgst').each(function () {
+                var Amount = $(this);
+                var netamount = parseFloat(Amount.closest('tr').find('.js_getPayableAmount').val());
+                if (netamount > Amount) {
+                    alert("Not more than Bill Amount");
+                }
+                else if (netamount < Amount) {
+                    sumAmount += parseFloat(Amount.closest('tr').find('.js_getSgst').val());
+                }
+            });
+            $('#SGST').val(parseFloat(sumAmount).toFixed(2));
+        }
+
+        function calculateSum() {
+            var sumAmount = 0; var $balance = 0; var $totalamount = 0;
+            $('.js_getPayableAmount').each(function () {
+                var Amount = $(this);
+                var netamount = parseFloat(Amount.closest('tr').find('.js_getNetamount').val());
+                var AmountReceived = parseFloat($("#BillAmount").val());
+                if (netamount > Amount) {
+                    alert("Not more than Bill Amount");
+                }
+                else if (netamount < Amount) {
+                    sumAmount += parseFloat(Amount.closest('tr').find('.js_getPayableAmount').val());
+                }
+            });
+            $('#BillAmount').val(parseFloat(Math.round(sumAmount)));
+
+        }
+
+        function calculateSgst() {
+            var sumAmount = 0; var $balance = 0; var $totalamount = 0;
+            $('.js_getSgst').each(function () {
+                var Amount = $(this);
+                var netamount = parseFloat(Amount.closest('tr').find('.js_getPayableAmount').val());
+                if (netamount > Amount) {
+                    alert("Not more than Bill Amount");
+                }
+                else if (netamount < Amount) {
+                    sumAmount += parseFloat(Amount.closest('tr').find('.js_getSgst').val());
+                }
+            });
+            $('#SGST').val(parseFloat(sumAmount).toFixed(2));
+
+        }
+
+        function calculateCgst() {
+            var sumAmount = 0; var $balance = 0; var $totalamount = 0;
+            $('.js_getCgst').each(function () {
+                var Amount = $(this);
+                var netamount = parseFloat(Amount.closest('tr').find('.js_getSgst').val());
+                if (netamount > Amount) {
+                    alert("Not more than Bill Amount");
+                }
+                else {
+                    sumAmount += parseFloat(Amount.closest('tr').find('.js_getCgst').val());
+                }
+            });
+            $('#CGST').val(parseFloat(sumAmount).toFixed(2));
+
+        }
+
+        function calculateTotal() {
+            var sumAmount = 0; var $balance = 0; var $totalamount = 0;
+            $('.js_getafterTax').each(function () {
+                var Amount = $(this);
+                //var checked = parseFloat(Amount.closest('tr').find('.js_getChecked').val());
+                var netamount = parseFloat(Amount.closest('tr').find('.js_getCgst').val());
+                if (netamount > Amount) {
+                    alert("Not more than Bill Amount");
+                }
+                else {
+                    sumAmount += parseFloat(Amount.closest('tr').find('.js_getafterTax').val());
+                }
+            });
+            $('#TotalAmountafterTax').val(parseFloat(Math.round(sumAmount)));
+            $("#BillAmount").val(parseFloat(Math.round(sumAmount)));
+            $("#CashReceived").val(parseFloat(Math.round(sumAmount)));
+            var sgst = parseFloat($("#SGST").val());
+            var cgst = parseFloat($("#CGST").val());
+            var totalgst = sgst + cgst;
+            $('#gst').val(parseFloat(totalgst));
+
+        }
+
+        $("#btnAdd").click(function (e) {
+            
+            var Payment = document.getElementById("PaymentAdd");
+            var Card = document.getElementById("DivCardReceived");
+            var ReferenceNo = document.getElementById("ReferenceNo");
+            var Amount = parseFloat($("#TotalAmountafterTax").val());
+            var cashRece = parseFloat($("#CashReceived").val());
+            if (Amount != cashRece)
+            {
+                if (Payment.style.display !== "none" && Card.style.display !== "none") {
+                    Payment.style.display = "none";
+                    Card.style.display = "none";
+                    ReferenceNo.style.display = "none";
+                    $("#CashReceived").val(parseFloat(Amount).toFixed(2));
+                    $("#CardReceived").val(0);
+                }
+                else {
+                    Payment.style.display = "block";
+                    ReferenceNo.style.display = "block";
+                    Card.style.display = "block";
+                    calculatePayment();
+                }
+            }
+
+
+        });
+        });
+
+    </script>
+}

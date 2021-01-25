@@ -1,0 +1,100 @@
+﻿@model DIMS.ViewModels.OrthoAnalysisViewModal
+@{
+    ViewBag.Title = "Discrepancy   Analysis";
+}
+
+<h2>Discrepancy   Analysis</h2>
+
+@using (Html.BeginForm("SaveDiscrepancy", "Ortho", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.Partial("../ORTHO/_ViewDiscrepancySagittalEdit", Model.DiscrepancyAnalysisList,
+                                new ViewDataDictionary()
+                                    {
+                                        TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "DiscrepancyAnalysisList" }
+                                    })
+                    </div>
+                    @Html.HiddenFor(x => x.OrthoId)
+                    @Html.HiddenFor(x => x.AnalysisId)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div class="col-md-4 control-label">
+                                            @Html.LabelFor(x => x.InferFault, new { @class = "col-md-12 control-label" })
+                                        </div>
+                                        <div class="col-md-8">
+                                            @Html.DropDownListFor(model => model.InferFault, new SelectList(Model.SkeletAlterationList, "CodeId", "CodeDescription"), htmlAttributes: new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div class="col-md-4 control-label">
+                                            @Html.LabelFor(x => x.InferSize, new { @class = "col-md-3 control-label" })
+                                        </div>
+                                        <div class="col-md-8">
+                                            @Html.TextBoxFor(x => x.InferSize, new { @class = "form-control col-md-4" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div class="col-md-4 control-label">
+                                            @Html.LabelFor(x => x.InferPlacement, new { @class = "col-md-3 control-label" })
+                                        </div>
+                                        <div class="col-md-8">
+                                            @Html.TextBoxFor(x => x.InferPlacement, new { @class = "form-control col-md-4" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div class="col-md-4 control-label">
+                                            @Html.LabelFor(x => x.Inference, new { @class = "col-md-3 control-label" })
+                                        </div>
+                                        <div class="col-md-8">
+                                            @Html.TextAreaFor(x => x.Inference, new { @class = "form-control col-md-4" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-12 col-md-offset-4">
+                                <div class="form-group">
+                                    <div class="col-sm-1">
+                                        <input type="submit" value="Save" class="fa fa-save btn btn-success"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+}

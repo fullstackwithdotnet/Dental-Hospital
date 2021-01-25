@@ -1,0 +1,133 @@
+﻿@using Metron.Entities
+@model DIMS.ViewModels.BillingSubServicesViewModal
+
+@{
+    ViewBag.Title = "Index";
+    Model.ServicesList = new List<MASBillingServices>();
+}
+
+
+
+<p>
+    @Html.ActionLink("Create New", "CreateChildService")
+</p>
+<div class="box box-default box-solid">
+    <div class="box-header with-border">
+        <h3 class="box-title">Child Billing Services Details</h3>
+    </div>
+    <div class="box-body">
+        <div class="col-md-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(x => x.DeptId, new { @class = " control-label col-md-4" })
+                <div class="col-md-8 dropdown">
+                    @Html.DropDownListFor(model => model.DeptId, new SelectList(Model.DepartmentList, "DeptId", "DeptName"), "--- SELECT DEPARTMENT ---", htmlAttributes: new { @class = "form-control col-md-2" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(x => x.ParentId, new { @class = " control-label col-md-4" })
+                <div class="col-md-8 dropdown">
+                    @Html.DropDownListFor(model => model.ParentId, new SelectList(Model.ServicesList, "ServiceId", "ServiceName"), "Select", htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+       
+        <div class="col-md-12">
+            <br/>
+            <div class="table-responsive">
+                <table id="tbServiceSearch" class="table table-bordered table-hover" style="width: 100%">
+                    <thead>
+                    <tr>
+                        <th class="col-md-2">SERVICE CODE </th>
+                        <th class="col-md-3">SERVICE NAME</th>
+                        <th class="col-md-2">AMOUNT</th>
+                        @*<th class="col-md-1">GST %</th>*@
+                        <th class="col-md-1">DEPARTMENT</th>
+                        <th class="col-md-1"></th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#DeptId").change(function () {
+                var departmentId = $('#DeptId').val();
+                getServicesByDepartment(departmentId);
+            });
+
+        });
+        $("#ParentId").change(function () {
+            searchValue();
+        });
+
+
+        var searchValue = function() {
+            var departmentId = $('#DeptId').val();
+            var serviceId = $('#ParentId').val();
+            $('#tbServiceSearch tbody').empty();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetSubServiceDetailByParent", "BillingServices")',
+                data: '{departmentId: "' + departmentId + '", parentId: "' + serviceId + '"}',
+                   
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(data) {
+                    table = $('#tbServiceSearch').DataTable();
+                    table.destroy();
+                    $('#tbServiceSearch').dataTable({
+                        data: data,
+                        columns: [
+                            { 'data': 'ServiceCode' },
+                            { 'data': 'ServiceName' },
+                            { 'data': 'ServiceAmount' },
+                            //{ 'data': 'GSTPercentage' },
+                            { 'data': 'DeptCode' },
+                            {
+                                'data': 'Link',
+                                'searchable': false,
+                                'sortable': false,
+                                'render': function (link) {
+                                    return '<a href=' + link + '>Edit</a>';
+                                }
+                            },
+                        ],
+                        "dom": "Bfrtip",
+                        "buttons": ['Copy', 'excel', 'pdf', 'csv', 'print']
+
+                    });
+                },
+            });
+        }
+
+        function getServicesByDepartment(param) {
+            $('#ParentId').empty();
+            $('#ParentId').append('<option value="0">Select</option>');
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetServiceDetailsById", "BillingServices")',
+                data: '{DeptId: "' + param + ' "}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                   
+                    $.each(data.ServicesList, function (i, detail) {
+                        $('#ParentId').append('<option value="' + detail.ServiceId + '">' +
+                            detail.ServiceName + '</option>');
+                    });
+                }
+            });
+        }
+
+    </script>
+}
+
+

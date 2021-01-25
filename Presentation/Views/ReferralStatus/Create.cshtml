@@ -1,0 +1,74 @@
+﻿@model IEnumerable<DIMS.ViewModels.ReferralStatusViewModel>
+@{
+    string modelName = ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix;
+    int index = 0;
+}
+@functions{
+    string GetId(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}]_{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+    string GetName(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}].{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+}
+
+
+
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <tr>
+            <th class="text-left col-md-1" >
+                Select
+            </th>
+            <th class="text-left col-md-1">
+                @Html.DisplayNameFor(model => model.Priority)
+            </th>
+            <th class="text-left col-md-1">
+                @Html.DisplayNameFor(model => model.ToDeptName)
+            </th>
+            <th class="text-left hidden">
+                @Html.DisplayNameFor(model => model.ReferredReason)
+            </th>
+            <th class="text-left col-md-1">
+                @Html.DisplayNameFor(model => model.RoomNo)
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr class="js_deptRow text-left">
+                <td class="col-md-1">
+				<label class="container-checkbox">
+                    @Html.CheckBoxFor(modelItem => item.chkToDeptId, new { @class = "js_deptChk", @id = GetId("chkToDeptId", index), @Name = GetName("chkToDeptId", index) })
+  <span class="checkmark"></span>
+</label>
+                </td>
+                <td class="col-md-1 text-left">
+
+                    @Html.TextBoxFor(modelItem => item.Priority, new { disabled = "disabled", @maxLength = "2", @class = "form-control js_Priority OnlyNumber", @id = GetId("Priority", index), @Name = GetName("Priority", index) })
+                </td>
+                <td class="col-md-1 text-left">
+                    @Html.HiddenFor(modelItem => item.ToDeptId, new { @id = GetId("ToDeptId", index), @Name = GetName("ToDeptId", index) })
+                    @Html.HiddenFor(modelItem => item.FromdeptId, new { @id = GetId("FromdeptId", index), @Name = GetName("FromdeptId", index) })
+                    @Html.HiddenFor(modelItem => item.PatientId, new { @id = GetId("PatientId", index), @Name = GetName("PatientId", index) })
+                    @Html.HiddenFor(modelItem => item.ReferredId, new { @id = GetId("ReferredId", index), @Name = GetName("ReferredId", index) })
+                    @Html.DisplayFor(modelItem => item.ToDeptName, new { @id = GetId("ToDeptName", index), @Name = GetName("ToDeptName", index) })
+                </td>
+                <td class="col-md-8 hidden">
+                    @Html.TextBoxFor(modelItem => item.ReferredReason, new { disabled = "disabled", @class = "form-control js_ReferredReason", @id = GetId("ReferredReason", index), @Name = GetName("ReferredReason", index) })
+                </td>
+                <td class="col-md-1 text-left">
+                    @Html.TextBoxFor(modelItem => item.RoomNo, new { disabled = "disabled", @maxLength = "2", @class = "form-control js_RoomNo OnlyNumber", @id = GetId("RoomNo", index), @Name = GetName("RoomNo", index) })
+                </td>
+            </tr>
+            index++;
+        }
+    </table>
+</div>
+
+
+
+
+

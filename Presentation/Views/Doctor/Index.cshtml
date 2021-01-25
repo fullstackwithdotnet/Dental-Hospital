@@ -1,0 +1,136 @@
+﻿ @model DIMS.ViewModels.DoctorViewModal
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="box box-default box-solid">
+    <div class="box-header with-border">
+        <h3 class="box-title"> Doctor Details</h3>
+    </div>
+    <div class="box-body">
+        <div class="col-md-6 "></div>
+        <div class="col-md-6 ">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(x => x.DeptName, new { @class = "control-label col-md-3" })
+                <div class="col-md-9 dropdown">
+                    @Html.DropDownListFor(model => model.DeptId, new SelectList(Model.DepartmentList, "DeptId", "DeptName"), htmlAttributes: new { @class = "form-control col-md-2" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table id="tbDoctorSearch" class="table table-bordered table-hover" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th class="col-md-3">DOCTOR NAME</th>
+                            <th class="col-md-2">QUALIFICATION</th>
+                            <th class="col-md-2">DESIGNATION</th>
+                            @*<th class="col-md-2">MOBILE</th>*@
+                            <th class="col-md-1"></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+
+    <script src="~/Scripts/dataTables.buttons.min.js"></script>
+    <script src="~/Scripts/buttons.flash.min.js"></script>
+    <script src="~/Scripts/jszip.min.js"></script>
+    <script src="~/Scripts/pdfmake.min.js"></script>
+    <script src="~/Scripts/vfs_fonts.js"></script>
+    <script src="~/Scripts/buttons.html5.min.js"></script>
+    <script src="~/Scripts/buttons.print.min.js"></script>
+
+    <script type="text/jscript">
+
+        $(document).ready(function () {
+            $("#DeptId").change(function () {
+                Searchvalue();
+            });
+
+            var Searchvalue = function () {
+                
+                var $DeptId = $('#DeptId').val();
+                $('#tbDoctorSearch tbody').empty();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetDoctorDetailsById", "Doctor")',
+                    data: '{DeptId: "' + $DeptId + ' "}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        table = $('#tbDoctorSearch').DataTable();
+                        table.destroy();
+                        $('#tbDoctorSearch').dataTable({
+                            data: data,
+                            columns: [
+                                { 'data': 'DoctorName' },
+                                { 'data': 'Qualification' },
+                                { 'data': 'DesigName' },
+                                //{ 'data': 'Mobile' },
+                                {
+                                    'data': 'Link',
+                                    'searchable': false,
+                                    'sortable': false,
+                                    'render': function (Link) {
+                                        return '<a href=' + Link + '>Edit</a>';
+                                    }
+                                },
+                            ],
+                            "dom": "Bfrtip",
+                            "buttons": [
+                                {
+                                    extend: 'copy',
+                                    className: 'copyButton',
+                                    text: '<i class ="fa fa-clone"></i>Copy'
+
+                                },
+                                {
+                                    extend: 'excel',
+                                    text: '<i class ="fa fa-file-excel-o"></i>Excel'
+
+                                },
+                                 {
+                                     extend: 'pdf',
+                                     text: '<i class ="fa fa-file-pdf-o"></i>Pdf'
+
+                                 },
+                                 {
+                                     extend: 'csv',
+                                     text: '<i class ="fa fa-file-excel-o"></i>CSV'
+
+                                 },
+                                 {
+                                     extend: 'print',
+                                     messageTop: '<h1>Doctor List</h1>',
+                                     customize: function (win) {
+                                         $(win.document.body)
+                                             .css('font-size', '10pt')
+                                             .prepend(
+                                                 '<img src="~/Content/logo-fade.png" style="position:absolute; top:0; left:0;" />'
+                                             );
+
+                                         $(win.document.body).find('table')
+                                             .addClass('compact')
+                                             .css('font-size', 'inherit');
+                                     }
+                                 }
+                            ]
+
+                        })
+                    },
+                })
+            }
+            Searchvalue();
+        });
+    </script>
+}

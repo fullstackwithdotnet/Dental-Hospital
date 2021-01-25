@@ -1,0 +1,341 @@
+﻿@using Metron.Entities
+@model DIMS.ViewModels.PROSRPDViewModel
+
+@functions{
+    public string GetClassFromProperties(string propertyName)
+    {
+        var props = Model.Proplist.FirstOrDefault<PROSRPDCasesheetProperties>(x => x.PropertyName == propertyName);
+
+        if (props != null && props.PropertyVisibility == "N")
+        {
+            return "display:none";
+        }
+
+        return "";
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(model => model.RootFragments, new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.TextAreaFor(model => model.RootFragments, new { @class = "form-control" })
+            </div>
+            @Html.LabelFor(model => model.OtherForeignBodie, new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.TextAreaFor(model => model.OtherForeignBodie, new { @class = "form-control" })
+            </div>
+            @Html.LabelFor(model => model.UneruptedTeeth, new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.TextAreaFor(model => model.UneruptedTeeth, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default collapsed-box">
+            <div class="box-header with-border">
+                <h3 class="box-title">EVALUATION OF PROSPECTIVE ABUTMENTS </h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+
+                <div class="row">
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-3">
+                        <h5 class="subHeading1">Evaluation of Prospective Abutments</h5>
+                    </div>
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-3">
+                        <h5 class="subHeading1">Principle Abutments</h5>
+                    </div>
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-3">
+                        <h5 class="subHeading1">Secondary Abutments</h5>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(x => x.CrownRootRatioId, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-2 dropdown">
+                            @Html.DropDownListFor(model => model.CrownRootRatioId, new SelectList(Model.CrownRootRatioList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.CrownRootRatio1, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.CrownRootRatio2, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.CrownRootRatio3, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.CrownRootRatio4, new { @class = "form-control" })
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(x => x.NumberOfRoots1, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-2 dropdown">
+
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.NumberOfRoots1, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.NumberOfRoots2, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.NumberOfRoots3, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.NumberOfRoots4, new { @class = "form-control" })
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(x => x.RootMorphologyId1, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-2 dropdown">
+                            @Html.DropDownListFor(model => model.RootMorphologyId1, new SelectList(Model.RootMorphologyId1List, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.RootMorphology1, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.RootMorphology2, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.RootMorphology3, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.RootMorphology4, new { @class = "form-control" })
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        <div class="col-md-2 dropdown">
+                        </div>
+                        <div class="col-md-2 dropdown">
+                            @Html.DropDownListFor(model => model.RootMorphologyId2, new SelectList(Model.RootMorphologyId2List, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.RootMorphology5, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.RootMorphology6, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.RootMorphology7, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.RootMorphology8, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(x => x.PresOfApicalRoot1, new { @class = "col-md-4 control-label" })
+
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.PresOfApicalRoot1, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.PresOfApicalRoot2, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.PresOfApicalRoot3, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.PresOfApicalRoot4, new { @class = "form-control" })
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(x => x.QualityOfSuppBone1, new { @class = "col-md-4 control-label" })
+
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.QualityOfSuppBone1, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.QualityOfSuppBone2, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.QualityOfSuppBone3, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.QualityOfSuppBone4, new { @class = "form-control" })
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(x => x.WidthOfPerioLigam1, new { @class = "col-md-4 control-label" })
+
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.WidthOfPerioLigam1, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.WidthOfPerioLigam2, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.WidthOfPerioLigam3, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.WidthOfPerioLigam4, new { @class = "form-control" })
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(x => x.ContinuityOfLam1, new { @class = "col-md-4 control-label" })
+
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.ContinuityOfLam1, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.ContinuityOfLam2, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.ContinuityOfLam3, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.ContinuityOfLam4, new { @class = "form-control" })
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(x => x.AnyVerticalHorizBone1, new { @class = "col-md-4 control-label" })
+
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.AnyVerticalHorizBone1, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.AnyVerticalHorizBone2, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.AnyVerticalHorizBone3, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.AnyVerticalHorizBone4, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(x => x.PreExistingRestor1, new { @class = "col-md-4 control-label" })
+
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.PreExistingRestor1, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.PreExistingRestor2, new { @class = "form-control" })
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(x => x.StatusOfRootCanal1, new { @class = "col-md-4 control-label" })
+
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.StatusOfRootCanal1, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.StatusOfRootCanal2, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.OcclusalPlanId, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 dropdown">
+                                    @Html.DropDownListFor(model => model.OcclusalPlanId, new SelectList(Model.OcclusalPlanList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.AnyToothTeeth, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.AnyToothTeeth, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.AxialInclination, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.AxialInclination, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.WearFacets, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.WearFacets, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.InterArchDistanceId, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 dropdown">
+                                    @Html.DropDownListFor(model => model.InterArchDistanceId, new SelectList(Model.InterArchDistanceList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

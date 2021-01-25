@@ -1,0 +1,269 @@
+﻿@model DIMS.ViewModels.CONSViewModel
+
+@{
+    int index = 0;
+}
+
+<div class="panel-group" id="accordion">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseEleven">Re-Root Canal Treatment<span class="small text-fuchsia"> (click to expand/collapse)</span></a>
+        </h4>
+    </div>
+    <div id="collapseEleven" class="panel-collapse collapse" style="height: auto;">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.ToothNumbersG, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(x => x.ToothNumbersG, Model.ToothLister, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        @Html.HiddenFor(model => model.ReRootCanalId)
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.ReRadiographicInterpretation, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.ReRadiographicInterpretation, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.GpRemovalCanalLocation, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.GpRemovalCanalLocation, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.ReNoOfCanal, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.ReNoOfCanal, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.ReAdditionalCanals, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.ReAdditionalCanals, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.ReWorkingLengthDetermination, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.ReWorkingLengthDetermination, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.ReShapingAndCleaning, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.ReShapingAndCleaning, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.ReRotaryInstrumentation, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.ReRotaryInstrumentation, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                       
+                    </div>
+                    <div class="col-md-6">
+                       
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.ReIrrigantUsed, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.ReIrrigantUsed, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.ReIntracanalMedicament, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.ReIntracanalMedicament, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.ReMasterConeSelection, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.ReMasterConeSelection, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.ReObturationTechnique, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.ReObturationTechnique, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.RePostEndodonticRestoration, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.RePostEndodonticRestoration, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.ReProstheticRehabilitation, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.ReProstheticRehabilitation, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group form-group-sm">
+                                <div class="col-md-offset-4">
+                                    <a href="#" class="btnReRCanal btn btn-success" id="btnReRootCanalAdd">Add</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="tbReRootCanalDetails">
+                            <tr style="font-size:x-small">
+                                <th hidden>
+                                    @Html.DisplayNameFor(model => model.ConservativeId)
+                                    @Html.DisplayNameFor(model => model.ReRootCanalId)
+                                </th>
+
+                                <th colspan="2">
+                                    Action
+                                </th>
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ToothNumbersG)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ReRadiographicInterpretation)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.GpRemovalCanalLocation)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ReNoOfCanal)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ReAdditionalCanals)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ReWorkingLengthDetermination)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ReShapingAndCleaning)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ReRotaryInstrumentation)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ReIrrigantUsed)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ReIntracanalMedicament)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ReMasterConeSelection)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ReObturationTechnique)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.RePostEndodonticRestoration)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ReProstheticRehabilitation)
+                                </th>
+
+                                <th></th>
+                            </tr>
+
+                            @foreach (var item in Model.ReList)
+                            {
+                                <tr style="font-size:x-small">
+                                    <td class="hidden">
+                                        @Html.TextBoxFor(modelItem => item.ConservativeId, new { @class = "col-sm-10", @id = "ReList[" + index + "]_" + "ConservativeId", @Name = "ReList[" + index + "]." + "ConservativeId" })
+                                        @Html.TextBoxFor(modelItem => item.ReRootCanalId, new { @class = "col-sm-10 js_ReRootCanalId", @id = "ReList[" + index + "]_" + "ReRootCanalId", @Name = "ReList[" + index + "]." + "ReRootCanalId" })
+                                    </td>
+                                    <td>
+                                        <button type="button" class="ReRootCanalEdit btn btn-primary btn-xs" data-id="@item.ReRootCanalId">
+                                            <i class="glyphicon glyphicon-pencil"></i>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="ReRootCanalToothdelete btn btn-danger btn-xs" data-id="@item.ReRootCanalId">
+                                            <i class="glyphicon glyphicon-trash"></i>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ToothNumber, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.ToothNumber, new { @class = "form-control pHidden", @id = "ReList[" + index + "]_" + "ToothNumber", @Name = "ReList[" + index + "]." + "ToothNumber" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ReRadiographicInterpretation, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.ReRadiographicInterpretation, new { @class = "form-control js_ReRadiographicInterpretation", @id = "ReList[" + index + "]_" + "ReRadiographicInterpretation", @Name = "ReList[" + index + "]." + "ReRadiographicInterpretation" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.GpRemovalCanalLocation, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.GpRemovalCanalLocation, new { @class = "form-control js_GpRemovalCanalLocation", @id = "ReList[" + index + "]_" + "GpRemovalCanalLocation", @Name = "ReList[" + index + "]." + "GpRemovalCanalLocation" })
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ReNoOfCanal, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.ReNoOfCanal, new { @class = "form-control js_ReNoOfCanal", @id = "ReList[" + index + "]_" + "ReNoOfCanal", @Name = "ReList[" + index + "]." + "ReNoOfCanal" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ReAdditionalCanals, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.ReAdditionalCanals, new { @class = "form-control js_ReAdditionalCanals", @id = "ReList[" + index + "]_" + "ReAdditionalCanals", @Name = "ReList[" + index + "]." + "ReAdditionalCanals" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ReWorkingLengthDetermination, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.ReWorkingLengthDetermination, new { @class = "form-control js_ReWorkingLengthDetermination", @id = "ReList[" + index + "]_" + "ReWorkingLengthDetermination", @Name = "ReList[" + index + "]." + "ReWorkingLengthDetermination" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ReShapingAndCleaning, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.ReShapingAndCleaning, new { @class = "form-control js_ReShapingAndCleaning", @id = "ReList[" + index + "]_" + "ReShapingAndCleaning", @Name = "ReList[" + index + "]." + "ReShapingAndCleaning" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ReRotaryInstrumentation, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.ReRotaryInstrumentation, new { @class = "form-control js_ReRotaryInstrumentation", @id = "ReList[" + index + "]_" + "ReRotaryInstrumentation", @Name = "ReList[" + index + "]." + "ReRotaryInstrumentation" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ReIrrigantUsed, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.ReIrrigantUsed, new { @class = "form-control js_ReIrrigantUsed", @id = "ReList[" + index + "]_" + "ReIrrigantUsed", @Name = "ReList[" + index + "]." + "ReIrrigantUsed" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ReIntracanalMedicament, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.ReIntracanalMedicament, new { @class = "form-control js_ReIntracanalMedicament", @id = "ReList[" + index + "]_" + "ReIntracanalMedicament", @Name = "ReList[" + index + "]." + "ReIntracanalMedicament" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ReMasterConeSelection, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.ReMasterConeSelection, new { @class = "form-control js_ReMasterConeSelection", @id = "ReList[" + index + "]_" + "ReMasterConeSelection", @Name = "ReList[" + index + "]." + "ReMasterConeSelection" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ReObturationTechnique, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.ReObturationTechnique, new { @class = "form-control js_ReObturationTechnique", @id = "ReList[" + index + "]_" + "ReObturationTechnique", @Name = "ReList[" + index + "]." + "ReObturationTechnique" })
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.RePostEndodonticRestoration, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.RePostEndodonticRestoration, new { @class = "form-control js_RePostEndodonticRestoration", @id = "ReList[" + index + "]_" + "RePostEndodonticRestoration", @Name = "ReList[" + index + "]." + "RePostEndodonticRestoration" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ReProstheticRehabilitation, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.ReProstheticRehabilitation, new { @class = "form-control js_ReProstheticRehabilitation", @id = "ReList[" + index + "]_" + "ReProstheticRehabilitation", @Name = "ReList[" + index + "]." + "ReProstheticRehabilitation" })
+                                    </td>
+
+                                </tr>
+                                index++;
+                            }
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

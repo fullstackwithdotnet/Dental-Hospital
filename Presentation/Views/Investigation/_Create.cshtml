@@ -1,0 +1,72 @@
+﻿ @model  DIMS.ViewModels.BillingQueueServiceViewModel
+
+ 
+
+
+<div class="col-md-12">
+    <div class="row">
+        <div>
+            <div class="col-md-3 text-center">
+                @Html.LabelFor(x => x.ServiceName)
+            </div>
+            <div class="col-md-2 text-center">
+                @Html.LabelFor(model => model.TeethNo)
+            </div>
+            <div class="col-md-1 text-center">
+                @Html.LabelFor(model => model.Qty)
+            </div>
+            <div class="col-md-1 text-center">
+                @Html.LabelFor(model => model.Rate)
+            </div>
+            <div class="col-md-2 text-center">
+                @Html.LabelFor(model => model.Amount)
+            </div>
+            <div class="col-md-1 hidden">
+                @Html.LabelFor(x => x.DiscountPer)
+            </div>
+            <div class="col-md-2 text-center">
+                @Html.LabelFor(model => model.NetAmount)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <div class="col-md-3">
+                @Html.DropDownListFor(model => model.ServiceName, new SelectList(Model.BillDropServicesList, "ServiceId", "ServiceName"), "Select",htmlAttributes: new { @class = "form-control col-md-2" })
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(model => model.TeethNo, new { placeholder = "Teeth No", @class = "form-control", maxlength = "25" })
+            </div>            
+            <div class="col-md-1">
+                @Html.TextBoxFor(model => model.Qty, new { placeholder = "Qty", @class = "form-control OnlyNumber", pattern = "\\d*", maxlength = "2" })
+            </div>
+            <div class="col-md-1">
+                @Html.TextBoxFor(model => model.Rate, new { placeholder = "Rate", @class = "form-control OnlyNumber", pattern = "\\d*", maxlength = "5" })
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(model => model.Amount, new { placeholder = "Amount", @class = "form-control OnlyNumber", @readonly = "readonly", pattern = "\\d*", maxlength = "5" })
+            </div> 
+            <div class="col-md-1 hidden" >
+                @Html.TextBoxFor(model => model.DiscountPer, new { @class = "form-control OnlyNumber", pattern = "\\d*", maxlength = "3" })
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(model => model.NetAmount, new { placeholder = "Net Amount", @class = "form-control OnlyNumber", @readonly = "readonly" })                 
+                @Html.HiddenFor(model => model.DiscountAmt, new { @class = "form-control OnlyNumber", @readonly = "readonly", pattern = "\\d*", maxlength = "3" })             
+                @Html.HiddenFor(model => model.Rate, new { @class = "form-control OnlyNumber", pattern = "\\d*", maxlength = "5" })
+            </div>
+            <div class="col-md-1">
+                @if (Model.ReadOnlyApproval3 != true)
+                {
+                    <input type="submit" id="btnInvestigationAdd" value="Add Treatment" class="btn btn-primary btn-xs">
+                }
+               
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</div>
+ 
+
+
+
+

@@ -1,0 +1,103 @@
+﻿@model IEnumerable<DIMS.ViewModels.OMFSIPOperativeVitalsDetailsViewModel>
+
+@{
+    string modelName = ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix;
+    int index = 0;
+}
+@functions{
+    string GetId(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}]_{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+    string GetName(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}].{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+}
+
+<div class="table-responsive">
+    <table id="tbNurseVitalDetails" class="table table-bordered table-responsive">
+        <tr>
+            <th class="hidden">
+                @Html.DisplayNameFor(model => model.VitalId)
+                @Html.DisplayNameFor(model => model.OMFSIpId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VitalDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VitalTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BpN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PulseN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RespiratoryRateN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TemperatureN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Input)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Output)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Miscellaneous)
+            </th>
+            @{int i = 0;}
+        </tr>
+
+        @foreach (var item in Model)
+    {
+        i++;
+    <tr>
+        <td class="hidden">
+            @Html.TextBoxFor(modelItem => item.VitalId, new { @class = "col-sm-10 ", @id = GetId("VitalId", index), @Name = GetName("VitalId", index) })
+            @Html.TextBoxFor(modelItem => item.OMFSIpId, new { @class = "col-sm-10", @id = GetId("OMFSIpId", index), @Name = GetName("OMFSIpId", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VitalDateDisplay)
+            @Html.HiddenFor(modelItem => item.VitalDateDisplay, new { @class = "form-control VitalHidden", @id = GetId("VitalDateDisplay", index), @Name = GetName("VitalDateDisplay", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VitalTimeDisplay)
+            @Html.HiddenFor(modelItem => item.VitalTimeDisplay, new { @class = "form-control", @id = GetId("VitalTime", index), @Name = GetName("VitalTime", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BpN)
+            @Html.HiddenFor(modelItem => item.BpN, new { @class = "form-control", @id = GetId("BpN", index), @Name = GetName("BpN", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PulseN)
+            @Html.HiddenFor(modelItem => item.PulseN, new { @class = "form-control", @id = GetId("PulseN", index), @Name = GetName("PulseN", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RespiratoryRateN)
+            @Html.HiddenFor(modelItem => item.RespiratoryRateN, new { @class = "form-control", @id = GetId("RespiratoryRateN", index), @Name = GetName("RespiratoryRateN", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TemperatureN)
+            @Html.HiddenFor(modelItem => item.TemperatureN, new { @class = "form-control", @id = GetId("TemperatureN", index), @Name = GetName("TemperatureN", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Input)
+            @Html.HiddenFor(modelItem => item.Input, new { @class = "form-control", @id = GetId("Input", index), @Name = GetName("Input", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Output)
+            @Html.HiddenFor(modelItem => item.Output, new { @class = "form-control", @id = GetId("Output", index), @Name = GetName("Output", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Miscellaneous)
+            @Html.HiddenFor(modelItem => item.Miscellaneous, new { @class = "form-control", @id = GetId("Miscellaneous", index), @Name = GetName("Miscellaneous", index) })
+        </td>
+    </tr>
+        index++;
+    }
+    </table>
+    </div>

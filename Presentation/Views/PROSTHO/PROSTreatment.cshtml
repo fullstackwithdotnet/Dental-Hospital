@@ -1,0 +1,247 @@
+﻿@model DIMS.ViewModels.PROSTreatmentViewModel
+
+@{
+    ViewBag.Title = "PROSTreatmentViewModel";
+}
+
+
+<div class="form-horizontal">
+    <div class="box box-info ">
+        <div class="box-header with-border" style="background-color:aliceblue;">
+            <h3 class="box-title"> Patient Information</h3>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.Partial("../PatientInformation/_PatientInformationDetails", Model.patientInformationViewModel,
+                            new ViewDataDictionary()
+                            {
+                                TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "studentAllotmentViewModel" }
+                            })
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title"> Prosthodontics Treatments</h3>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered" style="margin-bottom: 0px !important;margin-top: 0px !important;">
+                        <tr>
+                            <th class="col-md-3">
+                                @Html.DisplayNameFor(model => model.TreatmentName)
+                            </th>
+                            <th class="col-md-3">
+                            </th>
+                            <td class="col-md-6"></td>
+                        </tr>
+                        @{int i = 0;}
+                        @foreach (var item in Model.ProsList.ToList())
+                        {
+                        i++;
+                        <tr>
+                            <td>
+                                (<span>@i</span>)&nbsp;
+                                @Html.HiddenFor(modelItem => item.TreatmentId)
+                                @Html.DisplayFor(modelItem => item.TreatmentName)
+                            </td>
+                            <td>
+                                @Html.ActionLink("New Casesheet", "Create", "PROSTHO", new { treatId = item.TreatmentId, allotId = item.AllotId, patientId = Model.PatientId }, new { @class = "btn btn-success btn-xs" })
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <table class="table table-bordered" style="margin-bottom: 0px !important;margin-top: 0px !important;">
+                                    @if (@item.TreatmentId == Convert.ToInt16(DIMS.Enums.TypesOfTreatment.CD))
+                                    {
+                                    if (Model.CDRegPatientList.Count() > 0)
+                                    {
+                                    <thead>
+                                        <tr>
+                                            <th class="box-header col-md-2">@Html.DisplayNameFor(model => model.ProsthoCDNo)</th>
+                                            <th class="box-header col-md-2">@Html.DisplayNameFor(model => model.ProsthoCDdateDisplay)</th>
+                                            <th class="box-header col-md-6">@Html.DisplayNameFor(model => model.prosCDchiefcomplaint)</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    foreach (var List in Model.CDRegPatientList.ToList())
+                                    {
+
+                                    <tr>
+                                        <td>
+
+                                            @Html.HiddenFor(modelItem => List.ProsthoCDId)
+                                            @Html.DisplayFor(modelItem => List.ProsthoCDNo)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => List.ProsthoCDdateDisplay)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => List.prosCDchiefcomplaint)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Select", "CDEdit", "PROSTHO", new { treatId = item.TreatmentId, allotId = item.AllotId, PROSCDId = List.ProsthoCDId }, null)
+                                        </td>
+
+                                    </tr>
+                                    }
+                                    }
+
+                                    }
+                                    else if (@item.TreatmentId == Convert.ToInt16(DIMS.Enums.TypesOfTreatment.RPD))
+                                    {
+                                    if (Model.RPDRegPatientList.Count() > 0)
+                                    {
+
+                                    <tr>
+                                        <th class="col-md-2">@Html.DisplayNameFor(model => model.ProsthoRPDNo)</th>
+                                        <th class="col-md-2">@Html.DisplayNameFor(model => model.prosthoRPDdateDisplay)</th>
+                                        <th class="col-md-6">@Html.DisplayNameFor(model => model.prosRPDchiefcomplaint)</th>
+                                        <th>Action</th>
+
+                                    </tr>
+                                    foreach (var List in Model.RPDRegPatientList.ToList())
+                                    {
+                                    <tr>
+                                        <td>
+
+                                            @Html.HiddenFor(modelItem => List.ProsthoRPDId)
+                                            @Html.DisplayFor(modelItem => List.ProsthoRPDNo)
+
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => List.prosthoRPDdateDisplay)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => List.prosRPDchiefcomplaint)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Select", "RPDEdit", "PROSTHO", new { treatId = item.TreatmentId, allotId = item.AllotId, PROSRPDId = List.ProsthoRPDId }, null)
+                                        </td>
+
+                                    </tr>
+                                    }
+                                    }
+
+                                    }
+                                    else if (@item.TreatmentId == Convert.ToInt16(DIMS.Enums.TypesOfTreatment.FPD))
+                                    {
+
+                                    if (Model.FPDRegPatientList.Count() > 0)
+                                    {
+                                    <tr class="box box-default box-solid">
+                                        <th class="col-md-2">@Html.DisplayNameFor(model => model.ProsthoFPDNo)</th>
+                                        <th class="col-md-2">@Html.DisplayNameFor(model => model.prosthoFPDdateDisplay)</th>
+                                        <th class="col-md-6">@Html.DisplayNameFor(model => model.prosFPDchiefcomplaint)</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    foreach (var List in Model.FPDRegPatientList.ToList())
+                                    {
+                                    <tr>
+                                        <td>
+
+                                            @Html.HiddenFor(modelItem => List.ProsthoFPDId)
+                                            @Html.DisplayFor(modelItem => List.ProsthoFPDNo)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => List.prosthoFPDdateDisplay)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => List.prosFPDchiefcomplaint)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Select", "FPDEdit", "PROSTHO", new { treatId = item.TreatmentId, allotId = item.AllotId, PROSFPDId = List.ProsthoFPDId }, null)
+                                        </td>
+                                    </tr>
+                                    }
+                                    }
+
+                                    }
+                                    else if (@item.TreatmentId == Convert.ToInt16(DIMS.Enums.TypesOfTreatment.MFP))
+                                    {
+
+                                    if (Model.MFPRegPatientList.Count() > 0)
+                                    {
+                                    <tr>
+                                        <th class="col-md-2">@Html.DisplayNameFor(model => model.ProsthoMFPNo)</th>
+                                        <th class="col-md-2">@Html.DisplayNameFor(model => model.prosthoMFPdateDisplay)</th>
+                                        <th class="col-md-6">@Html.DisplayNameFor(model => model.prosMFPchiefcomplaint)</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    foreach (var List in Model.MFPRegPatientList.ToList())
+                                    {
+                                    <tr>
+                                        <td>
+
+                                            @Html.HiddenFor(modelItem => List.ProsthoMFPId)
+                                            @Html.DisplayFor(modelItem => List.ProsthoMFPNo)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => List.prosthoMFPdateDisplay)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => List.prosMFPchiefcomplaint)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Select", "MFPEdit", "PROSTHO", new { treatId = item.TreatmentId, allotId = item.AllotId, PROSMFPId = List.ProsthoMFPId }, null)
+                                        </td>
+                                    </tr>
+                                    }
+                                    }
+
+                                    }
+                                    else if (@item.TreatmentId == Convert.ToInt16(DIMS.Enums.TypesOfTreatment.DIM))
+                                    {
+
+                                    if (Model.DIMRegPatientList.Count() > 0)
+                                    {
+                                    <tr>
+                                        <th class="col-md-2">@Html.DisplayNameFor(model => model.ProsthoDIMNo)</th>
+                                        <th class="col-md-2">@Html.DisplayNameFor(model => model.prosthoDIMdateDisplay)</th>
+                                        <th class="col-md-6">@Html.DisplayNameFor(model => model.prosDIMchiefcomplaint)</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    foreach (var List in Model.DIMRegPatientList.ToList())
+                                    {
+                                    <tr>
+                                        <td>
+
+                                            @Html.HiddenFor(modelItem => List.ProsthoDIMId)
+                                            @Html.DisplayFor(modelItem => List.ProsthoDIMNo)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => List.prosthoDIMdateDisplay)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => List.prosDIMchiefcomplaint)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Select", "DIMEdit", "PROSTHO", new { treatId = item.TreatmentId, allotId = item.AllotId, PROSDIMId = List.ProsthoDIMId }, null)
+                                        </td>
+                                    </tr>
+                                    }
+                                    }
+
+                                    }
+                                </table>
+                            </td>
+                        </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div>
+        @Html.ActionLink("<< Back to previous page", "TreatmentIndex", null, new { @class = "btn btn-primary btn-xs" })
+    </div>
+
+

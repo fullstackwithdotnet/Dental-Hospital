@@ -1,0 +1,40 @@
+﻿@model DIMS.ViewModels.DeptHomeViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+@functions
+{
+    public string GetUrl()
+    {
+        var user = User as DIMS.Infrastructure.CustomPrincipal;
+        return user.GetRootUrl();
+    }
+}
+
+<h4>Orthodontics Patient List</h4>
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.Partial("../Home/_TreatmentIndex", Model)
+            </div>
+        </div>
+    </div>
+}
+
+@Html.Partial("../StudentAllotment/_DeleteAllotment")
+@section scripts {
+    <script>
+        var showCancelAllotment = function (Id) {
+            var url = "@GetUrl()/StudentAllotment/Delete?Id=" + Id + "";
+            $("#myModelBodyDivDelete").load(url, function () {
+                $("#myModelDelete").modal("show");
+            })
+        }
+        //$(function () {
+        //    $("#btnSearchAllot").trigger("click");
+        //})
+    </script>
+}

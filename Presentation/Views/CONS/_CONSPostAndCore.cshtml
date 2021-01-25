@@ -1,0 +1,238 @@
+﻿@model DIMS.ViewModels.CONSViewModel
+
+@{
+    int index = 0;
+}
+
+<div class="panel-group" id="accordion">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">Post And Core<span class="small text-fuchsia"> (click to expand/collapse)</span></a>
+        </h4>
+    </div>
+    <div id="collapseFive" class="panel-collapse collapse" style="height: auto;">
+        <div class="panel-body">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.ToothNumbersA, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(x => x.ToothNumbersA, Model.ToothLister, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        @Html.HiddenFor(model => model.PostAndCoreId)
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.PhotographsImpression, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.PhotographsImpression, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.TypeOfPost, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.TypeOfPost, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.PostSpacePreparation, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.PostSpacePreparation, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.PatternImpression, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.PatternImpression, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.Temporization, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.Temporization, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.InsertionCementation, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.InsertionCementation, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.InsertionTemporization, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.InsertionTemporization, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.PcReview1, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.PcReview1, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.PcReview2, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.PcReview2, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.PcReview3, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.PcReview3, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group form-group-sm">
+                                <div class="col-md-offset-4">
+                                    <a class="btnPostAdd btn btn-success" id="btnPostAndCoreAdd">Add</a>
+                                    @*<a href="#" class="btn btn-success" id="btnPostAndCoreAdd">Add</a>*@
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="table-responsive">
+
+
+                        <table class="table table-bordered" id="tbPostAndCoreDetails">
+                            <tr style="font-size:x-small">
+                                <th hidden>
+                                    @Html.DisplayNameFor(model => model.ConservativeId)
+                                    @Html.DisplayNameFor(model => model.PostAndCoreId)
+                                </th>
+
+                                <th colspan="2">
+
+                                    Action
+
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ToothNumbersA)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.PhotographsImpression)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TypeOfPost)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.PostSpacePreparation)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.PatternImpression)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Temporization)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.InsertionCementation)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.InsertionTemporization)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.PcReview1)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.PcReview2)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.PcReview3)
+                                </th>
+
+                                <th></th>
+                            </tr>
+
+                            @foreach (var item in Model.PcList)
+                            {
+                                <tr style="font-size:x-small">
+                                    <td class="hidden">
+                                        @Html.TextBoxFor(modelItem => item.ConservativeId, new { @class = "col-sm-10", @id = "PcList[" + index + "]_" + "ConservativeId", @Name = "PcList[" + index + "]." + "ConservativeId" })
+                                        @Html.TextBoxFor(modelItem => item.PostAndCoreId, new { @class = "col-sm-10 js_PostAndCoreId", @id = "PcList[" + index + "]_" + "PostAndCoreId", @Name = "PcList[" + index + "]." + "PostAndCoreId" })
+                                    </td>
+
+                                    <td>
+                                        <button type="button" class="PostAndCoreToothEdit btn btn-primary btn-xs" data-id="@item.PostAndCoreId">
+                                            <i class="glyphicon glyphicon-pencil"></i>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="PostAndCoreToothdelete btn btn-danger btn-xs" data-id="@item.PostAndCoreId">
+                                            <i class="glyphicon glyphicon-trash"></i>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ToothNumber, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.ToothNumber, new { @class = "form-control jHidden", @id = "PcList[" + index + "]_" + "ToothNumber", @Name = "PcList[" + index + "]." + "ToothNumber" })
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PhotographsImpression, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.PhotographsImpression, new { @class = "form-control js_PhotographsImpression", @id = "PcList[" + index + "]_" + "PhotographsImpression", @Name = "PcList[" + index + "]." + "PhotographsImpression" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TypeOfPost, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.TypeOfPost, new { @class = "form-control js_TypeOfPost", @id = "PcList[" + index + "]_" + "TypeOfPost", @Name = "PcList[" + index + "]." + "TypeOfPost" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PostSpacePreparation, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.PostSpacePreparation, new { @class = "form-control js_PostSpacePreparation", @id = "PcList[" + index + "]_" + "PostSpacePreparation", @Name = "PcList[" + index + "]." + "PostSpacePreparation" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PatternImpression, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.PatternImpression, new { @class = "form-control js_PatternImpression", @id = "PcList[" + index + "]_" + "PatternImpression", @Name = "PcList[" + index + "]." + "PatternImpression" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Temporization, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.Temporization, new { @class = "form-control js_Temporization", @id = "PcList[" + index + "]_" + "Temporization", @Name = "PcList[" + index + "]." + "Temporization" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.InsertionCementation, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.InsertionCementation, new { @class = "form-control js_InsertionCementation", @id = "PcList[" + index + "]_" + "InsertionCementation", @Name = "PcList[" + index + "]." + "InsertionCementation" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.InsertionTemporization, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.InsertionTemporization, new { @class = "form-control js_InsertionTemporization", @id = "PcList[" + index + "]_" + "InsertionTemporization", @Name = "PcList[" + index + "]." + "InsertionTemporization" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PcReview1, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.PcReview1, new { @class = "form-control js_PcReview1", @id = "PcList[" + index + "]_" + "PcReview1", @Name = "PcList[" + index + "]." + "PcReview1" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PcReview2, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.PcReview2, new { @class = "form-control js_PcReview2", @id = "PcList[" + index + "]_" + "PcReview2", @Name = "PcList[" + index + "]." + "PcReview2" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PcReview3, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.PcReview3, new { @class = "form-control js_PcReview3", @id = "PcList[" + index + "]_" + "PcReview3", @Name = "PcList[" + index + "]." + "PcReview3" })
+                                    </td>
+
+                                </tr>
+                                index++;
+                            }
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

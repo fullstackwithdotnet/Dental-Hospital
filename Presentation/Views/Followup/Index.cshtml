@@ -1,0 +1,75 @@
+﻿@model IEnumerable<DIMS.ViewModels.FollowupViewModal>
+
+<div class="box box-default box-solid">
+    <div class="box-header with-border">
+        <h3 class="box-title"> Appointment List</h3>
+    </div>
+    <div class="box-body">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <tr>
+                    <th>
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FollowupDateDisplay)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FollowupTimeDisplay)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.OpNo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PatientName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DeptName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FollowupReason)
+                    </th>
+                    <th colspan="2" class="text-center">
+                        Actions
+                    </th>
+                </tr>
+                @{int i = 0;}
+                @foreach (var item in Model)
+                {
+                    i++;
+                    <tr>
+                        <td>
+                            <span>@i</span>
+                            @Html.HiddenFor(modelItem => item.FollowupId)
+                            @Html.HiddenFor(modelItem => item.PatientId)
+                            @Html.HiddenFor(modelItem => item.DeptId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FollowupDateDisplay)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FollowupTimeDisplay)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OpNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PatientName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DeptName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FollowupReason)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Revisit", "Index", "OPDRevisitRegistration", new { Id = item.FollowupId}, null)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Ignore", "Index", "OPDRevisitRegistration", new { Id = item.FollowupId, flag = "Ignore" }, null)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>

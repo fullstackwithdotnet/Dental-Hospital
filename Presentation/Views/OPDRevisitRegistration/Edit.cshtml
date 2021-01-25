@@ -1,0 +1,96 @@
+﻿@model DIMS.ViewModels.OPDRevisitRegistrationViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="box box-default box-solid">
+        <div class="box-header with-border">
+            <h3 class="box-title"> Revisit Registration Edit</h3>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.OPNo, new { @class = "col-md-1" })
+                            <div class="col-md-2">
+                                @Html.DisplayFor(x => x.OPNo, new { @class = "col-md-1" })
+                            </div>
+                            @Html.LabelFor(x => x.PatientName, new { @class = "col-md-2 " })
+                            <div class="col-md-2">
+                                @Html.DisplayFor(x => x.PatientName, new { @class = "col-md-1 " })
+                            </div>
+                            @Html.LabelFor(x => x.AgeGender, new { @class = "col-md-1 " })
+                            <div class="col-md-2">
+                                @Html.DisplayFor(x => x.AgeGender, new { @class = "col-md-1 " })
+                            </div>
+                            @Html.LabelFor(x => x.Phone, new { @class = "col-md-1 " })
+                            <div class="col-md-1">
+                                @Html.DisplayFor(x => x.Phone, new { @class = "col-md-1" })
+                            </div>
+                        </div>
+                        <div class="hidden">
+                            @Html.TextBoxFor(x => x.PatientId)
+                            @Html.TextBoxFor(x => x.DeptId)
+                            @Html.TextBoxFor(x => x.RevisitDate)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @if (TempData["Message"] != null)
+                {
+                    <center>
+                        <span class="messagebox">
+                            @TempData["Message"].ToString()
+                        </span>
+                    </center>
+                }
+            </div>
+            <div class="col-xs-5">
+            </div>
+            <div class="col-xs-2">
+                <input type="submit" value="Update" class="fa fa-update btn btn-success"/>
+            </div>
+            <div class="col-xs-5">
+            </div>
+        </div>
+
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @*@Html.Partial("../ReferralStatus/Create", Model.CreatedepartmentReferredStatus,*@
+                        @Html.Partial("../ReferralStatus/ReferralCreate", Model.CreatedepartmentReferredStatus,
+                                new ViewDataDictionary()
+                                {
+                                    TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "CreatedepartmentReferredStatus" }
+                                })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

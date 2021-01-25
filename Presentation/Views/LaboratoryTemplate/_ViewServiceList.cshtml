@@ -1,0 +1,89 @@
+﻿@model IEnumerable<DIMS.ViewModels.TemplateDetailsViewModel>
+@{
+    string modelName = ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix;
+    int index = 0;
+}
+@functions{
+    string GetId(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}]_{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+    string GetName(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}].{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+}
+
+<div class="table-responsive">
+    <table id="tbOrpathServiceDetails" class="table table-bordered">
+        <thead>
+            <tr style="background-color:aliceblue">
+
+                <th>
+                    @Html.DisplayNameFor(model => model.ServiceItems)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MaleNormalRange)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FemaleNormalRange)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Unit)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DisplayOrder)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsHeader)
+                </th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.HiddenFor(modelItem => item.RadioTempDetId, new { @class = "form-control js_RadioTempDetId", @id = GetId("RadioTempDetId", index), @Name = GetName("RadioTempDetId", index) })
+                        @Html.HiddenFor(modelItem => item.RadioTempId, new { @class = "form-control js_RadioTempId", @id = GetId("RadioTempId", index), @Name = GetName("RadioTempId ", index) })
+
+                        @Html.DisplayFor(modelItem => item.ServiceItems)
+                        @Html.HiddenFor(modelItem => item.ServiceItems, new { @class = "form-control iHidden", @id = GetId("ServiceItems", index), @Name = GetName("ServiceItems", index) })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.MaleNormalRange)
+                        @Html.HiddenFor(modelItem => item.MaleNormalRange, new { @class = "form-control js_Malerange", @id = GetId("MaleNormalRange", index), @Name = GetName("MaleNormalRange", index) })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.FemaleNormalRange)
+                        @Html.HiddenFor(modelItem => item.FemaleNormalRange, new { @class = "form-control js_Femalerange", @id = GetId("FemaleNormalRange", index), @Name = GetName("FemaleNormalRange", index) })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.Unit)
+                        @Html.HiddenFor(modelItem => item.Unit, new { @class = "form-control js_Unit", @id = GetId("Unit", index), @Name = GetName("Unit", index) })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.DisplayOrder)
+                        @Html.HiddenFor(modelItem => item.DisplayOrder, new { @class = "form-control js_DisplayOrder", @id = GetId("DisplayOrder", index), @Name = GetName("DisplayOrder", index) })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsHeader)
+                        @Html.HiddenFor(modelItem => item.IsHeader, new { @class = "form-control js_Header", @id = GetId("IsHeader", index), @Name = GetName("IsHeader", index) })
+                    </td>
+                    <td>
+                        <button type="button" class="LabEdit btn btn-primary btn-xs" data-id="@item.RadioTempDetId">
+                            <i class="glyphicon glyphicon-pencil"></i>
+                        </button>
+                    </td>
+                </tr>
+                index++;
+            }
+        </tbody>
+    </table>
+
+
+</div>
+
+
+

@@ -1,0 +1,204 @@
+﻿@model DIMS.ViewModels.PROSFPDViewModel
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(model => model.Diagnosis, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Diagnosis, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default collapsed-box">
+            <div class="box-header with-border">
+                <h3 class="box-title">DIAGNOSTIC CASTS</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div id="divDiagnosticCasts">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.DiagnosticCasts, new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.TextAreaFor(model => model.DiagnosticCasts, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="divDiagnosticCasts">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.SupraEruptions, new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.TextAreaFor(model => model.SupraEruptions, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="divToothMigrations">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.ToothMigrations, new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.TextAreaFor(model => model.ToothMigrations, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="divDiagAxialInclination">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.DiagAxialInclination, new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.TextAreaFor(model => model.DiagAxialInclination, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="divDiagWearfacets">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.DiagWearfacets, new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.TextAreaFor(model => model.DiagWearfacets, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="divClassificationOfFPD">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.ClassificationOfFPD, new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.TextAreaFor(model => model.ClassificationOfFPD, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default collapsed-box">
+            <div class="box-header with-border">
+                <h3 class="box-title">DIMENSIONS OF ABUTMENT</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.LabelFor(x => x.Mesial, new { @class = "col-md-4 control-label" })
+                            </div>
+                            <div class="col-md-4">
+                                @Html.LabelFor(x => x.Distal, new { @class = "col-md-4 control-label" })
+                            </div>
+                        </div>
+
+                        <div id="divOcclusoGingMesial">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    <div class="col-md-4 control-label">
+                                        @Html.LabelFor(x => x.OcclusoGingMesial)
+                                    </div>
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(x => x.OcclusoGingMesial, new { @class = "form-control" })
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(x => x.OcclusoGingDistal, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="divConnectorMesial">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    <div class="col-md-4 control-label">
+                                        @Html.LabelFor(x => x.ConnectorMesial)
+                                    </div>
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(x => x.ConnectorMesial, new { @class = "form-control" })
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(x => x.ConnectorDistal, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.LabelFor(x => x.Mesial, new { @class = "col-md-4 control-label" })
+                            </div>
+                            <div class="col-md-4">
+                                @Html.LabelFor(x => x.Distal, new { @class = "col-md-4 control-label" })
+                            </div>
+                        </div>
+                        <div id="divMesiodistalMesial">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    <div class="col-md-4 control-label">
+                                        @Html.LabelFor(x => x.MesiodistalMesial)
+                                    </div>
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(x => x.MesiodistalMesial, new { @class = "form-control" })
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(x => x.MesiodistalDistal, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="divBuccolingualMesial">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    <div class="col-md-4 control-label">
+                                        @Html.LabelFor(x => x.BuccolingualMesial)
+                                    </div>
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(x => x.BuccolingualMesial, new { @class = "form-control" })
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(x => x.BuccolingualDistal, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

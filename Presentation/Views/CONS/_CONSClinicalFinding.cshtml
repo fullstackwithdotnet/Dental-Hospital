@@ -1,0 +1,719 @@
+﻿@using Metron.Entities
+@model DIMS.ViewModels.CONSViewModel
+@functions{
+    public string GetClassFromProperties(string propertyName)
+    {
+        var props = Model.Proplist.FirstOrDefault<CONSCasesheetProperties>(x => x.PropertyName == propertyName);
+
+        if (props != null && props.PropertyVisibility == "N")
+        {
+            return "display:none";
+        }
+
+        return "";
+    }
+}
+@helper CreateCheckbox(string value)
+{
+    @Html.CheckBox("chkBox", !string.IsNullOrEmpty(value), new { @class = "checkbox-inline" })
+}
+@functions {
+    object getHtmlAttributes(string value, string CssClass)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            return new { @class = CssClass, disabled = "disabled" };
+        }
+        return new { @class = CssClass };
+    }
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default collapsed-box">
+            <div class="box-header with-border">
+                <h3 class="box-title">FINDINGS </h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+
+                    <div id="divFilling">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(model => model.ClinicalFindings, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextAreaFor(model => model.ClinicalFindings, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divFilling">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(model => model.TreatmentPlan, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextAreaFor(model => model.TreatmentPlan, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divFilling">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(model => model.RadiographicFinding, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextAreaFor(model => model.RadiographicFinding, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="divIoparRvgBiteOcclussal">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(model => model.IoparRvgBiteOcclussal, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextAreaFor(model => model.IoparRvgBiteOcclussal, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default collapsed-box">
+            <div class="box-header with-border">
+                <h3 class="box-title">ABBREVIATIONS </h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">                 
+                    <div class="row">
+                        @*<h5 class="subHeading1">B.Hard Tissue Examination</h5>*@
+                        <h5 style="color: #357ebd"></h5>
+                        <input type="text" id="txtSampleAbbreviation" style="font-weight:bold" hidden />
+
+                        <div class="js_Abbr">
+                            <div class="row">
+
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <button type="button" style="background-color: goldenrod; width: 70%" data-id="E+ve" class="btn btn-xs">[E+ve]-EPT Positive</button>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button type="button" style="background-color: deepskyblue; width: 70%" data-id="C+ve" class="btn btn-xs">[C+ve]-Cold Test Positive</button>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button type="button" style="background-color: orange; width: 70%" data-id="H+ve" class="btn btn-xs">[H+ve]-Hot Test Positive</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <button type="button" style="background-color: firebrick; color:white; width: 70%" data-id="E-ve" class="btn btn-xs">[E-ve]-EPT Negative</button>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button type="button" style="background-color: yellowgreen; width: 70%" data-id="C-ve" class="btn btn-xs">[C-ve]-Cold Test Negative</button>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button type="button" style="background-color: gold; width: 70%" data-id="H-ve" class="btn btn-xs">[H-ve]-Hot Test Negative</button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <button type="button" style="width: 100px" data-id="" class="btn btn-xs">Clear</button>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row js_Teeth">
+                        <div class="panel-group" id="accordion">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="collapsed">Vitality<span class="small text-fuchsia">(click to expand/collapse)</span></a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse in" style="height: auto;">
+                                <div class="panel-body">
+                                    <table class="table no-border">
+                                        <tr>
+                                            <th class="text-center">
+                                                <center><img src="~/Content/Images/TeethImages/18.png" class="img-responsive" alt="18" /></center>
+                                            </th>
+                                            <th class="text-center">
+                                                <center>
+                                                    <img src="~/Content/Images/TeethImages/17.png" class="img-responsive" alt="17" />
+                                                </center>
+                                            </th>
+                                            <th class="text-center">
+                                                <center>
+                                                    <img src="~/Content/Images/TeethImages/16.png" class="img-responsive" alt="16" />
+                                                </center>
+
+                                            </th>
+                                            <th class="text-center">
+                                                <center>
+                                                    <img src="~/Content/Images/TeethImages/15.png" class="img-responsive" alt="15" />
+                                                </center>
+
+                                            </th>
+                                            <th class="text-center">
+                                                <center>
+                                                    <img src="~/Content/Images/TeethImages/14.png" class="img-responsive" alt="14" />
+                                                </center>
+
+                                            </th>
+                                            <th class="text-center">
+                                                <center>
+                                                    <img src="~/Content/Images/TeethImages/13.png" class="img-responsive" alt="13" />
+                                                </center>
+
+                                            </th>
+                                            <th class="text-center">
+                                                <center>
+                                                    <img src="~/Content/Images/TeethImages/12.png" class="img-responsive" alt="12" />
+                                                </center>
+
+                                            </th>
+                                            <th class="text-center">
+                                                <center>
+                                                    <img src="~/Content/Images/TeethImages/11.png" class="img-responsive" alt="11" />
+                                                </center>
+
+                                            </th>
+                                            <th class="text-center">
+                                                <center>
+                                                    <img src="~/Content/Images/TeethImages/21.png" class="img-responsive" alt="21" />
+                                                </center>
+
+                                            </th>
+                                            <th class="text-center">
+                                                <center>
+                                                    <img src="~/Content/Images/TeethImages/22.png" class="img-responsive" alt="22" />
+                                                </center>
+
+                                            </th>
+                                            <th class="text-center">
+                                                <center>
+                                                    <img src="~/Content/Images/TeethImages/23.png" class="img-responsive" alt="23" />
+                                                </center>
+
+                                            </th>
+                                            <th class="text-center">
+                                                <center>
+                                                    <img src="~/Content/Images/TeethImages/24.png" class="img-responsive" alt="24" />
+                                                </center>
+
+                                            </th>
+                                            <th class="text-center">
+                                                <center>
+                                                    <img src="~/Content/Images/TeethImages/25.png" class="img-responsive" alt="25" />
+                                                </center>
+
+                                            </th>
+                                            <th class="text-center">
+                                                <center>
+                                                    <img src="~/Content/Images/TeethImages/26.png" class="img-responsive" alt="26" />
+                                                </center>
+
+                                            </th>
+                                            <th class="text-center">
+                                                <center>
+                                                    <img src="~/Content/Images/TeethImages/27.png" class="img-responsive" alt="27" />
+                                                </center>
+
+                                            </th>
+                                            <th class="text-center">
+                                                <center>
+                                                    <img src="~/Content/Images/TeethImages/28.png" class="img-responsive" alt="28" />
+                                                </center>
+
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth18)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth17)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth16)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth15)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth14)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth13)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth12)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth11)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth21)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth22)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth23)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth24)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth25)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth26)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth27)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth28)
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth18, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth17, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth16, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth15, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth14, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth13, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth12, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth11, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth21, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth22, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth23, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth24, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth25, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth26, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth27, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth28, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth48, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth47, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth46, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth45, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth44, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth43, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth42, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth41, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth31, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth32, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth33, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth34, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth35, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth36, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth37, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.VitalityTooth38, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth48)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth47)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth46)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth45)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth44)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth43)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth42)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth41)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth31)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth32)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth33)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth34)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth35)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth36)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth37)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.VitalityTooth38)
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">
+                                                <center>
+                                                    <img src="~/Content/Images/TeethImages/48.png" class="img-responsive" alt="48" />
+                                                </center>
+
+                                            </th>
+                                            <th class="text-center">
+                                                <center>
+                                                    <img src="~/Content/Images/TeethImages/47.png" class="img-responsive" alt="47" />
+                                                </center>
+
+                                            </th>
+                                            <th class="text-center">
+                                                <center>
+                                                    <img src="~/Content/Images/TeethImages/46.png" class="img-responsive" alt="46" />
+                                                </center>
+
+                                            </th>
+                                            <th class="text-center">
+                                                <center>
+                                                    <img src="~/Content/Images/TeethImages/45.png" class="img-responsive" alt="45" />
+                                                </center>
+
+                                            </th>
+                                            <th class="text-center">
+                                                <center>
+                                                    <img src="~/Content/Images/TeethImages/44.png" class="img-responsive" alt="44" />
+                                                </center>
+
+                                            </th>
+                                            <th class="text-center">
+                                                <center>
+                                                    <img src="~/Content/Images/TeethImages/43.png" class="img-responsive" alt="43" />
+                                                </center>
+
+                                            </th>
+                                            <th class="text-center">
+                                                <center>
+                                                    <img src="~/Content/Images/TeethImages/42.png" class="img-responsive" alt="42" />
+                                                </center>
+
+                                            </th>
+                                            <th class="text-center">
+                                                <center>
+                                                    <img src="~/Content/Images/TeethImages/41.png" class="img-responsive" alt="41" />
+                                                </center>
+
+                                            </th>
+                                            <th class="text-center">
+                                                <center>
+                                                    <img src="~/Content/Images/TeethImages/31.png" class="img-responsive" alt="31" />
+                                                </center>
+
+                                            </th>
+                                            <th class="text-center">
+                                                <center>
+                                                    <img src="~/Content/Images/TeethImages/32.png" class="img-responsive" alt="32" />
+                                                </center>
+
+                                            </th>
+                                            <th class="text-center">
+                                                <center>
+                                                    <img src="~/Content/Images/TeethImages/33.png" class="img-responsive" alt="33" />
+                                                </center>
+
+                                            </th>
+                                            <th class="text-center">
+                                                <center>
+                                                    <img src="~/Content/Images/TeethImages/34.png" class="img-responsive" alt="34" />
+                                                </center>
+
+                                            </th>
+                                            <th class="text-center">
+                                                <center>
+                                                    <img src="~/Content/Images/TeethImages/35.png" class="img-responsive" alt="35" />
+                                                </center>
+
+                                            </th>
+                                            <th class="text-center">
+                                                <center>
+                                                    <img src="~/Content/Images/TeethImages/36.png" class="img-responsive" alt="36" />
+                                                </center>
+
+                                            </th>
+                                            <th class="text-center">
+                                                <center>
+                                                    <img src="~/Content/Images/TeethImages/37.png" class="img-responsive" alt="37" />
+                                                </center>
+
+                                            </th>
+                                            <th class="text-center">
+                                                <center>
+                                                    <img src="~/Content/Images/TeethImages/38.png" class="img-responsive" alt="38" />
+                                                </center>
+
+                                            </th>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default collapsed-box">
+            <div class="box-header with-border">
+                <h3 class="box-title">PULP VITALITY </h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>On Cold Test</h5>
+                        <div id="divFilling">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    <div class="col-md-4 control-label">
+                                        @Html.LabelFor(x => x.PVOnColdNormal)
+                                        @CreateCheckbox(Model.PVOnColdNormal)
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.PVOnColdNormal, getHtmlAttributes(Model.PVOnColdNormal, "form-control"))
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="divFilling">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    <div class="col-md-4 control-label">
+                                        @Html.LabelFor(x => x.PVOnColdDelayed)
+                                        @CreateCheckbox(Model.PVOnColdDelayed)
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.PVOnColdDelayed, getHtmlAttributes(Model.PVOnColdDelayed, "form-control"))
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="divFilling">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    <div class="col-md-4 control-label">
+                                        @Html.LabelFor(x => x.PVOnColdNonRes)
+                                        @CreateCheckbox(Model.PVOnColdNonRes)
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.PVOnColdNonRes, getHtmlAttributes(Model.PVOnColdNonRes, "form-control"))
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 style="color: white">.</h5>
+                        <h5>On Heat Test</h5>
+                        <div id="divFilling">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    <div class="col-md-4 control-label">
+                                        @Html.LabelFor(x => x.PVOnHeatNormal)
+                                        @CreateCheckbox(Model.PVOnHeatNormal)
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.PVOnHeatNormal, getHtmlAttributes(Model.PVOnHeatNormal, "form-control"))
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="divFilling">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    <div class="col-md-4 control-label">
+                                        @Html.LabelFor(x => x.PVOnHeatDelayed)
+                                        @CreateCheckbox(Model.PVOnHeatDelayed)
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.PVOnHeatDelayed, getHtmlAttributes(Model.PVOnHeatDelayed, "form-control"))
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="divFilling">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    <div class="col-md-4 control-label">
+                                        @Html.LabelFor(x => x.PVOnHeatNonRes)
+                                        @CreateCheckbox(Model.PVOnHeatNonRes)
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.PVOnHeatNonRes, getHtmlAttributes(Model.PVOnHeatNonRes, "form-control"))
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>On Electric Test</h5>
+                        <div id="divFilling">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    <div class="col-md-4 control-label">
+                                        @Html.LabelFor(x => x.PVOnElecNormal)
+                                        @CreateCheckbox(Model.PVOnElecNormal)
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.PVOnElecNormal, getHtmlAttributes(Model.PVOnElecNormal, "form-control"))
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="divFilling">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    <div class="col-md-4 control-label">
+                                        @Html.LabelFor(x => x.PVOnElecDelayed)
+                                        @CreateCheckbox(Model.PVOnElecDelayed)
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.PVOnElecDelayed, getHtmlAttributes(Model.PVOnElecDelayed, "form-control"))
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="divFilling">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    <div class="col-md-4 control-label">
+                                        @Html.LabelFor(x => x.PVOnElecNonRes)
+                                        @CreateCheckbox(Model.PVOnElecNonRes)
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.PVOnElecNonRes, getHtmlAttributes(Model.PVOnElecNonRes, "form-control"))
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+ 
+
+
+
+
+
+

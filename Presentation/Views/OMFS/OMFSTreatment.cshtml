@@ -1,0 +1,136 @@
+﻿@model DIMS.ViewModels.OMFSTreatmentViewModel
+@{
+    ViewBag.Title = "OMFSTreatmentViewModel";
+}
+
+<div class="form-horizontal">
+
+    <div class="box box-info ">
+        <div class="box-header with-border" style="background-color:aliceblue;">
+            <h3 class="box-title"> Patient Information</h3>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.Partial("../PatientInformation/_PatientInformationDetails", Model.patientInformationViewModel,
+                            new ViewDataDictionary()
+                            {
+                                TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "studentAllotmentViewModel" }
+                            })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box box-default ">
+        <div class="box-header with-border">
+            <h3 class="box-title"> Oral and Maxillofacial Surgery Treatments</h3>
+        </div>
+        <div class="box-body">
+            <table class="table table-bordered">
+
+                @foreach (var item in Model.OmfsList.ToList())
+            {
+
+            <tr>
+                @if (item.TreatmentId == Convert.ToInt16(DIMS.Enums.TypesOfTreatment.OP))
+                    {
+                    <td>
+                        @Html.ActionLink("New Casesheet", "Create", "OMFS", new { allotId = Model.AllotId, Model.PatientId, TreatmentId = item.TreatmentId }, new { @class = "btn btn-success btn-xs" })
+                    </td>
+                    }
+                    @*else
+                        {
+                            <td>
+
+                                @Html.ActionLink("New Casesheet", "IPCreate", "OMFS", new { allotId = Model.AllotId, Model.PatientId, TreatmentId = item.TreatmentId }, null)
+                            </td>
+                        }*@
+
+                </tr>
+                if (@item.TreatmentId == Convert.ToInt16(DIMS.Enums.TypesOfTreatment.OP))
+                {
+                    if (Model.OmfsopList != null)
+                    {
+                        if (Model.OmfsopList.ToList().Count() > 0)
+                        {
+            <tr>
+                <td colspan="3">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th class="col-md-2">@Html.DisplayNameFor(model => model.OMFSOpDateDisplay)</th>
+                            <th class="col-md-2">@Html.DisplayNameFor(model => model.OMFSOpNo)</th>
+                            <th class="col-md-8">@Html.DisplayNameFor(model => model.OpChiefComplaint)</th>
+                            <th></th>
+                        </tr>
+                        @foreach (var OP in Model.OmfsopList.ToList())
+                                        {
+                                        <tr>
+                                            <td class="hidden">@Html.TextBoxFor(model => OP.OMFSOpId)</td>
+                                            <td>@Html.DisplayFor(model => OP.OMFSOpDateDisplay)</td>
+                                            <td>@Html.DisplayFor(model => OP.OMFSOpNo)</td>
+                                            <td>@Html.DisplayFor(model => OP.OpChiefComplaint)</td>
+                                            <td>@Html.ActionLink("Select", "OPEdit", "OMFS", new { allotId = Model.AllotId, omfsopId = OP.OMFSOpId }, null)</td>
+                                        </tr>
+                                        }
+
+                    </table>
+                </td>
+            </tr>
+                        }
+                    }
+
+
+                }
+            @* else if (@item.TreatmentId == Convert.ToInt16(DIMS.Enums.TypesOfTreatment.IP))
+                {
+                    if (Model.OmfsipList != null)
+                    {
+                        if (Model.OmfsipList.ToList().Count() > 0)
+                        {
+                            <tr>
+                                <td colspan="3">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th class="col-md-2">@Html.DisplayNameFor(model => model.OMFSIpDateDisplay)</th>
+                                            <th class="col-md-2">@Html.DisplayNameFor(model => model.Operation)</th>
+                                            <th class="col-md-2">@Html.DisplayNameFor(model => model.OMFSIpNo)</th>
+                                            <th class="col-md-8">@Html.DisplayNameFor(model => model.IpChiefComplaint)</th>
+                                        </tr>
+                                        @foreach (var IP in Model.OmfsipList.ToList())
+                                        {
+                                            <tr>
+                                                <td class="hidden">@Html.TextBoxFor(model => IP.OMFSIpId)</td>
+                                                <td>@Html.DisplayFor(model => IP.OMFSIpDateDisplay)</td>
+                                                <td>@Html.ActionLink(IP.Operation, "OMFSSchedule", "OMFS", new { allotId = Model.AllotId, patientId = Model.PatientId, ScheduleId = IP.ScheduleId }, null /* html attributes */)</td>
+                                                <td>@Html.DisplayFor(model => IP.OMFSIpNo)</td>
+                                                <td>@Html.DisplayFor(model => IP.IpChiefComplaint)</td>
+                                            </tr>
+                                        }
+
+                                    </table>
+                                </td>
+                            </tr>
+                        }
+                    }
+
+
+                }*@
+
+            }
+            </table>
+        </div>
+    </div>
+
+
+    </div>
+    <div>
+        @*@Html.ActionLink("Back to List", "Index")*@
+        @Html.ActionLink("<< Back to previous page", "Index", null, new { @class = "btn btn-primary btn-xs" })
+        @Html.TextBoxFor(modelItem => Model.PatientId, new { @class = "hidden" })
+        @Html.TextBoxFor(modelItem => Model.AllotId, new { @class = "hidden" })
+    </div>
+
+

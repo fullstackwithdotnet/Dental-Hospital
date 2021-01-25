@@ -1,0 +1,746 @@
+﻿@model DIMS.ViewModels.PEDOViewModel
+
+<style>
+    .colss {
+        width: auto !important;
+        padding-right: 8px !important;
+        padding-left: 8px !important;
+        float: left;
+        position: relative;
+        min-height: 1px;
+    }
+
+    .txtsmallOld {
+        width: 35px;
+        padding: 2px;
+        -webkit-box-sizing: initial;
+    }
+
+    .txtsmall {
+        width: 15px;
+        padding: 2px;
+        -webkit-box-sizing: initial;
+    }
+
+    .txtsmallX3 {
+        width: 45px;
+        padding: 3px;
+        -webkit-box-sizing: inherit;
+    }
+
+    .tablenew {
+        width: auto !important;
+    }
+
+        .tablenew > tbody > tr > td {
+            padding: 0;
+        }
+
+    .pclass {
+        text-align: center;
+        margin: 0 !important;
+    }
+
+    .col60 {
+        width: 60%;
+        padding: 5px !important;
+    }
+
+    .col80 {
+        width: 80%;
+        padding: 5px !important;
+    }
+</style>
+<div class="form-horizontal">
+    @Html.ValidationSummary(true)
+
+
+    <div class="col-md-12">
+        <h5 class="subHeading1">DMFT</h5>
+        <div class="col-md-10">
+            <div class="table-responsive">
+                <div class="colss">
+                    <table class="table tablenew table-bordered js_Dmft">
+                        <tr style="text-align:center">
+                            <td>@Html.LabelFor(x => x.IndicesTeeth18, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth17, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth16, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth15, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth14, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth13, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth12, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth11, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth21, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth22, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth23, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth24, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth25, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth26, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth27, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth28, new { @class = "txtsmallOld" })</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth18, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth17, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth16, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth15, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth14, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth13, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth12, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth11, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth21, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth22, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth23, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth24, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth25, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth26, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth27, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth28, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                        </tr>
+                        <tr>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth48, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth47, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth46, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth45, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth44, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth43, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth42, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth41, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth31, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth32, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth33, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth34, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth35, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth36, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth37, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth38, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+
+
+
+                        </tr>
+                        <tr style="text-align:center">
+                            <td>@Html.LabelFor(x => x.IndicesTeeth48, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth47, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth46, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth45, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth44, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth43, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth42, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth41, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth31, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth32, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth33, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth34, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth35, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth36, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth37, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth38, new { @class = "txtsmallOld" })</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="col-md-1">
+                @Html.Label("D= ", new { @class = "control-label" })
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(x => x.DTotal, new { @readonly = "readonly", @class = "form-control" })
+            </div>
+            <div class="col-md-1">
+                @Html.Label("M= ", new { @class = "control-label" })
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(x => x.MTotal, new { @readonly = "readonly", @class = "form-control" })
+            </div>
+            <div class="col-md-1">
+                @Html.Label("F= ", new { @class = "control-label" })
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(x => x.FTotal, new { @readonly = "readonly", @class = "form-control" })
+            </div>
+            
+        </div>
+        <div class="col-md-6">
+            <div class="col-md-3">
+                @Html.Label("D + M + F= ", new { @class = "control-label" })
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(x => x.DMFTTotal, new { @readonly = "readonly", @class = "form-control" })
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <h5 class="subHeading1">deft</h5>
+
+        <div class="col-md-10">
+            <div class="table-responsive">
+                <div class="colss">
+                    <table class="table tablenew table-bordered js_Deft">
+                        <tr style="text-align:center">
+                            <td>@Html.LabelFor(x => x.IndicesTeeth55, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth54, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth53, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth52, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth51, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth61, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth62, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth63, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth64, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth65, new { @class = "txtsmallOld" })</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth55, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth54, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth53, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth52, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth51, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth61, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth62, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth63, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth64, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth65, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                        </tr>
+                        <tr>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth85, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth84, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth83, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth82, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth81, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth71, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth72, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth73, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth74, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                            <th>@Html.TextAreaFor(x => x.IndicesTeeth75, new { @class = "txtsmallOld", @readonly = "readonly" })</th>
+                        </tr>
+                        <tr style="text-align:center">
+                            <td>@Html.LabelFor(x => x.IndicesTeeth85, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth84, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth83, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth82, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth81, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth71, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth72, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth73, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth74, new { @class = "txtsmallOld" })</td>
+                            <td>@Html.LabelFor(x => x.IndicesTeeth75, new { @class = "txtsmallOld" })</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="col-md-1">
+                @Html.Label("d= ", new { @class = "control-label" })
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(x => x.dTotalD, new { @readonly = "readonly", @class = "form-control" })
+            </div>
+            <div class="col-md-1">
+                @Html.Label("e= ", new { @class = "control-label" })
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(x => x.eTotalE, new { @readonly = "readonly", @class = "form-control" })
+            </div>
+            <div class="col-md-1">
+                @Html.Label("f= ", new { @class = "control-label" })
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(x => x.fTotalF, new { @readonly = "readonly", @class = "form-control" })
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="col-md-3">
+                @Html.Label("d + e + f= ", new { @class = "control-label" })
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(x => x.DeftTotal, new { @readonly = "readonly", @class = "form-control" })
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="col-md-12">
+        <h5><strong>GINGIVAL INDEX(GI)</strong></h5>
+        <div class="table-responsive jssum">
+        
+            <div class="colss">
+                <p class="pclass">17</p>
+                <table class="table tablenew table-bordered">
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT17_1, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT17_2, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT17_3, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT17_4, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+
+                    </tr>
+                </table>
+            </div>
+            <div class="colss">
+                <p class="pclass">16</p>
+                <table class="table tablenew table-bordered">
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT16_1, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT16_2, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT16_3, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT16_4, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+
+                    </tr>
+                </table>
+            </div>
+            <div class="colss">
+                <p class="pclass">15</p>
+                <table class="table tablenew table-bordered">
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT15_1, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT15_2, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT15_3, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT15_4, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="colss">
+                <p class="pclass">14</p>
+                <table class="table tablenew table-bordered">
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT14_1, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT14_2, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT14_3, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT14_4, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="colss">
+                <p class="pclass">13</p>
+                <table class="table tablenew table-bordered">
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT13_1, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT13_2, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT13_3, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT13_4, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="colss">
+                <p class="pclass">12</p>
+                <table class="table tablenew table-bordered">
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT12_1, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT12_2, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT12_3, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT12_4, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="colss">
+                <p class="pclass">11</p>
+                <table class="table tablenew table-bordered">
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT11_1, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT11_2, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT11_3, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT11_4, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+
+                    </tr>
+                </table>
+            </div>
+            <div class="colss">
+                <p class="pclass">21</p>
+                <table class="table tablenew table-bordered">
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT21_1, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT21_2, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT21_3, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT21_4, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="colss">
+                <p class="pclass">22</p>
+                <table class="table tablenew table-bordered">
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT22_1, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT22_2, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT22_3, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT22_4, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="colss">
+                <p class="pclass">23</p>
+                <table class="table tablenew table-bordered">
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT23_1, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT23_2, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT23_3, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT23_4, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="colss">
+                <p class="pclass">24</p>
+                <table class="table tablenew table-bordered">
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT24_1, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT24_2, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT24_3, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT24_4, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="colss">
+                <p class="pclass">25</p>
+                <table class="table tablenew table-bordered">
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT25_1, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT25_2, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT25_3, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT25_4, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="colss">
+                <p class="pclass">26</p>
+                <table class="table tablenew table-bordered">
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT26_1, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT26_2, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT26_3, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT26_4, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="colss">
+                <p class="pclass">27</p>
+                <table class="table tablenew table-bordered">
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT27_1, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT27_2, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT27_3, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT27_4, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                </table>
+            </div>
+          
+          
+            <div class="colss">
+                <p class="pclass">47</p>
+                <table class="table tablenew table-bordered">
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT47_1, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT47_2, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT47_3, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT47_4, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="colss">
+                <p class="pclass">46</p>
+                <table class="table tablenew table-bordered">
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT46_1, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT46_2, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT46_3, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT46_4, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="colss">
+                <p class="pclass">45</p>
+                <table class="table tablenew table-bordered">
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT45_1, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT45_2, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT45_3, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT45_4, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="colss">
+                <p class="pclass">44</p>
+                <table class="table tablenew table-bordered">
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT44_1, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT44_2, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT44_3, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT44_4, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="colss">
+                <p class="pclass">43</p>
+                <table class="table tablenew table-bordered">
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT43_1, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT43_2, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT43_3, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT43_4, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="colss">
+                <p class="pclass">42</p>
+                <table class="table tablenew table-bordered">
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT42_1, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT42_2, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT42_3, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT42_4, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="colss">
+                <p class="pclass">41</p>
+                <table class="table tablenew table-bordered">
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT41_1, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT41_2, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT41_3, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT41_4, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="colss">
+                <p class="pclass">31</p>
+                <table class="table tablenew table-bordered">
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT31_1, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT31_2, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT31_3, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT31_4, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="colss">
+                <p class="pclass">32</p>
+                <table class="table tablenew table-bordered">
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT32_1, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT32_2, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT32_3, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT32_4, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="colss">
+                <p class="pclass">33</p>
+                <table class="table tablenew table-bordered">
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT33_1, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT33_2, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT33_3, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT33_4, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="colss">
+                <p class="pclass">34</p>
+                <table class="table tablenew table-bordered">
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT34_1, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT34_2, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT34_3, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT34_4, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="colss">
+                <p class="pclass">35</p>
+                <table class="table tablenew table-bordered">
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT35_1, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT35_2, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT35_3, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT35_4, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="colss">
+                <p class="pclass">36</p>
+                <table class="table tablenew table-bordered">
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT36_1, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT36_2, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT36_3, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT36_4, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="colss">
+                <p class="pclass">37</p>
+                <table class="table tablenew table-bordered">
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT37_1, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT37_2, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.TextBoxFor(x => x.GIT37_3, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td>@Html.TextBoxFor(x => x.GIT37_4, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                    </tr>
+                </table>
+            </div>
+         
+        </div>
+        <table>
+            <tr>
+                <td><h5><strong>GI Score  =  Total Scores / Number of Teeth X 4  =</strong></h5> </td>
+                <td><strong>@Html.DisplayFor(x => x.GIndexTotal)</strong></td>
+            </tr>
+        </table>
+    </div>
+    <h5><strong>ORAL HYGIENE INDEX-SIMPLIFIED(OHI-2) by Green & Vermillion</strong></h5>
+
+    <table>
+        <tr>
+            <td class="col60">
+                <h5> Simplified Debris Index(DI-S) </h5>
+                <table class="table tablenew table-bordered">
+                    <tr>
+                        <td>@Html.LabelFor(x => x.T16, new { @class = "col-lg-6 control-label" })</td>
+                        <td>@Html.LabelFor(x => x.T11, new { @class = "col-lg-6 control-label" })</td>
+                        <td>@Html.LabelFor(x => x.T26, new { @class = "col-lg-6 control-label" })</td>
+                        <td>@Html.LabelFor(x => x.Total, new { @class = "col-lg-6 control-label" })</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">@Html.TextBoxFor(x => x.DIT_1, new { @class = "txtsmall", @readonly = "readonly" })</td>
+                        <td class="text-center">@Html.TextBoxFor(x => x.DIT_2, new { @class = "txtsmall", @readonly = "readonly" })</td>
+                        <td class="text-center">@Html.TextBoxFor(x => x.DIT_3, new { @class = "txtsmall", @readonly = "readonly" })</td>
+                        <td class="text-center">@Html.TextBoxFor(x => x.DIUpperTotal, new { @class = "txtsmall", @readonly = "readonly", })</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">@Html.TextBoxFor(x => x.DIT_4, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                        <td class="text-center">@Html.TextBoxFor(x => x.DIT_5, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                        <td class="text-center">@Html.TextBoxFor(x => x.DIT_6, new { @class = "txtsmall OnlyNumber", maxlength = "1" })</td>
+                        <td class="text-center">@Html.TextBoxFor(x => x.DILowerTotal, new { @class = "txtsmall", @readonly = "readonly", })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(x => x.T46, new { @class = "col-lg-6 control-label" })</td>
+                        <td>@Html.LabelFor(x => x.T31, new { @class = "col-lg-6 control-label" })</td>
+                        <td>@Html.LabelFor(x => x.T36, new { @class = "col-lg-6 control-label" })</td>
+                    </tr>
+                </table>
+            </td>
+            <td class="col60">
+                <h5>Simplified Calculus Index(CI-S)</h5>
+                <table class="table tablenew table-bordered">
+                    <tr>
+                        <td>@Html.LabelFor(x => x.T16, new { @class = "col-lg-6 control-label" })</td>
+                        <td>@Html.LabelFor(x => x.T11, new { @class = "col-lg-6 control-label" })</td>
+                        <td>@Html.LabelFor(x => x.T26, new { @class = "col-lg-6 control-label" })</td>
+                        <td>@Html.LabelFor(x => x.Total, new { @class = "col-lg-6 control-label" })</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">@Html.TextBoxFor(x => x.CIT_1, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td class="text-center">@Html.TextBoxFor(x => x.CIT_2, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td class="text-center">@Html.TextBoxFor(x => x.CIT_3, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td class="text-center">@Html.TextBoxFor(x => x.CIUpperTotal, new { @class = "txtsmall", @readonly = "readonly", })</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">@Html.TextBoxFor(x => x.CIT_4, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td class="text-center">@Html.TextBoxFor(x => x.CIT_5, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td class="text-center">@Html.TextBoxFor(x => x.CIT_6, new { @class = "txtsmall OnlyNumber", maxlength = "1", @readonly = "readonly" })</td>
+                        <td class="text-center">@Html.TextBoxFor(x => x.CILowerTotal, new { @class = "txtsmall", @readonly = "readonly", })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(x => x.T46, new { @class = "col-lg-6 control-label" })</td>
+                        <td>@Html.LabelFor(x => x.T31, new { @class = "col-lg-6 control-label" })</td>
+                        <td>@Html.LabelFor(x => x.T36, new { @class = "col-lg-6 control-label" })</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr>
+            <td class="col80">
+                <table>
+                    <tr>
+                        <td><h5><strong>DI-S Score  =</strong></h5> </td>
+                        <td><strong>@Html.DisplayFor(x => x.DITotal)</strong></td>
+                    </tr>
+                </table>
+            </td>
+            <td class="col80">
+                <table>
+                    <tr>
+                        <td><h5><strong>CI-S Score  = </strong></h5> </td>
+                        <td><strong>@Html.DisplayFor(x => x.CITotal)</strong></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+
+
+    <div class="col-md-12">
+        <table>
+            <tr>
+                <td><h5><strong>OHI-S Score = DI-S + CI-S  = </strong></h5> </td>
+                <td><strong>@Html.DisplayFor(x => x.OHITotal)</strong></td>
+            </tr>
+        </table>
+    </div>
+    <br />
+    
+</div>

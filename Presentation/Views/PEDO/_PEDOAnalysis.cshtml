@@ -1,0 +1,327 @@
+﻿@using Metron.Entities
+@model DIMS.ViewModels.PEDOViewModel
+@helper CreateCheckbox(string value)
+{
+    @Html.CheckBox("chkBox", !string.IsNullOrEmpty(value), new { @class = "checkbox-inline" })
+}
+@functions {
+    object getHtmlAttributes(string value, string CssClass)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            return new { @class = CssClass, disabled = "disabled" };
+        }
+        return new { @class = CssClass };
+    }
+}
+@functions{
+    public string GetClassFromProperties(string propertyName)
+    {
+        var props = Model.Proplist.FirstOrDefault<PEDOCasesheetProperties>(x => x.PropertyName == propertyName);
+        if (props != null && props.PropertyVisibility == "N")
+        {
+            return "display:none";
+        }
+        return "";
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default collapsed-box">
+            <div class="box-header with-border">
+                <h3 class="box-title">Complete Records</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+         
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.StudyModelsDesc, new { @class = "col-md-2 control-label " })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(x => x.StudyModelsDesc, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.XrayDesc, new { @class = "col-md-2 control-label " })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(x => x.XrayDesc, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.CephalogramDesc, new { @class = "col-md-2 control-label " })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(x => x.CephalogramDesc, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.CarpelXrayDesc, new { @class = "col-md-2 control-label " })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(x => x.CarpelXrayDesc, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.PhotographsDesc, new { @class = "col-md-2 control-label " })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(x => x.PhotographsDesc, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="row hidden">
+    <div class="col-md-12">
+        <h5 class="subHeading"><b>WITS APPRAISAL</b></h5>
+    </div>
+    <div class="col-md-6 left">
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(x => x.WitsAppraisalAo, new { @class = "col-md-3 control-label " })
+                <div class="col-md-9">
+                    @Html.TextAreaFor(x => x.WitsAppraisalAo, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group form-group-sm">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-9">
+                    <h6 style="color: #000000"><b>1.In males BO is 1mm ahead of AO</b></h6>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group form-group-sm">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-9">
+                    <h6 style="color: #000000"><b>2.In females AO and BO coincide</b></h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(x => x.WitsAppraisalBo, new { @class = "col-md-3 control-label " })
+                <div class="col-md-9">
+                    @Html.TextAreaFor(x => x.WitsAppraisalBo, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group form-group-sm">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-9">
+                    <h6 style="color: #000000"><b>3.In skeletal Class II-BO behind AO</b></h6>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group form-group-sm">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-9">
+                    <h6 style="color: #000000"><b>4.In skeletal Class III-BO anterior to AO</b></h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row hidden">
+    <div class="col-md-12">
+        <h5 class="subHeading"><b>Mc NAMARA ANALYSIS</b></h5>
+    </div>
+    <div class="col-md-6 left">
+        <h6 style="color: #357ebd"><b>Skeletal study</b></h6>
+    </div>
+    <div class="col-md-6 ">
+        <h5 style="color: #ffffff"><b>Skeletal</b></h5>
+    </div>
+    <div class="col-md-6 left">
+        <div class="row">
+            <div class="form-group form-group-sm">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-9">
+                    <h6 style="color: #000000"><b>1.McNamara’s line or Nasion Perpendicular (Nasion to Chin Perpendicular to FH)</b></h6>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group form-group-sm">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-9">
+                    <h6 style="color: #000000"><b>2.Point A to Nasion Perpendicular</b></h6>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group form-group-sm">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-8">
+                    <h6 style="color: #000000"><b>a.(+)-  if Point A ahead of vertical line</b></h6>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group form-group-sm">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-8">
+                    <h6 style="color: #000000"><b>b.(-)-  If Point A behind vertical line</b></h6>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group form-group-sm">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-8">
+                    <h6 style="color: #000000"><b>c.Norm for mixed dentition = 0mm</b></h6>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group form-group-sm">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-8">
+                    <h6 style="color: #000000"><b>d.Norm for adults= 1 mm</b></h6>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group form-group-sm">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-9">
+                    <h6 style="color: #000000"><b>3.Pogonion to Nasion Perpendicular</b></h6>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group form-group-sm">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-8">
+                    <h6 style="color: #000000"><b>a.(+)-  If pogonion lies anterior to nasion perpendicular</b></h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="form-group form-group-sm">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-8">
+                    <h6 style="color: #000000"><b>b.(-)- If pogonion lies behind Nasion Perpendicular</b></h6>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group form-group-sm">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-8">
+                    <h6 style="color: #000000"><b>c.Norm for mixed dentition= -8 to -6mm</b></h6>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group form-group-sm">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-9">
+                    <h6 style="color: #000000"><b>4.Maxillary length or mid facial length (Distance from Condylion to Point A)</b></h6>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group form-group-sm">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-9">
+                    <h6 style="color: #000000"><b>5.Mandibular length (Disatnce from Condylion to Gnathion)</b></h6>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group form-group-sm">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-9">
+                    <h6 style="color: #000000"><b>6.Lower anterior facial height (From ANS to Menton)</b></h6>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group form-group-sm">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-8">
+                    <h6 style="color: #000000"><b>a.An increase or decrease in measure can have profound effect on horizontal relationship of maxilla and  mandible</b></h6>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group form-group-sm">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-8">
+                    <h6 style="color: #000000"><b>b.Measurement increases with age and correlates with maxillary length</b></h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row hidden">
+    <div class="col-md-12">
+        <h5 style="color: #357ebd"><b>VERTICAL RELATIONSHIP</b></h5>
+    </div>
+    <div class="col-md-6 left">
+        <div class="row">
+            <div class="form-group form-group-sm">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-8">
+                    <h6 style="color: #000000"><b>a.Mandibular plane angle= 22O+ 4</b></h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="form-group form-group-sm">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-8">
+                    <h6 style="color: #000000"><b>b.Facial axis angle= 900</b></h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

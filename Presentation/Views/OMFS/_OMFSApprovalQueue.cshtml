@@ -1,0 +1,159 @@
+﻿@model DIMS.ViewModels.CasesheetApprovalListViewModel
+
+@{
+    ViewBag.Title = "OMFSApproval";
+}
+
+<div class="row">
+
+
+    <div class="col-md-12">
+        <div class="col-md-2 form-group form-group-sm">
+            @Html.LabelFor(x => x.DateRange, new { @class = "control-label" })
+        </div>
+        <div class="col-md-3 form-group form-group-sm">
+            @Html.EditorFor(model => model.DateRange, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+        <div class="col-md-7 form-group form-group-sm hidden">
+            @Html.DropDownListFor(model => model.TreatmentId, new SelectList(Model.TreatmentTypeDetails, "TreatmentId", "TreatmentName"), htmlAttributes: new { @class = "form-control" })
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">OMFS Approval</h3>
+            </div>
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table id="tbOMFSApproval" class="table table-bordered table-hover" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>OP # </th>
+                                <th>PATIENT NAME</th>
+                                <th>AGE</th>
+                                @*<th hidden>APPROVAL</th>*@
+                                <th>STUDENT NAME</th>
+                                <th>COURSE</th>
+                                <th>APPROVAL STATUS</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="form-group form-group-sm">
+    @{
+        if (TempData["message"] != null)
+        {
+            <script type="text/javascript">
+                                    alert(@Html.Raw(Json.Encode(TempData["message"])));
+            </script>
+        }
+    }
+</div>
+
+@section scripts {
+    <script type="text/jscript">
+
+        $(document).ready(function () {
+            var start = moment();
+            var end = moment();
+            $('#DateRange').daterangepicker({
+                startDate: start,
+                endDate: end,
+                locale: {
+                    format: 'DD/MM/YYYY'
+                },
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                }
+            }, cb);
+            function cb(start, end) {
+                $('#DateRange span').html(start.format('YYYY/MM/DD') + ' - ' + end.format('YYYY/MM/DD'));
+            }
+            cb(start, end);
+
+
+
+            var Searchvalue = function () {
+                var itemIndex = $("#tbOMFSApproval input.iHidden").length;
+                $('#tbOMFSApproval tbody').empty();
+                var selected = $("#DateRange").val();
+                var from = selected.split("-");
+                var fromdate = $.trim(from[0]);
+                var todate = $.trim(from[1]);
+
+                var $From_Date = fromdate.split("/").reverse().join("-");
+                var $To_Date = todate.split("/").reverse().join("-");
+
+                //var $From_Date = $("#From_Date").val();
+                //var $To_Date = $("#To_Date").val();
+                var $Treament_Id = $("#TreatmentId").val();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetOMFSApprovalList", "OMFS")',
+                    data: '{From_Date: "' + $From_Date + ' ",To_Date: "' + $To_Date + ' ",TreatmentId: "' + $Treament_Id + ' "}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        Approval = $('#tbOMFSApproval').DataTable();
+                        Approval.destroy();
+                        $('#tbOMFSApproval').dataTable({
+                            data: data,
+                            columns: [
+                                { 'data': 'OpNo' },
+                                { 'data': 'PatientName' },
+                                { 'data': 'Age' },
+                                //{ 'data': 'DoctorApproval' },
+                                { 'data': 'StudentName' },
+                                { 'data': 'CourseName' },
+                                {
+                                    'data': 'ApprovalTypeVal',
+                                    'render': function (ApprovalType) {
+                                        if (ApprovalType == "Waiting for 1st Approval" || ApprovalType == "Waiting for 2nd Approval" || ApprovalType == "Waiting for 3rd Approval") {
+                                            return '<span class="text-orange">' + ApprovalType + '</span>';
+                                        }
+                                        else if (ApprovalType == "1st level" || ApprovalType == "2nd level" || ApprovalType == "Final level") {
+                                            return '<span class="text-green">' + ApprovalType + '</span>';
+                                        }
+                                        else
+                                        {
+                                            ApprovalType = "Investigation/Referral added";
+                                            return '<span class="text-orange">' + ApprovalType + '</span>';
+                                        }
+                                    }
+                                },
+                                {
+                                    'data': 'Link',
+                                    'searchable': false,
+                                    'sortable': false,
+                                    'render': function (Link) {
+                                        //return '<a href=' + Link + '>View</a>';
+                                        return '<a href=' + Link + ' class="btn btn-primary btn-xs" >View & Approve</a>';
+                                    }
+                                },
+                            ]
+                        })
+                    },
+                })
+            }
+            Searchvalue();
+            $("#DateRange").on("change", function () {
+                Searchvalue();
+            })
+        });
+    </script>
+}
+
+

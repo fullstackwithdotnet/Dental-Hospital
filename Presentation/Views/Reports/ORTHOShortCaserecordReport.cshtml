@@ -1,0 +1,364 @@
+﻿ @model DIMS.ViewModels.OrthoViewModal
+
+@{
+    ViewBag.Title = "ORTHOShortCaserecordReport";
+}
+
+<style>
+    .col30 {
+        width: 30%;
+        padding: 5px !important;
+    }
+
+    .col40 {
+        width: 40%;
+        padding: 5px !important;
+    }
+
+    .col50 {
+        width: 50%;
+        padding: 5px !important;
+    }
+
+    .col60 {
+        width: 60%;
+        padding: 5px !important;
+    }
+
+    .col70 {
+        width: 70%;
+        padding: 5px !important;
+    }
+
+    .col80 {
+        width: 80%;
+        padding: 5px !important;
+    }
+
+    .col35 {
+        width: 35%;
+        padding: 5px !important;
+    }
+
+    .col20 {
+        width: 20%;
+        padding: 5px !important;
+    }
+
+    .col625 {
+        width: 6%;
+        padding: 5px !important;
+    }
+
+    .col5 {
+        width: 10%;
+        padding: 5px !important;
+    }
+
+    .col10 {
+        width: 10%;
+        padding: 5px !important;
+    }
+</style>
+
+@functions{
+    public string IsVisible(string propertyName)
+    {
+        if (propertyName == null)
+        {
+            return "display:none";
+        }
+        return "";
+    }
+
+}
+
+<div class="box box-default box-solid">
+    <div class="box-header with-border">
+        <h3 class="box-title"><strong>Orthodontics Patient Short Casesheet</strong></h3>
+        <div class="box-tools pull-right text-black ">
+            Case Record #
+            <strong>@Html.DisplayFor(model => model.OrthoNo)</strong>
+        </div>
+    </div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <h4><strong>Patient Details</strong></h4>
+                    @Html.Partial("../Reports/_PatientDetailsReportHeader", Model.patientInformationViewModel)
+
+                    <h4><strong>History</strong></h4>
+                    <table class="table table-bordered">
+                        <tr style='@IsVisible(@Model.ChiefComplaint)'>
+                            <td class="col30">@Html.DisplayNameFor(model => model.ChiefComplaintName)</td>
+                            <td class="col70">@Html.DisplayFor(model => model.ChiefComplaint)</td>
+                        </tr>
+                    </table>
+                    @if (Model.ShortFacialSymmetry != null || Model.LipsShort != null || Model.FaceProfile != null
+        || Model.GrowthPattern != null || Model.NasoLabialAngleDn != null || Model.FaceDivergence != null)
+
+                    {
+                        <h4 class="text-center">Extra Oral Examination</h4>
+                        <table class="table table-bordered">
+                            <tr style='@IsVisible(@Model.ShortFacialSymmetry)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.ShortFacialSymmetry)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.ShortFacialSymmetry)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.FaceProfile)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.FaceProfile)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.FaceProfile)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.NasoLabialAngleDn)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.NasoLabialAngleDn)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.NasoLabialAngleDn)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.LipsShort)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.LipsShort)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.LipsShort)</td>
+                            </tr>
+
+                            <tr style='@IsVisible(@Model.GrowthPattern)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.GrowthPattern)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.GrowthPattern)</td>
+                            </tr>
+
+                            <tr style='@IsVisible(@Model.FaceDivergence)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.FaceDivergence)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.FaceDivergence)</td>
+                            </tr>
+                        </table>
+                    }
+
+
+                    <h4 class="text-center">Intra Oral Examination</h4>
+                    <h6>Abbreviation</h6>
+                    <table class="table table-bordered">
+                        <tr>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothUl8)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothUl7)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothUl6)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothUl5)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothUl4)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothUl3)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothUl2)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothUl1)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothUr1)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothUr2)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothUr3)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothUr4)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothUr5)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothUr6)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothUr7)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothUr8)</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothUl8)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothUl7)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothUl6)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothUl5)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothUl4)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothUl3)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothUl2)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothUl1)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothUr1)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothUr2)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothUr3)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothUr4)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothUr5)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothUr6)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothUr7)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothUr8)</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothLl8)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothLl7)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothLl6)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothLl5)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothLl4)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothLl3)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothLl2)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothLl1)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothLr1)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothLr2)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothLr3)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothLr4)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothLr5)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothLr6)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothLr7)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothLr8)</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothLl8)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothLl7)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothLl6)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothLl5)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothLl4)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothLl3)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothLl2)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothLl1)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothLr1)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothLr2)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothLr3)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothLr4)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothLr5)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothLr6)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothLr7)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothLr8)</strong></td>
+                        </tr>
+                    </table>
+
+                    <h6>Decidious Teeth</h6>
+                    <table class="table table-bordered">
+                        <tr>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothUlE)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothUlD)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothUlC)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothUlB)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothUlA)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothUrA)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothUrB)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothUrC)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothUrD)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothUrE)</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothUlE)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothUlD)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothUlC)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothUlB)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothUlA)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothUrA)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothUrB)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothUrC)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothUrD)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothUrE)</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothLlE)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothLlD)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothLlC)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothLlB)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothLlA)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothLlA)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothLlB)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothLlC)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothLlD)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayFor(model => model.ToothLlE)</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothLlE)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothLlD)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothLlC)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothLlB)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothLlA)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothLlA)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothLlB)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothLlC)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothLlD)</strong></td>
+                            <td class="col625"><strong>@Html.DisplayNameFor(model => model.ToothLlE)</strong></td>
+                        </tr>
+                    </table>
+                    @if (Model.MolarRelationRShort != null || Model.MolarRelationLShort != null || Model.CanineRelationLShort != null
+               || Model.CanineRelationRShort != null || Model.CrossbiteShort != null)
+                    {
+                        <table class="table table-bordered">
+                            <tr style='@IsVisible(@Model.MolarRelationRShort)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MolarRelationRShort)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.MolarRelationRShort)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.MolarRelationLShort)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MolarRelationLShort)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.MolarRelationLShort)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.CanineRelationRShort)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.CanineRelationRShort)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.CanineRelationRShort)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.CanineRelationLShort)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.CanineRelationLShort)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.CanineRelationLShort)</td>
+                            </tr>
+
+                            <tr style='@IsVisible(@Model.CrossbiteShort)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.CrossbiteShort)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.CrossbiteShort)</td>
+                            </tr>
+
+                        </table>
+                    }
+                    @if (Model.FunctionalExamination != null || Model.HabitsDesc != null || Model.InvestigationsInterpretation != null
+       || Model.RadiographInterpretation != null || Model.Diagnosis != null || Model.FixedMechanotheraphy != null)
+                    {
+                        <h4 class="text-center">Others</h4>
+                        <table class="table table-bordered">
+                            <tr style='@IsVisible(@Model.FunctionalExamination)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.FunctionalExamination)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.FunctionalExamination)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.HabitsDesc)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.HabitsDesc)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.HabitsDesc)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.InvestigationsInterpretation)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.InvestigationsInterpretation)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.InvestigationsInterpretation)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.RadiographInterpretation)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.RadiographInterpretation)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.RadiographInterpretation)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.Diagnosis)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.Diagnosis)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.Diagnosis)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.FixedMechanotheraphy)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.FixedMechanotheraphy)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.FixedMechanotheraphy)</td>
+                            </tr>
+                        </table>
+                    }
+                    @if (Model.paidInvestigationList.Count() > 0)
+                    {
+                        <h4><strong>Investigations</strong></h4>
+                        @Html.Partial("../Reports/_PaidInvestigationList", Model.paidInvestigationList)
+                    }
+
+                    @if (Model.deptTreatmentList.Count() > 0)
+                    {
+                        <h4><strong>Treatment Details</strong></h4>
+                        @Html.Partial("../Reports/_DeptTreatmentList", Model.deptTreatmentList)
+                    }
+
+
+                    @if (Model.studentProcedureNotesViewModel.Count() > 0)
+                    {
+                        <h4><strong>Procedure Notes Details</strong></h4>
+                        @Html.Partial("../StudentAllotment/_ProdedureNoteDetails", Model.studentProcedureNotesViewModel)
+                    }
+
+                    @if (Model.followupList.Count() > 0)
+                    {
+                        <h4><strong>Appointment Details</strong></h4>
+                        @Html.Partial("../Followup/_PatientFollowUpList", Model.followupList)
+                    }
+                    @if (Model.FileUploadlist.Count() > 0)
+                    {
+                        <h4><strong>Images</strong></h4>
+                        @Html.Partial("../Reports/_RadAndPhotoImagesReport", Model.FileUploadlist)
+                    }
+
+                    @if (Model.ViewdepartmentReferredStatus.Count() > 0)
+                    {
+                        <h4><strong>Referral Details</strong></h4>
+                        @Html.Partial("../Reports/ViewReferralReport", Model.ViewdepartmentReferredStatus)
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

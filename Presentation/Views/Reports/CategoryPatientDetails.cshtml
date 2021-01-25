@@ -1,0 +1,199 @@
+﻿@model DIMS.ViewModels.ReportSearchViewModel
+
+
+<div class="box box-info">
+    <div class="box-body">
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <td style="border-top:none">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.From_Date, new { @class = "control-label" })
+                        </div>
+                    </td>
+                    <td style="border-top:none">
+                        <div class="form-group form-group-sm">
+                            @Html.EditorFor(model => model.From_Date, new { htmlAttributes = new { Value = Model.From_Date.ToString("yyyy-MM-dd") } })
+                        </div>
+                    </td>
+                    <td style="border-top:none">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.To_Date, new { @class = "control-label" })
+                        </div>
+                    </td>
+                    <td style="border-top:none">
+                        <div class="form-group form-group-sm">
+                            @Html.EditorFor(model => model.To_Date, new { htmlAttributes = new { Value = Model.From_Date.ToString("yyyy-MM-dd") } })
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border-top:none">
+                        <div class="form-group form-group-sm">
+                            <select id="VisitType" class="form-control">
+                                <option value="B">Select</option>
+                                <option value="N">N</option>
+                                <option value="R">R</option>
+                                <option value="T">T</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td style="border-top:none">
+                        <div class="form-group form-group-sm">
+                            @Html.DropDownListFor(model => model.CategoryId, new SelectList(Model.categoryList, "CategoryId", "CategoryName"), htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </td>
+                    <td colspan="2" style="border-top:none">
+                        <div class="form-group form-group-sm">
+                            @Html.TextBoxFor(x => x.Area, new { @class = "form-control", placeholder = "Type Area" })
+                        </div>
+                    </td>
+                    <td style="border-top:none">
+                        <div class="form-group form-group-sm">
+                            <a id="btnSearch"> <i class="fa fa-search fa fa-search btn btn-success"> Search</i></a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title"> Patient Census Category Details</h3>
+            </div>
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table id="tbCategoryDetails" class="table table-bordered table-hover" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th class="col-md-1">S.NO</th>
+                                <th class="col-md-1">DATE </th>
+                                <th class="col-md-1">OP #</th>
+                                <th class="col-md-3">PATIENT NAME</th>
+                                <th class="col-md-1">AGE</th>
+                                <th class="col-md-1">GENDER</th>
+                                <th class="col-md-1">VISIT TYPE</th>
+                                <th class="col-md-1">CATEGORY</th>
+                                <th class="col-md-2">AREA</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<link href="~/Content/buttons.dataTables.min.css" rel="stylesheet" />
+
+
+
+@section scripts {
+    <script src="~/Scripts/dataTables.buttons.min.js"></script>
+    <script src="~/Scripts/buttons.flash.min.js"></script>
+    <script src="~/Scripts/jszip.min.js"></script>
+    <script src="~/Scripts/pdfmake.min.js"></script>
+    <script src="~/Scripts/vfs_fonts.js"></script>
+    <script src="~/Scripts/buttons.html5.min.js"></script>
+    <script src="~/Scripts/buttons.print.min.js"></script>
+    <script type="text/jscript">
+
+        $(document).ready(function () {
+
+            $('#btnSearch').on('click', function (e) {
+                e.preventDefault();
+                Searchvalue();
+            });
+
+            var Searchvalue = function () {
+                $('#tbCategoryDetails tbody').empty();
+                
+                var $From_Date = $("#From_Date").val();
+                var $To_Date = $("#To_Date").val();
+                var $VisitType = $("#VisitType").val();
+                var $CategoryId = $("#CategoryId").val();
+                var $CategoryName = $("#CategoryId option:selected").text();
+                var $Area = $("#Area").val();
+                if ($VisitType == "N") {
+                    var $VisitTypeName = "New Visit";
+                }
+                else if ($VisitType == "R") {
+                    var $VisitTypeName = "Revisit";
+                }
+                else {
+                    var $VisitTypeName = "Both";
+                }
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetCategoryDetailsList", "Report")',
+                    data: '{From_Date: "' + $From_Date + ' ",To_Date: "' + $To_Date + ' ",VisitType: "' + $VisitType + ' ",CategoryId: "' + $CategoryId + ' ",Area: "' + $Area + ' "}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        table = $('#tbCategoryDetails').DataTable();
+                        table.destroy();
+                        $('#tbCategoryDetails').dataTable({
+                            data: data,
+                            columns: [
+                                { 'data': 'RowNum' },
+                                { 'data': 'DisplayDate' },
+                                { 'data': 'OpNo' },
+                                { 'data': 'PatientName' },
+                                { 'data': 'Age' },
+                                { 'data': 'GenderName' },
+                                { 'data': 'VisitType' },
+                                { 'data': 'CategoryName' },
+                                { 'data': 'Area' },
+                            ],
+                            "dom": "Bfrtip",
+                            "buttons": [
+                                {
+                                    extend: 'copy',
+                                    className: 'copyButton',
+                                    text: '<i class ="fa fa-clone"></i>Copy'
+
+                                },
+                                {
+                                    extend: 'excel',
+                                    text: '<i class ="fa fa-file-excel-o"></i>Excel'
+
+                                },
+                                 {
+                                     extend: 'pdf',
+                                     text: '<i class ="fa fa-file-pdf-o"></i>Pdf'
+
+                                 },
+                                 {
+                                     extend: 'csv',
+                                     text: '<i class ="fa fa-file-excel-o"></i>CSV'
+
+                                 },
+                                 {
+                                     extend: 'print',
+                                     messageTop: '<h3 class="text-center" style="margin-bottom:0;margin-top:0;">Patient Census Category </h3><br/><h4 class="text-center" style="margin-bottom:0;margin-top:0;"> From &nbsp ' + $From_Date + ' &nbsp To &nbsp  ' + $To_Date + '</h4><br/><h4 class="text-center" style="margin-top:0;">  Visit Type : ' + $VisitTypeName + ' &nbsp Category : ' + $CategoryName + '&nbsp Area : ' + $Area + '</h4>',
+                                     customize: function (win) {
+                                         $(win.document.body)
+                                             .css('font-size', '10pt')
+                                             .prepend(
+                                                 '<img src="~/Content/logo-fade.png" style="position:absolute; top:0; left:0;" />'
+                                             );
+
+                                         $(win.document.body).find('table')
+                                             .addClass('compact')
+                                             .css('font-size', 'inherit');
+                                     }
+                                 }
+                            ]
+                        })
+                    },
+                })
+            }
+            Searchvalue();
+        });
+
+
+    </script>
+}

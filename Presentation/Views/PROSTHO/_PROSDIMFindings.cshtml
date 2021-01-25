@@ -1,0 +1,199 @@
+﻿@using Metron.Entities
+@model DIMS.ViewModels.PROSDIMViewModel
+@functions{
+    public string GetClassFromProperties(string propertyName)
+    {
+        var props = Model.Proplist.FirstOrDefault<PROSDIMCasesheetProperties>(x => x.PropertyName == propertyName);
+
+        if (props != null && props.PropertyVisibility == "N")
+        {
+            return "display:none";
+        }
+
+        return "";
+    }
+}
+
+
+<div class="form-horizontal">
+    @Html.ValidationSummary(true)
+
+    <div class="row">
+        <div class="col-md-6">
+            <h5 class="subHeading1">IOPA</h5>
+            <div id="divFindConditionOfBone">
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(model => model.FindConditionOfBone, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.FindConditionOfBone, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="divRootInclination">
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(model => model.RootInclination, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.RootInclination, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="divFindOthers">
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(model => model.FindOthers, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.FindOthers, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <h5 class="subHeading1">CBCT/MDCT</h5>
+            <div id="divCBCTMDCT">
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(model => model.CBCTMDCT, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextAreaFor(x => x.CBCTMDCT, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="divBoneMapping">
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(model => model.BoneMapping, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextAreaFor(x => x.BoneMapping, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h5 class="subHeading1">OPG</h5>
+            <h5>Distance from the crest of the ridge to</h5>
+            <div id="divMaxillarySinus">
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(model => model.MaxillarySinus, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.MaxillarySinus, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="divInteriorAlveolar">
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(model => model.InteriorAlveolar, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.InteriorAlveolar, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="divNasalFloor">
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(model => model.NasalFloor, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.NasalFloor, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="divPositionOfIncisive">
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(model => model.PositionOfIncisive, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.PositionOfIncisive, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h5 style="color:white">.</h5>
+            <div id="divPositionOfMental">
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(model => model.PositionOfMental, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.PositionOfMental, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="divAdjacentTeeth">
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(model => model.AdjacentTeeth, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.AdjacentTeeth, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="divConditionOfBone">
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(model => model.ConditionOfBone, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.ConditionOfBone, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="divOthers">
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(model => model.Others, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextAreaFor(x => x.Others, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h5 class="subHeading">FABRICATION OF STENTS FOR DIAGNOSIS</h5>
+            <h5 class="subHeading1">Measurements</h5>
+            <div id="divActual">
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(model => model.Actual, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextAreaFor(x => x.Actual, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h5 style="color:white">.</h5>
+            <h5 style="color: white">.</h5>
+            <div id="divMagnifactionFactor">
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(model => model.MagnifactionFactor, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextAreaFor(x => x.MagnifactionFactor, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

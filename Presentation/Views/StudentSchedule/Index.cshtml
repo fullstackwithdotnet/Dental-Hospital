@@ -1,0 +1,139 @@
+﻿@model DIMS.ViewModels.StudentScheduleViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+<h4>Student Schedule Search</h4>
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel-body">
+                <div>
+
+                    @Html.ActionLink("Create Schedule", "Create")
+
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            <td>
+                                <div class="form-group form-group-sm">
+
+                                    @Html.LabelFor(x => x.SchFromDate, new { @class = "control-label" })
+
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group form-group-sm">
+                                    @Html.EditorFor(model => model.SchFromDate, new { htmlAttributes = new { Value = Model.SchFromDate.ToString("yyyy-MM-dd") } })
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group form-group-sm">
+
+                                    @Html.LabelFor(x => x.SchToDate, new { @class = "control-label" })
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group form-group-sm">
+                                    @Html.EditorFor(model => model.SchToDate, new { htmlAttributes = new { Value = Model.SchToDate.ToString("yyyy-MM-dd") } })
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group form-group-sm">
+                                    @Html.DropDownListFor(model => model.DeptId, new SelectList(Model.SelectDepartmentlist, "DeptId", "DeptName"), htmlAttributes: new { @class = "form-control" })
+                                </div>
+
+                            </td>
+
+                            <td>
+                                <div class="form-group form-group-sm">
+                                    <a id="btnScheduleSearch"> <i class="fa fa-search fa fa-search btn btn-success"> Search</i></a>
+
+                                </div>
+                            </td>
+                             
+                        </tr>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <div class="box box-primary box-solid">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title"> Student Schedule Details</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="table-responsive">
+                                        <table id="tblStudentScheduletable" class="table table-bordered table-condensed table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>From Date</th>
+                                                    <th>To Date</th>
+                                                    <th>Student</th>
+                                                    <th>Reg No.</th>
+                                                    <th>Course</th>
+                                                    <th>Department</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+
+
+@section scripts {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#btnScheduleSearch').on('click', function (e) {               
+                e.preventDefault();
+                Searchvalue();
+            });
+            var Searchvalue = function () {
+                $('#tblStudentScheduletable tbody').empty();
+                
+                var $From_Date = $("#SchFromDate").val();
+                var $To_Date = $("#SchToDate").val();
+                var $DeptId = $("#DeptId").val();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetStudentScheduleSearchList", "StudentSchedule")',
+                    data: '{SchFromDate: "' + $From_Date + ' ",SchToDate: "' + $To_Date + ' ",DeptId: "' + $DeptId + ' "}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        tbReferraltable = $('#tblStudentScheduletable').DataTable();
+                        tbReferraltable.destroy();
+                        $('#tblStudentScheduletable').dataTable({
+                            data: data,
+                            columns: [
+                                { 'data': 'SchFromDateDisplay' },
+                                { 'data': 'SchToDateDisplay' },
+                                { 'data': 'StudentName' },
+                                { 'data': 'StudentRegNo' },
+                                { 'data': 'CourseName' },
+                                { 'data': 'DeptName' },
+
+                            ]
+                        })
+                    },
+                })
+            }         
+           
+            Searchvalue();
+        });
+
+    </script>
+}

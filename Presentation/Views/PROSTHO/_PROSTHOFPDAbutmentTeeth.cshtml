@@ -1,0 +1,252 @@
+﻿@model DIMS.ViewModels.PROSFPDViewModel
+@{
+    int index = 0;
+}
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.ToothNumbers, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.ToothNumbers, Model.ToothLister, htmlAttributes: new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            @Html.HiddenFor(model => model.AbutmentTeethId)
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Location, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.Location, new { @class = "form-control" })
+                                </div>
+                            </div>
+               
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Crown, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.Crown, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Vitality, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.Vitality, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Mobility, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.Mobility, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Size, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.Size, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Length, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.Length, new { @class = "form-control" })
+                                </div>
+                            </div>
+                           
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Position, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.Position, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Caries , new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.Caries, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Fracture, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.Fracture, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Discoloration, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.Discoloration, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Wearfacets, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.Wearfacets, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Restorations, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.Restorations, new { @class = "form-control" })
+                                </div>
+                            </div>
+                       
+                            <div class="col-md-12">
+                                <div class="form-group form-group-sm">
+                                    <div class="col-md-offset-4">
+                                        <a class="btn btn-success" id="btnAbutmentToothAdd">Add</a>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-hover" style="border-color:red" id="tbAbutmentToothDetails">
+                                <tr style="font-size:x-small">
+                                    <th hidden>
+                                        @Html.DisplayNameFor(model => model.ProsthoFPDId)
+                                        @Html.DisplayNameFor(model => model.AbutmentTeethId)
+                                    </th>
+                                    <th colspan="2">
+                                        Action
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ToothNumber)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Location)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Crown)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Vitality)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Mobility)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Size)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Length)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Position)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Caries)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Fracture)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Discoloration)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Wearfacets)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Restorations)
+                                    </th>
+
+                                    <th></th>
+                                </tr>
+                                @*@if (Model.AbutList != null)
+                                {*@
+                                    @foreach (var item in Model.AbutList)
+                                    {
+
+                                        <tr style="font-size:x-small">
+                                            <td class="hidden">
+                                                @Html.TextBoxFor(modelItem => item.ProsthoFPDId, new { @class = "col-sm-10", @id = "AbutList[" + index + "]_" + "ProsthoFPDId", @Name = "AbutList[" + index + "]." + "ProsthoFPDId" })
+                                                @Html.TextBoxFor(modelItem => item.AbutmentTeethId, new { @class = "col-sm-10 js_AbutmentTeethId", @id = "AbutList[" + index + "]_" + "AbutmentTeethId", @Name = "AbutList[" + index + "]." + "AbutmentTeethId" })
+                                            </td>
+                                            <td>
+                                                <button type="button" class="AbutmentTeethEdit btn btn-primary btn-xs" data-id="@item.AbutmentTeethId">
+                                                    <i class="glyphicon glyphicon-pencil"></i>
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="AbutmentTeethdelete btn btn-danger btn-xs" data-id="@item.AbutmentTeethId">
+                                                    <i class="glyphicon glyphicon-trash"></i>
+                                                </button>
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ToothNumber, new { @class = "control-label" })
+                                                @Html.HiddenFor(modelItem => item.ToothNumber, new { @class = "form-control iHidden", @id = "AbutList[" + index + "]_" + "ToothNumber", @Name = "AbutList[" + index + "]." + "ToothNumber" })
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Location, new { @class = "control-label" })
+                                                @Html.HiddenFor(modelItem => item.Location, new { @class = "form-control js_Location", @id = "AbutList[" + index + "]_" + "Location", @Name = "AbutList[" + index + "]." + "Location" })
+                                            </td>
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Crown, new { @class = "control-label" })
+                                                @Html.HiddenFor(modelItem => item.Crown, new { @class = "form-control js_Crown", @id = "AbutList[" + index + "]_" + "Crown", @Name = "AbutList[" + index + "]." + "Crown" })
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Vitality, new { @class = "control-label" })
+                                                @Html.HiddenFor(modelItem => item.Vitality, new { @class = "form-control js_Vitality", @id = "AbutList[" + index + "]_" + "Vitality", @Name = "AbutList[" + index + "]." + "Vitality" })
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Mobility, new { @class = "control-label" })
+                                                @Html.HiddenFor(modelItem => item.Mobility, new { @class = "form-control js_Mobility", @id = "AbutList[" + index + "]_" + "Mobility", @Name = "AbutList[" + index + "]." + "Mobility" })
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Size, new { @class = "control-label" })
+                                                @Html.HiddenFor(modelItem => item.Size, new { @class = "form-control js_Size", @id = "AbutList[" + index + "]_" + "Size", @Name = "AbutList[" + index + "]." + "Size" })
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Length, new { @class = "control-label" })
+                                                @Html.HiddenFor(modelItem => item.Length, new { @class = "form-control js_Length", @id = "AbutList[" + index + "]_" + "Length", @Name = "AbutList[" + index + "]." + "Length" })
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Position, new { @class = "control-label" })
+                                                @Html.HiddenFor(modelItem => item.Position, new { @class = "form-control js_Position", @id = "AbutList[" + index + "]_" + "Position", @Name = "AbutList[" + index + "]." + "Position" })
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Caries, new { @class = "control-label" })
+                                                @Html.HiddenFor(modelItem => item.Caries, new { @class = "form-control js_Caries", @id = "AbutList[" + index + "]_" + "Caries", @Name = "AbutList[" + index + "]." + "Caries" })
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Fracture, new { @class = "control-label" })
+                                                @Html.HiddenFor(modelItem => item.Fracture, new { @class = "form-control js_Fracture", @id = "AbutList[" + index + "]_" + "Fracture", @Name = "AbutList[" + index + "]." + "Fracture" })
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Discoloration, new { @class = "control-label" })
+                                                @Html.HiddenFor(modelItem => item.Discoloration, new { @class = "form-control js_Discoloration", @id = "AbutList[" + index + "]_" + "Discoloration", @Name = "AbutList[" + index + "]." + "Discoloration" })
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Wearfacets, new { @class = "control-label" })
+                                                @Html.HiddenFor(modelItem => item.Wearfacets, new { @class = "form-control js_Wearfacets", @id = "AbutList[" + index + "]_" + "Wearfacets", @Name = "AbutList[" + index + "]." + "Wearfacets" })
+
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Restorations, new { @class = "control-label" })
+                                                @Html.HiddenFor(modelItem => item.Restorations, new { @class = "form-control js_Restorations", @id = "AbutList[" + index + "]_" + "Restorations", @Name = "AbutList[" + index + "]." + "Restorations" })
+                                            </td>
+
+                                        </tr>
+                                        index++;
+                                    }
+
+                                @*}*@
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+     
+

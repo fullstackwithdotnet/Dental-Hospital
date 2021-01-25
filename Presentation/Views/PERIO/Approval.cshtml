@@ -1,0 +1,756 @@
+﻿@model DIMS.ViewModels.PERIOViewModel
+
+@{
+    ViewBag.Title = "Approval";
+}
+
+@*@{var approvalYN = "Y";}*@
+
+@functions
+{
+    public List<string> UserRights()
+    {
+        var user = User as DIMS.Infrastructure.CustomPrincipal;
+        return user.UserRights(DIMS.Enums.Department.PERIO);
+    }
+}
+@functions
+    {
+    public string GetUrl()
+    {
+        var user = User as DIMS.Infrastructure.CustomPrincipal;
+        return user.GetRootUrl();
+    }
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+        <div class="box box-info ">
+            <div class="box-header with-border" style="background-color:lightblue;">
+                <h3 class="box-title text-primary text-bold"> PERIODONTICS Casesheet Approval</h3>
+                <div class="box-tools pull-right text-primary text-bold">
+                    Case Record #
+                    <strong>@Html.DisplayFor(model => model.PerioNo)</strong>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12" style="pointer-events:none">
+
+                        @Html.Partial("../PatientInformation/_PatientInformationDetails", Model.patientInformationViewModel,
+                            new ViewDataDictionary()
+                            {
+                                TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "studentAllotmentViewModel" }
+                            })
+                        @Html.HiddenFor(model => model.PerioId)
+                        @Html.HiddenFor(model => model.PerioDate)
+                        @Html.HiddenFor(model => model.approvalViewModal.ApprovalTypeId)
+                        @Html.HiddenFor(model => model.approvalViewModal.CaserecordId)
+                        @Html.HiddenFor(model => model.approvalViewModal.DeptId)
+                        @Html.HiddenFor(model => model.approvalViewModal.DoctorId)
+                        @Html.HiddenFor(model => model.approvalViewModal.PatientId)
+                        @Html.HiddenFor(model => model.approvalViewModal.ReferredTreatmentId)
+
+                        @Html.HiddenFor(model => model.Approval1)
+                        @Html.HiddenFor(model => model.Approval2)
+                        @Html.HiddenFor(model => model.Approval3)
+
+                        @Html.HiddenFor(x => x.SendForApproval1)
+                        @Html.HiddenFor(x => x.SendForApproval2)
+                        @Html.HiddenFor(x => x.SendForApproval3)
+
+                        @Html.HiddenFor(x => x.ReadOnlyApproval1)
+                        @Html.HiddenFor(x => x.ReadOnlyApproval2)
+                        @Html.HiddenFor(x => x.ReadOnlyApproval3)
+                        @Html.HiddenFor(x => x.ReadOnlyApproval4)
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @{List<string> Approval = UserRights();}
+        @if (Approval.Contains(DIMS.Infrastructure.PermissionsEnum.ProcedureApproval.ToString()))
+        {
+            if ((Model.Approval1 == false && Model.SendForApproval1 == true) || (Model.Approval2 == false && Model.SendForApproval2 == true) || (Model.Approval3 = false && Model.SendForApproval3 == true))
+            {
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-xs-4">
+                        </div>
+                        <div class="col-xs-4">
+                            <center>
+                                <button type="submit" class="btn btn-success btn-sm" id="ApprovalButton">
+                                    Approve
+                                    <i class="fa fa-save"></i>
+                                </button>
+                            </center>
+                        </div>
+                        <div class="col-xs-4">
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+
+            }
+        }
+        @if (Approval.Contains(DIMS.Infrastructure.PermissionsEnum.ProcedureApproval.ToString()))
+        {
+            if (Model.SendForApproval3 == true)
+            {
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-xs-4">
+                        </div>
+                        <div class="col-xs-4">
+                            <center>
+                                <button type="submit" class="btn bg-red-gradient btn-sm" id="ApprovalButtonFreeze">
+                                    Freeze Casesheet
+                                    <i class="fa fa-lock"></i>
+                                </button>
+                            </center>
+                        </div>
+                        <div class="col-xs-4">
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        <div class="box box-default box-solid">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel-body">
+                            <div id="tabContainer">
+                                <ul class="pagination pagination-lg" role="tablist" style="margin:0px">
+                                    <li class="active">
+                                        <a href="#History" role="tab" class="paginationtab no-border" aria-controls="History" data-toggle="tab">History</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#GingivalandPeriodontalStatus" role="tab" class="paginationtab no-border" aria-controls="GingivalandPeriodontalStatus" data-toggle="tab">Gingival and Periodontal Status</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#PeriodontalIndex" role="tab" class="paginationtab no-border" aria-controls="PeriodontalIndex" data-toggle="tab">Periodontal Index</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#Investigation" role="tab" class="paginationtab no-border notification" aria-controls="Investigation" data-toggle="tab">Investigation<span class="badge sm" id="spanInvestigation">@Html.DisplayFor(x => x.InvestigationCount)</span></a>
+                                    </li>
+                                    @if (Model.Approval1 == true)
+                                    {
+                                    <li class="">
+                                        <a href="#DiagnosisandPrognosis" role="tab" class="paginationtab no-border" aria-controls="DiagnosisandPrognosis" data-toggle="tab">Diagnosis and Prognosis</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#InvestigationReport" role="tab" class="paginationtab no-border" aria-controls="InvestigationReport" data-toggle="tab">Investigation Report</a>
+                                    </li> 
+                                    <li class="">
+                                        <a href="#Treatment" role="tab" class="paginationtab no-border notification" aria-controls="Treatment" data-toggle="tab">Treatment<span class="badge sm" id="spanTreatment">@Html.DisplayFor(x => x.TreatmentCount)</span></a>
+                                    </li>
+                                    }
+                                    <li class="">
+                                        <a href="#ProcedureNote" role="tab" class="paginationtab no-border" aria-controls="ProcedureNote" data-toggle="tab">Procedure Notes</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#Appointment" role="tab" class="paginationtab no-border" aria-controls="Appointment" data-toggle="tab">Appointment</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#Referral" role="tab" class="paginationtab no-border notification" aria-controls="Referral" data-toggle="tab">Referral<span class="badge sm" id="spanReferral">@Html.DisplayFor(x => x.ReferralCount)</span></a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#FileUpload" role="tab" class="paginationtab no-border" aria-controls="FileUpload" data-toggle="tab">FileUpload</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane fade active in" id="History">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box box-primary">
+                                                    <div class="box-header with-border js_ReadOnlyApproval4">
+                                                        <div class="form-group">
+                                                            @Html.Partial("../PERIO/_PerioHistory", Model)
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="GingivalandPeriodontalStatus">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box box-primary">
+                                                    <div class="box-header with-border js_ReadOnlyApproval4">
+                                                        <div class="form-group">
+                                                            @Html.Partial("../PERIO/_PerioGingivalAndPeriodontal", Model)
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="PeriodontalIndex">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box box-primary">
+                                                    <div class="box-header with-border js_ReadOnlyApproval4">
+                                                        <div class="form-group">
+                                                            @Html.Partial("../PERIO/_PeriodontalIndex", Model)
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="Investigation">
+                                        <div class="row">
+                                            <div class="box box-primary">
+                                                <div class="box-header with-border">
+                                                    <div class="col-md-12">
+                                                        @if (Model.BillingLabRadQueueDetails.Count() > 0)
+                                                        {
+                                                            <div class="form-group">
+                                                                @Html.Partial("../Investigation/_LabRadInvestigationApprovalList", Model.BillingLabRadQueueDetails,
+                                                              new ViewDataDictionary()
+                                                              {
+                                                                  TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "BillingLabRadQueueDetails" }
+                                                              })
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="form-group">
+                                                                    <div class="col-xs-4">
+                                                                    </div>
+                                                                    <div class="col-xs-4">
+                                                                        <center>
+                                                                            <button type="submit" value="Approve" formaction="InvestigationApproval" class="btn btn-vimeo btn-sm" id="LabRadApprove">
+                                                                                Approve
+                                                                            </button>
+                                                                        </center>
+                                                                    </div>
+                                                                    <div class="col-xs-4">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="row">
+                                                                        <div class="form-group form-group-sm">
+                                                                            <h5 style="text-align:center">No Investigations are pending for approval!</h5>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    </div>
+
+                                                    @if (Model.paidLabRadInvestigationList.Count() > 0)
+                                                    {
+                                                        <br />
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                @Html.Partial("../Investigation/_PaidInvestigationList", Model.paidLabRadInvestigationList)
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="tab-pane fade" id="InvestigationReport">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box box-primary">
+                                                    <div class="box-header with-border">
+                                                        <div class="form-group">
+                                                            @Html.Partial("../Radiography/_RadiographicDetails", Model.radioRegistrationviewmodel)
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.Partial("../Radiography/_LaboratoryDetails", Model.laboratoryRegistrationviewmodel)
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="DiagnosisandPrognosis">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box box-primary">
+                                                    <div class="box-header with-border js_ReadOnlyApproval4">
+                                                        <div class="form-group">
+                                                            @Html.Partial("../PERIO/_PerioDiagnosisPrognosis", Model)
+                                                            <div class="row">
+                                                                <div class="form-group">
+                                                                    <div class="col-xs-4">
+                                                                    </div>
+                                                                    <div class="col-xs-4">
+                                                                        <center>
+                                                                            @if (Model.Approval2 == true)
+                                                                            {
+                                                                                <span class="text-green">
+                                                                                    <strong>
+                                                                                        @Html.DisplayFor(x => x.DisplayApproval2)
+                                                                                    </strong>
+                                                                                </span>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <span class="text-red">
+                                                                                    <strong>
+                                                                                        @Html.DisplayFor(x => x.DisplayApproval2)
+                                                                                    </strong>
+                                                                                </span>
+                                                                            }
+                                                                        </center>
+                                                                    </div>
+                                                                    <div class="col-xs-4">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>                                     
+                                    <div class="tab-pane fade" id="Treatment">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box box-primary">
+                                                    <div class="box-header with-border">
+                                                        <div class="form-group">
+                                                            <div class="box box-default collapsed-box">
+                                                                <div class="box-header with-border">
+                                                                    <h3 class="box-title">TREATMENT DETAILS</h3>
+                                                                    <div class="box-tools pull-right">
+                                                                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                                                                            <i class="fa fa-plus"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="box-body ">
+                                                                    @if (Model.BillingQueueDetails.Count() > 0)
+                                                                    {
+                                                                        <div class="form-group">
+                                                                            @Html.Partial("../Investigation/_InvestigationApprovalList", Model.BillingQueueDetails,
+                                                                new ViewDataDictionary()
+                                                                {
+                                                                    TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "BillingQueueDetails" }
+                                                                })
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="form-group">
+                                                                                <div class="col-xs-4">
+                                                                                </div>
+                                                                                <div class="col-xs-4">
+                                                                                    <center>
+                                                                                        <button type="submit" value="Approve" formaction="TreatmentApproval" class="btn btn-vimeo btn-sm" id="TreatmentApprove">
+                                                                                            Approve
+                                                                                        </button>
+                                                                                    </center>
+                                                                                </div>
+                                                                                <div class="col-xs-4">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <div class="row">
+                                                                                    <div class="form-group form-group-sm">
+                                                                                        <h5 style="text-align:center">No Treatments are pending for approval!</h5>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                    @if (Model.paidInvestigationList.Count() > 0)
+                                                                    {
+                                                                        <br />
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                @Html.Partial("../Investigation/_PaidInvestigationList", Model.paidInvestigationList)
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group js_ReadOnlyApproval4">
+                                                                @Html.Partial("../PERIO/_PerioTreatmentPlan", Model)
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="box box-default collapsed-box">
+                                                                        <div class="box-header with-border">
+                                                                            <h3 class="box-title">PRESCRIPTIONS</h3>
+                                                                            <div class="box-tools pull-right">
+                                                                                <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                                                                                    <i class="fa fa-plus"></i>
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="box-body">
+
+
+                                                                            @if (Model.PreviousPrescriptionList.Count() > 0)
+                                                                            {
+                                                                                <div class="form-group">
+                                                                                    @Html.Partial("../Prescriptions/_PreviousPrescriptions", Model.PreviousPrescriptionList)
+                                                                                </div>
+
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="row">
+                                                                                            <div class="form-group form-group-sm">
+                                                                                                <h5 style="text-align:center">No prescriptions have been made!</h5>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            }
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+
+                                                            <div class="row">
+                                                                <div class="form-group">
+                                                                    <div class="col-xs-4">
+                                                                    </div>
+                                                                    <div class="col-xs-4">
+                                                                        <center>
+                                                                            @if (Model.Approval2 == true)
+                                                                            {
+                                                                                <span class="text-green">
+                                                                                    <strong>
+                                                                                        @Html.DisplayFor(x => x.DisplayApproval2)
+                                                                                    </strong>
+                                                                                </span>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <span class="text-red">
+                                                                                    <strong>
+                                                                                        @Html.DisplayFor(x => x.DisplayApproval2)
+                                                                                    </strong>
+                                                                                </span>
+                                                                            }
+                                                                        </center>
+                                                                    </div>
+                                                                    <div class="col-xs-4">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="ProcedureNote">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box box-primary">
+                                                    <div class="box-header with-border js_ReadOnlyApproval4">
+                                                        <h3 class="box-title"> Procedure Notes</h3>
+                                                    </div>
+                                                    <div class="box-body">
+                                                        <div class="form-group js_ReadOnlyApproval4">
+                                                            @Html.Partial("../StudentAllotment/_ProcedureNote", Model.studentAllotmentViewModel,
+                                                          new ViewDataDictionary()
+                                                          {
+                                                              TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "studentAllotmentViewModel" }
+                                                          })
+                                                        </div>
+                                                    </div>
+                                                    <div class="box-body">
+                                                        @Html.Partial("../StudentAllotment/_ProdedureNoteDetails", Model.studentProcedureNotesViewModel)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="Appointment">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box box-default ">
+                                                    <div class="box-header with-border js_ReadOnlyApproval4">
+                                                        <h3 class="box-title">APPOINTMENT</h3>
+                                                    </div>
+                                                    <div class="box-body">
+                                                        <div class="form-group">
+
+                                                            @if (Model.followupList.Count() > 0)
+                                                            {
+                                                                <div class="form-group">
+                                                                    @Html.Partial("../Followup/_PatientFollowUpList", Model.followupList)
+                                                                </div>
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="row">
+                                                                            <div class="form-group form-group-sm">
+                                                                                <h5 style="text-align:center">No Appointments have been made!</h5>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="tab-pane fade" id="FileUpload">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box box-primary">
+                                                    <div class="box-header with-border">
+                                                        <div class="form-group">
+                                                            @if (Model.FileUploadlist.Count() > 0)
+                                                            {
+                                                                @Html.Partial("../FileUpload/_UploadedFileApprovalDisplay", Model.FileUploadlist)
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="row">
+                                                                            <div class="form-group form-group-sm">
+                                                                                <h5 style="text-align:center">No files have been uploaded!</h5>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="Referral">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box box-primary">
+                                                    <div class="box-header with-border">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="box box-default collapsed-box">
+                                                                    <div class="box-header with-border">
+                                                                        <h3 class="box-title">APPROVE REFERRAL</h3>
+                                                                        <div class="box-tools pull-right">
+                                                                            <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                                                                                <i class="fa fa-plus"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="box-body">
+                                                                        @if (Model.ApprovedepartmentReferral.Count() > 0)
+                                                                        {
+                                                                            <div class="form-group">
+                                                                                @Html.Partial("../ReferralStatus/ApproveReferral", Model.ApprovedepartmentReferral,
+                                                                            new ViewDataDictionary()
+                                                                            {
+                                                                                TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "ApprovedepartmentReferral" }
+                                                                            })
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="form-group">
+                                                                                    <div class="col-xs-4">
+                                                                                    </div>
+                                                                                    <div class="col-xs-4">
+                                                                                        <center>
+                                                                                            <button type="submit" value="Approve" formaction="ReferralApproval" class="btn btn-vimeo btn-sm" id="ReferralApprove">
+                                                                                                Approve
+                                                                                            </button>
+                                                                                        </center>
+                                                                                    </div>
+                                                                                    <div class="col-xs-4">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="row">
+                                                                                        <div class="form-group form-group-sm">
+                                                                                            <h5 style="text-align:center">No Referrals are pending for approval</h5>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                                <div class="box-header with-border">
+                                                                    <h3 class="box-title">DEPARTMENT REFERRED STATUS</h3>
+                                                                </div>
+                                                                <div class="box-body">
+                                                                    <div class="form-group">
+                                                                        @Html.Partial("../ReferralStatus/ViewReferral", Model.ViewdepartmentReferredStatus)
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+            }
+
+<div>
+    @Html.ActionLink("<< Back to previous page", "ApprovalQueue", null, new { @class = "btn btn-primary btn-xs" })
+</div>
+@section scripts
+{
+    <script>
+        $(function () {
+            var NotAppCountRef = 0;
+            $('#tbReferralApproval tr').each(function () {
+                debugger;
+                var $tds = $(this).find('td');
+                if ($tds.length != 0) {
+                    var $currText = $tds.eq(5).text().trim();
+                    if ($currText != "Approved") {
+                        NotAppCountRef++;
+                    }
+                }
+                if ((NotAppCountRef > 0)) {
+                    $("#ReferralApprove").show();
+                }
+                else {
+                    $("#ReferralApprove").hide();
+                }
+            });
+            if (NotAppCountRef > 0) {
+                $("#spanReferral").html(NotAppCountRef);
+            }
+            else {
+                $("#spanReferral").hide();
+            }
+            var NotAppCountInv = 0;
+            $('#tbLabRadApproval tr').each(function () {
+                debugger;
+                var $tds = $(this).find('td');
+                if ($tds.length != 0) {
+                    var $currText = $tds.eq(7).text().trim();
+                    if ($currText != "Approved") {
+                        NotAppCountInv++;
+                    }
+                }
+                if ((NotAppCountInv > 0)) {
+                    $("#LabRadApprove").show();
+                }
+                else {
+                    $("#LabRadApprove").hide();
+                }
+            });
+            if (NotAppCountInv > 0) {
+                $("#spanInvestigation").html(NotAppCountInv);
+            }
+            else {
+                $("#spanInvestigation").hide();
+            }
+            $(function () {
+                $("#LabRadApprove").click(function () {
+                    debugger;
+                    var checked_checkboxes = $("#tbLabRadApproval input[type=checkbox]:checked");
+                    if (checked_checkboxes.length == 0) {
+                        alert("You must select atleast one checkbox before submitting.");
+                        return false;
+                    }
+                    return true;
+                });
+            });
+            $(function () {
+                $("#ReferralApprove").click(function () {
+                    debugger;
+                    var checked_checkboxes = $("#tbReferralApproval input[type=checkbox]:checked");
+                    if (checked_checkboxes.length == 0) {
+                        alert("You must select atleast one checkbox before submitting.");
+                        return false;
+                    }
+                    return true;
+                });
+            });
+            var NotAppCountTree = 0;
+            $('#tbInvestigationApprovalDetails tr').each(function () {
+                debugger;
+                var $tds = $(this).find('td');
+                if ($tds.length != 0) {
+                    var $currText = $tds.eq(9).text().trim();
+                    if ($currText != "Approved") {
+                        NotAppCountTree++;
+                    }
+                }
+                if ((NotAppCountTree > 0)) {
+                    $("#TreatmentApprove").show();
+                }
+                else {
+                    $("#TreatmentApprove").hide();
+                }
+            });
+            if (NotAppCountTree > 0) {
+                $("#spanTreatment").html(NotAppCountTree);
+            }
+            else {
+                $("#spanTreatment").hide();
+            }
+            $(function () {
+                $("#TreatmentApprove").click(function () {
+                    debugger;
+                    var checked_checkboxes = $("#tbInvestigationApprovalDetails input[type=checkbox]:checked");
+                    if (checked_checkboxes.length == 0) {
+                        alert("You must select atleast one checkbox before submitting.");
+                        return false;
+                    }
+                    return true;
+                });
+            });
+            var ApprovalType = $("#ApprovalType").val();
+            var Approval1 = $("#Approval1").val();
+            var Approval2 = $("#Approval2").val();
+            if (ApprovalType == '2' || ApprovalType == '1') {
+                $("#ApprovalButton").hide();
+            }
+            else { }
+        });
+
+
+    </script>
+}
+

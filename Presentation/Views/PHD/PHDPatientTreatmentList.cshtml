@@ -1,0 +1,69 @@
+﻿@model DIMS.ViewModels.PHDViewModel
+
+<div class="form-horizontal">
+
+
+    <div class="box box-default box-solid">
+        <div class="box-header with-border">
+            <h3 class="box-title"> Patient Information</h3>
+        </div>
+
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.Partial("../PatientInformation/_PatientInformationDetails", Model.patientInformationViewModel,
+                            new ViewDataDictionary()
+                            {
+                                TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "studentAllotmentViewModel" }
+                            })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box box-default ">
+        <div class="box-header with-border">
+            <h3 class="box-title"> PHD Treatments</h3>
+        </div>
+        <div class="box-body">
+
+            @Html.ActionLink("New Casesheet", "Create", "PHD", new { allotId = Model.studentAllotmentViewModel.AllotId, Model.PatientId }, new { @class = "btn btn-success btn-xs" })
+
+
+            @if (Model.Treatmentlist != null)
+        {
+            if (Model.Treatmentlist.ToList().Count() > 0)
+            {
+
+                    <table class="table table-bordered">
+                        <tr>
+                            <th class="col-md-1">@Html.DisplayNameFor(model => model.PHDDateDisplay)</th>
+                            <th class="col-md-1">@Html.DisplayNameFor(model => model.PHDNo)</th>
+                            <th class="col-md-8">@Html.DisplayNameFor(model => model.ChiefComplaint)</th>
+                            <th class="col-md-1"></th>
+                        </tr>
+                        @foreach (var List in Model.Treatmentlist.ToList())
+                                {
+                            <tr>
+                                <td class="hidden">@Html.TextBoxFor(model => List.PHDId)</td>
+                                <td>@Html.DisplayFor(model => List.PHDDateDisplay)</td>
+                                <td>@Html.DisplayFor(model => List.PHDNo)</td>
+                                <td>@Html.DisplayFor(model => List.ChiefComplaint)</td>
+                                <td>@Html.ActionLink("Select", "Edit", "PHD", new { allotId = Model.studentAllotmentViewModel.AllotId, PHDId = List.PHDId }, null)</td>
+                            </tr>
+                                }
+                    </table>
+
+            }
+        }
+
+        </div>
+    </div>
+
+</div>
+<div>
+  @Html.ActionLink("<< Back to previous page", "TreatmentIndex", null, new { @class = "btn btn-primary btn-xs" })
+</div>
+
+

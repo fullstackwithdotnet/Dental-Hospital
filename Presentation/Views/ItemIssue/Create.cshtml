@@ -1,0 +1,219 @@
+﻿@using DIMS.Helpers
+@model DIMS.ViewModels.ItemIssueViewModel
+
+@{
+    ViewBag.Title = "Issue Item";
+    var result = ViewBag.Result;
+    var deparments = ViewBag.Departments;
+    var categories = ViewBag.Categories;
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="form-horizontal">
+        <div class="box box-default box-solid">
+            <div class="box-header with-border">
+                <h4 class="box-title">@ViewBag.Title</h4>
+            </div>
+            <div class="box-body">
+                @if (result != null && result.Success && !ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+                {
+                    @BootstrapAlert.BootstrapCustomAlertHtmlString(result.Message, BootstrapAlertType.Success)
+                }
+                @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+                {
+                    foreach (var modelError in Html.ViewData.ModelState.SelectMany(keyValuePair => keyValuePair.Value.Errors))
+                    {
+                        @BootstrapAlert.BootstrapCustomAlertHtmlString(@modelError.ErrorMessage, BootstrapAlertType.Danger)
+                    }
+                }
+                @Html.ValidationSummary(true)
+
+                <div class="row">
+                    <div class="col-md-8">
+
+                        <div class="form-group form-group-sm required">
+                            <label class="control-label col-md-3" for="IssueType">Deparment</label>
+                            <div class="col-md-6">
+                                @Html.DropDownListFor(x => x.IssueType, new SelectList(deparments, "DeptId", "DeptName"), "---Please select---", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <label class="control-label col-md-3" for="IssueTo">Issue To</label>
+
+                            <div class="col-md-6">
+                                @Html.DropDownListFor(x => x.IssueTo, Enumerable.Empty<SelectListItem>(), "--Select Item--", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <label class="control-label col-md-3" for="IssueBy">Issue By</label>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(x => x.IssueBy, new { @class = "form-control", @maxLength = "30", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.IssueBy)
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <label class="control-label col-md-3" for="IssueDate">Issue Date</label>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(x => x.IssueDate, new { @class = "form-control", @maxLength = "30", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.IssueDate)
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <label class="control-label col-md-3" for="ReturnDate">Return Date</label>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(x => x.ReturnDate, new { @class = "form-control", @maxLength = "30", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.ReturnDate)
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.Note, new { @class = "control-label col-md-3" })
+                            <div class="col-md-6">
+                                @Html.TextAreaFor(x => x.Note, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Note)
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm required">
+                            <label class="control-label col-md-3" for="ItemCategoryId">Item Category</label>
+                            <div class="col-md-6">
+                                @Html.DropDownListFor(x => x.ItemCategoryId, new SelectList(categories, "ItemCategoryId", "CategoryName"), "---Please select---", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ItemCategoryId)
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <label class="control-label col-md-3" for="ItemId">Item</label>
+                            <div class="col-md-6">
+                                @Html.DropDownListFor(x => x.ItemId, Enumerable.Empty<SelectListItem>(), "--Select Item--", new { @class = "form-control" })
+                                <span id="qtyContainer"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm">
+                            <label class="control-label col-md-3" for="Quantity">Quantity</label>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(x => x.Quantity, new { @class = "form-control", @type = "number" })
+                                @Html.ValidationMessageFor(model => model.Quantity)
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-offset-5 col-md-10">
+                                <input type="submit" value="Save" class="fa fa-save btn btn-success" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+
+
+@section scripts {
+    <script>
+        $(function () {
+            $('#IssueDate, #ReturnDate').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true,
+                minYear: 1901,
+                maxYear: parseInt(moment().format('YYYY'), 10)
+            },
+                function (start, end, label) {
+                    var years = moment().diff(start, 'years');
+                    //alert("You are " + years + " years old!");
+                });
+
+            $('#IssueType').on('change',
+                function (e) {
+                    var self = $(this);
+                    var obj = { id: self.val() };
+                    window.AjaxCall('/ItemIssue/GetDoctorsByDeparment', JSON.stringify(obj), 'POST').done(
+                        function (response) {
+                            if (response) {
+                                $('#IssueTo').html('');
+                                var options = '';
+                                options += '<option value="Select">--Select Item--</option>';
+                                for (var i = 0; i < response.length; i++) {
+                                    options += '<option value="' +
+                                        response[i].DoctorId +
+                                        '">' +
+                                        response[i].DoctorName +
+                                        '</option>';
+                                }
+                                $('#IssueTo').append(options);
+
+                            }
+                        }).fail(function (error) {
+                            console.log(error.StatusText);
+                        });
+                });
+
+            $('#ItemCategoryId').on('change',
+                function (e) {
+                    var self = $(this);
+                    var obj = { categoryId: self.val() };
+                    window.AjaxCall('/ItemStock/GetItems', JSON.stringify(obj), 'POST').done(function (response) {
+                        if (response) {
+                            $('#ItemId').html('');
+                            var options = '';
+                            options += '<option value="Select">--Select Item--</option>';
+                            for (var i = 0; i < response.length; i++) {
+                                options += '<option value="' +
+                                    response[i].ItemId +
+                                    '">' +
+                                    response[i].Name +
+                                    '</option>';
+                            }
+                            $('#ItemId').append(options);
+
+                        }
+                    }).fail(function (error) {
+                        console.log(error.StatusText);
+                    });
+                });
+
+            var availebleQuantity = 0;
+            $('#ItemId').on('change',
+                function (e) {
+                    var self = $(this);
+                    var obj = { itemId: self.val() };
+                    window.AjaxCall('/ItemIssue/GetQuantity', JSON.stringify(obj), 'POST').done(function (response) {
+                        if (response) {
+                            availebleQuantity = response.AvlQuantity;
+                            $('#qtyContainer').html("Availeble Quantity: " + response.AvlQuantity);
+                        }
+                    }).fail(function (error) {
+                        console.log(error.StatusText);
+                    });
+                });
+
+
+            $('#Quantity').on('keyup',
+                function (e) {
+                    var self = $(this);
+                    if (self.val() > availebleQuantity) {
+                        $('input[type="submit"]').attr('disabled', 'disabled');
+                        alert("You Do Not have sufficient Quantity..");
+                    } else {
+                        $('input[type="submit"]').removeAttr('disabled');
+                    }
+                });
+
+        
+        });
+
+
+    </script>
+}

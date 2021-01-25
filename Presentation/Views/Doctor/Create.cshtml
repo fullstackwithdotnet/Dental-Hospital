@@ -1,0 +1,161 @@
+﻿ @model DIMS.ViewModels.DoctorViewModal
+
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="box box-default box-solid">
+            <div class="box-header with-border">
+                <h4 class="box-title">Add Doctor Names</h4>
+            </div>
+
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm required">
+                            @Html.LabelFor(model => model.DoctorName, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.DoctorName, new { @class = "form-control", @maxLength = "30", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.DoctorName)
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.Qualification, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.Qualification, new { @class = "form-control", @maxLength = "20" })
+                                @Html.ValidationMessageFor(model => model.Qualification)
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm required">
+                            @Html.LabelFor(model => model.DeptName, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(model => model.DeptId, new SelectList(Model.DepartmentList, "DeptId", "DeptName"), htmlAttributes: new { @class = "form-control", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.DeptId)
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm required">
+                            @Html.LabelFor(model => model.DesigName, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(model => model.DesigId, new SelectList(Model.DesignationList, "DesigId", "DesigName"), htmlAttributes: new { @class = "form-control", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.DesigId)
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.Mobile, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.Mobile, new { @class = "form-control OnlyNumber", @maxLength = "10" })
+                                @Html.ValidationMessageFor(model => model.Mobile)
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @maxLength = "20" })
+                                @Html.ValidationMessageFor(model => model.Email)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.DateofJoin, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.DateofJoin, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.DateofJoin)
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.ApprovalPassword, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.PasswordFor(model => model.ApprovalPassword, new { @class = "form-control", autocomplete = "off" })
+                                @Html.ValidationMessageFor(model => model.ApprovalPassword)
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.ConfirmApprovalPassword, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.PasswordFor(model => model.ConfirmApprovalPassword, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ConfirmApprovalPassword)
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                @Html.CheckBoxFor(x => x.IschkSurgeon, new { @class = "js_chkS" })
+                                @Html.LabelFor(x => x.IschkSurgeon, new { @class = "control-label" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    @{
+                        if (TempData["message"] != null)
+                        {
+                            <script type="text/javascript">
+                             alert(@Html.Raw(Json.Encode(TempData["message"])));
+                            </script>
+                        }
+                    }
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="fa fa-save btn btn-success" id="btnSaveDoctor" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+                        }
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+@section scripts
+{
+    <script type="text/javascript">
+
+        $(function () {
+            $(".js_chkA").click(function () {
+                
+                if ($(".js_chkA").is(':checked')) {
+                    $(".js_chkS").attr("disabled", "disabled");
+                } else {
+                    $(".js_chkS").removeAttr("disabled");
+                }
+            })
+
+            $(".js_chkS").click(function () {
+                
+                if ($(".js_chkS").is(':checked')) {
+                    $(".js_chkA").attr("disabled", "disabled");
+                } else {
+                    $(".js_chkA").removeAttr("disabled");
+                }
+            })
+        })
+
+        $('#btnSaveDoctor').on('click', function () {
+            var $Password = $("#ApprovalPassword").val();
+            var $ConfirmPassword = $("#ConfirmApprovalPassword").val();
+
+            if ($Password != $ConfirmPassword) {
+                alert("Your password and confirm password do not match.");
+                return false;
+            }
+
+        });
+
+    </script>
+}

@@ -1,0 +1,82 @@
+﻿@model DIMS.ViewModels.OrthoViewModal
+
+<div class="form-horizontal">
+    <div class="box box-info ">
+        <div class="box-header with-border" style="background-color:aliceblue;">
+            <h3 class="box-title"> Patient Information</h3>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.Partial("../PatientInformation/_PatientInformationDetails", Model.patientInformationViewModel,
+                        new ViewDataDictionary()
+                        {
+                            TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "studentAllotmentViewModel" }
+                        })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box box-default ">
+        <div class="box-header with-border">
+            <h3 class="box-title"> Orthodontics Treatments</h3>
+        </div>
+        <div class="box-body">
+            <table class="table table-striped">
+                <tr>
+                    <th class="col-md-6">Short Casesheet</th>
+                    <th class="col-md-6">Long Casesheet</th>
+                </tr>
+                <tr>
+                    <td>@Html.ActionLink("New Casesheet", "ShortCreate", "Ortho", new { allotId = Model.studentAllotmentViewModel.AllotId, Model.PatientId }, new { @class = "btn btn-success btn-xs" })</td>
+                    <td>@Html.ActionLink("New Casesheet", "Create", "Ortho", new { allotId = Model.studentAllotmentViewModel.AllotId, Model.PatientId }, new { @class = "btn btn-success btn-xs" })</td>
+                </tr>
+            </table>
+
+            @if (Model.Treatmentlist != null)
+            {
+                if (Model.Treatmentlist.ToList().Count() > 0)
+                {
+                    <table class="table table-bordered">
+                        <tr>
+                            <th class="col-md-1">Date</th>
+                            <th class="col-md-1">Ortho #</th>
+                            <th class="col-md-5">Chief Complaint</th>
+                            <th class="col-md-3">Casesheet Type</th>
+                            <th class="col-md-1"></th>
+                        </tr>
+                        @foreach (var List in Model.Treatmentlist.ToList())
+                        {
+                            <tr>
+                                <td class="hidden">@Html.TextBoxFor(model => List.OrthoId)</td>
+                                <td>@Html.DisplayFor(model => List.OrthoDateDisplay)</td>
+                                <td>@Html.DisplayFor(model => List.OrthoNo)</td>
+                                <td>@Html.DisplayFor(model => List.ChiefComplaint)</td>
+
+                                @if (List.CasesheetType == (int)DIMS.Enums.CasesheetType.Long)
+                                {
+                                <td>@Html.DisplayFor(model => List.CasesheetName)</td>
+                                <td>@Html.ActionLink("Select", "Edit", "Ortho", new { allotId = Model.studentAllotmentViewModel.AllotId, OrthoId = List.OrthoId }, null)</td>
+                                }
+                                else
+                                {
+                                    <td>@Html.DisplayFor(model => List.CasesheetName)</td>
+                                    <td>@Html.ActionLink("Select", "Edit", "Ortho", new { allotId = Model.studentAllotmentViewModel.AllotId, OrthoId = List.OrthoId }, null)</td>
+                                }
+
+                            </tr>
+                        }
+                    </table>
+                }
+            }
+
+        </div>
+    </div>
+    </div>
+    <div>
+       @Html.ActionLink("<< Back to previous page", "TreatmentIndex", null, new { @class = "btn btn-primary btn-xs" })
+    </div>
+
+

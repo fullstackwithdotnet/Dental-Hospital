@@ -1,0 +1,107 @@
+﻿@model DIMS.ViewModels.OrthoAnalysisViewModal
+@{
+
+    ViewBag.Title = "Steiner Analysis";
+}
+
+<h2>@Html.DisplayFor(x => x.AnalysisDisplayName)</h2>
+
+@using (Html.BeginForm("SaveSteiner", "Ortho", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.Partial("../ORTHO/_ViewSteinerEdit", Model.SteinerAnalysisList,
+                                     new ViewDataDictionary()
+                                        {
+                                            TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "SteinerAnalysisList" }
+                                        })
+                                </div>
+                            <div class="hidden">
+                                @Html.TextBoxFor(x => x.OrthoId)
+                                @Html.TextBoxFor(x => x.AnalysisId)
+                                
+                            </div>
+                                                   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="row">
+                                @*<div class="col-md-1"></div>*@
+                                <div class="col-md-5">
+                                    <h5><b>S Line</b></h5>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div class="col-md-4 control-label">
+                                            @Html.LabelFor(x => x.UpperLip, new { @class = "col-md-3 control-label" })
+                                        </div>
+                                        <div class="col-md-8">
+                                            @Html.TextBoxFor(x => x.UpperLip, new { @class = "form-control col-md-4" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div class="col-md-4 control-label">
+                                            @Html.LabelFor(x => x.LowerLip, new { @class = "col-md-3 control-label" })
+                                        </div>
+                                        <div class="col-md-8">
+                                            @Html.TextBoxFor(x => x.LowerLip, new { @class = "form-control col-md-4" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div class="col-md-4 control-label">
+                                            @Html.LabelFor(x => x.Inference, new { @class = "col-md-3 control-label" })
+                                        </div>
+                                        <div class="col-md-8">
+                                            @Html.TextAreaFor(x => x.Inference, new { @class = "form-control col-md-4" })
+                                        </div>
+                                        <div class="col-md-8 hidden">
+                                            @Html.TextAreaFor(x => x.InferenceId, new { @class = "form-control col-md-4" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-12 col-md-offset-4">
+                                <div class="form-group">
+                                    <div class="col-sm-1">
+                                        <input type="submit" value="Save" class="fa fa-save btn btn-success"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>              
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+           
+}                                     
+
+
+
+
+

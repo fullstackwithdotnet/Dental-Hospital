@@ -1,0 +1,257 @@
+﻿@model DIMS.ViewModels.ReportSearchViewModel
+@{
+    var partialHeaderHtmlString = new HtmlString(Html.Partial("~/Views/Reports/_HeaderReport.cshtml").ToString().Replace(Environment.NewLine, "")) ;
+}
+
+<div class="box box-info">
+    <div class="box-body">
+       
+
+        <div class="row">
+            @Html.HiddenFor(x => x.CategoryId, new {@Value = "1"})
+            <div class="col-sm-4">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.From_Date, new {@class = "control-label"})
+                    @Html.EditorFor(model => model.From_Date, new {htmlAttributes = new {Value = Model.From_Date.ToString("yyyy-MM-dd")}})
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.To_Date, new {@class = "control-label"})
+                    @Html.EditorFor(model => model.To_Date, new {htmlAttributes = new {Value = Model.From_Date.ToString("yyyy-MM-dd")}})
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.VisitType, new {@class = "control-label"})
+                    <select id="VisitType" class="form-control">
+                        <option value="B">Select</option>
+                        <option value="N">New Visitor</option>
+                        <option value="R">Revisitor</option>
+                        @*<option value="T">T</option>*@
+                    </select>
+
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <a id="btnSearch"> <i class="fa fa-search fa fa-search btn btn-success"> Search</i></a>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title"> Patient Census Category Details</h3>
+            </div>
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table id="tbCategoryDetails" class="table table-bordered table-hover" style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th colspan="3">New Visit</th>
+                            </tr>
+                            <tr>
+
+                                @*<th class="col-md-1">S.NO</th>*@
+                                <th class="col-md-1">Date </th>
+                                <th class="col-md-1">Children </th>
+                                <th class="col-md-1">Male</th>
+                                <th class="col-md-3">Female</th>
+                                <th class="col-md-3">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                        <tfoot align="right">
+                            <tr>
+                                <th>GRAND TOTAL</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<link href="~/Content/buttons.dataTables.min.css" rel="stylesheet" />
+
+@section scripts {
+    <script src="~/Scripts/dataTables.buttons.min.js"></script>
+    <script src="~/Scripts/buttons.flash.min.js"></script>
+    <script src="~/Scripts/jszip.min.js"></script>
+    <script src="~/Scripts/pdfmake.min.js"></script>
+    <script src="~/Scripts/vfs_fonts.js"></script>
+    <script src="~/Scripts/buttons.html5.min.js"></script>
+    <script src="~/Scripts/buttons.print.min.js"></script>
+    <script type="text/jscript">
+
+        $(document).ready(function () {
+            var grandTotal = 0;
+            $('#btnSearch').on('click', function (e) {
+                grandTotal = 0;
+                e.preventDefault();
+                Searchvalue();
+            });
+
+            var Searchvalue = function () {
+                $('#tbCategoryDetails tbody').empty();
+
+                var $From_Date = $("#From_Date").val();
+                var $To_Date = $("#To_Date").val();
+                var $VisitType = $("#VisitType").val();
+                var $CategoryId = $("#CategoryId").val();
+                var $CategoryName = $("#CategoryId option:selected").text();
+                var $VisitTypeName = "Revisit";
+                if ($VisitType == "N") {
+                    var $VisitTypeName = "New Visit";
+                }
+
+                var message = '<div class="row" style="margin-top:-70px; margin-bottom:5px;">';
+                message += '<div class="col-md-4 pull-left" >&nbsp;</div>';
+                message += '<div class="col-md-8 text-center text-uppercase">';
+               // message += '<h3 class="text-center text-uppercase" style = "margin-bottom:0;margin-top:0; font-size:14px;">census Report of ' + $VisitTypeName+'</h3>';
+                message += '<h4 class="text-center text-uppercase" style = "margin-top:0;margin-bottom:0;font-size:14px; padding:5px 0; font-weight: 700;"> census Report of ' + $VisitTypeName +' From&nbsp ' + $From_Date + ' &nbsp To &nbsp  ' + $To_Date + '</h4> <br />';
+                message += '</div></div > <br />';
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetCensusListVisitor", "Report")',
+                    data: '{From_Date: "' + $From_Date + '",To_Date: "' + $To_Date + '",VisitType: "' + $VisitType + '",CategoryId: "' + $CategoryId + '"}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        table = $('#tbCategoryDetails').DataTable();
+                        table.destroy();
+                        $('#tbCategoryDetails').dataTable({
+
+                            data: data,
+                            columns: [
+                                //{
+                                //    "data": null, "sortable": false,
+                                //    render: function (data, type, row, meta) {
+                                //        debugger;
+                                //        return meta.row + meta.settings._iDisplayStart + 1;
+                                //    }
+                                //},
+                                {
+                                    'data': 'Date', 'type': 'date', "width": "25%",
+                                    "render": function (data) {
+                                        return moment(data).format("dddd, MMMM Do YYYY");
+                                    }
+                                },
+                                { 'data': 'Children', "width": "25%" },
+                                { 'data': 'Male', "width": "25%" },
+                                { 'data': 'Female', "width": "25%" },
+                                {
+                                    'data': null, 
+                                    "render": function (data) {
+                                        //grandTotal = data.Children + data.Male + data.Female;
+										                                        grandTotal = data.Children + data.Male + data.Female;
+
+                                        return data.Children + data.Male + data.Female;
+                                    }, "width": "25%",
+                                }
+                            ],
+                            "dom": "Bfrtip",
+                            searching: false,
+                            "buttons": [
+                                //{
+                                //    extend: 'copy',
+                                //    className: 'copyButton',
+                                //    text: '<i class ="fa fa-clone"></i>Copy'
+
+                                //},
+                                //{
+                                //    extend: 'excel',
+                                //    text: '<i class ="fa fa-file-excel-o"></i>Excel'
+
+                                //},
+                                // {
+                                //     extend: 'pdf',
+                                //     text: '<i class ="fa fa-file-pdf-o"></i>Pdf'
+
+                                // },
+                                // {
+                                //     extend: 'csv',
+                                //     text: '<i class ="fa fa-file-excel-o"></i>CSV'
+
+                                // },
+                                 {
+                                    extend: 'print',
+                                    messageTop: '@partialHeaderHtmlString' + message,
+
+                                 }
+                            ],
+
+                            "footerCallback": function (row, data, start, end, display) {
+                                var api = this.api(), data;
+
+                                // converting to interger to find total
+                                var intVal = function (i) {
+                                    return typeof i === 'string' ?
+                                        i.replace(/[\$,]/g, '') * 1 :
+                                        typeof i === 'number' ?
+                                            i : 0;
+                                };
+
+                                // computing column Total of the complete result 
+                                //var monTotal = api
+                                //    .column(1)
+                                //    .data()
+                                //    .reduce(function (a, b) {
+                                //        return intVal(a) + intVal(b);
+                                //    }, 0);
+
+                                var tueTotal = api
+                                    .column(1)
+                                    .data()
+                                    .reduce(function (a, b) {
+                                        return intVal(a) + intVal(b);
+                                    }, 0);
+
+                                var wedTotal = api
+                                    .column(2)
+                                    .data()
+                                    .reduce(function (a, b) {
+                                        return intVal(a) + intVal(b);
+                                    }, 0);
+
+                                var thuTotal = api
+                                    .column(3)
+                                    .data()
+                                    .reduce(function (a, b) {
+                                        return intVal(a) + intVal(b);
+                                    }, 0);
+
+                                var friTotal = api
+                                    .column(4)
+                                    .data()
+                                    .reduce(function (a, b) {
+                                        return intVal(a) + intVal(b);
+                                    }, 0);
+
+
+                                // Update footer by showing the total with the reference of the column index 
+                                //$(api.column(0).footer()).html('Total');
+                               
+                                $(api.column(1).footer()).html(tueTotal);
+                                $(api.column(2).footer()).html(wedTotal);
+                                $(api.column(3).footer()).html(thuTotal);
+                                $(api.column(4).footer()).html((tueTotal+wedTotal+thuTotal));
+                            },
+                            
+                        })
+                    },
+                })
+            }
+        });
+
+
+    </script>
+}

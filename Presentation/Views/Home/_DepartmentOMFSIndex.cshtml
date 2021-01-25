@@ -1,0 +1,60 @@
+﻿
+@model DIMS.ViewModels.DeptHomeViewModel
+ 
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-2 form-group form-group-sm">
+                        @Html.LabelFor(x => x.From_Date, new { @class = "control-label" })
+                    </div>
+                    <div class="col-md-3 form-group form-group-sm">
+                        @Html.EditorFor(model => model.From_Date, new { htmlAttributes = new { Value = Model.From_Date.ToString("yyyy-MM-dd") } })
+                    </div>
+                    <div class="col-md-2 form-group form-group-sm">
+                        @Html.LabelFor(x => x.To_Date, new { @class = "control-label" })
+                    </div>
+                    <div class="col-md-3 form-group form-group-sm">
+                        @Html.EditorFor(model => model.To_Date, new { htmlAttributes = new { Value = Model.From_Date.ToString("yyyy-MM-dd") } })
+                    </div>
+                    <div class="col-md-2 form-group form-group-sm">
+                        <a id="btnOMFSSearchReferral"> <i class="fa fa-search fa fa-search btn btn-success"> Search </i></a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Allotment</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table id="tbReferralSearch" class="table table-bordered table-hover" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-md-1">DATE </th>
+                                            <th class="col-md-1">OP #</th>
+                                            <th class="col-md-3">PATIENT NAME</th>
+                                            <th class="col-md-1">AGE</th>
+                                            <th class="col-md-1">AREA</th>
+                                            <th class="col-md-2">FROM DEPT</th>
+                                            <th class="col-md-1"></th>
+                                            <th class="col-md-1"></th>
+                                            <th class="col-md-1"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

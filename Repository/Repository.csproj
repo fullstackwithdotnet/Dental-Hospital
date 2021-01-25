@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--Project was exported from assembly: F:\projects\DENTAL HOSPITAL MANAGEMENT\HKES\hkes\bin\Repository.dll-->
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7ABE7C1C-9D8C-4205-B569-8DB878562BED}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AssemblyName>Repository</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+    <FileAlignment>512</FileAlignment>
+    <RootNamespace>Repository</RootNamespace>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.3.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.5.1\lib\net45\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Abstractions">
+      <HintPath>lib\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="Dapper">
+      <HintPath>lib\Dapper.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="Database\Database.cs" />
+    <Compile Include="Database\CommitOrRollback.cs" />
+    <Compile Include="Database\DatabaseFactoryBase.cs" />
+    <Compile Include="Database\DbConnectionFactoryBase.cs" />
+    <Compile Include="Database\SqlDbConnectionFactory.cs" />
+    <Compile Include="Database\SqlDBFactory.cs" />
+    <Compile Include="Database\Base\ICommand`1.cs" />
+    <Compile Include="Database\Base\ICommand.cs" />
+    <Compile Include="Database\Base\ICommandAsync`1.cs" />
+    <Compile Include="Database\Base\ICommandAsync.cs" />
+    <Compile Include="Database\Base\IConnectionFactory.cs" />
+    <Compile Include="Database\Base\IDatabase.cs" />
+    <Compile Include="Database\Base\IQuery`1.cs" />
+    <Compile Include="Database\Base\IQueryAsync`1.cs" />
+    <Compile Include="Dapper\Utils.cs" />
+    <Compile Include="Dapper\Base\GenericMaxQuery`1.cs" />
+    <Compile Include="Dapper\Base\GenericCountQuery`1.cs" />
+    <Compile Include="Dapper\Base\GenericQueryBySql`1.cs" />
+    <Compile Include="Dapper\Base\GenericQueryById`1.cs" />
+    <Compile Include="Dapper\Base\GenericDeleteCommand`1.cs" />
+    <Compile Include="Dapper\Base\GenericUpdateCommand`1.cs" />
+    <Compile Include="Dapper\Base\GenericQuery`1.cs" />
+    <Compile Include="Dapper\Base\GenericAddCommand`1.cs" />
+    <Compile Include="Core\DapperContext.cs" />
+    <Compile Include="Core\PrimaryKeyAttribute.cs" />
+    <Compile Include="Core\RepositoryBase`1.cs" />
+    <Compile Include="Core\ServiceBase`1.cs" />
+    <Compile Include="Core\UnitOfWork.cs" />
+    <Compile Include="Base\EntityBase.cs" />
+    <Compile Include="Base\IDbContext.cs" />
+    <Compile Include="Base\IRepository`1.cs" />
+    <Compile Include="Base\IService`1.cs" />
+    <Compile Include="Base\IUnitOfWork.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,114 @@
+﻿@model DIMS.ViewModels.OrthoAnalysisViewModal
+
+@{
+    ViewBag.Title = "Carey's Arch Perimeter Analysis";
+}
+<h2>@Html.DisplayFor(x => x.AnalysisDisplayName)</h2>
+
+@using (Html.BeginForm("SaveCareys", "Ortho", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-3"></div>
+                                    <div class="col-md-2">
+                                        <h5 style="color: black"><b>UPPER</b></h5>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-2">
+                                        <h5 style="color: black"><b>LOWER</b></h5>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div class="col-md-2">
+                                            @Html.LabelFor(x => x.UpperTooth, new { @class = "col-lg-6 control-label" })
+                                        </div>
+                                        <div class="col-md-4">
+                                           @Html.TextBoxFor(model => model.UpperTooth, new { @class = "form-control col-sm-4" })
+                                        </div>
+                                        <div class="col-md-4">
+                                          @Html.TextBoxFor(model => model.LowerTooth, new { @class = "form-control col-sm-4" })
+                                        </div>                                       
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div class="col-md-2">
+                                            @Html.LabelFor(x => x.UpperArch, new { @class = "col-lg-6 control-label" })
+                                        </div>
+                                        <div class="col-md-4">
+                                            @Html.TextBoxFor(x => x.UpperArch, new { @class = "form-control col-sm-4" })
+                                        </div>
+                                        <div class="col-md-4">
+                                            @Html.TextBoxFor(x => x.LowerArch, new { @class = "form-control col-sm-4" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div class="col-md-2">
+                                            @Html.LabelFor(x => x.UpperDifference, new { @class = "col-lg-6 control-label" })
+                                        </div>
+                                        <div class="col-md-4">
+                                            @Html.TextBoxFor(x => x.UpperDifference, new { @class = "form-control col-sm-4" })
+                                        </div>
+                                        <div class="col-md-4">
+                                            @Html.TextBoxFor(x => x.LowerDifference, new { @class = "form-control col-sm-4" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div class="col-md-2">
+                                            @Html.LabelFor(x => x.UpperInference, new { @class = "col-lg-6 control-label" })
+                                        </div>
+                                        <div class="col-md-4">
+                                            @Html.TextBoxFor(x => x.UpperInference, new { @class = "form-control col-sm-4" })
+                                        </div>
+                                        <div class="col-md-4">
+                                            @Html.TextBoxFor(x => x.LowerInference, new { @class = "form-control col-sm-4" })
+                                        </div>
+                                    </div>
+                                </div>       
+                                <br />
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div class="col-md-2">
+                                            @Html.LabelFor(x => x.Inference, new { @class = "col-lg-6 control-label" })
+                                        </div>
+                                        <div class="col-md-8">
+                                            @Html.TextAreaFor(model => model.Inference, new { @class = "form-control col-sm-4" })
+                                        </div>
+                                    </div>
+                                </div>      
+                                
+                                <br />
+                                <div class="col-sm-1 col-md-offset-4">
+                                    @Html.HiddenFor(x => x.OrthoId)
+                                    @Html.HiddenFor(x => x.AnalysisId)
+                                    <input type="submit" value="Save" class="fa fa-save btn btn-success"/>
+                                </div>                 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+}
+

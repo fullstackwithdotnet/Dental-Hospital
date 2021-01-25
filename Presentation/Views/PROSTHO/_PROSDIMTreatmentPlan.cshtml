@@ -1,0 +1,304 @@
+﻿@using Metron.Entities
+@model DIMS.ViewModels.PROSDIMViewModel
+@functions{
+    public string GetClassFromProperties(string propertyName)
+    {
+        var props = Model.Proplist.FirstOrDefault<PROSDIMCasesheetProperties>(x => x.PropertyName == propertyName);
+
+        if (props != null && props.PropertyVisibility == "N")
+        {
+            return "display:none";
+        }
+
+        return "";
+    }
+}
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+        <h5 class="subHeading">Emergency Phase</h5>
+        <div id="divEmergencyPhase" >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(model => model.EmergencyPhase, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(x => x.EmergencyPhase, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h5 class="subHeading">PHASE I-NON SURGICAL</h5>
+        <div id="divPhase1Therapy" >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(model => model.Phase1Therapy, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(x => x.Phase1Therapy, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divCasts" >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(model => model.Casts, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(x => x.Casts, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h5 class="subHeading">PHASE II -SURGICAL</h5>
+                <h5 class="subHeading1">Ridge Agumentation</h5>
+                <div id="divNotRequired" >
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.NotRequired, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.NotRequired, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divRequired" >
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.Required, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.Required, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h5 style="color: white">.</h5>
+                <h5 style="color: white">.</h5>
+                <div id="divTypeOfGraft" >
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.TypeOfGraft, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.TypeOfGraft, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divQuantityOfGraft"  >
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.QuantityOfGraft, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.QuantityOfGraft, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div  class="row">
+            <div class="col-md-6">
+                <h5 class="subHeading1">Selection of Implant's</h5>
+                <div id="divPhaseIITypeOfPro"  >
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.PhaseIITypeOfPro, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.PhaseIITypeOfPro, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divType"  >
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.Type, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.Type, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divTradeNames"  >
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.TradeNames, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.TradeNames, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divSite" >
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.Site, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.Site, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            <div class="col-md-6">
+                <h5 style="color: white">.</h5>
+                <div id="divNumber" >
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.Number, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.Number, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divDiameter" >
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.Diameter, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.Diameter, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divLength" >
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.Length, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.Length, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        <div id="divFirstStage" >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(model => model.FirstStage, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(x => x.FirstStage, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divSecondStage" >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(model => model.SecondStage, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(x => x.SecondStage, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h5 class="subHeading">PHASE III-RESTORATIVE</h5>
+        <h5 class="subHeading1">Impression and Temporization</h5>
+        <div id="divTypeOfImpression" >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(model => model.TypeOfImpression, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(x => x.TypeOfImpression, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divWorkAuthorization" >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(model => model.WorkAuthorization, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(x => x.WorkAuthorization, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+        <div class="col-md-6">
+            <h5 class="subHeading1">Final Prosthesis</h5>
+            <div id="divTypeOfAbutment" >
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(model => model.TypeOfAbutment, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.TypeOfAbutment, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="divTypeOfProsthesis" >
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(model => model.TypeOfProsthesis, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.TypeOfProsthesis, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <div class="col-md-6">
+             <h5 style="color: white">.</h5>
+                    <div id="divImplantAbutment" >
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(model => model.ImplantAbutment, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ImplantAbutment, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divCementScrew" >
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(model => model.CementScrew, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.CementScrew, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+          </div>
+        
+        <div id="divAnyOther" >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(model => model.AnyOther, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(x => x.AnyOther, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h5 class="subHeading">PHASE IV-MAINTENANCE</h5>
+        <div id="divMaintenancePhase" >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(model => model.MaintenancePhase, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(x => x.MaintenancePhase, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divEstimatedCost" >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(model => model.EstimatedCost, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(x => x.EstimatedCost, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+
+

@@ -1,0 +1,207 @@
+﻿@Html.HiddenFor(model => model.TreatmentReferredId)@using Metron.Entities
+@model DIMS.ViewModels.CONSViewModel
+
+
+    @functions{
+    public string GetClassFromProperties(string propertyName)
+    {
+        var props = Model.Proplist.FirstOrDefault<CONSCasesheetProperties>(x => x.PropertyName == propertyName);
+
+        if (props != null && props.PropertyVisibility == "N")
+        {
+            return "display:none";
+        }
+
+        return "";
+    }
+    
+    }
+    @functions {
+    object getHtmlAttributes(string value, string CssClass)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            return new { @class = CssClass, disabled = "disabled" };
+        }
+        return new { @class = CssClass };
+    }
+    }
+
+    @helper CreateCheckbox(string value)
+    {
+    @Html.CheckBox("chkBox", !string.IsNullOrEmpty(value), new { @class = "checkbox-inline" })
+    }
+    
+    
+   
+    <div class="row">
+
+        <div class="col-md-6">
+            <div id="divChiefComplaint" >
+                <div class="row"> 
+                    <div class="form-group form-group-sm required">
+                        @Html.LabelFor(x => x.ChiefComplaintName, new { @class = "col-md-4 control-label " })
+                        <div class="col-md-8">
+                            @Html.TextAreaFor(x => x.ChiefComplaint, new { @class = "form-control", required = "required" })
+                            @Html.HiddenFor(model => model.TreatmentReferredId)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <div class="col-md-6">
+        <div id="divPresentIllnessHistory" >
+            <div class="row">
+                <div class="form-group form-group-sm ">
+                    @Html.LabelFor(x => x.PresentIllnessHistory, new { @class = "col-md-4 control-label " })
+                    <div class="col-md-8">
+                        @Html.TextAreaFor(x => x.PresentIllnessHistory, new { @class = "form-control"})
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-default collapsed-box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">MEDICAL HISTORY </h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.MedicalHistory, new { @class = "col-md-4 control-label " })
+                                    <div class="col-md-8">
+                                        @Html.TextAreaFor(x => x.MedicalHistory, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.DrugHistory, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextAreaFor(x => x.DrugHistory, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-default collapsed-box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">FAMILY HISTORY </h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.FamilyHistory, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextAreaFor(x => x.FamilyHistory, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-default collapsed-box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">PAST DENTAL HISTORY </h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.PastDentalHistory, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextAreaFor(x => x.PastDentalHistory, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+     
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-default collapsed-box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">PERSONAL HISTORY </h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        @Html.LabelFor(x => x.PersonalHistory, new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8">
+                                            @Html.TextAreaFor(x => x.PersonalHistory, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        @Html.LabelFor(x => x.Diet, new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8">
+                                            @Html.TextAreaFor(x => x.Diet, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        @Html.LabelFor(x => x.Habits, new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8">
+                                            @Html.TextAreaFor(x => x.Habits, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        @Html.LabelFor(x => x.OralHygiene, new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8">
+                                            @Html.TextAreaFor(x => x.OralHygiene, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+     
+</div>
+    
+    

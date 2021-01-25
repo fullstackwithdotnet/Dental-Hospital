@@ -1,0 +1,170 @@
+﻿@model DIMS.ViewModels.OPDRevisitSearchViewModel
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel-heading">
+            <h4>Out Patient Registration Department</h4>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel-body">
+            <div class="row">
+                @*<div class="col-md-12">
+                    <div class="col-md-2 form-group form-group-sm">
+                        @Html.LabelFor(x => x.From_Date, new { @class = "control-label" })
+                    </div>
+                    <div class="col-md-3 form-group form-group-sm">
+                        @Html.EditorFor(model => model.From_Date, new { htmlAttributes = new { Value = Model.From_Date.ToString("yyyy-MM-dd") } })
+                    </div>
+                    <div class="col-md-2 form-group form-group-sm">
+                        @Html.LabelFor(x => x.To_Date, new { @class = "control-label" })
+                    </div>
+                    <div class="col-md-3 form-group form-group-sm">
+                        @Html.EditorFor(model => model.To_Date, new { htmlAttributes = new { Value = Model.From_Date.ToString("yyyy-MM-dd") } })
+                    </div>
+                    <div class="col-md-2 form-group form-group-sm">
+                        <a id="btnSearch"> <i class="fa fa-search fa fa-search btn btn-success"> Search</i></a>
+                    </div>
+                </div>*@
+                <div class="col-md-12">
+                    <div class="col-md-1 form-group form-group-sm">
+                        @Html.LabelFor(x => x.DateRange, new { @class = "control-label" })
+                    </div>
+                    <div class="col-md-3 form-group form-group-sm">
+                        @Html.EditorFor(model => model.DateRange, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="col-md-8 form-group form-group-sm">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Revisit List</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table id="tbOPDRevisitSearch" class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-md-1">DATE </th>
+                                            <th class="col-md-1">OP #</th>
+                                            <th class="col-md-2">PATIENT NAME</th>
+                                            <th class="col-md-1">AGE</th>
+                                            <th class="col-md-1">PHONE</th>
+                                            <th class="col-md-1">GENDER</th>
+                                            <th class="col-md-1">AREA</th>
+                                            <th class="col-md-1"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+ 
+
+
+@section scripts {
+    <script type="text/jscript">
+
+        $(document).ready(function () {
+
+            //$('#btnSearch').on('click', function (e) {
+            //    e.preventDefault();
+            //    Searchvalue();
+            //});
+            var start = moment();
+            var end = moment();
+            $('#DateRange').daterangepicker({
+                startDate: start,
+                endDate: end,
+                locale: {
+                    format: 'DD/MM/YYYY'
+                },
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                }
+            }, cb);
+            function cb(start, end) {
+                $('#DateRange span').html(start.format('YYYY/MM/DD') + ' - ' + end.format('YYYY/MM/DD'));
+            }
+            cb(start, end);
+
+
+
+            var Searchvalue = function () {
+                var itemIndex = $("#tbOPDRevisitSearch input.iHidden").length;
+                $('#tbOPDRevisitSearch tbody').empty();
+               
+                var selected = $("#DateRange").val();
+                var from = selected.split("-");
+                var fromdate = $.trim(from[0]);
+                var todate = $.trim(from[1]);
+
+                var $From_Date = fromdate.split("/").reverse().join("-");
+                var $To_Date = todate.split("/").reverse().join("-");
+
+                //var $From_Date = $("#From_Date").val();
+                //var $To_Date = $("#To_Date").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetOPDRevisitSearchList", "OPDRevisitRegistration")',
+                    data: '{From_Date: "' + $From_Date + ' ",To_Date: "' + $To_Date + ' "}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        table = $('#tbOPDRevisitSearch').DataTable();
+                        table.destroy();
+                        $('#tbOPDRevisitSearch').dataTable({
+                            data: data,
+                            columns: [
+                                { 'data': 'RevisitDate' },
+                                { 'data': 'OPNo' },
+                                { 'data': 'PatientName' },
+                                { 'data': 'Age' },
+                                { 'data': 'Phone' },
+                                { 'data': 'Gender'},
+                                { 'data': 'Area' },
+                                {
+                                    'data': 'Link',
+                                    'searchable': false,
+                                    'sortable': false,
+                                    'render': function (Link) {
+                                        return '<a href=' + Link + '>Edit</a>';
+                                    }
+                                },
+
+                            ]
+                        })
+                    },
+                })
+            }
+
+            Searchvalue();
+            $("#DateRange").on("change", function () {
+                Searchvalue();
+            })
+
+        });
+
+    </script>
+}

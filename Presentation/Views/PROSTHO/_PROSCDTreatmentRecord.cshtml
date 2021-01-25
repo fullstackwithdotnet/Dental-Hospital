@@ -1,0 +1,1161 @@
+﻿@using Metron.Entities
+@model DIMS.ViewModels.PROSCDViewModel
+
+@functions{
+    public string GetClassFromProperties(string propertyName)
+    {
+        var props = Model.Proplist.FirstOrDefault<PROSCDCasesheetProperties>(x => x.PropertyName == propertyName);
+
+        if (props != null && props.PropertyVisibility == "N")
+        {
+            return "display:none";
+        }
+
+        return "";
+    }
+}
+<div class="form-horizontal">
+    @Html.ValidationSummary(true)
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">1.Primary Impression </h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.PrimaryImprDate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                @Html.LabelFor(x => x.Maxillary, new { @class = "col-md-2 control-label subHeading1" })
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.PriMaxTypeOfTray, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.PriMaxTypeOfTray, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.PriMaxTrayNo, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.PriMaxTrayNo, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.PriMaxMaterial, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.PriMaxMaterial, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                @Html.LabelFor(x => x.Mandibular, new { @class = "col-md-2 control-label subHeading1" })
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.PriManTypeOfTray, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.PriManTypeOfTray, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.PriManTrayNo, new { @class = "col-md-4 control-label" })
+
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.PriManTrayNo, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.PriManMaterial, new { @class = "col-md-4 control-label" })
+
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.PriManMaterial, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">2.Making of Disgnostic Casts </h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.MakingOfDisgnosDate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(x => x.MakingOfDisgnos, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">3.Design of Custom Trays </h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.DesignOfCustomDate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.TextAreaFor(x => x.DesignOfCustom, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">4.Prepration of custom Trays </h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.PreprationOfCustomDate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.TextAreaFor(x => x.PreprationOfCustom, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">5.Border Molding </h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.BorderMoldingDate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(model => model.BorderMaterial, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(model => model.BorderMaterial, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(model => model.BorderMethod, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(model => model.BorderMethod, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(model => model.BorderPPS, new { @class = "col-md-3 control-label" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.BorderPPS, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">6.Final Impression </h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.FinalImpressionDate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                @Html.LabelFor(x => x.Maxillary, new { @class = "col-md-2 control-label subHeading1" })
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.FinaMaxMaterial, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.FinaMaxMaterial, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.FinaMaxTechnique, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.FinaMaxTechnique, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                @Html.LabelFor(x => x.Mandibular, new { @class = "col-md-2 control-label subHeading1" })
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.FinaManMaterial, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.FinaManMaterial, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.FinaManTechnique, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.FinaManTechnique, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">7.Making of Master Casts </h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.MakingOfMasterCastsDate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.TextAreaFor(x => x.MakingOfMasterCasts, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">8.Trial Denture Based And Occlusion Rims </h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.TrialDentureBasedDate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.TextAreaFor(x => x.TrialDentureBased, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">9.Maxillo Mandibular Relations </h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.MaxilloMandibularDate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.LabialFullness, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.LabialFullness, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.Visibility, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.Visibility, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.OrientOfAnteriorPlane, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.OrientOfAnteriorPlane, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.OrientOfPosteriorPlane, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.OrientOfPosteriorPlane, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="subHeading1">i)Orientation Jaw Relation</h5>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.OrientjawRelation, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextAreaFor(model => model.OrientjawRelation, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <h5 class="subHeading1">iii)Horizontal Jaw Relation Centric relation record</h5>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.CentricRelationMethod, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.CentricRelationMethod, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.CentricRelationMaterial, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.CentricRelationMaterial, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.VerifiOfCentricjaw, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextAreaFor(model => model.VerifiOfCentricjaw, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="subHeading1">ii)Vertical Jaw Relation</h5>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.VerticalDimAtRest, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.VerticalDimAtRest, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.VerticalDimAtocculsion, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.VerticalDimAtocculsion, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.InterocclusalDistance, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.InterocclusalDistance, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.VDR, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.VDR, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.VDO, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.VDO, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h5 class="subHeading1">Recording of Eccentric Jaw Relations</h5>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.Protrusive, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.TextAreaFor(model => model.Protrusive, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.RightLateral, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.TextAreaFor(model => model.RightLateral, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.LeftLateral, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.TextAreaFor(model => model.LeftLateral, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">10.Transfer Of Record To Articuar For Adjustments of Articular </h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h3 class="box-title"></h3>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.TransferOfRecArticuarDate)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    <div class="col-md-5">
+                                        <h5 class="subHeading1">i) Condylar Guidance</h5>
+                                    </div>
+                                    <div class="col-md-3">
+                                        @Html.LabelFor(x => x.Right, new { @class = "col-md-2 control-label" })
+                                    </div>
+                                    <div class="col-md-4">
+                                        @Html.LabelFor(x => x.Left, new { @class = "col-md-2 control-label" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.ConHorizontalRight, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(x => x.ConHorizontalRight, new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(x => x.ConHorizontalLeft, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.ConLeteralRight, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(x => x.ConLeteralRight, new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(x => x.ConLeteralLeft, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    <div class="col-md-5">
+                                        <h5 class="subHeading1">ii) Incisal Guidance</h5>
+                                    </div>
+                                    <div class="col-md-3">
+                                        @Html.LabelFor(x => x.Right, new { @class = "col-md-2 control-label" })
+                                    </div>
+                                    <div class="col-md-4">
+                                        @Html.LabelFor(x => x.Left, new { @class = "col-md-2 control-label" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.IncHorizontalRight, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(x => x.IncHorizontalRight, new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(x => x.IncHorizontalLeft, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.IncLeteralRight, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(x => x.IncLeteralRight, new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(x => x.IncLeteralLeft, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">11.Selection Of Teeth </h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h3 class="box-title"></h3>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.SelectionOfTeethDate)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                @Html.LabelFor(x => x.Anterior, new { @class = "col-md-2 control-label subHeading1" })
+                            </div>
+                            <div id="divBrandAnterior" style='@GetClassFromProperties("BrandAnterior")'>
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        @Html.LabelFor(x => x.BrandAnterior, new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8">
+                                            @Html.TextBoxFor(x => x.BrandAnterior, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="divTypeAnterior" style='@GetClassFromProperties("TypeAnterior")'>
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        @Html.LabelFor(x => x.TypeAnterior, new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8">
+                                            @Html.TextBoxFor(x => x.TypeAnterior, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="divMaterialAnterior" style='@GetClassFromProperties("MaterialAnterior")'>
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        @Html.LabelFor(x => x.MaterialAnterior, new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8">
+                                            @Html.TextBoxFor(x => x.MaterialAnterior, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="divShadeAnterior" style='@GetClassFromProperties("ShadeAnterior")'>
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        @Html.LabelFor(x => x.ShadeAnterior, new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8">
+                                            @Html.TextBoxFor(x => x.ShadeAnterior, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="divSizeAnterior" style='@GetClassFromProperties("SizeAnterior")'>
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        @Html.LabelFor(x => x.SizeAnterior, new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8">
+                                            @Html.TextBoxFor(x => x.SizeAnterior, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="divShapeAnterior" style='@GetClassFromProperties("ShapeAnterior")'>
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        @Html.LabelFor(x => x.ShapeAnterior, new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-8">
+                                            @Html.TextBoxFor(x => x.ShapeAnterior, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                @Html.LabelFor(x => x.Posterior, new { @class = "col-md-2 control-label subHeading1" })
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.BrandAnterior, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.BrandPosterior, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.TypeAnterior, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.TypePosterior, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.MaterialAnterior, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.MaterialPosterior, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.ShadeAnterior, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.ShadePosterior, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.SizeAnterior, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.SizePosterior, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.ShapeAnterior, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.ShapePosterior, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">12.Arrangement of Teeth </h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.ArrangementOfTeethDate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(x => x.ArrangementOcclusion, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">13.Anterior Try -In </h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.AnteriorTryDate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.AntComfort, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.AntComfort, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.AntRetention, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.AntRetention, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.AntStability, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.AntStability, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.AntOverjet, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.AntOverjet, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.AntOverbite, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.AntOverbite, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.AntEsthetics, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.AntEsthetics, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.AntPhonetics, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.AntPhonetics, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.AntProstrusiveContact, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.AntProstrusiveContact, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.AntAcceptance, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.AntAcceptance, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">14.Posterior Try -In </h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.PosteriorTryDate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.PosComfort, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.PosComfort, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.PosVerticalRelation, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.PosVerticalRelation, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.PosCentricOcclusion, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.PosCentricOcclusion, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.PosEccentricOcclusion, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.PosEccentricOcclusion, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.PosInterocclusalDistance, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.PosInterocclusalDistance, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.PosAcceptance, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.PosAcceptance, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">15.Laboratory Remounting </h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.LaboratoryRemDate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(x => x.LaboratoryRem, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">16.Finishing and Polishing </h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.FinishingPolisDate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(x => x.FinishingPolis, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">17.Clinical Remounting </h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.ClinicalRemDate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(x => x.ClinicalRem, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">18.Denture Insertion and Instructions </h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.DentureInsertionDate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(x => x.DentureInsertion, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,285 @@
+﻿@model DIMS.ViewModels.UserViewModel
+
+@{
+    int index = 0;
+}
+
+@functions{
+    string GetId(string fieldName, int index)
+    {
+        string modelName = "AssignedPermissions";
+        ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix = modelName;
+        return string.Format("{0}[{2}]_{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+    string GetName(string fieldName, int index)
+    {
+        string modelName = "AssignedPermissions";
+        ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix = modelName;
+        return string.Format("{0}[{2}].{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+
+        <div class="box box-info">
+            <div class="box-header with-border" style="background-color:aliceblue;">
+                <h3 class="box-title"> Update User</h3>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.FirstName, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.FirstName)
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.LastName, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.LastName)
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm hidden ">
+                            @Html.LabelFor(model => model.UserRoleIdPK, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.UserRoleIdPK, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.RoleName, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(model => model.RoleId, new SelectList(Model.Roles, "RoleId", "RoleName"), htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.RoleId)
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.UserName, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(model => model.UserName)
+                            </div>
+                        </div>
+
+
+                        <div class="form-group form-group-sm hidden">
+                            @Html.LabelFor(model => model.Password, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Password)
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm hidden">
+                            @Html.LabelFor(model => model.ConfirmPassword, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ConfirmPassword)
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm hidden ">
+                            @Html.LabelFor(model => model.UserId, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.UserId, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.UserId)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        <div class="col-md-12 align RightCenter">
+                            <input type="submit" value="Update" class="btn btn-success btn-sm" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box box-info" >
+            <div class="box-header with-border" style="background-color:aliceblue;">
+                <h3 class="box-title"> Departmentwise Access Rights</h3>
+            </div>
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-condensed table-hover">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Departments</th>
+                                @foreach (var permission in Model.Permissions)
+                                {
+                                    <th class="text-center">@permission.DisplayName</th>
+                                }
+                            </tr>
+                        </thead>
+
+                        @foreach (var item in Model.AssignedPermissions)
+                        {
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        @Html.HiddenFor(modelItem => item.DeptId, new { @class = "form-control iHidden", @id = GetId("DeptId", index), @Name = GetName("DeptId", index) })
+                                        @Html.HiddenFor(modelItem => item.UserDeptId, new { @class = "form-control iHidden", @id = GetId("UserDeptId", index), @Name = GetName("UserDeptId", index) })
+                                        @Html.DisplayFor(modelItem => item.DeptCode)
+                                    </td>
+                                    <td class="text-center">
+                                        @if ((item.DeptId == ((int)DIMS.Enums.Department.REPORTS)))
+                                        {
+                                            @Html.CheckBoxFor(modelItem => item.Add, new { @disabled = "disabled", @id = GetId("Add", index), @Name = GetName("Add", index) })
+                                        }
+                                        else
+                                        {
+                                            @Html.CheckBoxFor(modelItem => item.Add, new { @class = "", @id = GetId("Add", index), @Name = GetName("Add", index) })
+                                        }
+                                    </td>
+                                    <td class="text-center">
+                                        @if ((item.DeptId == ((int)DIMS.Enums.Department.REPORTS)))
+                                        {
+                                            @Html.CheckBoxFor(modelItem => item.Edit, new { @disabled = "disabled", @id = GetId("Edit", index), @Name = GetName("Edit", index) })
+                                        }
+                                        else
+                                        {
+                                            @Html.CheckBoxFor(modelItem => item.Edit, new { @class = "", @id = GetId("Edit", index), @Name = GetName("Edit", index) })
+                                        }
+                                    </td>
+                                    <td class="text-center">
+                                        @Html.CheckBoxFor(modelItem => item.View, new { @class = "", @id = GetId("View", index), @Name = GetName("View", index) })
+                                    </td>
+                                    <td class="text-center">
+                                        @if ((item.DeptId == ((int)DIMS.Enums.Department.OPD)) || (item.DeptId == ((int)DIMS.Enums.Department.RADIO)) || (item.DeptId == ((int)DIMS.Enums.Department.LAB)) || (item.DeptId == ((int)DIMS.Enums.Department.SETTINGS)) || (item.DeptId == ((int)DIMS.Enums.Department.REPORTS)))
+                                        {
+                                            @Html.CheckBoxFor(modelItem => item.Discount, new { @disabled = "disabled", @id = GetId("Discount", index), @Name = GetName("Discount", index) })
+                                        }
+                                        else
+                                        {
+                                            @Html.CheckBoxFor(modelItem => item.Discount, new { @class = "", @id = GetId("Discount", index), @Name = GetName("Discount", index) })
+                                        }
+                                    </td>
+                                    <td class="text-center">
+                                        @if ((item.DeptId == ((int)DIMS.Enums.Department.LAB)) || (item.DeptId == ((int)DIMS.Enums.Department.OPD)) || (item.DeptId == ((int)DIMS.Enums.Department.RADIO)) || (item.DeptId == ((int)DIMS.Enums.Department.SETTINGS)) || (item.DeptId == ((int)DIMS.Enums.Department.REPORTS)) || (item.DeptId == ((int)DIMS.Enums.Department.BILL)))
+                                        {
+                                            @Html.CheckBoxFor(modelItem => item.Referral, new { @disabled = "disabled", @id = GetId("Referral", index), @Name = GetName("Referral", index) })
+                                        }
+                                        else
+                                        {
+                                            @Html.CheckBoxFor(modelItem => item.Referral, new { @class = "", @id = GetId("Referral", index), @Name = GetName("Referral", index) })
+                                        }
+                                    </td>
+                                    <td class="text-center">
+                                        @if ((item.DeptId == ((int)DIMS.Enums.Department.LAB)) || (item.DeptId == ((int)DIMS.Enums.Department.OPD)) || (item.DeptId == ((int)DIMS.Enums.Department.RADIO)) || (item.DeptId == ((int)DIMS.Enums.Department.SETTINGS)) || (item.DeptId == ((int)DIMS.Enums.Department.REPORTS)) || (item.DeptId == ((int)DIMS.Enums.Department.BILL)))
+                                        {
+                                            @Html.CheckBoxFor(modelItem => item.Allotment, new { @disabled = "disabled", @id = GetId("Allotment", index), @Name = GetName("Allotment", index) })
+                                        }
+                                        else
+                                        {
+                                            @Html.CheckBoxFor(modelItem => item.Allotment, new { @class = "", @id = GetId("Allotment", index), @Name = GetName("Allotment", index) })
+                                        }
+                                    </td>
+                                    <td class="text-center">
+                                        @if ((item.DeptId == ((int)DIMS.Enums.Department.LAB)) || (item.DeptId == ((int)DIMS.Enums.Department.OPD)) || (item.DeptId == ((int)DIMS.Enums.Department.RADIO)) || (item.DeptId == ((int)DIMS.Enums.Department.SETTINGS)) || (item.DeptId == ((int)DIMS.Enums.Department.REPORTS)) || (item.DeptId == ((int)DIMS.Enums.Department.BILL)))
+                                        {
+                                            @Html.CheckBoxFor(modelItem => item.CancelAllotment, new { @disabled = "disabled", @id = GetId("CancelAllotment", index), @Name = GetName("CancelAllotment", index) })
+                                        }
+                                        else
+                                        {
+                                            @Html.CheckBoxFor(modelItem => item.CancelAllotment, new { @class = "", @id = GetId("CancelAllotment", index), @Name = GetName("CancelAllotment", index) })
+                                        }
+                                    </td>
+                                    <td class="text-center">
+                                        @if ((item.DeptId == ((int)DIMS.Enums.Department.LAB)) || (item.DeptId == ((int)DIMS.Enums.Department.OPD)) || (item.DeptId == ((int)DIMS.Enums.Department.RADIO)) || (item.DeptId == ((int)DIMS.Enums.Department.SETTINGS)) || (item.DeptId == ((int)DIMS.Enums.Department.REPORTS)) || (item.DeptId == ((int)DIMS.Enums.Department.BILL)))
+                                        {
+                                            @Html.CheckBoxFor(modelItem => item.Appointment, new { @disabled = "disabled", @id = GetId("Appointment", index), @Name = GetName("Appointment", index) })
+                                        }
+                                        else
+                                        {
+                                            @Html.CheckBoxFor(modelItem => item.Appointment, new { @class = "", @id = GetId("Appointment", index), @Name = GetName("Appointment", index) })
+                                        }
+                                    </td>
+                                    <td class="text-center">
+                                        @if ((item.DeptId == ((int)DIMS.Enums.Department.LAB)) || (item.DeptId == ((int)DIMS.Enums.Department.OPD)) || (item.DeptId == ((int)DIMS.Enums.Department.RADIO)) || (item.DeptId == ((int)DIMS.Enums.Department.SETTINGS)) || (item.DeptId == ((int)DIMS.Enums.Department.REPORTS)) || (item.DeptId == ((int)DIMS.Enums.Department.BILL)))
+                                        {
+                                            @Html.CheckBoxFor(modelItem => item.AppReschedule, new { @disabled = "disabled", @id = GetId("AppReschedule", index), @Name = GetName("AppReschedule", index) })
+                                        }
+                                        else
+                                        {
+                                            @Html.CheckBoxFor(modelItem => item.AppReschedule, new { @class = "", @id = GetId("AppReschedule", index), @Name = GetName("AppReschedule", index) })
+                                        }
+                                    </td>
+                                    <td class="text-center">
+                                        @if ((item.DeptId == ((int)DIMS.Enums.Department.LAB)) || (item.DeptId == ((int)DIMS.Enums.Department.OPD)) || (item.DeptId == ((int)DIMS.Enums.Department.RADIO)) || (item.DeptId == ((int)DIMS.Enums.Department.SETTINGS)) || (item.DeptId == ((int)DIMS.Enums.Department.REPORTS)) || (item.DeptId == ((int)DIMS.Enums.Department.BILL)))
+                                        {
+                                            @Html.CheckBoxFor(modelItem => item.Investigation, new { @disabled = "disabled", @id = GetId("Investigation", index), @Name = GetName("Investigation", index) })
+                                        }
+                                        else
+                                        {
+                                            @Html.CheckBoxFor(modelItem => item.Investigation, new { @class = "", @id = GetId("Investigation", index), @Name = GetName("Investigation", index) })
+                                        }
+                                    </td>
+                                    <td class="text-center">
+                                        @if ((item.DeptId == ((int)DIMS.Enums.Department.LAB)) || (item.DeptId == ((int)DIMS.Enums.Department.OPD)) || (item.DeptId == ((int)DIMS.Enums.Department.RADIO)) || (item.DeptId == ((int)DIMS.Enums.Department.SETTINGS)) || (item.DeptId == ((int)DIMS.Enums.Department.REPORTS)) || (item.DeptId == ((int)DIMS.Enums.Department.BILL)))
+                                        {
+                                            @Html.CheckBoxFor(modelItem => item.TreatmentServices, new { @disabled = "disabled", @id = GetId("TreatmentServices", index), @Name = GetName("TreatmentServices", index) })
+                                        }
+                                        else
+                                        {
+                                            @Html.CheckBoxFor(modelItem => item.TreatmentServices, new { @class = "", @id = GetId("TreatmentServices", index), @Name = GetName("TreatmentServices", index) })
+                                        }
+                                    </td>
+                                    <td class="text-center">
+                                        @if ((item.DeptId == ((int)DIMS.Enums.Department.LAB)) || (item.DeptId == ((int)DIMS.Enums.Department.OPD)) || (item.DeptId == ((int)DIMS.Enums.Department.RADIO)) || (item.DeptId == ((int)DIMS.Enums.Department.SETTINGS)) || (item.DeptId == ((int)DIMS.Enums.Department.REPORTS)) || (item.DeptId == ((int)DIMS.Enums.Department.BILL)))
+                                        {
+                                            @Html.CheckBoxFor(modelItem => item.ProcedureApproval, new { @disabled = "disabled", @id = GetId("ProcedureApproval", index), @Name = GetName("ProcedureApproval", index) })
+                                        }
+                                        else
+                                        {
+                                            @Html.CheckBoxFor(modelItem => item.ProcedureApproval, new { @id = GetId("ProcedureApproval", index), @Name = GetName("ProcedureApproval", index) })
+                                        }
+                                    </td>
+                                    <td class="text-center hidden">
+                                        @if ((item.DeptId == ((int)DIMS.Enums.Department.LAB)) || (item.DeptId == ((int)DIMS.Enums.Department.OPD)) || (item.DeptId == ((int)DIMS.Enums.Department.RADIO)) || (item.DeptId == ((int)DIMS.Enums.Department.SETTINGS)) || (item.DeptId == ((int)DIMS.Enums.Department.REPORTS)) || (item.DeptId == ((int)DIMS.Enums.Department.BILL)))
+                                        {
+                                            @Html.CheckBoxFor(modelItem => item.CaserecordApproval, new { @disabled = "disabled", @id = GetId("CaserecordApproval", index), @Name = GetName("CaserecordApproval", index) })
+                                        }
+                                        else
+                                        {
+                                            @Html.CheckBoxFor(modelItem => item.CaserecordApproval, new { @class = "", @id = GetId("CaserecordApproval", index), @Name = GetName("CaserecordApproval", index) })
+                                        }
+                                    </td>
+                                    <td class="text-center">
+                                        @if ((item.DeptId == ((int)DIMS.Enums.Department.LAB)) || (item.DeptId == ((int)DIMS.Enums.Department.OPD)) || (item.DeptId == ((int)DIMS.Enums.Department.RADIO)) || (item.DeptId == ((int)DIMS.Enums.Department.SETTINGS)) || (item.DeptId == ((int)DIMS.Enums.Department.REPORTS)) || (item.DeptId == ((int)DIMS.Enums.Department.BILL)))
+                                        {
+                                            @Html.CheckBoxFor(modelItem => item.EditFreezeCase, new { @disabled = "disabled", @id = GetId("EditFreezeCase", index), @Name = GetName("EditFreezeCase", index) })
+                                        }
+                                        else
+                                        {
+                                            @Html.CheckBoxFor(modelItem => item.EditFreezeCase, new { @class = "", @id = GetId("EditFreezeCase", index), @Name = GetName("EditFreezeCase", index) })
+                                        }
+                                    </td>
+                                </tr>
+                            </tbody>
+                                        index++;
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        @Html.ActionLink("Back to List", "Index") | @Html.ActionLink("Change Password", "EditPassword", new { userId = Model.UserId })
+    </div>
+}

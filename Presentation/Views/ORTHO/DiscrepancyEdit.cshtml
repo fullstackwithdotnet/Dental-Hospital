@@ -1,0 +1,560 @@
+﻿@using Metron.Entities
+@model DIMS.ViewModels.OrthoAnalysisViewModal
+
+@{
+    ViewBag.Title = "Total Space / Discrepancy Analysis";
+}
+
+@functions{
+    public string GetClassFromProperties(string propertyName)
+    {
+        var props = Model.Proplist.FirstOrDefault<ORTHOCasesheetProperties>(x => x.PropertyName == propertyName);
+
+        if (props != null && props.PropertyVisibility == "N")
+        {
+            return "display:none";
+        }
+
+        return "";
+    }
+}
+
+
+<h2>Total Space / Discrepancy Analysis</h2>
+
+@using (Html.BeginForm("SaveModalDiscrepancy", "Ortho", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h5 style="color: #357ebd"><b>UPPER ARCH</b></h5>
+                                    </div>                                       
+                                 </div> 
+                                <div id="divUpperTotalSpace" style='@GetClassFromProperties("UpperTotalSpace")'>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-6">
+                                                @Html.LabelFor(x => x.UpperTotalSpace, new { @class = "col-lg-12 control-label" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.UpperTotalSpace, new { @class = "form-control col-sm-4" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                             
+                                    <br />
+                                <div id="divUpperSpaceDerotation" style='@GetClassFromProperties("UpperSpaceDerotation")'>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-6">
+                                                @Html.LabelFor(x => x.UpperSpaceDerotation, new { @class = "col-lg-12 control-label" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(x => x.UpperSpaceDerotation, new { @class = "form-control col-sm-4" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                                  
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h5 style="color: #357ebd"><b>Space Required for Correcting</b></h5>
+                                        </div>
+                                    </div>
+                                    <br />
+                                <div id="divUpperCrowding" style='@GetClassFromProperties("UpperCrowding")'>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-6">
+                                                @Html.LabelFor(x => x.UpperCrowding, new { @class = "col-lg-12 control-label" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(x => x.UpperCrowding, new { @class = "form-control col-sm-4" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                                   
+                                    <br />
+                                <div id="divUpperProclination" style='@GetClassFromProperties("UpperProclination")'>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-6">
+                                                @Html.LabelFor(x => x.UpperProclination, new { @class = "col-lg-12 control-label" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(x => x.UpperProclination, new { @class = "form-control col-sm-4" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                                  
+                                    <br />
+                                <div id="divUpperLeveling" style='@GetClassFromProperties("UpperLeveling")'>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-6">
+                                                @Html.LabelFor(x => x.UpperLeveling, new { @class = "col-lg-12 control-label" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(x => x.UpperLeveling, new { @class = "form-control col-sm-4" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                                 
+                                    <br />
+                                <div id="divUpperSpaceRequired" style='@GetClassFromProperties("UpperSpaceRequired")'>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-6">
+                                                @Html.LabelFor(x => x.UpperSpaceRequired, new { @class = "col-lg-12 control-label" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(x => x.UpperSpaceRequired, new { @class = "form-control col-sm-4", @readonly = "readonly" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                                  
+                                    <br />
+                                <div id="divUpperDisperency" style='@GetClassFromProperties("UpperDisperency")'>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-6">
+                                                @Html.LabelFor(x => x.UpperDisperency, new { @class = "col-lg-12 control-label" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(x => x.UpperDisperency, new { @class = "form-control col-sm-4", @readonly = "readonly" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                                 
+                                    <br />
+                                <div id="divUpperMidlineDeviation" style='@GetClassFromProperties("UpperMidlineDeviation")'>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-6">
+                                                @Html.LabelFor(x => x.UpperMidlineDeviation, new { @class = "col-lg-12 control-label" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.DropDownListFor(model => model.UpperMidlineDeviation, new SelectList(Model.MidlineList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                                   
+                                    <br />
+                                <div id="divUpperMidlinemm" style='@GetClassFromProperties("UpperMidlinemm")'>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-6">
+                                                @Html.LabelFor(x => x.UpperMidlinemm, new { @class = "col-lg-12 control-label" })
+                                            </div>
+                                            <div class="col-md-5">
+                                                @Html.TextBoxFor(x => x.UpperMidlinemm, new { @class = "form-control col-sm-4", @readonly = "readonly" })
+                                            </div>
+                                            <div class="col-md-1">
+                                                mm
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                                 
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h5 style="color: #357ebd"><b>Hence Space Needed On</b></h5>
+                                        </div>
+                                    </div>
+                                    <br />
+                                <div id="divUpperSpaceNeedLeft" style='@GetClassFromProperties("UpperSpaceNeedLeft")'>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-6">
+                                                @Html.LabelFor(x => x.UpperSpaceNeedLeft, new { @class = "col-lg-12 control-label" })
+                                            </div>
+                                            <div class="col-md-5">
+                                                @Html.TextBoxFor(x => x.UpperSpaceNeedLeft, new { @class = "form-control col-sm-4" })
+                                            </div>
+                                            <div class="col-md-1">
+                                                mm
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                               
+                                    <br />
+                                <div id="divUpperSpaceNeedRight" style='@GetClassFromProperties("UpperSpaceNeedRight")'>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-6">
+                                                @Html.LabelFor(x => x.UpperSpaceNeedRight, new { @class = "col-lg-12 control-label" })
+                                            </div>
+                                            <div class="col-md-5">
+                                                @Html.TextBoxFor(x => x.UpperSpaceNeedRight, new { @class = "form-control col-sm-4" })
+                                            </div>
+                                            <div class="col-md-1">
+                                                mm
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                                  
+                                    <br />
+                                <div id="divInference" style='@GetClassFromProperties("Inference")'>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-3">
+                                                @Html.LabelFor(x => x.Inference, new { @class = "col-lg-12 control-label" })
+                                            </div>
+                                            <div class="col-md-9">
+                                                @Html.TextAreaFor(model => model.Inference, new { @class = "form-control col-sm-4" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                                </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h5 style="color: #357ebd"><b>LOWER ARCH</b></h5>
+                                    </div>
+                                </div>
+                                <div id="divLowerTotalSpace" style='@GetClassFromProperties("LowerTotalSpace")'>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-6">
+                                                @Html.LabelFor(x => x.LowerTotalSpace, new { @class = "col-lg-12 control-label" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.LowerTotalSpace, new { @class = "form-control col-sm-4" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                           
+                                <br />
+                                <div id="divLowerSpaceDerotation" style='@GetClassFromProperties("LowerSpaceDerotation")'>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-6">
+                                                @Html.LabelFor(x => x.LowerSpaceDerotation, new { @class = "col-lg-12 control-label" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(x => x.LowerSpaceDerotation, new { @class = "form-control col-sm-4" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                              
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h5 style="color: #357ebd"><b>Space Required for Correcting</b></h5>
+                                    </div>
+                                </div>
+                                <br />
+                                <div id="divLowerCrowding" style='@GetClassFromProperties("LowerCrowding")'>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-6">
+                                                @Html.LabelFor(x => x.LowerCrowding, new { @class = "col-lg-12 control-label" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(x => x.LowerCrowding, new { @class = "form-control col-sm-4" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                               
+                                <br />
+                                <div id="divLowerProclination" style='@GetClassFromProperties("LowerProclination")'>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-6">
+                                                @Html.LabelFor(x => x.LowerProclination, new { @class = "col-lg-12 control-label" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(x => x.LowerProclination, new { @class = "form-control col-sm-4" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                             
+                                <br />
+                                <div id="divLowerLeveling" style='@GetClassFromProperties("LowerLeveling")'>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-6">
+                                                @Html.LabelFor(x => x.LowerLeveling, new { @class = "col-lg-12 control-label" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(x => x.LowerLeveling, new { @class = "form-control col-sm-4" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                             
+                                <br />
+                                <div id="divLowerSpaceRequired" style='@GetClassFromProperties("LowerSpaceRequired")'>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-6">
+                                                @Html.LabelFor(x => x.LowerSpaceRequired, new { @class = "col-lg-12 control-label" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(x => x.LowerSpaceRequired, new { @class = "form-control col-sm-4", @readonly = "readonly" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                             
+                                <br />
+                                <div id="divLowerDisperency" style='@GetClassFromProperties("LowerDisperency")'>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-6">
+                                                @Html.LabelFor(x => x.LowerDisperency, new { @class = "col-lg-12 control-label" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(x => x.LowerDisperency, new { @class = "form-control col-sm-4", @readonly = "readonly" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            
+                                <br />
+                                <div id="divLowerMidlineDeviation" style='@GetClassFromProperties("LowerMidlineDeviation")'>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-6">
+                                                @Html.LabelFor(x => x.LowerMidlineDeviation, new { @class = "col-lg-12 control-label" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.DropDownListFor(model => model.LowerMidlineDeviation, new SelectList(Model.MidlineList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                             
+                                <br />
+                                <div id="divLowerMidlinemm" style='@GetClassFromProperties("LowerMidlinemm")'>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-6">
+                                                @Html.LabelFor(x => x.LowerMidlinemm, new { @class = "col-lg-12 control-label" })
+                                            </div>
+                                            <div class="col-md-5">
+                                                @Html.TextBoxFor(x => x.LowerMidlinemm, new { @class = "form-control col-sm-4", @readonly = "readonly" })
+                                            </div>
+                                            <div class="col-md-1">
+                                                mm
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h5 style="color: #357ebd"><b>Hence Space Needed On</b></h5>
+                                    </div>
+                                </div>
+                                <br />
+                                <div id="divLowerSpaceNeedLeft" style='@GetClassFromProperties("LowerSpaceNeedLeft")'>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-6">
+                                                @Html.LabelFor(x => x.LowerSpaceNeedLeft, new { @class = "col-lg-12 control-label" })
+                                            </div>
+                                            <div class="col-md-5">
+                                                @Html.TextBoxFor(x => x.LowerSpaceNeedLeft, new { @class = "form-control col-sm-4" })
+                                            </div>
+                                            <div class="col-md-1">
+                                                mm
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                              
+                                <br />
+                                <div id="divLowerSpaceNeedRight" style='@GetClassFromProperties("LowerSpaceNeedRight")'>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-6">
+                                                @Html.LabelFor(x => x.LowerSpaceNeedRight, new { @class = "col-lg-12 control-label" })
+                                            </div>
+                                            <div class="col-md-5">
+                                                @Html.TextBoxFor(x => x.LowerSpaceNeedRight, new { @class = "form-control col-sm-4", })
+                                            </div>
+                                            <div class="col-md-1">
+                                                mm
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div> 
+                              
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h5 style="color: #357ebd"><b>Space Required for Molar Correction On</b></h5>
+                                    </div>
+                                </div>
+                                <br />
+                                <div id="divLowerMolarLeft" style='@GetClassFromProperties("LowerMolarLeft")'>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-6">
+                                                @Html.LabelFor(x => x.LowerMolarLeft, new { @class = "col-lg-12 control-label" })
+                                            </div>
+                                            <div class="col-md-5">
+                                                @Html.TextBoxFor(x => x.LowerMolarLeft, new { @class = "form-control col-sm-4" })
+                                            </div>
+                                            <div class="col-md-1">
+                                                mm
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            
+                                <br />
+                                <div id="divLowerMolarRight" style='@GetClassFromProperties("LowerMolarRight")'>
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-6">
+                                                @Html.LabelFor(x => x.LowerMolarRight, new { @class = "col-lg-12 control-label" })
+                                            </div>
+                                            <div class="col-md-5">
+                                                @Html.TextBoxFor(x => x.LowerMolarRight, new { @class = "form-control col-sm-4" })
+                                            </div>
+                                            <div class="col-md-1">
+                                                mm
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                              
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row hidden">
+                        @Html.TextAreaFor(x => x.AnalysisId)
+                    </div>
+
+                        <br />
+                        <div class="col-sm-1 col-md-offset-4">
+                            @Html.HiddenFor(x => x.OrthoId)
+                            <input type="submit" value="Save" class="fa fa-save btn btn-success"/>
+                        </div>
+
+                    </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+
+@section scripts
+{
+    <script>
+        $("#UpperMidlineDeviation").change(function () {
+            $('#UpperMidlinemm').removeAttr('readonly').focus().val(""); 
+        });//
+
+        $("#LowerMidlineDeviation").change(function () {
+            
+            $('#LowerMidlinemm').removeAttr('readonly').focus().val("");
+        });
+
+
+        $("#UpperTotalSpace").on("keydown", function () {
+            
+            UpperCalculation();
+        });
+        $("#UpperSpaceDerotation").on("keydown", function () {
+            
+            UpperCalculation();
+        });
+        $("#UpperCrowding").on("keydown", function () {
+            
+            UpperCalculation();
+        });
+        $("#UpperProclination").on("keydown", function () {
+            
+            UpperCalculation();
+        });
+        $("#UpperLeveling").on("keydown", function () {
+            
+            UpperCalculation();
+        });
+
+        var UpperCalculation= function(){
+            var $TotalSpace = 0; var $Derotation = 0; var $Crowding=0;
+            var $Proclination = 0; var $Levelling = 0; var $SpaceReq = 0; var $Discrepancy = 0;
+            $TotalSpace = parseFloat($("#UpperTotalSpace").val());
+            $Derotation = parseFloat($("#UpperSpaceDerotation").val());
+            $Crowding = parseFloat($("#UpperCrowding").val());
+            $Proclination = parseFloat($("#UpperProclination").val());
+            $Levelling = parseFloat($("#UpperLeveling").val());
+            $Discrepancy = parseFloat($TotalSpace + $Derotation);
+            ($("#UpperDisperency").val($Discrepancy));
+            $SpaceReq = parseFloat($Crowding + $Proclination + $Levelling);
+            ($("#UpperSpaceRequired").val($SpaceReq));
+            ($("#UpperDisperency").val($Discrepancy-$SpaceReq));
+
+        }
+
+        $("#LowerTotalSpace").on("keydown", function () {
+            
+            LowerCalculation();
+        });
+        $("#LowerSpaceDerotation").on("keydown", function () {
+            
+            LowerCalculation();
+        });
+        $("#LowerCrowding").on("keydown", function () {
+            
+            LowerCalculation();
+        });
+        $("#LowerProclination").on("keydown", function () {
+            
+            LowerCalculation();
+        });
+        $("#LowerLeveling").on("keydown", function () {
+            
+            LowerCalculation();
+        });
+
+        var LowerCalculation = function () {
+            var $TotalSpace = 0; var $Derotation = 0; var $Crowding = 0;
+            var $Proclination = 0; var $Levelling = 0; var $SpaceReq = 0; var $Discrepancy = 0;
+            $TotalSpace = parseFloat($("#LowerTotalSpace").val());
+            $Derotation = parseFloat($("#LowerSpaceDerotation").val());
+            $Crowding = parseFloat($("#LowerCrowding").val());
+            $Proclination = parseFloat($("#LowerProclination").val());
+            $Levelling = parseFloat($("#LowerLeveling").val());
+            $Discrepancy = parseFloat($TotalSpace + $Derotation);
+            ($("#LowerDisperency").val($Discrepancy));
+            $SpaceReq = parseFloat($Crowding + $Proclination + $Levelling);
+            ($("#LowerSpaceRequired").val($SpaceReq));
+            ($("#LowerDisperency").val($Discrepancy - $SpaceReq));
+
+        }
+    </script>
+}
+
+
+
+
+
+

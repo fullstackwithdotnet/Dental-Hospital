@@ -1,0 +1,236 @@
+﻿@model DIMS.ViewModels.ORPATHRequisitionViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@functions
+{
+    public List<string> UserRights()
+    {
+        var user = User as DIMS.Infrastructure.CustomPrincipal;
+        return user.UserRights(DIMS.Enums.Department.PROSTHO);
+    }
+
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="box box-default box-solid">
+        <div class="box-header with-border">
+            <h3 class="box-title"> Oral Pathology Requisition Update</h3>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.Partial("../PatientInformation/_PatientOralPathRequisitionDetails", Model.patientInformationViewModel,
+                        new ViewDataDictionary()
+                        {
+                            TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "studentAllotmentViewModel" }
+
+                        })
+                        @Html.HiddenFor(model => Model.PatientId)
+                        @Html.HiddenFor(model => model.RequisitionId)
+                        @Html.HiddenFor(model => model.RequisitionDate)
+
+                    </div>
+                </div>
+            </div>
+
+            @*@{List<string> edit = UserRights();}
+            @if (edit.Contains(DIMS.Infrastructure.PermissionsEnum.Edit.ToString()))
+                {*@
+                <div class="row">
+                    <div class="col-xs-4">
+                    </div>
+                    <div class="col-xs-4">
+                        <input type="submit" value="Update" id="UpdateButton" class="fa fa-update btn btn-success"/>
+                        <input type="reset" value="Refresh" class="fa fa-refresh btn btn-success"/>
+                        @Html.ActionLink("Print", "ORPATHCaserecordReport", "ORPATHRequisition", new { RequisitionId = Model.RequisitionId }, new { @class = "fa fa-print btn btn-success", target = "_blank" })                       
+                    </div>
+                    <div class="col-xs-4"> 
+                    </div>
+                </div>
+            @*}*@
+             
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel-body">
+                        <div id="tabContainer">
+                            <ul class="nav nav-pills nav-justified" role="tablist">
+                                <li class="active">
+                                    <a href="#MicroBiology" role="tab" aria-controls="MicroBiology" data-toggle="tab">Micro Biology</a>
+                                </li>
+                                <li class="">
+                                    <a href="#Biopsy" role="tab" aria-controls="Biopsy" data-toggle="tab">Biopsy/Cytology</a>
+                                </li>
+                                <li class="">
+                                    <a href="#Investigations" role="tab" aria-controls="Investigation" data-toggle="tab">Investigation</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane fade active in" id="MicroBiology">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="box box-primary">
+                                                <div class="box-header with-border">
+                                                    <div class="form-group">
+                                                        @Html.Partial("../ORPATHRequisition/_RequisitionMicrobiology", Model)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="Biopsy">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="box box-primary">
+                                                <div class="box-header with-border">
+                                                    <div class="form-group">
+                                                        @Html.Partial("../ORPATHRequisition/_RequisitionBiopsy", Model)
+                                                        @Html.HiddenFor(x => x.MLymphNodeStatusId)
+                                                        @Html.HiddenFor(x => x.BLymphNodeStatusId)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="Investigations">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="box box-primary">
+                                                <div class="box-header with-border">
+                                                    <div class="form-group">
+                                                        @Html.Partial("../ORPATHRequisition/_CreateInvestigation", Model.BillingQueueViewModel)
+
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            @Html.Partial("../ORPATHRequisition/_RequisitionInvestigationList", Model.BillingQueueDetails,
+                                                              new ViewDataDictionary()
+                                                          {
+                                                              TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "BillingQueueDetails" }
+                                                          })
+                                                        </div>
+                                                    </div>
+                                                    <br />
+                                                    @if (Model.paidInvestigationList.Count() > 0)
+                                                    {
+                                                        <br />
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    @Html.Partial("../Investigation/_PaidInvestigationList", Model.paidInvestigationList)
+                                                                </div>
+                                                            </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to Index", "Index", new { id = Model.patientInformationViewModel.AllotId })
+</div>
+
+@section scripts
+{
+    <script>
+
+
+        $(function () {
+            
+            var LymphId = $("#MLymphNodeStatusId").val();
+            if(LymphId=="194")
+            {
+                $("#Location").show();
+                $("#Number").show();
+                $("#Tender").show();
+                $("#Consistency").show();
+                $("#Fixity").show();
+                $("#Staging").show();
+                $("#BLocation").show();
+                $("#BTender").show();
+                $("#BConsistency").show();
+            }
+            else
+            {
+                $("#Location").hide();
+                $("#Number").hide();
+                $("#Tender").hide();
+                $("#Consistency").hide();
+                $("#Fixity").hide();
+                $("#Staging").hide();
+                $("#BLocation").hide();
+                $("#BTender").hide();
+                $("#BConsistency").hide();
+            }
+
+            //var BLymph = ("#BLymphStatus").val();
+            //if(LymphId=="194")
+            //{
+            //    $("#BLocation").show();
+            //    $("#BTender").show();
+            //    $("#BConsistency").show();
+            //}
+            //else {
+            //    $("#BLocation").hide();
+            //    $("#BTender").hide();
+            //    $("#BConsistency").hide();
+            //}
+           
+        });
+
+
+
+        $("#LymphStatus").change(function () {
+            
+            var dropdowntext = $("#MLymphNodeStatusId option:selected").text();
+            if (dropdowntext == "No") {
+                $("#Location").hide();
+                $("#Number").hide();
+                $("#Tender").hide();
+                $("#Consistency").hide();
+                $("#Fixity").hide();
+                $("#Staging").hide();
+            }
+            else {
+                $("#Location").show();
+                $("#Number").show();
+                $("#Tender").show();
+                $("#Consistency").show();
+                $("#Fixity").show();
+                $("#Staging").show();
+            }
+        });
+
+        $("#BLymphStatus").change(function () {
+            
+            var dropdowntext = $("#BLymphNodeStatusId option:selected").text();
+            if (dropdowntext == "No") {
+                $("#BLocation").hide();
+                $("#BTender").hide();
+                $("#BConsistency").hide();
+            }
+            else {
+                $("#BLocation").show();
+                $("#BTender").show();
+                $("#BConsistency").show();
+            }
+        });
+    </script>
+}

@@ -1,0 +1,42 @@
+﻿@using Metron.Entities
+@model DIMS.ViewModels.OMRViewModel
+@functions{
+    public string GetClassFromProperties(string propertyName)
+    {
+        var props = Model.Proplist.FirstOrDefault<OMRCasesheetProperties>(x => x.PropertyName == propertyName);
+
+        if (props != null && props.PropertyVisibility == "N")
+        {
+            return "display:none";
+        }
+
+        return "";
+    }
+}
+<div class="row">
+    <div class="form-group form-group-sm">
+        @Html.LabelFor(x => x.TreatmentPlan, new { @class = "col-md-2 control-label" })
+        <div class="col-md-9">
+            @Html.TextAreaFor(x => x.TreatmentPlan, new { @class = "form-control" })
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="form-group form-group-sm">
+        @Html.LabelFor(x => x.Prognosis, new { @class = "col-md-2 control-label" })
+        <div class="col-md-9">
+            @Html.TextAreaFor(x => x.Prognosis, new { @class = "form-control" })
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group form-group-sm">
+        @Html.LabelFor(x => x.PhysicianNote, new { @class = "col-md-2 control-label" })
+        <div class="col-md-9">
+            @Html.TextAreaFor(x => x.PhysicianNote, new { @class = "form-control" })
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,74 @@
+﻿@model IEnumerable<DIMS.ViewModels.OrthoAnalysisViewModal>
+
+@{
+    string modelName = ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix;
+    int index = 0;
+}
+@functions{
+    string GetId(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}]_{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+    string GetName(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}].{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <tr>
+                <th class="hidden">
+                    @Html.DisplayNameFor(model => model.CompositeStaticId)
+                </th>
+                <th class="hidden">
+                    @Html.DisplayNameFor(model => model.CompositeId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Measurements)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mean)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Actual)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CompositeInference)
+                </th>           
+            </tr>
+
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td class="hidden">
+                        @Html.TextBoxFor(modelItem => item.CompositeStaticId, new { @class = "col-sm-10 form-control", @id = GetId("CompositeStaticId", index), @Name = GetName("CompositeStaticId", index) })
+                    </td>
+                    <td class="hidden">
+                        @Html.TextBoxFor(modelItem => item.CompositeId, new { @class = "col-sm-10 form-control", @id = GetId("CompositeId", index), @Name = GetName("CompositeId", index) })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Measurements)
+                    </td>                  
+                    @if (item.Indicator != "HEADER")
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Mean)
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(modelItem => item.Actual, new { @class = "col-sm-10 form-control", @id = GetId("Actual", index), @Name = GetName("Actual", index) })
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(modelItem => item.CompositeInference, new { @class = "col-sm-10 form-control", @id = GetId("CompositeInference", index), @Name = GetName("CompositeInference", index) })
+                        </td>
+                    }
+                </tr>
+                    index++;
+            }
+        </table>
+
+    </div>
+</div>

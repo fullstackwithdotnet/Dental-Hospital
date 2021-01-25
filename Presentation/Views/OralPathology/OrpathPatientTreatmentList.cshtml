@@ -1,0 +1,67 @@
+﻿@model DIMS.ViewModels.ORPATHRequisitionViewModel
+
+<div class="form-horizontal">
+    <div class="box box-info">
+        <div class="box-header with-border" style="background-color:aliceblue;">
+            <h3 class="box-title"> Patient Information</h3>
+        </div>
+
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.Partial("../PatientInformation/_PatientInformationDetails", Model.patientInformationViewModel,
+                            new ViewDataDictionary()
+                            {
+                                TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "studentAllotmentViewModel" }
+                            })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box box-default ">
+        <div class="box-header with-border">
+            <h3 class="box-title"> Oral Pathology Treatments</h3>
+        </div>
+        <div class="box-body">
+
+            @Html.ActionLink("New Casesheet", "Create", "OralPathology", new { allotId = Model.studentAllotmentViewModel.AllotId, Model.PatientId }, new { @class = "btn btn-success btn-xs" })
+
+
+            @if (Model.Treatmentlist != null)
+            {
+                if (Model.Treatmentlist.ToList().Count() > 0)
+                {
+
+                    <table class="table table-bordered">
+                        <tr>
+                            <th class="col-md-1">@Html.DisplayNameFor(model => model.RequisitionDateDisplay)</th>
+                            <th class="col-md-1">@Html.DisplayNameFor(model => model.RequisitionNo)</th>
+                            <th class="col-md-4">@Html.DisplayNameFor(model => model.MChiefComplaint)</th>
+                            <th class="col-md-4">@Html.DisplayNameFor(model => model.BChiefComplaint)</th>
+                            <th class="col-md-1"></th>
+                        </tr>
+                        @foreach (var List in Model.Treatmentlist.ToList())
+                        {
+                            <tr>
+                                <td class="hidden">@Html.TextBoxFor(model => List.RequisitionId)</td>
+                                <td>@Html.DisplayFor(model => List.RequisitionDateDisplay)</td>
+                                <td>@Html.DisplayFor(model => List.RequisitionNo)</td>
+                                <td>@Html.DisplayFor(model => List.MChiefComplaint)</td>
+                                <td>@Html.DisplayFor(model => List.BChiefComplaint)</td>
+                                <td>@Html.ActionLink("Select", "Edit", "OralPathology", new { allotId = Model.studentAllotmentViewModel.AllotId, RId = List.RequisitionId }, null)</td>
+                            </tr>
+                        }
+                    </table>
+
+                }
+            }
+
+        </div>
+    </div>
+
+</div>
+    <div>
+        @Html.ActionLink("<< Back to previous page", "TreatmentIndex", null, new { @class = "btn btn-primary btn-xs" })
+    </div>
+
+

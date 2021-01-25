@@ -1,0 +1,67 @@
+﻿@model IEnumerable<DIMS.ViewModels.ItemCategoryViewModel>
+
+@{
+    ViewBag.Title = "Item Categories";
+}
+
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+<div class="box box-default box-solid">
+    <div class="box-header with-border">
+        <h4 class="box-title">Categories List</h4>
+    </div>
+    <div class="box-body">
+        <table class="table table-bordered">
+            <tr>
+                <th>
+                    S.No
+                </th>
+                <th class="hidden">
+                    @Html.DisplayNameFor(model => model.ItemCategoryId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CategoryName)
+                </th>
+                <th>Actions</th>
+            </tr>
+            @{int i = 0;}
+           @if (Model.Any())
+           {
+               foreach (var item in Model)
+                {
+                    i++;
+                    <tr>
+                        <td><span>@i</span></td>
+                        <td class="hidden">
+                            @Html.DisplayFor(modelItem => item.ItemCategoryId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CategoryName)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ItemCategoryId })
+                        </td>                   
+                    </tr>
+               }
+           }
+           else
+           {
+               <tr>
+                   <th colspan="5">
+                       No Items are availeble..
+                   </th>
+                   
+               </tr>
+           }
+
+        </table>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,125 @@
+﻿@using Metron.Entities
+@model DIMS.ViewModels.PEDOViewModel
+
+@helper CreateCheckbox(string value)
+{
+    @Html.CheckBox("chkBox", !string.IsNullOrEmpty(value), new { @class = "checkbox-inline" })
+}
+
+
+@functions {
+    object getHtmlAttributes(string value, string CssClass)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            return new { @class = CssClass, disabled = "disabled" };
+        }
+        return new { @class = CssClass };
+    }
+}
+@functions{
+    public string GetClassFromProperties(string propertyName)
+    {
+        var props = Model.Proplist.FirstOrDefault<PEDOCasesheetProperties>(x => x.PropertyName == propertyName);
+
+        if (props != null && props.PropertyVisibility == "N")
+        {
+            return "display:none";
+        }
+
+        return "";
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div id="divEmergencyPhase" style='@GetClassFromProperties("EmergencyPhase")'>
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.EmergencyPhase, new { @class = "col-md-2 control-label " })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(x => x.EmergencyPhase, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div id="divMedicalReferralPhase" style='@GetClassFromProperties("MedicalReferralPhase")'>
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.MedicalReferralPhase, new { @class = "col-md-2 control-label " })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(x => x.MedicalReferralPhase, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div id="divSystemicPhase" style='@GetClassFromProperties("SystemicPhase")'>
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.SystemicPhase, new { @class = "col-md-2 control-label " })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(x => x.SystemicPhase, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div id="divPreparatoryPhase" style='@GetClassFromProperties("PreparatoryPhase")'>
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.PreparatoryPhase, new { @class = "col-md-2 control-label " })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(x => x.PreparatoryPhase, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div id="divPreventivePhase" style='@GetClassFromProperties("PreventivePhase")'>
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.PreventivePhase, new { @class = "col-md-2 control-label " })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(x => x.PreventivePhase, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div id="divCorrectivePhase" style='@GetClassFromProperties("CorrectivePhase")'>
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.CorrectivePhase, new { @class = "col-md-2 control-label " })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(x => x.CorrectivePhase, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div id="divMaintenancePhase" style='@GetClassFromProperties("MaintenancePhase")'>
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.MaintenancePhase, new { @class = "col-md-2 control-label " })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(x => x.MaintenancePhase, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

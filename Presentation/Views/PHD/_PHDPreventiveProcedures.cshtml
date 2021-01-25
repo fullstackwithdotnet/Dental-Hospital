@@ -1,0 +1,112 @@
+﻿@using Metron.Entities
+@model DIMS.ViewModels.PHDViewModel
+
+@functions{
+    public string GetClassFromProperties(string propertyName)
+    {
+        var props = Model.Proplist.FirstOrDefault<PHDCasesheetProperties>(x => x.PropertyName == propertyName);
+
+        if (props != null && props.PropertyVisibility == "N")
+        {
+            return "display:none";
+        }
+
+        return "";
+    }
+}
+<div class="row">
+    <div class="col-md-12">
+        
+        <div id="divFlourideApplication" >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.FlourideApplication, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(x => x.FlourideApplication, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divSealants" >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Sealants, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(x => x.Sealants, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divPreventiveResinRestoration" >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.PreventiveResinRestoration, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(x => x.PreventiveResinRestoration, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divExtraction" >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Extraction, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(x => x.Extraction, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divComprehensiveTreatment" >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.ComprehensiveTreatment, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(x => x.ComprehensiveTreatment, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divTreatmentDoneAtCamp" >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.TreatmentDoneAtCamp, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(x => x.TreatmentDoneAtCamp, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divTreatmentDoneAtSatelliteCenter" >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.TreatmentDoneAtSatelliteCenter, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(x => x.TreatmentDoneAtSatelliteCenter, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divTobaccoCessationCounsellingDesc" >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.TobaccoCessationCounsellingDesc, new { @class = "col-md-2 control-label" })
+
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(x => x.TobaccoCessationCounsellingDesc, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divHealthEducation" >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.HealthEducation, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(x => x.HealthEducation, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

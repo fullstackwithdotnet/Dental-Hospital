@@ -1,0 +1,114 @@
+﻿@model IEnumerable<DIMS.ViewModels.OrthoAnalysisViewModal>
+
+@{
+    string modelName = ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix;
+    int index = 0;
+}
+@functions{
+    string GetId(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}]_{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+    string GetName(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}].{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <tr>
+                <th class="hidden">
+                    @Html.DisplayNameFor(model => model.BurstoneSoftStaticId)
+                </th>
+                <th class="hidden">
+                    @Html.DisplayNameFor(model => model.BurstoneSoftId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Measurements)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mean)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.PreTreatment)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PreSurgical)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PostAlignment)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PostSurgical)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MidTreatment)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Posttreatment)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Retention)
+                </th>     
+            </tr>
+
+            @foreach (var item in Model)
+            {
+               
+                    <tr>
+                        <td class="hidden">
+                            @Html.TextBoxFor(modelItem => item.BurstoneSoftStaticId, new { @class = "col-sm-10 form-control", @id = GetId("BurstoneSoftStaticId", index), @Name = GetName("BurstoneSoftStaticId", index) })
+                        </td>
+                        <td class="hidden">
+                            @Html.TextBoxFor(modelItem => item.BurstoneSoftId, new { @class = "col-sm-10 form-control", @id = GetId("BurstoneSoftId", index), @Name = GetName("BurstoneSoftId", index) })
+                        </td>
+                       @if (item.Indicator == "HEADER")
+                       {
+                        <td colspan="8"><strong>@Html.DisplayFor(modelItem => item.Measurements)</strong> </td>
+                       }
+                       else
+                       {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Measurements)
+                        </td>
+                       }
+                        @if (item.Indicator != "HEADER")
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Mean)
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(modelItem => item.PreTreatment, new { @class = "col-sm-10 form-control", @id = GetId("PreTreatment", index), @Name = GetName("PreTreatment", index) })
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(modelItem => item.PreSurgical, new { @class = "col-sm-10 form-control", @id = GetId("PreSurgical", index), @Name = GetName("PreSurgical", index) })
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(modelItem => item.PostAlignment, new { @class = "col-sm-10 form-control", @id = GetId("PostAlignment", index), @Name = GetName("PostAlignment", index) })
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(modelItem => item.PostSurgical, new { @class = "col-sm-10 form-control", @id = GetId("PostSurgical", index), @Name = GetName("PostSurgical", index) })
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(modelItem => item.MidTreatment, new { @class = "col-sm-10 form-control", @id = GetId("MidTreatment", index), @Name = GetName("MidTreatment", index) })
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(modelItem => item.Posttreatment, new { @class = "col-sm-10 form-control", @id = GetId("Posttreatment", index), @Name = GetName("Posttreatment", index) })
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(modelItem => item.Retention, new { @class = "col-sm-10 form-control", @id = GetId("Retention", index), @Name = GetName("Retention", index) })
+                            </td>
+                        }
+                    </tr>
+                 index++;
+            }
+        </table>
+
+
+
+    </div>
+</div>
+

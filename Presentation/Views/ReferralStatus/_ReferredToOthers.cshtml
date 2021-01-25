@@ -1,0 +1,45 @@
+﻿@model DIMS.ViewModels.ReferredToOthersViewModel
+
+ 
+
+<div class="box box-primary box-solid">
+    <div class="box-header with-border">
+        <h3 class="box-title"> Referral to others</h3>
+    </div>
+    <div class="box-body">
+        <div class="row ">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(x => x.DoctorName, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.DoctorName, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(x => x.HospitalName, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(x => x.HospitalName, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(x => x.ReferredOthersReason, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextAreaFor(x => x.ReferredOthersReason, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

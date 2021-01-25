@@ -1,0 +1,243 @@
+﻿@using Metron.Entities
+@model DIMS.ViewModels.PROSCDViewModel
+@helper CreateCheckbox(string value)
+{
+    @Html.CheckBox("chkBox", !string.IsNullOrEmpty(value), new { @class = "checkbox-inline" })
+}
+@functions{
+    public string GetClassFromProperties(string propertyName)
+    {
+        var props = Model.Proplist.FirstOrDefault<PROSCDCasesheetProperties>(x => x.PropertyName == propertyName);
+
+        if (props != null && props.PropertyVisibility == "N")
+        {
+            return "display:none";
+        }
+
+        return "";
+    }
+}
+<div class="form-horizontal">
+    @Html.ValidationSummary(true)
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">PRE-PROSTHETIC PHASE </h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.PreProsPhaseDate)
+                                @Html.ValidationMessageFor(model => model.PreProsPhaseDate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.PatientEducation, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.PatientEducation, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.PatientEducation)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.TreatPlanLocal, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.TreatPlanLocal, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.TreatPlanLocal)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.TreatPlanGeneral, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.TreatPlanGeneral, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.TreatPlanGeneral)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.RelirfRequiredArea, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.RelirfRequiredArea, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.RelirfRequiredArea)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.Diagnosis, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.Diagnosis, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Diagnosis)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">PROSTHETIC PHASE </h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.PrimaryImpression, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.PrimaryImpression, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.PrimaryImpression)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.SecondaryImpression, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.SecondaryImpression, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.SecondaryImpression)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.DentureBase, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.DentureBase, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.DentureBase)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.OrientationJaw, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.OrientationJaw, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.OrientationJaw)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.VerticalJaw, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.VerticalJaw, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.VerticalJaw)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.HorizontalJaw, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.HorizontalJaw, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.HorizontalJaw)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.Occlusion, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.Occlusion, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Occlusion)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.AnyOtherMaterials, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.AnyOtherMaterials, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.AnyOtherMaterials)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">TEETH </h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.Mould, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.Mould, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.Shade, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.Shade, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.Type, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(x => x.Type, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.PrognosisId, new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8 dropdown">
+                                        @Html.DropDownListFor(model => model.PrognosisId, new SelectList(Model.HygieneList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+

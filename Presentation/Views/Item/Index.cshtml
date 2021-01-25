@@ -1,0 +1,86 @@
+﻿@using DIMS.Helpers
+@model IEnumerable<DIMS.ViewModels.ItemViewModel>
+
+@{
+    ViewBag.Title = "Items List";
+    var result = ViewBag.Result;
+}
+
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+<div class="box box-default box-solid">
+    <div class="box-header with-border">
+        <h4 class="box-title">@ViewBag.Title</h4>
+    </div>
+    <div class="box-body">
+        @if (result != null && result.Success && !ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+        {
+            @BootstrapAlert.BootstrapCustomAlertHtmlString(result.Message, BootstrapAlertType.Success)
+        }
+        @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+        {
+            foreach (var modelError in Html.ViewData.ModelState.SelectMany(keyValuePair => keyValuePair.Value.Errors))
+            {
+                @BootstrapAlert.BootstrapCustomAlertHtmlString(@modelError.ErrorMessage, BootstrapAlertType.Danger)
+            }
+        }
+        <table class="table table-bordered">
+            <tr>
+                <th>
+                    S.No
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ItemCategory.CategoryName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </th>
+                <th>Actions</th>
+            </tr>
+            @{int i = 0;}
+            @if (Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    i++;
+                    <tr>
+                        <td><span>@i</span></td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemCategory.CategoryName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ItemId })
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <th colspan="5">
+                        No Items are availeble..
+                    </th>
+
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+
+
+

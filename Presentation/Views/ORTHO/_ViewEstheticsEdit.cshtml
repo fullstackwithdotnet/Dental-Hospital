@@ -1,0 +1,68 @@
+﻿@model IEnumerable<DIMS.ViewModels.OrthoAnalysisViewModal>
+
+@{
+    string modelName = ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix;
+    int index = 0;
+}
+@functions{
+    string GetId(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}]_{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+    string GetName(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}].{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <tr>
+                <th class="hidden">
+                    @Html.DisplayNameFor(model => model.FrontalEstheticsStaticId)
+                </th>
+                <th class="hidden">
+                    @Html.DisplayNameFor(model => model.FrontalEstheticId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Field)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Percentage)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Value)
+                </th>              
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="hidden">
+                        @Html.TextBoxFor(modelItem => item.FrontalEstheticsStaticId, new { @class = "col-sm-10 form-control", @id = GetId("FrontalEstheticsStaticId", index), @Name = GetName("FrontalEstheticsStaticId", index) })
+                    </td>
+                    <td class="hidden">
+                        @Html.TextBoxFor(modelItem => item.FrontalEstheticId, new { @class = "col-sm-10 form-control", @id = GetId("FrontalEstheticId", index), @Name = GetName("FrontalEstheticId", index) })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Field)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Percentage)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(modelItem => item.Value, new { @class = "col-sm-10 form-control", @id = GetId("Value", index), @Name = GetName("Value", index) })
+                        @Html.HiddenFor(modelItem => item.Value)
+                    </td>
+                </tr>
+                index++;
+            }
+        </table>
+
+
+
+    </div>
+</div>
+

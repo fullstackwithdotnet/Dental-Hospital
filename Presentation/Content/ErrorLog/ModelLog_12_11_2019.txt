@@ -1,0 +1,33 @@
+12-11-2019 17:19:58 	System.Data.SqlClient.SqlException (0x80131904): String or binary data would be truncated.
+The statement has been terminated.
+   at Repository.Database.Database.Execute[T](ICommand`1 command) in F:\projects\dental-hospital\DentalHospital\Repository\Database\Database.cs:line 90
+   at Repository.Core.DapperContext.Add[TEntity](TEntity entity, Boolean savezeroVal) in F:\projects\dental-hospital\DentalHospital\Repository\Core\DapperContext.cs:line 38
+   at Repository.Core.RepositoryBase`1.Add(TEntity entity, Boolean savezeroValue) in F:\projects\dental-hospital\DentalHospital\Repository\Core\RepositoryBase`1.cs:line 45
+   at Repository.Core.ServiceBase`1.Add(TEntity entity) in F:\projects\dental-hospital\DentalHospital\Repository\Core\ServiceBase`1.cs:line 24
+   at DIMS.Services.Implementation.PERIODiagnosisCasesheetService.SavePERIOPatient(PERIODiagnosisViewModel model) in F:\projects\dental-hospital\DentalHospital\DIMS\Services\Implementation\PERIODiagnosisCasesheetService.cs:line 183
+   at DIMS.Controllers.PERIODiagnosisController.Create(PERIODiagnosisViewModel model) in F:\projects\dental-hospital\DentalHospital\DIMS\Controllers\PERIODiagnosisController.cs:line 169
+ClientConnectionId:3301499b-d8f2-4579-b586-0a43ac0a71b7
+Error Number:8152,State:4,Class:16
+__________________________
+12-11-2019 17:21:41 	System.Data.SqlClient.SqlException (0x80131904): String or binary data would be truncated.
+The statement has been terminated.
+   at Repository.Database.Database.Execute[T](ICommand`1 command) in F:\projects\dental-hospital\DentalHospital\Repository\Database\Database.cs:line 90
+   at Repository.Core.DapperContext.Add[TEntity](TEntity entity, Boolean savezeroVal) in F:\projects\dental-hospital\DentalHospital\Repository\Core\DapperContext.cs:line 38
+   at Repository.Core.RepositoryBase`1.Add(TEntity entity, Boolean savezeroValue) in F:\projects\dental-hospital\DentalHospital\Repository\Core\RepositoryBase`1.cs:line 45
+   at Repository.Core.ServiceBase`1.Add(TEntity entity) in F:\projects\dental-hospital\DentalHospital\Repository\Core\ServiceBase`1.cs:line 24
+   at DIMS.Services.Implementation.PERIODiagnosisCasesheetService.SavePERIOPatient(PERIODiagnosisViewModel model) in F:\projects\dental-hospital\DentalHospital\DIMS\Services\Implementation\PERIODiagnosisCasesheetService.cs:line 183
+   at DIMS.Controllers.PERIODiagnosisController.Create(PERIODiagnosisViewModel model) in F:\projects\dental-hospital\DentalHospital\DIMS\Controllers\PERIODiagnosisController.cs:line 169
+ClientConnectionId:3301499b-d8f2-4579-b586-0a43ac0a71b7
+Error Number:8152,State:4,Class:16
+__________________________
+12-11-2019 17:23:48 	System.Data.SqlClient.SqlException (0x80131904): String or binary data would be truncated.
+The statement has been terminated.
+   at Repository.Database.Database.Execute[T](ICommand`1 command) in F:\projects\dental-hospital\DentalHospital\Repository\Database\Database.cs:line 90
+   at Repository.Core.DapperContext.Add[TEntity](TEntity entity, Boolean savezeroVal) in F:\projects\dental-hospital\DentalHospital\Repository\Core\DapperContext.cs:line 38
+   at Repository.Core.RepositoryBase`1.Add(TEntity entity, Boolean savezeroValue) in F:\projects\dental-hospital\DentalHospital\Repository\Core\RepositoryBase`1.cs:line 45
+   at Repository.Core.ServiceBase`1.Add(TEntity entity) in F:\projects\dental-hospital\DentalHospital\Repository\Core\ServiceBase`1.cs:line 24
+   at DIMS.Services.Implementation.PERIODiagnosisCasesheetService.SavePERIOPatient(PERIODiagnosisViewModel model) in F:\projects\dental-hospital\DentalHospital\DIMS\Services\Implementation\PERIODiagnosisCasesheetService.cs:line 183
+   at DIMS.Controllers.PERIODiagnosisController.Create(PERIODiagnosisViewModel model) in F:\projects\dental-hospital\DentalHospital\DIMS\Controllers\PERIODiagnosisController.cs:line 169
+ClientConnectionId:3301499b-d8f2-4579-b586-0a43ac0a71b7
+Error Number:8152,State:4,Class:16
+__________________________

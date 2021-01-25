@@ -1,0 +1,294 @@
+﻿@model DIMS.ViewModels.CONSViewModel
+
+@{
+    int index = 0;
+}
+
+<div class="panel-group" id="accordion">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseNine">Traumatised Tooth<span class="small text-fuchsia"> (click to expand/collapse)</span></a>
+        </h4>
+    </div>
+    <div id="collapseNine" class="panel-collapse collapse" style="height: auto;">
+        <div class="panel-body">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.ToothNumbersE, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(x => x.ToothNumbersE, Model.ToothLister, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        @Html.HiddenFor(model => model.TraumatisedToothId)
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.EllisType, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.EllisType, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.SoftTissueInjuries, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.SoftTissueInjuries, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.FacialSkeletalInjuries, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.FacialSkeletalInjuries, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.LuxationInjuries, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.LuxationInjuries, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.TtVitalityTesting, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.TtVitalityTesting, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.TtRadiographicInterpretation, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.TtRadiographicInterpretation, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.TtImpressionPhotographsCast, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.TtImpressionPhotographsCast, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.TtRestoration, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.TtRestoration, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.Splinting, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.Splinting, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.CrownLengthening, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.CrownLengthening, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.SurgicalManagement, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.SurgicalManagement, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.OrthodonticIntrusion, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.OrthodonticIntrusion, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.TtReview1, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.TtReview1, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.TtReview2, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.TtReview2, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.TtReview3, new { @class = "col-md-5 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.TtReview3, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group form-group-sm">
+                                <div class="col-md-offset-4">
+                                    <a href="#" class="btnTrauma btn btn-success" id="btnTraumatisedAdd">Add</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="tbTraumatisedDetails">
+                            <tr style="font-size:x-small">
+                                <th hidden>
+                                    @Html.DisplayNameFor(model => model.ConservativeId)
+                                    @Html.DisplayNameFor(model => model.TraumatisedToothId)
+                                </th>
+
+                                <th colspan="2">
+                                    Action
+
+                                </th>
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ToothNumbersE)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.EllisType)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SoftTissueInjuries)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.FacialSkeletalInjuries)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.LuxationInjuries)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TtVitalityTesting)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TtRadiographicInterpretation)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TtImpressionPhotographsCast)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TtRestoration)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Splinting)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.CrownLengthening)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SurgicalManagement)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.OrthodonticIntrusion)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TtReview1)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TtReview2)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TtReview3)
+                                </th>
+                                <th></th>
+                            </tr>
+
+                            @foreach (var item in Model.TtList)
+                            {
+                                <tr style="font-size:x-small">
+                                    <td class="hidden">
+                                        @Html.TextBoxFor(modelItem => item.ConservativeId, new { @class = "col-sm-10", @id = "TtList[" + index + "]_" + "ConservativeId", @Name = "TtList[" + index + "]." + "ConservativeId" })
+                                        @Html.TextBoxFor(modelItem => item.TraumatisedToothId, new { @class = "col-sm-10 js_TraumatisedToothId", @id = "TtList[" + index + "]_" + "TraumatisedToothId", @Name = "TtList[" + index + "]." + "TraumatisedToothId" })
+                                    </td>
+                                    <td>
+                                        <button type="button" class="TraumatisedToothEdit btn btn-primary btn-xs" data-id="@item.TraumatisedToothId">
+                                            <i class="glyphicon glyphicon-pencil"></i>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="TraumatisedToothdelete btn btn-danger btn-xs" data-id="@item.TraumatisedToothId">
+                                            <i class="glyphicon glyphicon-trash"></i>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ToothNumber, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.ToothNumber, new { @class = "form-control nHidden", @id = "TtList[" + index + "]_" + "ToothNumber", @Name = "TtList[" + index + "]." + "ToothNumber" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.EllisType, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.EllisType, new { @class = "form-control js_EllisType", @id = "TtList[" + index + "]_" + "EllisType", @Name = "TtList[" + index + "]." + "EllisType" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SoftTissueInjuries, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.SoftTissueInjuries, new { @class = "form-control js_SoftTissueInjuries", @id = "TtList[" + index + "]_" + "SoftTissueInjuries", @Name = "TtList[" + index + "]." + "SoftTissueInjuries" })
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FacialSkeletalInjuries, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.FacialSkeletalInjuries, new { @class = "form-control js_FacialSkeletalInjuries", @id = "TtList[" + index + "]_" + "FacialSkeletalInjuries", @Name = "TtList[" + index + "]." + "FacialSkeletalInjuries" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LuxationInjuries, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.LuxationInjuries, new { @class = "form-control js_LuxationInjuries", @id = "TtList[" + index + "]_" + "LuxationInjuries", @Name = "TtList[" + index + "]." + "LuxationInjuries" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TtVitalityTesting, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.TtVitalityTesting, new { @class = "form-control js_TtVitalityTesting", @id = "TtList[" + index + "]_" + "TtVitalityTesting", @Name = "TtList[" + index + "]." + "TtVitalityTesting" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TtRadiographicInterpretation, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.TtRadiographicInterpretation, new { @class = "form-control js_TtRadiographicInterpretation", @id = "TtList[" + index + "]_" + "TtRadiographicInterpretation", @Name = "TtList[" + index + "]." + "TtRadiographicInterpretation" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TtImpressionPhotographsCast, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.TtImpressionPhotographsCast, new { @class = "form-control js_TtImpressionPhotographsCast", @id = "TtList[" + index + "]_" + "TtImpressionPhotographsCast", @Name = "TtList[" + index + "]." + "TtImpressionPhotographsCast" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TtRestoration, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.TtRestoration, new { @class = "form-control js_TtRestoration", @id = "TtList[" + index + "]_" + "TtRestoration", @Name = "TtList[" + index + "]." + "TtRestoration" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Splinting, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.Splinting, new { @class = "form-control js_Splinting", @id = "TtList[" + index + "]_" + "Splinting", @Name = "TtList[" + index + "]." + "Splinting" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CrownLengthening, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.CrownLengthening, new { @class = "form-control js_CrownLengthening", @id = "TtList[" + index + "]_" + "CrownLengthening", @Name = "TtList[" + index + "]." + "CrownLengthening" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SurgicalManagement, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.SurgicalManagement, new { @class = "form-control js_SurgicalManagement", @id = "TtList[" + index + "]_" + "SurgicalManagement", @Name = "TtList[" + index + "]." + "SurgicalManagement" })
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.OrthodonticIntrusion, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.OrthodonticIntrusion, new { @class = "form-control js_OrthodonticIntrusion", @id = "TtList[" + index + "]_" + "OrthodonticIntrusion", @Name = "TtList[" + index + "]." + "OrthodonticIntrusion" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TtReview1, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.TtReview1, new { @class = "form-control js_TtReview1", @id = "TtList[" + index + "]_" + "TtReview1", @Name = "TtList[" + index + "]." + "TtReview1" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TtReview2, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.TtReview2, new { @class = "form-control js_TtReview2", @id = "TtList[" + index + "]_" + "TtReview2", @Name = "TtList[" + index + "]." + "TtReview2" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TtReview3, new { @class = "control-label" })
+                                        @Html.HiddenFor(modelItem => item.TtReview3, new { @class = "form-control js_TtReview3", @id = "TtList[" + index + "]_" + "TtReview3", @Name = "TtList[" + index + "]." + "TtReview3" })
+                                    </td>
+                                </tr>
+                                index++;
+                            }
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

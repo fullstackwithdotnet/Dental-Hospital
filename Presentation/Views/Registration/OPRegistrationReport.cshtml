@@ -1,0 +1,329 @@
+﻿@using System.Runtime.InteropServices.ComTypes
+@model DIMS.ViewModels.OPDPatientRegistrationViewModel
+@{
+    ViewBag.Title = "OPRegistrationReport";
+    Model.RegDateDisplay = Model.RegDate.ToString("dd-MM-yyyy");
+}
+
+<style>
+    .col30 {
+        width: 30%;
+        padding: 5px !important;
+    }
+
+    .col40 {
+        width: 40%;
+        padding: 5px !important;
+    }
+
+    .col50 {
+        width: 50%;
+        padding: 5px !important;
+    }
+
+    .col60 {
+        width: 60%;
+        padding: 5px !important;
+    }
+
+    .col70 {
+        width: 70%;
+        padding: 5px !important;
+    }
+
+    .col80 {
+        width: 80%;
+        padding: 5px !important;
+    }
+
+    .col35 {
+        width: 35%;
+        padding: 5px !important;
+    }
+
+    .col20 {
+        width: 20%;
+        padding: 5px !important;
+    }
+
+    .col10 {
+        width: 10%;
+        padding: 5px !important;
+    }
+
+
+
+    .header_title {
+        margin-top: -20px;
+        padding: 5px 0;
+        font-size: 15px;
+        text-transform: uppercase;
+        background-color: black !important;
+        color: white !important;
+        text-align: center;
+        -webkit-print-color-adjust: exact;
+    }
+
+        .header_title p {
+            padding: 0;
+            margin: 0;
+            color: white !important;
+        }
+
+    /*.headerRow {
+        display: none;
+    }*/
+    #printContainer {
+        min-height: 50vh;
+    }
+
+    @@media print {
+        .headerRow {
+            display: block;
+        }
+
+        #printContainer {
+            min-height: 14.2cm;
+        }
+
+        .header_title {
+            margin-top: -20px;
+            padding: 5px 0;
+            font-size: 15px;
+            text-transform: uppercase;
+            background-color: black !important;
+            color: white !important;
+            text-align: center;
+            -webkit-print-color-adjust: exact;
+        }
+    }
+
+    .signature-wrapper {
+        position: relative;
+        width: 100%;
+        height: 250px;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .signature-pad {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 250px;
+        background-color: white;
+    }
+
+    .signature-image {
+        float: right;
+        margin-right: 20%;
+        clear: both;
+        width: 116px;
+        margin-bottom: -34px;
+    }
+
+    .clear-both {
+        clear: both !important;
+    }
+</style>
+
+
+@functions{
+    public string IsVisible(string propertyName)
+    {
+        if (propertyName == null)
+        {
+            return "display:none";
+        }
+
+        return "";
+    }
+    public string IsVisible(int propertyName)
+    {
+        if (propertyName == null)
+        {
+            return "display:none";
+        }
+
+        return "";
+    }
+}
+
+<div>
+
+    <div class="headerRow">
+        @Html.Partial("~/Views/Reports/_HeaderReport.cshtml")
+    </div>
+    <div class="row" style="width: 45%; margin: 0 auto;">
+        <div class="col-md-12 header_title">
+            <p>out patient registration</p>
+        </div>
+    </div>
+    <br />
+    <div class="row" id="printContainer">
+        <div class="col-md-12" style="border: 1px solid black; margin-top: -10px;">
+            <table style="width: 100%;">
+                <tr>
+                    <td class="col20"><strong>@Html.DisplayNameFor(model => model.OpNo)</strong></td>
+                    <td class="col30">@Html.DisplayFor(model => model.OpNo)</td>
+                    <td class="col20"><strong>@Html.DisplayNameFor(model => model.RegDateDisplay)</strong></td>
+                    <td class="col30">@Model.RegDateDisplay</td>
+
+                </tr>
+                <tr>
+                    <td class="col20"><strong>@Html.DisplayNameFor(model => model.PatientName)</strong></td>
+                    <td class="col30">
+                        @Html.DisplayFor(model => model.TitleName)
+                        @Html.DisplayFor(model => model.PatientName)
+                    </td>
+
+                    <td class="col20"><strong>@Html.DisplayNameFor(model => model.Age)</strong></td>
+                    <td class="col30">@Html.DisplayFor(model => model.Age) Y</td>
+                </tr>
+                <tr>
+                    <td class="col20"><strong>@Html.DisplayNameFor(model => model.Email)</strong></td>
+                    <td class="col30">@Html.DisplayFor(model => model.Email)</td>
+
+                    <td class="col20"><strong>@Html.DisplayNameFor(model => model.Gender)</strong></td>
+                    @{
+                        var strGender = Model.Gender;
+                        if (Model.Age == null || !(Model.Age <= 13))
+                        {
+                            <td class="col30">@strGender</td>
+                        }
+                        else
+                        {
+                            <td class="col30">Child</td>
+                        }
+                    }
+
+
+                </tr>
+                <tr>
+                    <td class="col20"><strong>@Html.DisplayNameFor(model => model.Address)</strong></td>
+                    <td class="col30">
+                        @if (Model.Address != null)
+                        {
+                            @Html.DisplayFor(model => model.Address)
+                        }
+                        @Html.DisplayFor(model => model.CityName), @Html.DisplayFor(model => model.StateName), @Html.DisplayFor(model => model.CountryName)
+                    </td>
+                    <td class="col20"><strong>@Html.DisplayNameFor(model => model.CategoryId)</strong></td>
+                    <td class="col30">@Html.DisplayFor(model => model.CategoryName)</td>
+                </tr>
+                <tr>
+                    <td class="col20"><strong>@Html.DisplayNameFor(model => model.Phone)</strong></td>
+                    <td class="col30">+91 @Html.DisplayFor(model => model.Phone)</td>
+                </tr>
+
+            </table>
+            @Html.HiddenFor(model => model.PatientId)
+        </div>
+    </div>
+
+</div>
+
+<div class="">
+    <footer class="row">
+        <div class="col-sm-12">
+            <h4>Consent Of Patient</h4>
+        </div>
+        <div class="col-sm-12">
+            I <span> @Html.DisplayFor(model => model.PatientName)</span> has understand the treatment procedure and
+            its outcome a agree to undergo the necessary
+            treatment including administration of anesthesia as and
+            when required and explained to me in the language which I can udnersand.
+        </div>
+        <div class="col-sm-12">
+            <img src="" class="signature-image" />
+            <h4 class="pull-right clear-both" style="margin-right: 60px; margin-top: 40px;">----------------------------------------------------------<br />Signature</h4>
+        </div>
+    </footer>
+</div>
+
+<div class="row">
+    <div class="col-xs-4">
+    </div>
+    <div class="col-xs-4 no-print">
+        <center>
+            <a href="#" target="_blank" class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</a>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#signatureCanvasModal"><i class="fa fa-pencil"></i>Mark Signature</button>
+        </center>
+    </div>
+    <div class="col-xs-4">
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div id="signatureCanvasModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">MARK YOUR SIGNATURE</h4>
+            </div>
+            <div class="modal-body">
+                <div class="signature-wrapper" id="signatureparent">
+                </div>
+            </div>
+            <div class="modal-footer">
+                @*<button id="save-png">Save as PNG</button>*@
+                <button id="save-signature">Save</button>
+                <button id="clear">Clear</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@section scripts{
+
+    <script src="~/Scripts/plugins/jSignature-master/src/jSignature.js"></script>
+    <script src="~/Scripts/plugins/jSignature-master/src/plugins/jSignature.CompressorBase30.js"></script>
+    <script src="~/Scripts/plugins/jSignature-master/src/plugins/jSignature.CompressorSVG.js"></script>
+    <script src="~/Scripts/plugins/jSignature-master/src/plugins/jSignature.UndoButton.js"></script>
+    <script src="~/Scripts/plugins/jSignature-master/src/plugins/signhere/jSignature.SignHere.js"></script>
+
+    <script>
+        $('#signatureCanvasModal').on('show.bs.modal', function (e) {
+            $("#signatureparent").jSignature('destroy');
+            window.setTimeout(function () {
+                setCanvasSignature();
+            },
+                200);
+            $('#clear').on('click', function () {
+                $("#signatureparent").jSignature('reset');
+            });
+            $('#save-signature').on('click', function () {
+                var blobData = $("#signatureparent").jSignature('getData', "image/svg+xml;base64");
+                var imageUrl = "data:" + blobData.join(',');
+                $('.signature-image').attr('src', imageUrl);
+                $('#signatureCanvasModal').modal('hide');
+
+
+                //console.log(JSON.stringify(blobData));
+            });
+            $('#signatureCanvasModal').on('hidden.bs.modal',
+                function () {
+
+                });
+        });
+
+        function setCanvasSignature() {
+            $("#signatureparent").jSignature({
+                color: "#000000",
+                lineWidth: 2,
+                height: 250,
+                width: "100%"
+            });
+            $("#signature").resize();
+        }
+    </script>
+}
+

@@ -1,0 +1,37 @@
+﻿@model DIMS.ViewModels.DeptHomeViewModel
+
+@{
+    ViewBag.Title = "Periodontics Department";
+}
+@functions
+{
+    public string GetUrl()
+    {
+        var user = User as DIMS.Infrastructure.CustomPrincipal;
+        return user.GetRootUrl();
+    }
+} 
+<h4>Periodontics Allotment List</h4>
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.Partial("../Home/_AllotmentIndex", Model)
+            </div>
+        </div>
+    </div>
+}
+@Html.Partial("../StudentAllotment/_CreateAllotment")
+ 
+@section scripts {
+    <script type="text/javascript">
+        var showModel = function (patientId, referredId) {
+            var url = "@GetUrl()/PERIO/Allotment?PatientId=" + patientId + "&ReferredId=" + referredId + "&Course=UG";
+            $("#myModelBodyDiv").load(url, function () {
+                $("#myModel").modal("show");
+            })
+        }       
+      
+    </script>
+}

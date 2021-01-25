@@ -1,0 +1,249 @@
+﻿@model DIMS.ViewModels.OrthoAnalysisViewModal
+@{
+    ViewBag.Title = "Vertical Analysis";
+}
+@helper CreateCheckbox(string value)
+{
+    @Html.CheckBox("chkBox", !string.IsNullOrEmpty(value), new { @class = "checkbox-inline" })
+}
+
+<h2>Interaction Between Sagittal & Vertical Analysis</h2>
+
+@using (Html.BeginForm("SaveVerticalRelation", "Ortho", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.Partial("../ORTHO/_ViewVerticalEdit", Model.VerticalAnalysisList,
+                                new ViewDataDictionary()
+                                    {
+                                        TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "VerticalAnalysisList" }
+                                    })
+                        </div>
+                        @Html.HiddenFor(x => x.OrthoId)
+                        @Html.HiddenFor(x => x.AnalysisId)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <div class="col-md-12">
+                        <h5 style="color: #357ebd">Excess Dental Expousure Due to</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div class="col-md-4 control-label">
+                                            @CreateCheckbox(Model.VerticalSkeletal)
+                                            @Html.LabelFor(x => x.VerticalSkeletal)
+                                        </div>
+                                        <div class="col-md-4">
+                                            @CreateCheckbox(Model.VerticalDental)
+                                            @Html.LabelFor(x => x.VerticalDental)
+                                        </div>
+                                        <div class="col-md-4">
+                                            @CreateCheckbox(Model.ShortUpperLip)
+                                            @Html.LabelFor(x => x.ShortUpperLip)
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="form-group form-group-sm">                                        
+                                        <div class="col-md-4 control-label">
+                                            @CreateCheckbox(Model.SagittalNeeded)
+                                            @Html.LabelFor(x => x.SagittalNeeded)
+                                        </div>
+                                        <div class="col-md-1 control-label">
+                                            a)
+                                        </div>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(model => model.SagittalVertical, new SelectList(Model.SkeletSagittalList, "CodeId", "CodeDescription"), htmlAttributes: new { @class = "form-control" })
+                                        </div>                                       
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div class="col-md-4 control-label">
+                                        </div>
+                                        <div class="col-md-8">
+                                            @Html.TextAreaFor(x => x.SagittalDetails, new { @class = "form-control col-md-4" })
+                                        </div>                                        
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div class="col-md-4 control-label">
+                                        </div>
+                                        <div class="col-md-1 control-label">
+                                            b)
+                                        </div>
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(model => model.MandMax, new SelectList(Model.SkeletAlterationList, "CodeId", "CodeDescription"), htmlAttributes: new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group form-group-sm">  
+                                        <div class="col-md-4 control-label">
+                                        </div>
+                                        <div class="col-md-8">
+                                            @Html.TextAreaFor(x => x.MandMaxDetails, new { @class = "form-control col-md-4" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div class="col-md-4 control-label">
+                                            @CreateCheckbox(Model.AlveolarIncisors)
+                                            @Html.LabelFor(x => x.AlveolarIncisors)
+                                        </div>
+                                        <div class="col-md-4">
+                                            @CreateCheckbox(Model.PalatalCortex)
+                                            @Html.LabelFor(x => x.PalatalCortex)
+                                        </div>
+                                        <div class="col-md-4">
+                                            @CreateCheckbox(Model.ShymphysealCortex)
+                                            @Html.LabelFor(x => x.ShymphysealCortex)
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div class="col-md-4 control-label">
+                                            <h5>If Needed</h5>
+                                        </div>
+                                        <div class="col-md-4">
+                                            @CreateCheckbox(Model.GrowthMod)
+                                            @Html.LabelFor(x => x.GrowthMod)
+                                        </div>
+                                        <div class="col-md-4">
+                                            @CreateCheckbox(Model.Surgery)
+                                            @Html.LabelFor(x => x.Surgery)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div class="col-md-4 control-label">
+                                        </div>
+                                        <div class="col-md-8">
+                                            @Html.TextAreaFor(x => x.NeededDetails, new { @class = "form-control col-md-4" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div class="col-md-4 control-label">
+                                            <h5>Not Needed</h5>
+                                        </div>
+                                        <div class="col-md-4">
+                                            @CreateCheckbox(Model.NormalRelation)
+                                            @Html.LabelFor(x => x.NormalRelation)
+                                        </div>
+                                        <div class="col-md-4">
+                                            @CreateCheckbox(Model.Camouflage)
+                                            @Html.LabelFor(x => x.Camouflage)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div class="col-md-4 control-label">
+                                        </div>
+                                        <div class="col-md-8">
+                                            @Html.TextAreaFor(x => x.NotNeededDetails, new { @class = "form-control col-md-4" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div class="col-md-4 control-label">
+                                            @Html.LabelFor(x => x.Justifcation, new { @class = "col-md-3 control-label" })
+                                        </div>
+                                        <div class="col-md-8">
+                                            @Html.TextAreaFor(x => x.Justifcation, new { @class = "form-control col-md-4" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div class="col-md-4 control-label">
+                                            @Html.LabelFor(x => x.SummarySagittal, new { @class = "col-md-3 control-label" })
+                                        </div>
+                                        <div class="col-md-8">
+                                            @Html.TextAreaFor(x => x.SummarySagittal, new { @class = "form-control col-md-4" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div class="col-md-4 control-label">
+                                            @Html.LabelFor(x => x.SummaryVertical, new { @class = "col-md-3 control-label" })
+                                        </div>
+                                        <div class="col-md-8">
+                                            @Html.TextAreaFor(x => x.SummaryVertical, new { @class = "form-control col-md-4" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div class="col-md-4 control-label">
+                                            @Html.LabelFor(x => x.Inference, new { @class = "col-md-3 control-label" })
+                                        </div>
+                                        <div class="col-md-8">
+                                            @Html.TextAreaFor(x => x.Inference, new { @class = "form-control col-md-4" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-12 col-md-offset-4">
+                                    <div class="form-group">
+                                        <div class="col-sm-1">
+                                            <input type="submit" value="Save" class="fa fa-save btn btn-success"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+
+}
+
+
+
+
+
+
+

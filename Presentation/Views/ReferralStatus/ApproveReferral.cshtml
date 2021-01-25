@@ -1,0 +1,100 @@
+﻿
+@model IEnumerable<DIMS.ViewModels.ReferralStatusViewModel>
+
+@{
+    string modelName = ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix;
+    int index = 0;
+}
+@functions{
+    string GetId(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}]_{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+    string GetName(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}].{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+}
+<div class="table-responsive">
+    <table id="tbReferralApproval" class="table table-bordered">
+        <tr>
+
+            <th class="col-md-3">
+                @Html.DisplayNameFor(model => model.FromDate)
+            </th>
+            <th class="col-md-2">
+                @Html.DisplayNameFor(model => model.Priority)
+            </th>
+            <th class="col-md-1">
+                @Html.DisplayNameFor(model => model.FromDeptName)
+            </th>
+            <th class="col-md-1">
+                @Html.DisplayNameFor(model => model.ToDeptName)
+            </th>
+            <th class="col-md-2">
+                @Html.DisplayNameFor(model => model.ReferredReason)
+            </th>
+
+            <th class="col-md-2">
+                @*@Html.DisplayNameFor(model => model.TreatmentStatus)*@
+            </th>
+            
+          
+
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+
+                    @Html.HiddenFor(modelItem => item.ReferredId, new { @class = "form-control iHidden", @id = GetId("ReferredId", index), @Name = GetName("ReferredId", index) })
+                    @Html.DisplayFor(modelItem => item.FromDateDisplay)
+                    @*@Html.HiddenFor(modelItem => item.ServiceName, new { @class = "form-control", @id = GetId("ServiceName", index), @Name = GetName("ServiceName", index) })*@
+                    @Html.HiddenFor(modelItem => item.PatientId, new { @class = "form-control", @id = GetId("PatientId", index), @Name = GetName("PatientId", index) })
+                    @*@Html.HiddenFor(modelItem => item.BillQueueId, new { @class = "form-control", @id = GetId("BillQueueId", index), @Name = GetName("BillQueueId", index) })*@
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Priority)
+                    @Html.HiddenFor(modelItem => item.Priority, new { @class = "form-control", @id = GetId("Priority", index), @Name = GetName("Priority", index) })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FromDeptCode)
+                    @Html.HiddenFor(modelItem => item.FromdeptId, new { @class = "form-control", @id = GetId("FromdeptId", index), @Name = GetName("FromdeptId", index) })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ToDeptCode)
+                    @Html.HiddenFor(modelItem => item.ToDeptId, new { @class = "form-control", @id = GetId("ToDeptId", index), @Name = GetName("ToDeptId", index) })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReferredReason)
+                    @Html.HiddenFor(modelItem => item.ReferredReason, new { @class = "form-control", @id = GetId("ReferredReason", index), @Name = GetName("ReferredReason", index) })
+                </td>          
+
+
+                @if (item.Approvalvalue.Trim() == "Y")
+                {
+                    <td class="text-green">
+                        @Html.DisplayFor(modelItem => item.ApprovalStatus)
+                    </td>
+                }
+                else if (item.Approvalvalue.Trim() == "N")
+                {
+                    <td>
+					<label class="container-checkbox">
+                        @Html.CheckBoxFor(modelItem => item.IsApproved, new { @class = "", @id = GetId("IsApproved", index), @Name = GetName("IsApproved", index) })
+  <span class="checkmark"></span>
+</label>
+                    </td>
+                }
+
+            </tr>
+            index++;
+
+        }
+
+    </table>
+</div> 
+
+
+ 

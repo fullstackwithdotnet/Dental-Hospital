@@ -1,0 +1,64 @@
+﻿@model IEnumerable<DIMS.ViewModels.OMFSIPScheduleViewModel>
+
+@{
+    string modelName = ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix;
+    int index = 0;
+}
+@functions{
+    string GetId(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}]_{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+    string GetName(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}].{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+}
+
+<div class="table-responsive">
+    <table id="tbOperationScheduleDetails" class="table table-bordered">
+        <tr>
+            <th class="col-md-2">
+                @Html.DisplayNameFor(model => model.OperationScheduleFromDate)
+            </th>
+            <th class="col-md-2">
+                @Html.DisplayNameFor(model => model.OperationScheduleFromTime)
+            </th>
+            <th class="col-md-2">
+                @Html.DisplayNameFor(model => model.Duration)
+            </th>
+            <th class="col-md-2">
+                @Html.DisplayNameFor(model => model.Operation)
+            </th>
+        </tr>
+        @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.OperationScheduleFromDate)
+            @Html.HiddenFor(modelItem => item.OperationScheduleFromDate, new { @class = "form-control", @id = GetId("OperationScheduleFromDate", index), @Name = GetName("OperationScheduleFromDate", index) })
+            @Html.HiddenFor(modelItem => item.ScheduleId, new { @class = "form-control iHidden", @id = GetId("ScheduleId", index), @Name = GetName("ScheduleId", index) })
+            @Html.HiddenFor(modelItem => item.PatientId, new { @class = "form-control", @id = GetId("PatientId", index), @Name = GetName("PatientId", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OperationScheduleFromDate)
+            @Html.HiddenFor(modelItem => item.OperationScheduleFromDate, new { @class = "form-control", @id = GetId("OperationScheduleFromDate", index), @Name = GetName("OperationScheduleFromDate", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OperationScheduleFromTime)
+            @Html.HiddenFor(modelItem => item.OperationScheduleFromTime, new { @class = "form-control", @id = GetId("OperationScheduleFromTime", index), @Name = GetName("OperationScheduleFromTime", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Duration)
+            @Html.HiddenFor(modelItem => item.Duration, new { @class = "form-control", @id = GetId("Duration", index), @Name = GetName("Duration", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Operation)
+            @Html.HiddenFor(modelItem => item.Operation, new { @class = "form-control", @id = GetId("Operation", index), @Name = GetName("Operation", index) })
+        </td>
+    </tr>
+        index++;
+    }
+    </table>
+
+</div>

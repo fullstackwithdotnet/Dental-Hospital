@@ -1,0 +1,69 @@
+﻿
+@model IEnumerable<DIMS.ViewModels.BillingViewModal>
+
+
+@{
+    var netamount = Model.Sum(a => a.NetAmount);
+    var payableamount = Model.Sum(a => a.PayableAmount);
+    var discountper = Model.Sum(a => a.DiscountPer);
+    var discountamt= Model.Sum(a => a.DiscountAmt);
+    var sgst = Model.Sum(a => a.SGST);
+    var cgst = Model.Sum(a => a.CGST);
+    var amountaftertax = Model.Sum(a => a.TotalAmountafterTax);
+ }
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover" style="margin-bottom: 0px !important;">
+        <thead>
+            <tr>
+                <th class="text-center">S.No</th>
+                <th class="text-center">@Html.DisplayNameFor(model => model.ServiceName)</th>
+                <th class="text-center">@Html.DisplayNameFor(model => model.TeethNo)</th>
+                <th class="text-center">@Html.DisplayNameFor(model => model.ServiceQty)</th>
+                <th class="text-center">@Html.DisplayNameFor(model => model.ServiceRate)</th>
+                <th class="text-right">@Html.DisplayNameFor(model => model.NetAmount)</th>
+                <th class="text-right">@Html.DisplayNameFor(model => model.PayableAmount)</th>
+                <th class="text-right">@Html.DisplayNameFor(model => model.DiscountPer)</th>
+                <th class="text-right">@Html.DisplayNameFor(model => model.DiscountAmt)</th>
+                <th class="hidden">@Html.DisplayNameFor(model => model.SGST)</th>
+                <th class="hidden">@Html.DisplayNameFor(model => model.CGST)</th>
+                <th class="text-right">@Html.DisplayNameFor(model => model.TotalAmountafterTax)</th>
+                @{int i = 0;}
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                i++;
+                <tr>
+                    <td class="text-center"><span>@i</span></td>
+                    <td>@Html.DisplayFor(modelItem => item.ServiceName)</td>
+                    <td>@Html.DisplayFor(model => item.TeethNo)</td>
+                    <td class="text-center">@Html.DisplayFor(modelItem => item.ServiceQty)</td>
+                    <td class="text-center">@Html.DisplayFor(modelItem => item.ServiceRate)</td>
+                    <td class="text-right">@Html.DisplayFor(model => item.NetAmount)</td>
+                    <td class="text-right">@Html.DisplayFor(modelItem => item.PayableAmount)</td>
+                    <td class="text-right">@Html.DisplayFor(modelItem => item.DiscountPer)</td>
+                    <td class="text-right">@Html.DisplayFor(modelItem => item.DiscountAmt)</td>
+                    <td class="text-right hidden">@Html.DisplayFor(modelItem => item.SGST)</td>
+                    <td class="text-right hidden">@Html.DisplayFor(modelItem => item.CGST)</td>
+                    <td class="text-right">@Html.DisplayFor(modelItem => item.TotalAmountafterTax)</td>
+                </tr>
+            }
+            <tr>
+                <th colspan="4"></th>
+                <th class="text-right">Total</th>
+                <th class="text-right">@netamount</th>
+                <th class="text-right">@payableamount</th>
+                <th class="text-right">@discountper</th>
+                <th class="text-right">@discountamt</th>
+                <th class="text-right hidden">@sgst</th>
+                <th class="text-right hidden">@cgst</th>
+                <th class="text-right">@amountaftertax</th>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+

@@ -1,0 +1,35 @@
+﻿
+@model IEnumerable<DIMS.ViewModels.BillingViewModal>
+
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover" style="margin-bottom:10px !important;">
+        <thead>
+            <tr>
+                <th>S.No</th>
+                <th>@Html.DisplayNameFor(model => model.CodeDescription)</th>
+                <th>@Html.DisplayNameFor(model => model.ReferenceNo)</th>
+                <th>@Html.DisplayNameFor(model => model.AmountReceived)</th>
+                @{int i = 0;}
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                i++;
+                <tr>
+                    <td><span>@i</span></td>
+                    <td>@Html.DisplayFor(modelItem => item.CodeDescription)</td>
+                    <td>@Html.DisplayFor(model => item.ReferenceNo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.AmountReceived)</td>
+                   
+                </tr>
+            }
+             
+        </tbody>
+    </table>
+</div>
+
+
+
+

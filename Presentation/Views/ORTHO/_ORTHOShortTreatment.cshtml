@@ -1,0 +1,45 @@
+﻿ @using Metron.Entities @model DIMS.ViewModels.OrthoViewModal
+@helper CreateCheckbox(string value)
+{
+    @Html.CheckBox("chkBox", !string.IsNullOrEmpty(value), new { @class = "checkbox-inline" })
+}
+
+@helper CreateCheckbox_1(string Name, string value)
+{
+string chkName = "chk" + Name;
+    @Html.CheckBox(chkName, !string.IsNullOrEmpty(value), new { @class = "checkbox-inline" })
+}
+@functions {
+    object getHtmlAttributes(string value, string CssClass)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            return new { @class = CssClass, disabled = "disabled" };
+        }
+        return new { @class = CssClass };
+    }
+}
+@functions{
+    public string GetClassFromProperties(string propertyName)
+    {
+        var props = Model.Proplist.FirstOrDefault<ORTHOCasesheetProperties>(x => x.PropertyName == propertyName);
+
+        if (props != null && props.PropertyVisibility == "N")
+        {
+            return "display:none";
+        }
+
+        return "";
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(x => x.TreatmentPlan, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(x => x.TreatmentPlan, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+﻿@model DIMS.ViewModels.DepartmentViewModal
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details of Department</h2>
+
+<div>
+
+    <dl class="dl-horizontal">
+        <dt class="hidden">
+            @Html.DisplayNameFor(model => model.DeptId)
+        </dt>
+
+        <dd class="hidden">
+            @Html.DisplayFor(model => model.DeptId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeptCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeptCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeptName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeptName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DeptId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

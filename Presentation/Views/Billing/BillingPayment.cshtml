@@ -1,0 +1,49 @@
+﻿
+
+@model IEnumerable<DIMS.ViewModels.BillingViewModal>
+
+@{
+    string modelName = ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix;
+    int index = 0;
+}
+@functions{
+    string GetId(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}]_{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+    string GetName(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}].{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+}
+
+<div class="row" >
+    <div class="table-responsive">
+        <table id="POITable" class="text-center">
+            @foreach (var item in Model)
+        {
+                <tr>
+                    <td>
+                        @Html.DropDownListFor(modelItem => item.CodeId, new SelectList(item.Paymodelist, "PaymodeId", "Paymode"), htmlAttributes: new { @class = "form-control col-md-2" })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => item.ReferenceNo, new { @class = "form-control " })
+                        @Html.HiddenFor(modelItem => item.ReferenceNo, new { @class = "form-control", @id = GetId("ReferenceNo", index), @Name = GetName("ReferenceNo", index) })
+
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CardReceived)
+                        @Html.HiddenFor(modelItem => item.CardReceived, new { @class = "form-control", @id = GetId("CardReceived", index), @Name = GetName("CardReceived", index) })
+                    </td>
+                </tr>
+            index++;
+        }
+        </table>
+
+    </div>
+    </div>
+
+
+
+   

@@ -1,0 +1,130 @@
+﻿@model DIMS.ViewModels.StudentAllotmentViewModel
+@{
+    ViewBag.Title = "_StudentAllotment";
+}
+
+@functions
+{
+    public string GetUrl()
+    {
+        var user = User as DIMS.Infrastructure.CustomPrincipal;
+        return user.GetRootUrl();
+    }
+}
+
+<div>
+    <form id="AllotDeleteform">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.OpNo, new { @class = "col-md-1" })
+                        <div class="col-md-2">
+                            @Html.DisplayFor(x => x.OpNo, new { @class = "col-md-12" })
+                        </div>
+                        @Html.LabelFor(x => x.PatientName, new { @class = "col-md-2 " })
+                        <div class="col-md-2">
+                            @Html.DisplayFor(x => x.PatientName, new { @class = "col-md-12 " })
+                        </div>
+                        @Html.LabelFor(x => x.AgeGender, new { @class = "col-md-2 " })
+                        <div class="col-md-2">
+                            @Html.DisplayFor(x => x.AgeGender, new { @class = "col-md-12 " })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.StudentName, new { @class = "control-label col-md-2" })
+                                <div class="col-md-2">
+                                    @Html.DisplayFor(x => x.StudentName)
+                                </div>
+                                @Html.LabelFor(x => x.StudentRegNo, new { @class = "control-label col-md-2" })
+                                <div class="col-md-2">
+                                    @Html.DisplayFor(x => x.StudentRegNo)
+                                </div>
+                                @Html.LabelFor(x => x.CourseName, new { @class = "control-label col-md-2" })
+                                <div class="col-md-2">
+                                    @Html.DisplayFor(x => x.CourseName)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.ReferredReason, new { @class = "control-label col-md-2" })
+                                <div class="col-md-8">
+                                    @Html.DisplayFor(x => x.ReferredReason, new { @class = "col-md-12" })
+                                    @Html.HiddenFor(x => x.DeptCode)
+                                    @Html.HiddenFor(x => x.AllotId)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <center>
+                                        <a id="btnDeleteAllot" class="fa fa-remove btn btn-warning"> Cancellation</a>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+
+    $('#btnDeleteAllot').on('click', function () {
+        
+        var allotform = $("#AllotDeleteform").serialize();
+        $.ajax({
+            type: "POST",
+            //url: "@GetUrl()/StudentAllotment/Create",
+            url: '@Url.Action("Delete", "StudentAllotment")',
+            data: allotform,
+            success: function (data) {
+                var $DeptCode = $("#DeptCode").val();
+                $("#myModel").modal("hide");
+                if ($DeptCode == 'OMR') {
+                    window.location.href = "@GetUrl()/OMR/TreatmentIndex";
+                }
+                else if ($DeptCode == 'PERIO') {
+                    window.location.href = "@GetUrl()/PERIO/TreatmentIndex";
+                }
+                else if ($DeptCode == 'ORTHO') {
+                    window.location.href = "@GetUrl()/ORTHO/TreatmentIndex";
+                }
+                else if ($DeptCode == 'CONS') {
+                    window.location.href = "@GetUrl()/CONS/TreatmentIndex";
+                }
+                else if ($DeptCode == 'PROSTHO') {
+                    window.location.href = "@GetUrl()/PROSTHO/TreatmentIndex";
+                }
+                else if ($DeptCode == 'PHD') {
+                    window.location.href = "@GetUrl()/PHD/TreatmentIndex";
+                }
+                else if ($DeptCode == 'OMFS') {
+                    window.location.href = "@GetUrl()/OMFS/OPTreatmentIndex";
+                }
+                else if ($DeptCode == 'PEDO') {
+                    window.location.href = "@GetUrl()/PEDO/TreatmentIndex";
+                }
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+        })
+    });
+</script>
+
+

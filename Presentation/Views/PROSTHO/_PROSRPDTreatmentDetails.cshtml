@@ -1,0 +1,286 @@
+﻿@using Metron.Entities
+@model DIMS.ViewModels.PROSRPDViewModel
+
+@functions{
+    public string GetClassFromProperties(string propertyName)
+    {
+        var props = Model.Proplist.FirstOrDefault<PROSRPDCasesheetProperties>(x => x.PropertyName == propertyName);
+
+        if (props != null && props.PropertyVisibility == "N")
+        {
+            return "display:none";
+        }
+
+        return "";
+    }
+}
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div id="divPreliminary" >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Preliminary, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-7">
+                        @Html.TextBoxFor(x => x.Preliminary, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.PreliminaryImpressionDate)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divDiagnosticCasts"  >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.DiagnosticCasts, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-7">
+                        @Html.TextBoxFor(x => x.DiagnosticCasts, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.DiagnosticCastsDate)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divDiagnosticSurveying"  >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.DiagnosticSurveying, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-7">
+                        @Html.TextBoxFor(x => x.DiagnosticSurveying, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.DiagnosticSurveyDate)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divMouthPreparation"  >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.MouthPreparation, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-7">
+                        @Html.TextBoxFor(x => x.MouthPreparation, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.MouthPreparationDate)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divCustomTray"  >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.CustomTray, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-7">
+                        @Html.TextBoxFor(x => x.CustomTray, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.CustomTrayFDate)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divBorderMolding"  >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.BorderMolding, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-7">
+                        @Html.TextBoxFor(x => x.BorderMolding, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.BorderMoldingDate)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divFinalImpressio"  >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.FinalImpressio, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-7">
+                        @Html.TextBoxFor(x => x.FinalImpressio, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.FinalImpressionDate)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divMasterCast"  >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.MasterCast, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-7">
+                        @Html.TextBoxFor(x => x.MasterCast, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.MasterCastDate)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divSurveying"  >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Surveying, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-7">
+                        @Html.TextBoxFor(x => x.Surveying, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.SurveyingDate)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divDesigning" >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Designing, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-7">
+                        @Html.TextBoxFor(x => x.Designing, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.DesigningDate)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divWaxpatterns"  >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Waxpatterns, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-7">
+                        @Html.TextBoxFor(x => x.Waxpatterns, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.WaxPatternsDate)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divCasting"  >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Casting, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-7">
+                        @Html.TextBoxFor(x => x.Casting, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.CastingDate)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divFrameWorkTrim" >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.FrameWorkTrim, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-7">
+                        @Html.TextBoxFor(x => x.FrameWorkTrim, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.TrimmingPolishingDate)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divMetalTrial"  >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.MetalTrial, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-7">
+                        @Html.TextBoxFor(x => x.MetalTrial, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.MetalTrialDate)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divDentureBase"  >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.DentureBase, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-7">
+                        @Html.TextBoxFor(x => x.DentureBase, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.DentureBaseOcclusalDate)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divBiteRegistration"  >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.BiteRegistration, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-7">
+                        @Html.TextBoxFor(x => x.BiteRegistration, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.BiteRegistrationDate)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divTeethArrang"  >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.TeethArrang, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-7">
+                        @Html.TextBoxFor(x => x.TeethArrang, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.TeethArrangementDate)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divTryIn"  >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.TryIn, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-7">
+                        @Html.TextBoxFor(x => x.TryIn, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.TryInDate)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divDentureProce"  >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.DentureProce, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-7">
+                        @Html.TextBoxFor(x => x.DentureProce, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.DentureProcessingDate)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divInsertion"  >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Insertion, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-7">
+                        @Html.TextBoxFor(x => x.Insertion, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.InsertionDate)
+                    </div>
+                </div>
+            </div>
+        </div>   
+    </div>
+</div>
+
+
+

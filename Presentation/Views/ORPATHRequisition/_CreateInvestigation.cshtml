@@ -1,0 +1,68 @@
+﻿@model DIMS.ViewModels.BillingQueueServiceViewModel
+
+<div class="col-md-12">
+    <div class="row">
+        <div>
+            <div class="col-md-3">
+                @Html.LabelFor(x => x.ServiceName)
+            </div>
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.TeethNo)
+            </div>
+            <div class="col-md-1">
+                @Html.LabelFor(model => model.Rate)
+            </div>
+            <div class="col-md-1">
+                @Html.LabelFor(model => model.Qty)
+            </div>
+            <div class="col-md-1">
+                @Html.LabelFor(model => model.Amount)
+            </div>
+            <div class="col-md-1">
+                @Html.LabelFor(model => model.DiscountPer)
+            </div>
+            <div class="col-md-1">
+                @Html.LabelFor(model => model.DiscountAmt)
+            </div>
+            <div class="col-md-1">
+                @Html.LabelFor(model => model.NetAmount)
+            </div>
+            <div class="col-md-1">
+                @Html.HiddenFor(model => model.PatientId)
+                @Html.HiddenFor(model => model.DeptId)
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <div class="col-md-3">
+                @Html.DropDownListFor(model => model.ServiceName, new SelectList(Model.BillDropServicesList, "ServiceId", "ServiceName"), "Select",htmlAttributes: new { @class = "form-control col-md-2" })
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(model => model.TeethNo, new { @class = "form-control", maxlength = "25" })
+            </div>
+            <div class="col-md-1">
+                @Html.TextBoxFor(model => model.Rate, new { @class = "form-control OnlyNumber", pattern = "\\d*", maxlength = "5" })
+            </div>
+            <div class="col-md-1">
+                @Html.TextBoxFor(model => model.Qty, new { @class = "form-control OnlyNumber", pattern = "\\d*", maxlength = "2" })
+            </div>
+            <div class="col-md-1">
+                @Html.TextBoxFor(model => model.Amount, new { @class = "form-control OnlyNumber", @readonly = "readonly", pattern = "\\d*", maxlength = "5" })
+            </div>
+            <div class="col-md-1">
+                @Html.TextBoxFor(model => model.DiscountPer, new { @class = "form-control OnlyNumber", pattern = "\\d*", maxlength = "3" })
+            </div>
+            <div class="col-md-1">
+                @Html.TextBoxFor(model => model.DiscountAmt, new { @class = "form-control OnlyNumber", @readonly = "readonly", pattern = "\\d*", maxlength = "3" })
+            </div>
+            <div class="col-md-1">
+                @Html.TextBoxFor(model => model.NetAmount, new { @class = "form-control OnlyNumber", @readonly = "readonly" })
+            </div>
+            <div class="col-md-1">
+                <a id="btnInvestigationAdd" value="Add" class="btn btn-primary"></a>
+            </div>
+        </div>
+    </div>
+</div>

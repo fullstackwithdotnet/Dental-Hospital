@@ -1,0 +1,65 @@
+﻿@model DIMS.ViewModels.CONSViewModel
+<div class="form-horizontal">
+    <div class="box box-info ">
+        <div class="box-header with-border" style="background-color:aliceblue;">
+            <h3 class="box-title"> Patient Information</h3>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.Partial("../PatientInformation/_PatientInformationDetails", Model.patientInformationViewModel,
+                            new ViewDataDictionary()
+                            {
+                                TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "studentAllotmentViewModel" }
+                            })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box box-default ">
+        <div class="box-header with-border">
+            <h3 class="box-title"> Conservative Treatments</h3>
+        </div>
+        <div class="box-body">
+
+            @Html.ActionLink("New Casesheet", "Create", "CONS", new { allotId = Model.studentAllotmentViewModel.AllotId, Model.PatientId }, new { @class = "btn btn-success btn-xs" })
+
+
+            @if (Model.Treatmentlist != null)
+            {
+                if (Model.Treatmentlist.ToList().Count() > 0)
+                {
+
+                    <table class="table table-bordered">
+                        <tr>
+                            <th class="col-md-1">@Html.DisplayNameFor(model => model.CONSDateDisplay)</th>
+                            <th class="col-md-1">@Html.DisplayNameFor(model => model.CONSNo)</th>
+                            <th class="col-md-8">@Html.DisplayNameFor(model => model.ChiefComplaint)</th>
+                            <th class="col-md-1"></th>
+                        </tr>
+                        @foreach (var List in Model.Treatmentlist.ToList())
+                        {
+                            <tr>
+                                <td class="hidden">@Html.TextBoxFor(model => List.ConservativeId)</td>
+                                <td>@Html.DisplayFor(model => List.CONSDateDisplay)</td>
+                                <td>@Html.DisplayFor(model => List.CONSNo)</td>
+                                <td>@Html.DisplayFor(model => List.ChiefComplaint)</td>
+                                <td>@Html.ActionLink("Select", "Edit", "CONS", new { allotId = Model.studentAllotmentViewModel.AllotId, CONSId = List.ConservativeId }, null)</td>
+                            </tr>
+                        }
+                    </table>
+
+                }
+            }
+
+        </div>
+    </div>
+    </div>
+    <div>
+        @*@Html.ActionLink("Back to List", "TreatmentIndex")*@
+        @Html.ActionLink("<< Back to previous page", "TreatmentIndex", null, new { @class = "btn btn-primary btn-xs" })
+    </div>
+
+

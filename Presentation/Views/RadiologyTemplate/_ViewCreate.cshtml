@@ -1,0 +1,51 @@
+﻿@model  DIMS.ViewModels.TemplateDetailsViewModel
+
+@helper CreateCheckbox(string value)
+{
+    @Html.CheckBox("chkBox", !string.IsNullOrEmpty(value), new { @class = "checkbox", id = "chkHead" })
+}
+
+<div class="form-horizontal">
+
+    <div class="col-md-12">
+        <div class="row">
+            <div>
+                <div class="hidden">
+                    @Html.LabelFor(model => model.RadioTempDetId)
+                    @Html.LabelFor(model => model.RadioTempId)
+                </div>
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.ServiceItems)
+                </div>
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.DisplayOrder)
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group form-group-sm">
+                <div class="hidden">
+                    @Html.TextBoxFor(model => model.RadioTempDetId)
+                    @Html.TextBoxFor(model => model.RadioTempId)
+                </div>
+                <div class="col-md-2">
+                    @Html.CheckBoxFor(x => x.IsChecked, new { @class = "js_getIsChecked" })
+                    @Html.LabelFor(x => x.IsHeader)
+                </div>
+                <div class="col-md-4">
+                    @Html.TextBoxFor(model => model.ServiceItems, new { @class = "form-control" })
+                </div>
+                <div class="col-md-2">
+                    @Html.TextBoxFor(model => model.DisplayOrder, new { @class = "form-control" })
+                </div>  
+                <div class="col-md-1">
+                     <a id="btnRadioAdd" class="btn btn-primary btn-sm ">Add <i class="fa fa-list-ul"></i></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

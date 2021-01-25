@@ -1,0 +1,235 @@
+﻿@model DIMS.ViewModels.StudentRegistrationViewModel
+
+@{
+    ViewBag.Title = "Student List";
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="box box-default box-solid">
+    <div class="box-header with-border">
+        <h3 class="box-title"> Student Registration Details</h3>
+    </div>
+    <div class="box-body">
+        <div class="col-md-8"></div>
+        <div class="col-md-4 ">
+            <div class="form-group form-group-sm dropdown">
+                @Html.LabelFor(x => x.StudentCourseId, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.StudentCourseId, new SelectList(Model.CourseIndexlist, "CourseId", "CourseName"), htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12" id="StudentRegBds" style="display:none">
+            <div class="table-responsive">
+                <table id="tbStudentRegBdsSearch" class="table table-bordered table-hover" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th class="col-md-2">REG NO # </th>
+                            <th class="col-md-3">STUDENT NAME</th>
+                            <th class="col-md-2">STUDENT YEAR</th>
+                            <th class="col-md-1"></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-12" id="StudentRegMds" style="display:none">
+            <div class="table-responsive">
+                <table id="tbStudentRegMdsSearch" class="table table-bordered table-hover" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th class="col-md-2">REG NO # </th>
+                            <th class="col-md-3">STUDENT NAME</th>
+                            <th class="col-md-2">STUDENT YEAR</th>
+                            <th class="col-md-2">DEPARTMENT</th>
+                            <th class="col-md-1"></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+
+    <script src="~/Scripts/dataTables.buttons.min.js"></script>
+    <script src="~/Scripts/buttons.flash.min.js"></script>
+    <script src="~/Scripts/jszip.min.js"></script>
+    <script src="~/Scripts/pdfmake.min.js"></script>
+    <script src="~/Scripts/vfs_fonts.js"></script>
+    <script src="~/Scripts/buttons.html5.min.js"></script>
+    <script src="~/Scripts/buttons.print.min.js"></script>
+
+    <script type="text/jscript">
+
+        $(document).ready(function () {
+            $("#StudentCourseId").change(function () {
+                var dropdowntext = $("#StudentCourseId option:selected").text();
+                if (dropdowntext == "BDS") {
+                    SearchBdsvalue();
+                }
+                else
+                {
+                    SearchMdsvalue();
+                }
+            });
+
+            var SearchBdsvalue = function () {
+
+                var $StudentCourseId = $('#StudentCourseId').val();
+                $('#tbStudentRegBdsSearch tbody').empty();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetStudentDetailsById", "StudentRegistration")',
+                    data: '{StudentCourseId: "' + $StudentCourseId + ' "}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        table = $('#tbStudentRegBdsSearch').DataTable();
+                        table.destroy();
+                        $('#tbStudentRegBdsSearch').dataTable({
+                            data: data,
+                            columns: [
+                                { 'data': 'StudentRegNo' },
+                                { 'data': 'StudentName' },
+                                { 'data': 'StudentYearName' },
+                                {
+                                    'data': 'Link',
+                                    'searchable': false,
+                                    'sortable': false,
+                                    'render': function (Link) {
+                                        return '<a href=' + Link + '>Edit</a>';
+                                    }
+                                },
+                            ],
+                            "dom": "Bfrtip",
+                            "buttons": [
+                                {
+                                    extend:'copy',
+                                    className:'copyButton',
+                                    text:'<i class ="fa fa-clone"></i>Copy'
+
+                                },
+                                {
+                                    extend: 'excel',
+                                    text: '<i class ="fa fa-file-excel-o"></i>Excel'
+
+                                },
+                                 {
+                                     extend: 'pdf',
+                                     text: '<i class ="fa fa-file-pdf-o"></i>Pdf'
+
+                                 },
+                                 {
+                                     extend: 'csv',
+                                     text: '<i class ="fa fa-file-excel-o"></i>CSV'
+
+                                 },
+                                 {
+                                     extend: 'print',
+                                     messageTop: '<h1>Student Registration List</h1>',
+                                     customize: function ( win ) {
+                                         $(win.document.body)
+                                             .css( 'font-size', '10pt' )
+                                             .prepend(
+                                                 '<img src="~/Content/logo-fade.png" style="position:absolute; top:0; left:0;" />'
+                                             );
+
+                                         $(win.document.body).find( 'table' )
+                                             .addClass( 'compact' )
+                                             .css( 'font-size', 'inherit' );
+                                     }
+                                 }
+                        ]
+                        })
+                    },
+                })
+                $("#StudentRegBds").show();
+                $("#StudentRegMds").hide();
+            }
+
+            var SearchMdsvalue = function () {
+
+                var $StudentCourseId = $('#StudentCourseId').val();
+                $('#tbStudentRegMdsSearch tbody').empty();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetStudentDetailsById", "StudentRegistration")',
+                    data: '{StudentCourseId: "' + $StudentCourseId + ' "}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        table = $('#tbStudentRegMdsSearch').DataTable();
+                        table.destroy();
+                        $('#tbStudentRegMdsSearch').dataTable({
+                            data: data,
+                            columns: [
+                                { 'data': 'StudentRegNo' },
+                                { 'data': 'StudentName' },
+                                { 'data': 'StudentYearName' },
+                                { 'data': 'DeptName' },
+                                {
+                                    'data': 'Link',
+                                    'searchable': false,
+                                    'sortable': false,
+                                    'render': function (Link) {
+                                        return '<a href=' + Link + '>Edit</a>';
+                                    }
+                                },
+                            ],
+                            "dom": "Bfrtip",
+                            "buttons": [
+                                {
+                                    extend: 'copy',
+                                    className: 'copyButton',
+                                    text: '<i class ="fa fa-clone"></i>Copy'
+
+                                },
+                                {
+                                    extend: 'excel',
+                                    text: '<i class ="fa fa-file-excel-o"></i>Excel'
+
+                                },
+                                 {
+                                     extend: 'pdf',
+                                     text: '<i class ="fa fa-file-pdf-o"></i>Pdf'
+
+                                 },
+                                 {
+                                     extend: 'csv',
+                                     text: '<i class ="fa fa-file-excel-o"></i>CSV'
+
+                                 },
+                                 {
+                                     extend: 'print',
+                                     messageTop: '<h1>Referral List</h1>',
+                                     customize: function (win) {
+                                         $(win.document.body)
+                                             .css('font-size', '10pt')
+                                             .prepend(
+                                                 '<img src="~/Content/logo-fade.png" style="position:absolute; top:0; left:0;" />'
+                                             );
+
+                                         $(win.document.body).find('table')
+                                             .addClass('compact')
+                                             .css('font-size', 'inherit');
+                                     }
+                                 }
+                            ]
+                        })
+                    },
+                })
+                $("#StudentRegBds").hide();
+                $("#StudentRegMds").show();
+            }
+
+            SearchBdsvalue();
+        });
+    </script>
+}

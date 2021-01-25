@@ -1,0 +1,109 @@
+﻿@model IEnumerable<DIMS.ViewModels.BillingQueueServiceViewModel> 
+
+@{
+    string modelName = ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix;
+    int index = 0;
+}
+@functions{
+    string GetId(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}]_{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+    string GetName(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}].{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+}
+
+    @*@{
+
+        var netamount = Model.Sum(a => a.NetAmount);
+        var payableamount = Model.Sum(a => a.PayableAmount);
+        var sgst = Model.Sum(a => a.SGST);
+        var cgst = Model.Sum(a => a.CGST);
+        var amountaftertax = Model.Sum(a => a.TotalAmountafterTax);
+    }*@
+<div class="table-responsive">
+    <table id="tbDetails" class="table col-md-12">
+        <tr>
+            <th class="col-md-2">@Html.DisplayNameFor(model => model.ServiceName)</th>
+            <th class="col-md-1">@Html.DisplayNameFor(model => model.TeethNo)</th>
+            <th class="col-md-1">@Html.DisplayNameFor(model => model.Qty)</th>
+            <th class="col-md-1">@Html.DisplayNameFor(model => model.Rate)</th>
+            <th class="col-md-1">@Html.DisplayNameFor(model => model.DiscountPer)</th>
+            <th class="col-md-1">@Html.DisplayNameFor(model => model.DisAmt)</th>
+            <th class="col-md-1">@Html.DisplayNameFor(model => model.NetAmount)</th>
+            <th class="col-md-1 hidden">@Html.DisplayNameFor(model => model.PayableAmount)</th>
+            <th class="col-md-1">@Html.DisplayNameFor(model => model.SGST)</th>
+            <th class="col-md-1">@Html.DisplayNameFor(model => model.CGST)</th>
+            <th class="col-md-1">@Html.DisplayNameFor(model => model.TotalAmountafterTax)</th>
+        </tr>
+        @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.HiddenFor(modelItem => item.BillQueueId, new { @class = "form-control", @id = GetId("BillQueueId", index), @Name = GetName("BillQueueId", index) })
+            @Html.HiddenFor(modelItem => item.ServiceId, new { @class = "form-control", @id = GetId("ServiceId", index), @Name = GetName("ServiceId", index) })
+            @Html.CheckBoxFor(modelItem => item.IsChecked, new { @class = "js_getChecked", @id = GetId("IsChecked", index), @Name = GetName("IsChecked", index) })
+            @Html.DisplayFor(modelItem => item.ServiceName, new { @class = "form-control", @id = GetId("ServiceName", index), @name = GetName("ServiceName", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TeethNo)
+            @Html.HiddenFor(modelItem => item.TeethNo, new { @class = "form-control", @id = GetId("TeethNo", index), @Name = GetName("TeethNo", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Qty)
+            @Html.HiddenFor(modelItem => item.Qty, new { @class = "form-control", @id = GetId("Qty", index), @Name = GetName("Qty", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rate)
+            @Html.HiddenFor(modelItem => item.Rate, new { @class = "form-control", @id = GetId("Rate", index), @Name = GetName("Rate", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiscountPer)
+            @Html.HiddenFor(modelItem => item.DiscountPer, new { @class = "form-control", @id = GetId("DiscountPer", index), @Name = GetName("DiscountPer", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DisAmt)
+            @Html.HiddenFor(modelItem => item.DisAmt, new { @class = "form-control", @id = GetId("DisAmt", index), @Name = GetName("DisAmt", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NetAmount)
+            @Html.HiddenFor(modelItem => item.NetAmount, new { @class = "form-control js_getNetamount", @id = GetId("NetAmount", index), @Name = GetName("NetAmount", index) })
+        </td>
+        <td class="hidden">
+            @Html.TextBoxFor(modelItem => item.PayableAmount, new { @class = "form-control  js_getPayableAmount OnlyNumber", @id = GetId("PayableAmount", index), @Name = GetName("PayableAmount[]", index) })
+        </td>
+        <td>
+            @Html.HiddenFor(modelItem => item.Amount, new { @class = "form-control", @id = GetId("Amount", index), @Name = GetName("Amount", index) })
+            @Html.HiddenFor(modelItem => item.GstPercentage, new { @class = "form-control js_getGst", @id = GetId("GstPercentage", index), @Name = GetName("GstPercentage", index) })
+            @Html.TextBoxFor(modelItem => item.SGST, new { @class = "form-control js_getSgst ", @readonly = "readonly", @id = GetId("SGST", index), @Name = GetName("SGST[]", index) })
+        </td>
+        <td>
+            @Html.TextBoxFor(modelItem => item.CGST, new { @class = "form-control js_getCgst", @readonly = "readonly", @id = GetId("CGST", index), @Name = GetName("CGST[]", index) })
+        </td>
+        <td>
+            @Html.TextBoxFor(modelItem => item.TotalAmountafterTax, new { @class = "form-control js_getafterTax", @readonly = "readonly", @id = GetId("TotalAmountafterTax", index), @Name = GetName("TotalAmountafterTax[]", index) })
+        </td>
+        <td>
+            @if (item.BalanceAmount>0)
+                {
+                <span class="badge">Credit</span>
+                }
+        </td>
+    </tr>
+        index++;
+    }
+        @*<tr>
+                <th colspan="5" ></th>
+                <th>Total</th>
+                <th>@netamount</th>
+                <th>@payableamount</th>
+                <th>@sgst</th>
+                <th>@cgst</th>
+                <th>@amountaftertax</th>
+            </tr>*@
+
+
+    </table>
+    </div>

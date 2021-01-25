@@ -1,0 +1,26 @@
+﻿@model DIMS.ViewModels.PROSMFPViewModel
+
+@*@functions{
+    public string GetClassFromProperties(string propertyName)
+    {
+        var props = Model.Proplist.FirstOrDefault<CStone.Entities.PROSMFPTreatmentDescription>(x => x.PropertyName == propertyName);
+
+        if (props != null && props.PropertyVisibility == "N")
+        {
+            return "display:none";
+        }
+
+        return "";
+    }
+}*@
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            @Html.Partial("../PROSTHO/_PROSMFPTreatmentDescription", Model)
+            @Html.HiddenFor(x => x.ProsthoMFPId)
+            @Html.HiddenFor(x => x.ProsMaxilloProId)
+        </div>
+    </div>
+</div>

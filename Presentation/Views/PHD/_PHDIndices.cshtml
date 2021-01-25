@@ -1,0 +1,1624 @@
+﻿ @using Metron.Entities @model DIMS.ViewModels.PHDViewModel
+@functions{
+    public string GetClassFromProperties(string propertyName)
+    {
+        var props = Model.Proplist.FirstOrDefault<PHDCasesheetProperties>(x => x.PropertyName == propertyName);
+
+        if (props != null && props.PropertyVisibility == "N")
+        {
+            return "display:none";
+        }
+
+        return "";
+    }
+}
+<style>
+    .colss {
+        width: auto !important;
+        padding-right: 8px !important;
+        padding-left: 8px !important;
+        float: left;
+        position: relative;
+        min-height: 1px;
+    }
+
+    .txtsmallOld {
+        width: 35px;
+        padding: 2px;
+        -webkit-box-sizing: initial;
+    }
+
+    .txtsmall {
+        width: 15px;
+        padding: 2px;
+        -webkit-box-sizing: initial;
+    }
+
+    .txtsmallX3 {
+        width: 45px;
+        padding: 3px;
+        -webkit-box-sizing: inherit;
+    }
+
+    .tablenew {
+        width: auto !important;
+    }
+
+        .tablenew > tbody > tr > td {
+            padding: 0;
+        }
+
+    .pclass {
+        text-align: center;
+        margin: 0 !important;
+    }
+</style>
+
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default collapsed-box">
+            <div class="box-header with-border">
+                <h3 class="box-title">RECORDING FORMAT FOR OHI -S </h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <div class="col-md-6">
+                                <h5 class="subHeading1">Debris Index Simplified (DI-S)</h5>
+                                <div class="col-md-6">
+                                    <table class="table tablenew table-bordered">
+                                        <tr>
+                                            <td>@Html.LabelFor(x => x.T16, new { @class = "col-lg-6 control-label" })</td>
+                                            <td>@Html.LabelFor(x => x.T11, new { @class = "col-lg-6 control-label" })</td>
+                                            <td>@Html.LabelFor(x => x.T26, new { @class = "col-lg-6 control-label" })</td>
+                                            <td>@Html.LabelFor(x => x.Total, new { @class = "col-lg-6 control-label" })</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.DIT_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1" })</td>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.DIT_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1" })</td>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.DIT_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1" })</td>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.DIUpperTotal, new { @class = "txtsmall", @readonly = "readonly", })</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.DIT_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1" })</td>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.DIT_5, new { @class = "txtsmall OnlyNumber", @maxLength = "1" })</td>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.DIT_6, new { @class = "txtsmall OnlyNumber", @maxLength = "1" })</td>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.DILowerTotal, new { @class = "txtsmall", @readonly = "readonly", })</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.LabelFor(x => x.T46, new { @class = "col-lg-6 control-label" })</td>
+                                            <td>@Html.LabelFor(x => x.T31, new { @class = "col-lg-6 control-label" })</td>
+                                            <td>@Html.LabelFor(x => x.T36, new { @class = "col-lg-6 control-label" })</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-md-3">
+                                    @Html.Label("DI-S Score  = ", new { @class = "control-label" })
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(x => x.DITotal, new { @readonly = "readonly", @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <h5 class="subHeading1">Calculus Index Simplified (CI-S)</h5>
+                                <div class="col-md-6">
+                                    <table class="table tablenew table-bordered">
+                                        <tr>
+                                            <td>@Html.LabelFor(x => x.T16, new { @class = "col-lg-6 control-label" })</td>
+                                            <td>@Html.LabelFor(x => x.T11, new { @class = "col-lg-6 control-label" })</td>
+                                            <td>@Html.LabelFor(x => x.T26, new { @class = "col-lg-6 control-label" })</td>
+                                            <td>@Html.LabelFor(x => x.Total, new { @class = "col-lg-6 control-label" })</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.CIT_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1" })</td>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.CIT_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1" })</td>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.CIT_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1" })</td>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.CIUpperTotal, new { @class = "txtsmall", @readonly = "readonly", })</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.CIT_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1" })</td>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.CIT_5, new { @class = "txtsmall OnlyNumber", @maxLength = "1" })</td>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.CIT_6, new { @class = "txtsmall OnlyNumber", @maxLength = "1" })</td>
+                                            <td class="text-center">@Html.TextBoxFor(x => x.CILowerTotal, new { @class = "txtsmall", @readonly = "readonly", })</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.LabelFor(x => x.T46, new { @class = "col-lg-6 control-label" })</td>
+                                            <td>@Html.LabelFor(x => x.T31, new { @class = "col-lg-6 control-label" })</td>
+                                            <td>@Html.LabelFor(x => x.T36, new { @class = "col-lg-6 control-label" })</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-md-3">
+                                    @Html.Label("CI-S Score  = ", new { @class = "control-label" })
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(x => x.CITotal, new { @readonly = "readonly", @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-3">
+                                    @Html.Label("OHI-S Score = DI-S + CI-S  = ", new { @class = "control-label" })
+                                </div>
+                                <div class="col-md-1">
+                                    @Html.TextBoxFor(x => x.OHITotal, new { @readonly = "readonly", @class = "form-control" })
+                                </div>
+                                <div class="col-md-2">
+                                    <a id="CalculateOral" class="btn btn-success">Calculate</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(x => x.RecordInference, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(x => x.RecordInference, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default collapsed-box">
+            <div class="box-header with-border">
+                <h3 class="box-title">RECORDING FORMAT FOR DMFS</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="colss">
+                                    <p class="pclass">55</p>
+                                    <table class="table tablenew table-bordered js_Deftb">
+                                        <tr>
+                                            <th>@Html.TextBoxFor(x => x.DMFS55_1, new { @class = "txtsmall", @maxLength = "1" })</th>
+                                            <td></td>
+                                            <td>@Html.TextBoxFor(x => x.DMFS55_2, new { @class = "txtsmall", @maxLength = "1" })</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td id="">@Html.TextBoxFor(x => x.DMFS55_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.TextBoxFor(x => x.DMFS55_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                            <td></td>
+                                            <td>@Html.TextBoxFor(x => x.DMFS55_5, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+
+                                        </tr>
+                                    </table>
+
+                                </div>
+                                <div class="colss">
+                                    <p class="pclass">54</p>
+                                    <table class="table tablenew table-bordered js_Deftb">
+                                        <tr>
+                                            <td>@Html.TextBoxFor(x => x.DMFS54_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                            <td></td>
+                                            <td>@Html.TextBoxFor(x => x.DMFS54_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td id="">@Html.TextBoxFor(x => x.DMFS54_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.TextBoxFor(x => x.DMFS54_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                            <td></td>
+                                            <td>@Html.TextBoxFor(x => x.DMFS54_5, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="colss">
+                                    <p class="pclass">53</p>
+                                    <table class="table tablenew table-bordered js_Deftb">
+                                        <tr>
+                                            <td>@Html.TextBoxFor(x => x.DMFS53_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                            <td>@Html.TextBoxFor(x => x.DMFS53_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.TextBoxFor(x => x.DMFS53_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                            <td>@Html.TextBoxFor(x => x.DMFS53_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="colss">
+                                    <p class="pclass">52</p>
+                                    <table class="table tablenew table-bordered js_Deftb">
+                                        <tr>
+                                            <td>@Html.TextBoxFor(x => x.DMFS52_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                            <td>@Html.TextBoxFor(x => x.DMFS52_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.TextBoxFor(x => x.DMFS52_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                            <td>@Html.TextBoxFor(x => x.DMFS52_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="colss">
+                                    <p class="pclass">51</p>
+                                    <table class="table tablenew table-bordered js_Deftb">
+                                        <tr>
+                                            <td>@Html.TextBoxFor(x => x.DMFS51_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                            <td>@Html.TextBoxFor(x => x.DMFS51_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.TextBoxFor(x => x.DMFS51_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                            <td>@Html.TextBoxFor(x => x.DMFS51_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="colss">
+                                    <p class="pclass">61</p>
+                                    <table class="table tablenew table-bordered js_Deftb">
+                                        <tr>
+                                            <td>@Html.TextBoxFor(x => x.DMFS61_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                            <td>@Html.TextBoxFor(x => x.DMFS61_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.TextBoxFor(x => x.DMFS61_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                            <td>@Html.TextBoxFor(x => x.DMFS61_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="colss">
+                                    <p class="pclass">62</p>
+                                    <table class="table tablenew table-bordered js_Deftb">
+                                        <tr>
+                                            <td>@Html.TextBoxFor(x => x.DMFS62_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                            <td>@Html.TextBoxFor(x => x.DMFS62_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.TextBoxFor(x => x.DMFS62_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                            <td>@Html.TextBoxFor(x => x.DMFS62_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="colss">
+                                    <p class="pclass">63</p>
+                                    <table class="table tablenew table-bordered js_Deftb">
+                                        <tr>
+                                            <td>@Html.TextBoxFor(x => x.DMFS63_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                            <td>@Html.TextBoxFor(x => x.DMFS63_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.TextBoxFor(x => x.DMFS63_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                            <td>@Html.TextBoxFor(x => x.DMFS63_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="colss">
+                                    <p class="pclass">64</p>
+                                    <table class="table tablenew table-bordered js_Deftb">
+                                        <tr>
+                                            <td>@Html.TextBoxFor(x => x.DMFS64_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                            <td></td>
+                                            <td>@Html.TextBoxFor(x => x.DMFS64_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td id="">@Html.TextBoxFor(x => x.DMFS64_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.TextBoxFor(x => x.DMFS64_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                            <td></td>
+                                            <td>@Html.TextBoxFor(x => x.DMFS64_5, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="colss">
+                                    <p class="pclass">65</p>
+                                    <table class="table tablenew table-bordered js_Deftb">
+                                        <tr>
+                                            <td>@Html.TextBoxFor(x => x.DMFS65_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                            <td></td>
+                                            <td>@Html.TextBoxFor(x => x.DMFS65_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td id="">@Html.TextBoxFor(x => x.DMFS65_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.TextBoxFor(x => x.DMFS65_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                            <td></td>
+                                            <td>@Html.TextBoxFor(x => x.DMFS65_5, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+
+                            </div>
+                        </div>
+                        <div class="row table-responsive jssum">
+                            <div class="colss">
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS18_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS18_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td id="">@Html.TextBoxFor(x => x.DMFS18_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS18_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS18_5, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                                <p class="pclass">18</p>
+                            </div>
+                            <div class="colss">
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS17_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS17_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td id="">@Html.TextBoxFor(x => x.DMFS17_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS17_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS17_5, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                                <p class="pclass">17</p>
+                            </div>
+                            <div class="colss">
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS16_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS16_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td id="">@Html.TextBoxFor(x => x.DMFS16_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS16_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS16_5, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                                <p class="pclass">16</p>
+                            </div>
+                            <div class="colss">
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS15_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS15_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td id="">@Html.TextBoxFor(x => x.DMFS15_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS15_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS15_5, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                                <p class="pclass">15</p>
+                            </div>
+                            <div class="colss">
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS14_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS14_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td id="">@Html.TextBoxFor(x => x.DMFS14_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS14_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS14_5, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                                <p class="pclass">14</p>
+                            </div>
+                            <div class="colss">
+
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS13_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS13_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS13_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS13_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                                <p class="pclass">13</p>
+                            </div>
+                            <div class="colss">
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS12_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS12_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS12_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS12_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                                <p class="pclass">12</p>
+                            </div>
+                            <div class="colss">
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS11_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS11_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS11_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS11_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                                <p class="pclass">11</p>
+                            </div>
+                            <div class="colss">
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS21_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS21_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS21_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS21_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                                <p class="pclass">21</p>
+                            </div>
+                            <div class="colss">
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS22_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS22_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS22_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS22_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                                <p class="pclass">22</p>
+                            </div>
+                            <div class="colss">
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS23_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS23_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS23_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS23_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                                <p class="pclass">23</p>
+                            </div>
+                            <div class="colss">
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS24_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS24_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td id="">@Html.TextBoxFor(x => x.DMFS24_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS24_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS24_5, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                                <p class="pclass">24</p>
+                            </div>
+                            <div class="colss">
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS25_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS25_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td id="">@Html.TextBoxFor(x => x.DMFS25_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS25_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS25_5, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                                <p class="pclass">25</p>
+                            </div>
+                            <div class="colss">
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS26_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS26_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td id="">@Html.TextBoxFor(x => x.DMFS26_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS26_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS26_5, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                                <p class="pclass">26</p>
+                            </div>
+                            <div class="colss">
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS27_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS27_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td id="">@Html.TextBoxFor(x => x.DMFS27_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS27_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS27_5, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                                <p class="pclass">27</p>
+                            </div>
+                            <div class="colss">
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS28_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS28_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td id="">@Html.TextBoxFor(x => x.DMFS28_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS28_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS28_5, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                                <p class="pclass">28</p>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="colss">
+                                <p class="pclass">48</p>
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS48_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS48_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td id="">@Html.TextBoxFor(x => x.DMFS48_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS48_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS48_5, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">47</p>
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS47_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS47_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td id="">@Html.TextBoxFor(x => x.DMFS47_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS47_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS47_5, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">46</p>
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS46_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS46_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td id="">@Html.TextBoxFor(x => x.DMFS46_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS46_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS46_5, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">45</p>
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS45_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS45_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td id="">@Html.TextBoxFor(x => x.DMFS45_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS45_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS45_5, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">44</p>
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS44_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS44_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td id="">@Html.TextBoxFor(x => x.DMFS44_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS44_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS44_5, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">43</p>
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS43_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS43_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS43_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS43_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">42</p>
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS42_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS42_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS42_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS42_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">41</p>
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS41_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS41_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS41_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS41_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">31</p>
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS31_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS31_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS31_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS31_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">32</p>
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS32_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS32_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS32_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS32_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">33</p>
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS33_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS33_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS33_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS33_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">34</p>
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS34_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS34_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td id="">@Html.TextBoxFor(x => x.DMFS34_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS34_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS34_5, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">35</p>
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS35_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS35_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td id="">@Html.TextBoxFor(x => x.DMFS35_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS35_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS35_5, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">36</p>
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS36_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS36_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td id="">@Html.TextBoxFor(x => x.DMFS36_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS36_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS36_5, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">37</p>
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS37_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS37_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td id="">@Html.TextBoxFor(x => x.DMFS37_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS37_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS37_5, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="colss">
+                                <p class="pclass">38</p>
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS38_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS38_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td id="">@Html.TextBoxFor(x => x.DMFS38_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS38_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS38_5, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="colss">
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS85_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS85_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td id="">@Html.TextBoxFor(x => x.DMFS85_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS85_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS85_5, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                                <p class="pclass">85</p>
+                            </div>
+                            <div class="colss">
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS84_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS84_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td id="">@Html.TextBoxFor(x => x.DMFS84_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS84_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS84_5, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                                <p class="pclass">84</p>
+                            </div>
+                            <div class="colss">
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS83_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS83_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS83_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS83_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                                <p class="pclass">83</p>
+                            </div>
+                            <div class="colss">
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS82_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS82_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS82_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS82_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                                <p class="pclass">82</p>
+                            </div>
+                            <div class="colss">
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS81_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS81_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS81_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS81_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                                <p class="pclass">81</p>
+                            </div>
+                            <div class="colss">
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS71_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS71_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS71_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS71_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                                <p class="pclass">71</p>
+                            </div>
+                            <div class="colss">
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS72_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS72_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS72_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS72_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                                <p class="pclass">72</p>
+                            </div>
+                            <div class="colss">
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS73_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS73_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS73_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS73_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                                <p class="pclass">73</p>
+                            </div>
+                            <div class="colss">
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS74_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS74_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td id="">@Html.TextBoxFor(x => x.DMFS74_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS74_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS74_5, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                </table>
+                                <p class="pclass">74</p>
+                            </div>
+                            <div class="colss">
+                                <table class="table tablenew table-bordered js_Deftb">
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS75_1, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS75_2, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td id="">@Html.TextBoxFor(x => x.DMFS75_3, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.TextBoxFor(x => x.DMFS75_4, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+                                        <td></td>
+                                        <td>@Html.TextBoxFor(x => x.DMFS75_5, new { @class = "txtsmall OnlyNumber", @maxLength = "1", @readonly = "readonly" })</td>
+
+                                    </tr>
+                                </table>
+                                <p class="pclass">75</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <input type="text" id="txtSampleAbbreviation" class="small hidden" />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="js_DmftAbbr">
+
+                                <div class="row">
+
+                                    <div class="col-md-2">
+                                        <button type="button" style="background-color: mediumslateblue; color:white; width: 100%" data-id="D" class="btn btn-xs">D-Decayed</button>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <button type="button" style="background-color: goldenrod; width: 100%" data-id="M" class="btn btn-xs">M-Missing</button>
+                                    </div>
+
+
+                                    <div class="col-md-2">
+                                        <button type="button" style="background-color: yellowgreen; color: white; width: 100%" data-id="F" class="btn btn-xs">F-Filling</button>
+                                    </div>
+
+
+                                    <div class="col-md-2">
+                                        <button type="button" style="background-color: silver; color: white; width: 100%" data-id="" class="btn btn-xs">Clear</button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="col-md-1">
+                                @Html.Label("D= ", new { @class = "control-label" })
+                            </div>
+                            <div class="col-md-1">
+                                @Html.TextBoxFor(x => x.DMFSDT, new { @readonly = "readonly", @class = "form-control" })
+                            </div>
+                            <div class="col-md-1">
+                                @Html.Label("M= ", new { @class = "control-label" })
+                            </div>
+                            <div class="col-md-1">
+                                @Html.TextBoxFor(x => x.DMFSMT, new { @readonly = "readonly", @class = "form-control" })
+                            </div>
+                            <div class="col-md-1">
+                                @Html.Label("F= ", new { @class = "control-label" })
+                            </div>
+                            <div class="col-md-1">
+                                @Html.TextBoxFor(x => x.DMFSFT, new { @readonly = "readonly", @class = "form-control" })
+                            </div>
+                            <div class="col-md-2">
+                                @Html.Label("D + M + F= ", new { @class = "control-label" })
+                            </div>
+                            <div class="col-md-1">
+                                @Html.TextBoxFor(x => x.DMFSTotal, new { @readonly = "readonly", @class = "form-control" })
+                            </div>
+                            <div class="col-md-3">
+                                <a id="btnGiCalculateDMFS" class="btn btn-success">Calculate</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>               
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default collapsed-box">
+            <div class="box-header with-border">
+                <h3 class="box-title">RECORDING FORMAT FOR DMFT</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-10">
+                            <div class="table-responsive">
+                                <div class="colss">
+                                    <table class="table tablenew  js_Deftb">
+                                        <tr style="text-align:center;">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><p class="pclass">55</p></td>
+                                            <td><p class="pclass">54</p></td>
+                                            <td><p class="pclass">53</p></td>
+                                            <td><p class="pclass">52</p></td>
+                                            <td><p class="pclass">51</p></td>
+                                            <td><p class="pclass">61</p></td>
+                                            <td><p class="pclass">62</p></td>
+                                            <td><p class="pclass">63</p></td>
+                                            <td><p class="pclass">64</p></td>
+                                            <td><p class="pclass">65</p></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr style="text-align:center;">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <th>@Html.TextBoxFor(x => x.DMFT55, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT54, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT53, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT52, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT51, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT61, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT62, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT63, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT64, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT65, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+
+                                        <tr style="text-align:center;">
+                                            <th>@Html.TextBoxFor(x => x.DMFT18, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT17, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT16, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT15, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT14, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT13, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT12, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT11, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT21, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT22, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT23, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT24, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT25, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT26, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT27, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT28, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                        </tr>
+                                        <tr style="text-align:center;">
+                                            <td><p class="pclass">18</p></td>
+                                            <td><p class="pclass">17</p></td>
+                                            <td><p class="pclass">16</p></td>
+                                            <td><p class="pclass">15</p></td>
+                                            <td><p class="pclass">14</p></td>
+                                            <td><p class="pclass">13</p></td>
+                                            <td><p class="pclass">12</p></td>
+                                            <td><p class="pclass">11</p></td>
+                                            <td><p class="pclass">21</p></td>
+                                            <td><p class="pclass">22</p></td>
+                                            <td><p class="pclass">23</p></td>
+                                            <td><p class="pclass">24</p></td>
+                                            <td><p class="pclass">25</p></td>
+                                            <td><p class="pclass">26</p></td>
+                                            <td><p class="pclass">27</p></td>
+                                            <td><p class="pclass">28</p></td>
+                                        </tr>
+                                        <tr style="text-align:center;">
+                                            <td><p class="pclass">48</p></td>
+                                            <td><p class="pclass">47</p></td>
+                                            <td><p class="pclass">46</p></td>
+                                            <td><p class="pclass">45</p></td>
+                                            <td><p class="pclass">44</p></td>
+                                            <td><p class="pclass">43</p></td>
+                                            <td><p class="pclass">42</p></td>
+                                            <td><p class="pclass">41</p></td>
+                                            <td><p class="pclass">31</p></td>
+                                            <td><p class="pclass">32</p></td>
+                                            <td><p class="pclass">33</p></td>
+                                            <td><p class="pclass">34</p></td>
+                                            <td><p class="pclass">35</p></td>
+                                            <td><p class="pclass">36</p></td>
+                                            <td><p class="pclass">37</p></td>
+                                            <td><p class="pclass">38</p></td>
+                                        </tr>
+                                        <tr style="text-align:center;">
+                                            <th>@Html.TextBoxFor(x => x.DMFT48, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT47, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT46, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT45, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT44, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT43, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT42, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT41, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT31, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT32, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT33, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT34, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT35, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT36, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT37, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT38, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                        </tr>
+                                        <tr style="text-align:center;">
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT85, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT84, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT83, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT82, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT81, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT71, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT72, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT73, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT74, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th>@Html.TextBoxFor(x => x.DMFT75, new { @class = "txtsmallOld", @maxLength = "1", @readonly = "readonly" })</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                        <tr style="text-align:center;">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><p class="pclass">85</p></td>
+                                            <td><p class="pclass">84</p></td>
+                                            <td><p class="pclass">83</p></td>
+                                            <td><p class="pclass">82</p></td>
+                                            <td><p class="pclass">81</p></td>
+                                            <td><p class="pclass">71</p></td>
+                                            <td><p class="pclass">72</p></td>
+                                            <td><p class="pclass">73</p></td>
+                                            <td><p class="pclass">74</p></td>
+                                            <td><p class="pclass">75</p></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <input type="text" id="txtSampleAbbreviation" class="small hidden" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="js_DmftAbbr">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <button type="button" style="background-color: mediumslateblue; color:white; width: 100%" data-id="D" class="btn btn-xs">D-Decayed</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <button type="button" style="background-color: goldenrod; width: 100%" data-id="M" class="btn btn-xs">M-Missing</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <button type="button" style="background-color: yellowgreen; color: white; width: 100%" data-id="F" class="btn btn-xs">F-Filling</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <button type="button" style="background-color: silver; color: white; width: 100%" data-id="" class="btn btn-xs">Clear</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1">
+                            @Html.Label("DT = ", new { @class = "control-label" })
+                        </div>
+                        <div class="col-md-1">
+                            @Html.TextBoxFor(x => x.DMFTDT, new { @readonly = "readonly", @class = "form-control" })
+                        </div>
+                        <div class="col-md-1">
+                            @Html.Label("MT = ", new { @class = "control-label" })
+                        </div>
+                        <div class="col-md-1">
+                            @Html.TextBoxFor(x => x.DMFTMT, new { @readonly = "readonly", @class = "form-control" })
+                        </div>
+                        <div class="col-md-1">
+                            @Html.Label("FT = ", new { @class = "control-label" })
+                        </div>
+                        <div class="col-md-1">
+                            @Html.TextBoxFor(x => x.DMFTFT, new { @readonly = "readonly", @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.Label("Score  = ", new { @class = "control-label" })
+                        </div>
+                        <div class="col-md-1">
+                            @Html.TextBoxFor(x => x.DMFTTotal, new { @readonly = "readonly", @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            <a id="btnGiCalculateDMFT" class="btn btn-success">Calculate</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default collapsed-box">
+            <div class="box-header with-border">
+                <h3 class="box-title">RECORDING FORMAT FOR CPITN</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5 class="subHeading1" style="text-align:center"> CPI</h5>
+                        <div class="row">
+                            <div class="col-sm-3">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="colss">
+                                    <p class="pclass">16/17</p>
+                                    @Html.TextBoxFor(x => x.CPITNCPI1, new { @class = "txtExLar OnlyNumber", @maxLength = "10" })
+                                </div>
+                                <div class="colss">
+                                    <p class="pclass">11</p>
+                                    @Html.TextBoxFor(x => x.CPITNCPI2, new { @class = "txtExLar OnlyNumber", @maxLength = "10" })
+                                </div>
+                                <div class="colss">
+                                    <p class="pclass">26/27</p>
+                                    @Html.TextBoxFor(x => x.CPITNCPI3, new { @class = "txtExLar OnlyNumber", @maxLength = "10" })
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="colss">
+                                    @Html.TextBoxFor(x => x.CPITNCPI4, new { @class = "txtExLar OnlyNumber", @maxLength = "10" })
+                                    <p class="pclass">47/46</p>
+                                </div>
+                                <div class="colss">
+                                    @Html.TextBoxFor(x => x.CPITNCPI4, new { @class = "txtExLar OnlyNumber", @maxLength = "10" })
+                                    <p class="pclass">31</p>
+                                </div>
+                                <div class="colss">
+                                    @Html.TextBoxFor(x => x.CPITNCPI5, new { @class = "txtExLar OnlyNumber", @maxLength = "10" })
+                                    <p class="pclass">36/37</p>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5 class="subHeading1" style="text-align:center"> TREATMENT NEEDS</h5>
+                        <div class="row">
+                            <div class="col-sm-3">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="colss">
+                                    <p class="pclass">16/17</p>
+                                    @Html.TextBoxFor(x => x.TN1, new { @class = "txtExLar OnlyNumber", @maxLength = "10" })
+                                </div>
+                                <div class="colss">
+                                    <p class="pclass">11</p>
+                                    @Html.TextBoxFor(x => x.TN2, new { @class = "txtExLar OnlyNumber", @maxLength = "10" })
+                                </div>
+                                <div class="colss">
+                                    <p class="pclass">26/27</p>
+                                    @Html.TextBoxFor(x => x.TN3, new { @class = "txtExLar OnlyNumber", @maxLength = "10" })
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="colss">
+                                    @Html.TextBoxFor(x => x.TN4, new { @class = "txtExLar OnlyNumber", @maxLength = "10" })
+                                    <p class="pclass">47/46</p>
+                                </div>
+                                <div class="colss">
+                                    @Html.TextBoxFor(x => x.TN5, new { @class = "txtExLar OnlyNumber", @maxLength = "10" })
+                                    <p class="pclass">31</p>
+                                </div>
+                                <div class="colss">
+                                    @Html.TextBoxFor(x => x.TN6, new { @class = "txtExLar OnlyNumber", @maxLength = "10" })
+                                    <p class="pclass">36/37</p>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default collapsed-box">
+            <div class="box-header with-border">
+                <h3 class="box-title">RECORDING FORMAT OF CPI AND LOSS OF ATTACHMENT</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5 class="subHeading1" style="text-align:center"> CPI</h5>
+                        <div class="row">
+                            <div class="col-sm-3">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="colss">
+                                    <p class="pclass">16/17</p>
+                                    @Html.TextBoxFor(x => x.LOACPI1, new { @class = "txtExLar OnlyNumber", @maxLength = "10" })
+                                </div>
+                                <div class="colss">
+                                    <p class="pclass">11</p>
+                                    @Html.TextBoxFor(x => x.LOACPI2, new { @class = "txtExLar OnlyNumber", @maxLength = "10" })
+                                </div>
+                                <div class="colss">
+                                    <p class="pclass">26/27</p>
+                                    @Html.TextBoxFor(x => x.LOACPI3, new { @class = "txtExLar OnlyNumber", @maxLength = "10" })
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="colss">
+                                    @Html.TextBoxFor(x => x.LOACPI4, new { @class = "txtExLar OnlyNumber", @maxLength = "10" })
+                                    <p class="pclass">47/46</p>
+                                </div>
+                                <div class="colss">
+                                    @Html.TextBoxFor(x => x.LOACPI5, new { @class = "txtExLar OnlyNumber", @maxLength = "10" })
+                                    <p class="pclass">31</p>
+                                </div>
+                                <div class="colss">
+                                    @Html.TextBoxFor(x => x.LOACPI6, new { @class = "txtExLar OnlyNumber", @maxLength = "10" })
+                                    <p class="pclass">36/37</p>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5 class="subHeading1" style="text-align:center"> LOA</h5>
+                        <div class="row">
+                            <div class="col-sm-3">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="colss">
+                                    <p class="pclass">16/17</p>
+                                    @Html.TextBoxFor(x => x.LOA1, new { @class = "txtExLar OnlyNumber", @maxLength = "10" })
+                                </div>
+                                <div class="colss">
+                                    <p class="pclass">11</p>
+                                    @Html.TextBoxFor(x => x.LOA2, new { @class = "txtExLar OnlyNumber", @maxLength = "10" })
+                                </div>
+                                <div class="colss">
+                                    <p class="pclass">26/27</p>
+                                    @Html.TextBoxFor(x => x.LOA3, new { @class = "txtExLar OnlyNumber", @maxLength = "10" })
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="colss">
+                                    @Html.TextBoxFor(x => x.LOA4, new { @class = "txtExLar OnlyNumber", @maxLength = "10" })
+                                    <p class="pclass">47/46</p>
+                                </div>
+                                <div class="colss">
+                                    @Html.TextBoxFor(x => x.LOA5, new { @class = "txtExLar OnlyNumber", @maxLength = "10" })
+                                    <p class="pclass">31</p>
+                                </div>
+                                <div class="colss">
+                                    @Html.TextBoxFor(x => x.LOA6, new { @class = "txtExLar OnlyNumber", @maxLength = "10" })
+                                    <p class="pclass">36/37</p>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

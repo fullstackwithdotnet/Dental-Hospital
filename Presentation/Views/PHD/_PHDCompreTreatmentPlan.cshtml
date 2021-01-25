@@ -1,0 +1,82 @@
+﻿@using Metron.Entities
+@model DIMS.ViewModels.PHDViewModel
+
+@functions{
+    public string GetClassFromProperties(string propertyName)
+    {
+        var props = Model.Proplist.FirstOrDefault<PHDCasesheetProperties>(x => x.PropertyName == propertyName);
+
+        if (props != null && props.PropertyVisibility == "N")
+        {
+            return "display:none";
+        }
+
+        return "";
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+       
+        <div id="divComEmergencyPhase">
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.ComEmergencyPhase, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextAreaFor(x => x.ComEmergencyPhase, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divPromotivePhase">
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.PromotivePhase, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextAreaFor(x => x.PromotivePhase, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divPreventivePhase">
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.PreventivePhase, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextAreaFor(x => x.PreventivePhase, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divCurativePhase">
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.CurativePhase, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextAreaFor(x => x.CurativePhase, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divRehabilitativePhase">
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.RehabilitativePhase, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextAreaFor(x => x.RehabilitativePhase, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divComMaintanancePhase">
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.ComMaintanancePhase, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextAreaFor(x => x.ComMaintanancePhase, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,165 @@
+﻿@model DIMS.ViewModels.FileUploadViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm("Create", "FileUpload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <form id="Form">
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true)
+            <div class="box box-default box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title"> Photograph /Radiograph Upload</h3>
+                </div>
+                <div class="box-body">
+                    <div class="row col-md-12">
+                      
+                            <div class="form-group">
+                                @Html.Partial("../PatientInformation/_PatientOralPathRequisitionDetails", Model.patientInformationViewModel,
+                            new ViewDataDictionary()
+                            {
+                                TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "studentAllotmentViewModel" }
+                            })
+                           
+                        </div>
+                    </div>
+                   
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.FileTypeId, new { @class = "control-label col-md-2" })
+                                    <div class="col-md-8 dropdown">
+                                        @Html.DropDownListFor(model => model.FileTypeId, new SelectList(Model.FileTypelist, "CodeId", "CodeDescription"), htmlAttributes: new { @class = "form-control" })
+                                        @Html.HiddenFor(model => model.PatientId)
+                                        @Html.HiddenFor(model => model.AllotId)
+                                        @Html.HiddenFor(model => model.DeptId)
+                                        @Html.ValidationMessageFor(model => model.FileTypeId)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.postedFiles, new { @class = "control-label col-md-2" })
+                                    <div class="col-md-8 dropdown">
+                                        @Html.TextBoxFor(model => model.postedFiles, new { type = "file", @multiple = "multiple" })
+                                        @Html.ValidationMessageFor(model => model.postedFiles)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
+                                    <div class="col-md-8 dropdown">
+                                        @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Description)
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10 text-success">
+                                @ViewBag.UploadStatus
+                            </div>
+                        </div>
+                        <div class="col-xs-5">
+                        </div>
+                        <div class="col-xs-2">
+                            <input type="submit" id="Save" value="Save" class="fa fa-save btn btn-success"/>
+
+                        </div>
+                        <div class="col-xs-5">
+                        </div>
+                    </div>
+
+                    @if (Model.FileUploadlist.Count() > 0)
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.Partial("../FileUpload/_UploadFileList", Model.FileUploadlist)
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    
+                </div>
+            </div>
+        </div>
+    </form>
+}
+ 
+
+@section scripts {
+        <script type="text/jscript">
+            //function readURL(input) {
+            //    if (input.files && input.files[0]) {
+            //        var reader = new FileReader();
+
+            //        reader.onload = function (e) {
+            //            $('#image_upload_preview').attr('src', e.target.result);
+            //        }
+            //        reader.readAsDataURL(input.files[0]);
+            //    }
+            //}
+
+            //$("#Path").change(function () {
+            //    readURL(this);
+            //});
+
+
+            $("#Save").click(function () {
+                var form = $('#Form');
+
+                if (form.valid()) {
+                    var data = form.serialize();
+
+                    $.ajax({
+                        //url: "/FileUpload/Create",
+                        url: '@Url.Action("Create", "FileUpload")',
+                        type: 'POST',
+                        data: data
+                    }).done(function (result) {
+                        SaveFade();
+                    });
+                }
+
+                return false;
+            });
+
+            
+           
+             var url = '@Url.Action("DeleteFileUploadDetails", "FileUpload")';
+            $('#tbFileUploadDetails').on('click', ".FileUploaddelete", function () {
+                var Con = confirm("Are you want to delete ?");
+                if (Con == true) {
+                    var id = $(this).data('id');
+                    var row = $(this).closest('tr');
+                    if (id == 0) {
+                        row.remove();
+                    }
+                    else {
+                        $.post(url, { FileId: id }, function (response) {
+                            if (response) {
+                                row.remove(); // OK, so remove the row
+                            } else {
+                                // Oops - display and error message?
+                            }
+                        });
+                    }
+                }
+            });
+
+        </script>
+    }

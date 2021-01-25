@@ -1,0 +1,148 @@
+﻿
+@model DIMS.ViewModels.ChartViewModel
+
+
+@using (Html.BeginForm())
+{
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h2 class="box-title">Dashboard</h2>
+            </div>
+            <div class="box-body">
+                <table class="table">
+                    <tr>
+                        <td style="border-top:none">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.DateRange, new { @class = "control-label" })
+                            </div>
+                        </td>
+                        <td style="border-top:none">
+                            <div class="form-group form-group-sm">
+                                @Html.EditorFor(model => model.DateRange, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </td>
+                        <td class="hidden">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.DeptId, new { @class = "control-label" })
+                            </div>
+                        </td>
+                        <td class="hidden">
+                            <div class="form-group form-group-sm">
+                                @Html.DropDownListFor(x => x.DeptId, new SelectList(Model.deptlist, "DeptId", "DeptName"),"All", htmlAttributes: new { @class = "form-control col-md-2" })
+                            </div>
+                        </td>
+                        <td style="border-top:none">
+                            <div class="col-md-2 form-group form-group-sm hidden">
+                                <a id="btncollectionSearch"> <i class="fa fa-search fa fa-search btn btn-success"> Search</i></a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <i class="fa fa-bar-chart-o"></i>
+                <h3 class="box-title">Bar Chart</h3>
+            </div>
+            <div class="box-body">
+                <div class="table-responsive">
+                    <div id="container" style="height: 360px; margin: 0 auto">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts {
+   @*@Scripts.Render("~/bundles/jqueryval")*@
+
+<script>
+
+    $(function () {
+        var start = moment();
+        var end = moment();
+        $('#DateRange').daterangepicker({
+            startDate: start,
+            endDate: end,           
+            locale: {
+                format: 'DD/MM/YYYY'
+            },
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            }
+        }, cb);
+        function cb(start, end) {
+            $('#DateRange span').html(start.format('YYYY/MM/DD') + ' - ' + end.format('YYYY/MM/DD'));
+        }
+        cb(start, end);
+
+    });
+
+
+        var chartData;
+        google.load("visualization", "1", { packages: ["corechart"] });
+
+        function drawChart() {
+
+            var data = google.visualization.arrayToDataTable(chartData);
+            
+
+            var options = {
+                title: "Registration Count",
+                pointSize: 5
+            };
+
+            var columnChart = new google.visualization.ColumnChart($("#container")[0]);
+            columnChart.draw(data, options);
+        }
+
+
+        $(document).ready(function () {
+            
+
+            var SearchValue=function()
+            {
+                var selected = $("#DateRange").val();
+                var from = selected.split("-");
+                var fromdate = $.trim(from[0]); var todate = $.trim(from[1]);
+                var date1 = fromdate.split("/").reverse().join("-");
+                var date2 = todate.split("/").reverse().join("-");
+
+                $.ajax({
+                    url: '@Url.Action("GetData", "Chart")',
+                    data: '{FromDateValue: "' + date1 + ' ",ToDateValue: "' + date2 + ' "}',
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json charset=utf-8",
+                    success: function (data) {
+                        chartData = data;
+                    },
+                    error: function () {
+                        alert("Error :Please try again");
+                    }
+                }).done(function () {
+                    drawChart();
+                })
+               
+            }
+
+            SearchValue();
+            $("#DateRange").on("change", function () {
+                SearchValue();
+            })
+        });
+
+   
+
+</script>
+}

@@ -1,0 +1,225 @@
+﻿@model DIMS.ViewModels.LaboratoryRegistrationViewModel
+
+@{
+    ViewBag.Title = "TestItemCreate";
+}
+@using (Html.BeginForm("TestItemCreate", "Laboratory", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true)
+
+        <div class="box box-info ">
+            <div class="box-body">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-2"><strong>Test Name : </strong></div>
+                            <div class="col-md-2 text-blue">
+                                @Html.DisplayFor(x => x.ServiceName, new { @class = "#3c8dbc" })
+                            </div>
+                            <div class="col-md-2"><strong>Group Name :</strong></div>
+                            <div class="col-md-2 text-blue">
+                                @Html.DisplayFor(x => x.GroupName)
+                            </div>
+                            <div class="col-md-2"><strong>Tooth No :</strong></div>
+                            <div class="col-md-2 text-blue">
+                                @Html.DisplayFor(x => x.TeethNo)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Partial("../Laboratory/_TestItemDetails", Model.TestItemList,
+                             new ViewDataDictionary()
+                             {
+                                 TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "TestItemList" }
+                             })
+                    @Html.HiddenFor(x => x.RadioTempId)
+                    @Html.HiddenFor(x => x.ServiceId)
+                    @Html.HiddenFor(x => x.LaboratoryDetId)
+                    @Html.HiddenFor(x => x.LaboratoryId)
+                    @Html.HiddenFor(x => x.PatientId)
+                    @Html.HiddenFor(x => x.DeptId)
+                    @Html.HiddenFor(x => x.LaboratoryResultId)
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm ">
+                            @Html.LabelFor(model => model.Remarks, new { @class = "control-label " })
+                            @Html.TextAreaFor(x => x.Remarks, new { @class = "form-control " })
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm ">
+                            @Html.LabelFor(model => model.Impression, new { @class = "control-label " })
+                            @Html.TextAreaFor(x => x.Impression, new { @class = "form-control " })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @{
+            if (TempData["message"] != null)
+            {
+                <script type="text/javascript">
+                            alert(@Html.Raw(Json.Encode(TempData["message"])));
+                </script>
+            }
+        }
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-offset-5">
+                    <input type="submit" id="btnSubmit" value="Submit" class="fa fa-save btn btn-success" />
+                </div>
+            </div>
+        </div>
+
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.Partial("../Radiology/_RadiologyFileUpload", Model.fileuploadviewmodel,
+              new ViewDataDictionary()
+              {
+                  TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "fileuploadviewmodel" }
+              })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div>
+            @Html.ActionLink("Back to List", "Edit", new { Id = Model.LaboratoryId })
+        </div>
+    </div>
+
+
+    @*<div class="form-horizontal">
+        @Html.ValidationSummary(true)
+        <div class="box box-default box-solid">
+            <div class="box-header with-border">
+                <div class="row">
+                    <div class="col-md-12 hidden">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2"><strong>Test Name : </strong></div>
+                    <div class="col-md-2 text-blue">
+                        @Html.DisplayFor(x => x.ServiceName, new { @class = "#3c8dbc" })
+                    </div>
+                    <div class="col-md-2"><strong>Group Name :</strong></div>
+                    <div class="col-md-2 text-blue">
+                        @Html.DisplayFor(x => x.GroupName)
+                    </div>
+                    <div class="col-md-2"><strong>Tooth No :</strong></div>
+                    <div class="col-md-2 text-blue">
+                        @Html.DisplayFor(x => x.TeethNo)
+                    </div>
+                </div>
+            </div>
+            <div class="box-body">
+                    <div class="col-md-12">
+                      
+                            @Html.Partial("../Laboratory/_TestItemDetails", Model.TestItemList,
+                             new ViewDataDictionary()
+                                 {
+                                     TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "TestItemList" }
+                                 })
+                             
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group form-group-sm">
+                                                    @Html.LabelFor(x => x.Remarks, new { @class = "col-md-2 control-label" })
+                                                    <div class="col-md-10">
+                                                        @Html.TextBoxFor(x => x.Remarks, new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group form-group-sm">
+                                                    @Html.LabelFor(x => x.Impression, new { @class = "col-md-2 control-label" })
+                                                    <div class="col-md-10">
+                                                        @Html.TextAreaFor(x => x.Impression, new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+                        
+                      </div>   
+                <div class="row">
+                    <div class="col-md-offset-5">
+                        <input type="submit" id="btnSubmit" value="Submit" class="fa fa-save btn btn-success"/>
+                    </div>
+                </div>            
+            </div> 
+                       
+        </div>
+        <div class="row hidden">
+            @Html.TextBoxFor(x => x.RadioTempId)
+            @Html.TextBoxFor(x => x.ServiceId)
+            @Html.TextBoxFor(x => x.LaboratoryDetId)
+            @Html.TextBoxFor(x => x.LaboratoryId)
+            @Html.TextBoxFor(x => x.PatientId)
+            @Html.TextBoxFor(x => x.DeptId)
+            @Html.TextBoxFor(x => x.LaboratoryResultId)
+        </div>
+       
+        
+
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.Partial("../Radiology/_RadiologyFileUpload", Model.fileuploadviewmodel,
+              new ViewDataDictionary()
+                  {
+                      TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "fileuploadviewmodel" }
+                  })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <div>
+            @Html.ActionLink("Back to List", "Edit", new { Id = Model.LaboratoryId })
+        </div>
+    </div>*@
+
+}
+
+@section scripts {
+    <script type="text/jscript">
+
+        //var url = "/Radiology/DeleteFileUploadDetails";
+        var url = '@Url.Action("DeleteFileUploadDetails", "Radiology")';
+        $('#tbFileUploadDetails').on('click', ".FileUploaddelete", function () {
+            var Con = confirm("Are you want to delete ?");
+            if (Con == true) {
+                var id = $(this).data('id');
+                var row = $(this).closest('tr');
+                if (id == 0) {
+                    row.remove();
+                }
+                else {
+                    $.post(url, { FileId: id }, function (response) {
+                        if (response) {
+                            row.remove(); // OK, so remove the row
+                        } else {
+                            // Oops - display and error message?
+                        }
+                    });
+                }
+            }
+        });
+
+    </script>
+}

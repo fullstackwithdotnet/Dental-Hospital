@@ -1,0 +1,141 @@
+﻿ @model DIMS.ViewModels.ApprovalViewModal
+
+<div class="form-horizontal">
+    <form id="Approvalform">
+        <div class="row">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.ApprovalDoctorName, new { @class = "control-label col-md-4" })
+                                <div class="col-md-6">
+                                    @Html.DisplayFor(x => x.ApprovalDoctorName)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.ApprovalPassword, new { @class = "control-label col-md-4" })
+                                <div class="col-md-4">
+                                    @Html.PasswordFor(x => x.ApprovalPassword, new { @class = "form-control", @required = "required", autocomplete = "off" })
+                                    @*@Html.PasswordFor(model => model.ApprovalPassword, new { @class = "form-control", @required = "required", autocomplete = "off", maxlength = "10" })*@
+                                    @Html.HiddenFor(model => model.ApprovalTypeId)
+                                    @Html.HiddenFor(model => model.CaserecordId)
+                                    @Html.HiddenFor(model => model.DeptId)
+                                    @Html.HiddenFor(model => model.DoctorId)
+                                    @Html.HiddenFor(model => model.PatientId)
+                                    @Html.HiddenFor(model => model.ReferredTreatmentId)
+                                </div>
+                                <div class="col-md-4">
+                                    <a id="btnCaseSheetApproval" class="fa fa-save btn btn-success"> Submit</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <center>
+                                <div class="form-group form-group-sm">
+                                    @Html.TextBoxFor(x => x.MessageBox, new { @class = "notextborderred", @readonly = "readonly" })
+                                </div>
+                            </center>
+                        </div>
+                    </div>
+                    @if (Model.ApprovalList.Count() > 0)
+                    {
+                        <div class="table-responsive">
+                            <table id="tbApprovalDetails" class="table">
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.DisplayApprovalDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ApprovalDoctorName)
+                                    </th>
+
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CreatedBy)
+                                    </th>
+                                </tr>
+                                @foreach (var item in Model.ApprovalList)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DisplayApprovalDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ApprovalDoctorName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreatedBy)
+                                    </td>
+                                </tr>
+                            }
+                            </table>
+                        </div>
+                    }
+                     </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    $('#btnCaseSheetApproval').on('click', function () {
+        var $ApprovalTypeId = $('#approvalViewModal_ApprovalTypeId').val();
+        var $CaserecordId = $('#approvalViewModal_CaserecordId').val();
+        var $DeptId = $('#approvalViewModal_DeptId').val();
+        var $DoctorId = $('#approvalViewModal_DoctorId').val();
+        var $PatientId = $('#approvalViewModal_PatientId').val();
+        var $ReferredTreatmentId = $('#approvalViewModal_ReferredTreatmentId').val();
+        var $password = $('#ApprovalPassword').val();
+        if (($ApprovalTypeId != 0) && ($CaserecordId != 0) && ($DeptId != 0) && ($DoctorId != 0) && ($PatientId != 0) && $password != '') {
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("CheckDoctorPassword", "Approval")',
+                data: '{Password: "' + $password + ' ",DoctorId: "' + $DoctorId + ' " }',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    if (data == true) {
+                        SaveApprovalDetails($ApprovalTypeId, $PatientId, $DoctorId, $DeptId, $CaserecordId, $ReferredTreatmentId, '');
+                        $("#myApprovalModel").modal("hide");
+                        $('#MessageBox').val('');
+
+                    }
+                    else {
+                        $('#MessageBox').val('Password is not match');
+                    }
+                },
+            })
+        }
+        else {
+            $('#MessageBox').val('Password required');
+        }
+    });
+
+    $('#ApprovalPassword').keyup(function () {
+        $('#MessageBox').val('');
+    });
+
+
+    var SaveApprovalDetails = function (ApprovalTypeId, PatientId, DoctorId, DeptId, CaserecordId, ReferredTreatmentId, Reason) {
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Create", "Approval")',
+            data: '{ApprovalTypeId: "' + ApprovalTypeId + ' ",PatientId: "' + PatientId + ' ",DoctorId: "' + DoctorId + ' ",DeptId: "' + DeptId + ' ",CaserecordId: "' + CaserecordId + ' ",ReferredTreatmentId: "' + ReferredTreatmentId + ' ",Reason: "' + Reason + ' " }',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                $("#myApprovalModel").modal("hide");
+            },
+        })
+
+    }
+
+</script>

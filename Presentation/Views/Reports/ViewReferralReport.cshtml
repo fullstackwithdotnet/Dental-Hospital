@@ -1,0 +1,74 @@
+﻿
+@model IEnumerable<DIMS.ViewModels.ReferralStatusViewModel>
+<div class="form-horizontal">
+        <table class="table table-bordered">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FromDate)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Priority)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FromDeptName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ToDeptName)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.ReferredReason)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TreatmentStatus)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TreatmentDate)
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FromDateDisplay)
+                        @Html.HiddenFor(modelItem => item.ReferredId)
+                        @Html.HiddenFor(modelItem => item.PatientId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Priority)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FromDeptCode)
+                        @Html.HiddenFor(modelItem => item.FromdeptId)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ToDeptCode)
+                        @Html.HiddenFor(modelItem => item.ToDeptId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReferredReason)
+                    </td>
+                    @if (item.TreatmentStatus == "Visited")
+                    {
+                        <td class="text-green">
+                            @Html.DisplayFor(modelItem => item.TreatmentStatus)
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="text-red">
+                            @Html.DisplayFor(modelItem => item.TreatmentStatus)
+                        </td>
+                    }
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TreatmentDateDisplay)
+                    </td>
+                </tr>
+            }
+        </table>
+
+</div>

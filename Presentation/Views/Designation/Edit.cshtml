@@ -1,0 +1,48 @@
+﻿@model DIMS.ViewModels.DesignationViewModal
+
+@{
+    ViewBag.Title = "Edit";
+}
+  
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+
+        <div class="box box-default box-solid">
+            <div class="box-header with-border">
+                <h4 class="box-title"> Update Designation</h4>
+            </div>
+            <div class="box-body">
+                <div class="form-group hidden">
+                    @Html.LabelFor(model => model.DesigId, new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(model => model.DesigId, new { @class = "form-control  " })
+                        @Html.ValidationMessageFor(model => model.DesigId)
+                    </div>
+                </div>                
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(model => model.DesigName, new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(model => model.DesigName, new { @class = "form-control  ",@maxLength = "20" })
+                        @Html.ValidationMessageFor(model => model.DesigName)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-md-10">
+                        <input type="submit" value="Update" class="fa fa-update btn btn-success"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+

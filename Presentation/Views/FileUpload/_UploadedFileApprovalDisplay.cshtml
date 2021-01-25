@@ -1,0 +1,54 @@
+﻿@model IEnumerable<DIMS.ViewModels.FileUploadViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="table-responsive">
+    <table id="tbFileUploadDetails" class="table table-bordered">
+
+        <tr>
+            <th>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FileTypeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FileName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th colspan="3" class="text-center">
+                Actions
+            </th>
+
+        </tr>
+        @{int i = 0;}
+        @foreach (var item in Model)
+    {
+        i++;
+    <tr>
+        <td>
+            <span>@i</span>
+        </td>
+        <td class="col-md-2">
+            @Html.DisplayFor(modelItem => item.FileTypeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FileName)
+        </td>
+        <td class="col-md-6">
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.ActionLink("Download", "DownloadFile", "FileUpload", new { fileName = item.FilePath }, null)
+        </td>
+        <td>
+            @Html.ActionLink("View", item.FileDisplayPath, new { Controller = "Content/Upload/" }, new { target = "_blank" })
+        </td>
+
+    </tr>
+    }
+
+    </table>
+    </div>

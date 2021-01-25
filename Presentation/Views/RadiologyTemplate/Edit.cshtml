@@ -1,0 +1,195 @@
+﻿ @model DIMS.ViewModels.TemplateViewModal
+
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <div class="box box-info ">
+            <div class="box-header with-border" style="background-color:aliceblue;">
+                <h3 class="box-title">Radiology Test Definer Update</h3>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.ServiceId, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-6">
+                                        @Html.HiddenFor(x => x.RadioTempId)
+                                        @Html.DropDownListFor(model => model.ServiceId, new SelectList(Model.ServicesList, "ServiceId", "ServiceName"), htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            @*<div class="row">
+                                    <div class="form-group form-group-sm">
+                                        @Html.LabelFor(x => x.GroupId, new { @class = "col-md-2 control-label" })
+                                        <div class="col-md-6">
+                                            @Html.DropDownListFor(model => model.GroupId, new SelectList(Model.GroupList, "GroupId", "GroupName"), htmlAttributes: new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-body">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.Partial("../RadiologyTemplate/_ViewCreate", Model.radiologyViewModal)
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.Partial("../RadiologyTemplate/_ViewServiceList", Model.ServiceListDetails,
+                                            new ViewDataDictionary()
+                                            {
+                                                TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "ServiceListDetails" }
+                                            })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+@section scripts {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $("#btnRadioAdd").click(function (e) {
+                var itemIndex = $("#tbServiceDetails input.iHidden").length;
+                e.preventDefault();
+                var RadioTempDetId = $("#RadioTempDetId");
+                var RadioTempId = $("#RadioTempId");
+                var ServiceItems = $("#ServiceItems");
+                var DisplayOrder = $("#DisplayOrder");
+                var IsChecked = $("#IsChecked");//checkbox
+                if ($(".js_getIsChecked").is(':checked')) {
+                    HeadCheck = 'Y';
+                    $(".js_getIsChecked:checked").prop("checked", false)
+                } else {
+                    HeadCheck = 'N';
+                }
+                if ((RadioTempId.val() != 0) && (ServiceItems.val() != 0) && (DisplayOrder.val() != '') && (HeadCheck != '')) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("Edit", "RadiologyTemplate")',
+                        dataType: 'json',
+                        data: { RadioTempDetId: RadioTempDetId.val(), RadioTempId: RadioTempId.val(), ServiceItems: ServiceItems.val(),  DisplayOrder: DisplayOrder.val(), IsHeader: HeadCheck },
+                        success: function (data) {
+
+                            $('#tbServiceDetails tr').not(function () { return !!$(this).has('th').length; }).remove();
+                            var items = '';
+                            $.each(data, function (i, item) {
+                                
+                                var itemIndex = $("#tbServiceDetails input.iHidden").length;
+                                var RadioTempDetId = item.RadioTempDetId;
+                                var ServiceItems = item.ServiceItems;
+                                var DisplayOrder = item.DisplayOrder;
+                                var HeadCheck = item.IsHeader;
+
+                                var markupRadioDetId = "<td><input name='ServiceListDetails[" + itemIndex + "].RadioTempDetId' class='form-control js_RadioTempDetId'   id='ServiceListDetails[" + itemIndex + "]_RadioTempDetId' type='hidden' value=" + RadioTempDetId + ">"
+                                var markupServiceName = "<input type='hidden' id='ServiceListDetails[" + itemIndex + "]_ServiceItems' class='form-control iHidden'  name='ServiceListDetails[" + itemIndex + "].ServiceItems' value='" + ServiceItems + "'>";
+                                var markupDisplayOrder = "<td>" + DisplayOrder + "<input type='hidden' id='ServiceListDetails[" + itemIndex + "]_DisplayOrder' class='form-control js_DisplayOrder'  name='ServiceListDetails[" + itemIndex + "].DisplayOrder' value='" + DisplayOrder + "'></td>";
+                                var markupIsChecked = "<td>" + HeadCheck + "<input type='hidden' id='ServiceListDetails[" + itemIndex + "]_IsHeader' class='form-control js_Header'  name='ServiceListDetails[" + itemIndex + "].IsHeader' value=" + HeadCheck + "> </td>";
+                                var Edit = "<td><button type='button' class='RadioEdit btn btn-primary btn-xs' data-id='" + RadioTempDetId + "'> <i class='glyphicon glyphicon-pencil'></i></button> </td>";
+                                var markupFinal = "<tr>" + markupRadioDetId + ServiceItems + markupServiceName + markupDisplayOrder + markupIsChecked + Edit + "</tr>";
+                                $("#tbServiceDetails tbody").append(markupFinal);
+                            });
+                            window.location.href = '@Url.Action("Edit", "RadiologyTemplate")' + '?Id=' + $("#RadioTempId").val();
+                        }
+                    });
+                    return false;
+                }
+            });
+
+
+
+            $('#tbServiceDetails').on('click', ".RadioEdit", function () {
+                var Con = confirm("Do you want to Edit ?");
+                if (Con == true) {
+                    
+                    var Id = $(this).data('id');
+                    var row = $(this).closest('tr');   // Find the row
+                    var $tds = row.find("td");
+                    var varRadioTempDetId = Id;
+                    var varServiceItems = $tds.closest('tr').find('.iHidden').val();
+                    var varDisplayOrder = $tds.closest('tr').find('.js_DisplayOrder').val();
+                    var varIsHeader = $.trim($tds.closest('tr').find('.js_Header').val());
+                    $("#RadioTempDetId").val(varRadioTempDetId);
+                    $("#ServiceItems").val(varServiceItems);
+                    $("#DisplayOrder").val(varDisplayOrder);
+                    if (varIsHeader == "N") {
+                        document.getElementById("IsChecked").checked = false;
+                    }
+                    else {
+                        document.getElementById("IsChecked").checked = true;
+                    }
+
+                    row.remove();
+                    var RTId = $("#RadioTempId").val();
+                    $.ajax({
+
+                        type: "GET",
+                        url: '@Url.Action("RadioDetailsById", "RadiologyTemplate")',
+                        data: { Id: Id, RadioTempId: RTId },
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (data) {
+
+                            $('#tbServiceDetails tr').not(function () { return !!$(this).has('th').length; }).remove();
+                            var items = '';
+                            $.each(data, function (i, item) {
+                                
+                                var itemIndex = $("#tbServiceDetails input.iHidden").length;
+                                var RadioTempDetId = item.RadioTempDetId;
+                                var ServiceItems = item.ServiceItems;
+                                var DisplayOrder = item.DisplayOrder;
+                                var HeadCheck = item.IsHeader;
+
+                                var markupRadioDetId = "<td><input name='ServiceListDetails[" + itemIndex + "].RadioTempDetId' class='form-control js_RadioTempDetId'   id='ServiceListDetails[" + itemIndex + "]_RadioTempDetId' type='hidden' value=" + RadioTempDetId + ">"
+                                var markupServiceName = "<input type='hidden' id='ServiceListDetails[" + itemIndex + "]_ServiceItems' class='form-control iHidden'  name='ServiceListDetails[" + itemIndex + "].ServiceItems' value='" + ServiceItems + "'>";
+                                var markupDisplayOrder = "<td>" + DisplayOrder + "<input type='hidden' id='ServiceListDetails[" + itemIndex + "]_DisplayOrder' class='form-control js_DisplayOrder'  name='ServiceListDetails[" + itemIndex + "].DisplayOrder' value='" + DisplayOrder + "'></td>";
+                                var markupIsChecked = "<td>" + HeadCheck + "<input type='hidden' id='ServiceListDetails[" + itemIndex + "]_IsHeader' class='form-control js_Header'  name='ServiceListDetails[" + itemIndex + "].IsHeader' value=" + HeadCheck + "> </td>";
+                                var Edit = "<td><button type='button' class='RadioEdit btn btn-primary btn-xs' data-id='" + RadioTempDetId + "'> <i class='glyphicon glyphicon-pencil'></i></button> </td>";
+                                var markupFinal = "<tr>" + markupRadioDetId  + ServiceItems + markupServiceName + markupDisplayOrder + markupIsChecked + Edit + "</tr>";
+                                $("#tbServiceDetails tbody").append(markupFinal);
+                            });
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+                }
+            });
+
+        });
+
+    </script>
+}

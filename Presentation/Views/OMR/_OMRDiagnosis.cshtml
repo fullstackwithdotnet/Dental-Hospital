@@ -1,0 +1,40 @@
+﻿@model DIMS.ViewModels.OMRViewModel
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(x => x.ProvisionalDiagnosis, new { @class = "col-md-2 control-label" })
+                <div class="col-md-9">
+                    @Html.TextAreaFor(x => x.ProvisionalDiagnosis, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(x => x.DifferentialDiagnosis, new { @class = "col-md-2 control-label" })
+                <div class="col-md-9">
+                    @Html.TextAreaFor(x => x.DifferentialDiagnosis, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(x => x.RadiographicInterpretation, new { @class = "col-md-2 control-label" })
+                <div class="col-md-9">
+                    @Html.TextAreaFor(x => x.RadiographicInterpretation, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(x => x.FinalDiagnosis, new { @class = "col-md-2 control-label" })
+                <div class="col-md-9">
+                    @Html.TextAreaFor(x => x.FinalDiagnosis, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

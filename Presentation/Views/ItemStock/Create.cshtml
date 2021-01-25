@@ -1,0 +1,132 @@
+﻿@using DIMS.Helpers
+@model DIMS.ViewModels.ItemStockViewModel
+
+@{
+    ViewBag.Title = "Add Item Stock";
+    var result = ViewBag.Result;
+    var categories = ViewBag.Categories;
+    var stores = ViewBag.Stores;
+    var suppliers = ViewBag.Suppliers;
+    var selectList = new SelectList(
+        new List<SelectListItem>
+        {
+            new SelectListItem {Text = "+", Value = "+"},
+            new SelectListItem {Text = "-", Value = "-"},
+        }, "Value", "Text");
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="form-horizontal">
+        <div class="box box-default box-solid">
+            <div class="box-header with-border">
+                <h4 class="box-title">@ViewBag.Title For Inventory</h4>
+            </div>
+            <div class="box-body">
+                @if (result != null && result.Success && !ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+                {
+                    @BootstrapAlert.BootstrapCustomAlertHtmlString(result.Message, BootstrapAlertType.Success)
+                }
+                @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+                {
+                    foreach (var modelError in Html.ViewData.ModelState.SelectMany(keyValuePair => keyValuePair.Value.Errors))
+                    {
+                        @BootstrapAlert.BootstrapCustomAlertHtmlString(@modelError.ErrorMessage, BootstrapAlertType.Danger)
+                    }
+                }
+                @Html.ValidationSummary(true)
+
+                <div class="row">
+                    <div class="col-md-8">
+
+                        <div class="form-group form-group-sm required">
+                            @Html.LabelFor(model => model.ItemCategory.CategoryName, new { @class = "control-label col-md-3" })
+                            <div class="col-md-6">
+                                @Html.DropDownList("ItemCategoryId", new SelectList(categories, "ItemCategoryId", "CategoryName"), "---Please select---", new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.ItemId, new { @class = "control-label col-md-3" })
+                            <div class="col-md-6">
+                                @Html.DropDownListFor(x => x.ItemId, Enumerable.Empty<SelectListItem>(), "--Select Item--", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.SupplierId, new { @class = "control-label col-md-3" })
+                            <div class="col-md-6">
+                                @Html.DropDownListFor(x => x.SupplierId, new SelectList(suppliers, "ItemSupplierId", "ItemSupplierName"), "--Select Supplier--", new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.StoreId, new { @class = "control-label col-md-3" })
+                            <div class="col-md-6">
+                                @Html.DropDownListFor(x => x.StoreId, new SelectList(stores, "ItemStoreId", "StoreName"), "--Select Store--", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.Quantity, new { @class = "control-label col-md-3" })
+
+                            <div class="col-md-2">
+                                @Html.DropDownListFor(x => x.Symbol, selectList, new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(x => x.Quantity, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-3" })
+                            <div class="col-md-6">
+                                @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Description)
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-offset-5 col-md-10">
+                                <input type="submit" value="Save" class="fa fa-save btn btn-success" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section scripts {
+    <script>
+        $(function () {
+            $('#ItemCategoryId').on('change',
+                function (e) {
+                    var self = $(this);
+                    var obj = { categoryId: self.val() };
+                    window.AjaxCall('/ItemStock/GetItems', JSON.stringify(obj), 'POST').done(function (response) {
+                        if (response) {
+                            $('#ItemId').html('');
+                            var options = '';
+                            options += '<option value="Select">--Select Item--</option>';
+                            for (var i = 0; i < response.length; i++) {
+                                options += '<option value="' + response[i].ItemId + '">' + response[i].Name + '</option>';
+                            }
+                            $('#ItemId').append(options);
+
+                        }
+                    }).fail(function (error) {
+                        console.log(error.StatusText);
+                    });
+                });
+        });
+
+
+    </script>
+}

@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--Project was exported from assembly: F:\projects\DENTAL HOSPITAL MANAGEMENT\HKES\hkes\bin\CStone.Entities.dll-->
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FFD44A0E-C767-44A6-9E12-6C7A2401690C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AssemblyName>Metron.Entities</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+    <FileAlignment>512</FileAlignment>
+    <RootNamespace>Metron.Entities</RootNamespace>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Repository, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Repository\bin\Debug\Repository.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Billing.cs" />
+    <Compile Include="BillingDetails.cs" />
+    <Compile Include="BillingPaymentDetails.cs" />
+    <Compile Include="BillQueueDetails.cs" />
+    <Compile Include="CollegeLibrary.cs" />
+    <Compile Include="CONSBleachingDetails.cs" />
+    <Compile Include="ApprovalDetails.cs" />
+    <Compile Include="Inventory.cs" />
+    <Compile Include="IsDummyEnable.cs" />
+    <Compile Include="LaboratoryRegistration.cs" />
+    <Compile Include="LaboratoryRegistrationDetails.cs" />
+    <Compile Include="LaboratoryResultEntry.cs" />
+    <Compile Include="LaboratoryResultEntryDetails.cs" />
+    <Compile Include="MASBillingSubServices.cs" />
+    <Compile Include="MASCategory.cs" />
+    <Compile Include="MASPaymode.cs" />
+    <Compile Include="PERIODiagnosisCasesheet.cs" />
+    <Compile Include="PERIODiagnosisCasesheetProperties.cs" />
+    <Compile Include="PERIODiagnosisCasesheetPropertyValues.cs" />
+    <Compile Include="Prescriptions.cs" />
+    <Compile Include="CONSCasesheet.cs" />
+    <Compile Include="CONSCasesheetProperties.cs" />
+    <Compile Include="CONSCasesheetPropertyValues.cs" />
+    <Compile Include="CONSEstheticCorrectionDetails.cs" />
+    <Compile Include="CONSIncompleteRootFormDetails.cs" />
+    <Compile Include="CONSPostAndCoreDetails.cs" />
+    <Compile Include="CONSReRctDetails.cs" />
+    <Compile Include="CONSRestorativeProcedureDetails.cs" />
+    <Compile Include="CONSRootCanalDetails.cs" />
+    <Compile Include="CONSSurgicalProcedureDetails.cs" />
+    <Compile Include="CONSTraumatisedToothDetails.cs" />
+    <Compile Include="FileUpload.cs" />
+    <Compile Include="FollowUp.cs" />
+    <Compile Include="GetCasesheetNo.cs" />
+    <Compile Include="MASCourse.cs" />
+    <Compile Include="MASCourseYear.cs" />
+    <Compile Include="MASDesignation.cs" />
+    <Compile Include="MasDrug.cs" />
+    <Compile Include="MASGroup.cs" />
+    <Compile Include="MasOTProducts.cs" />
+    <Compile Include="MASStudentRegistration.cs" />
+    <Compile Include="OMFSIPCasesheet.cs" />
+    <Compile Include="OMFSIPCasesheetProperties.cs" />
+    <Compile Include="OMFSIPCasesheetPropertyValues.cs" />
+    <Compile Include="OMFSIPDrugDetails.cs" />
+    <Compile Include="OMFSIPOperativeVitalsDetails.cs" />
+    <Compile Include="OMFSIPOtConsumablesDetails.cs" />
+    <Compile Include="OMFSIPSchedule.cs" />
+    <Compile Include="OMFSIPScheduleDetails.cs" />
+    <Compile Include="OMFSOPCasesheet.cs" />
+    <Compile Include="OMFSOPCasesheetProperties.cs" />
+    <Compile Include="OMFSOPCasesheetPropertyValues.cs" />
+    <Compile Include="OMRCasesheetProperties.cs" />
+    <Compile Include="OMRCasesheetPropertyValues.cs" />
+    <Compile Include="OPDPatientRegistrationProperties.cs" />
+    <Compile Include="OPDPatientRegistrationPropertyValues.cs" />
+    <Compile Include="OPDRevisitRegistration.cs" />
+    <Compile Include="ORPATHRegistration.cs" />
+    <Compile Include="ORPATHRegistrationDetails.cs" />
+    <Compile Include="ORPATHResultEntry.cs" />
+    <Compile Include="ORPATHResultEntryDetails.cs" />
+    <Compile Include="ORTHOAnalysis.cs" />
+    <Compile Include="ORTHOArnettDetails.cs" />
+    <Compile Include="ORTHOBjroksDetails.cs" />
+    <Compile Include="ORTHOBurstoneHardDetails.cs" />
+    <Compile Include="ORTHOBurstoneSoftDetails.cs" />
+    <Compile Include="ORTHOCasesheet.cs" />
+    <Compile Include="ORTHOCasesheetProperties.cs" />
+    <Compile Include="ORTHOCasesheetPropertyValues.cs" />
+    <Compile Include="ORTHOCompositeDetails.cs" />
+    <Compile Include="ORTHOCranialMandDetails.cs" />
+    <Compile Include="ORTHOCranialMaxillaDetails.cs" />
+    <Compile Include="ORTHODentoLowerDetails.cs" />
+    <Compile Include="ORTHODentoUpperDetails.cs" />
+    <Compile Include="ORTHODiscrepancyDetails.cs" />
+    <Compile Include="ORTHODownsDetails.cs" />
+    <Compile Include="ORTHOFronEstheticsDetails.cs" />
+    <Compile Include="ORTHOFrontalGrumDetails.cs" />
+    <Compile Include="ORTHOGrowthDetails.cs" />
+    <Compile Include="ORTHOHoldawayDetails.cs" />
+    <Compile Include="ORTHOInferenceDetails.cs" />
+    <Compile Include="ORTHOJawBasesDetails.cs" />
+    <Compile Include="ORTHOMaxMandDetails.cs" />
+    <Compile Include="ORTHOMcNamaraDetails.cs" />
+    <Compile Include="ORTHORakosiDetails.cs" />
+    <Compile Include="ORTHORickettsDetails.cs" />
+    <Compile Include="ORTHOSagittalDetails.cs" />
+    <Compile Include="ORTHOSchwarzDetails.cs" />
+    <Compile Include="ORTHOSkeletalDetails.cs" />
+    <Compile Include="ORTHOSoftTissueDetails.cs" />
+    <Compile Include="ORTHOStaticArnett.cs" />
+    <Compile Include="ORTHOStaticBjroks.cs" />
+    <Compile Include="ORTHOStaticBurstoneHard.cs" />
+    <Compile Include="ORTHOStaticBurstoneSoft.cs" />
+    <Compile Include="ORTHOStaticComposite.cs" />
+    <Compile Include="ORTHOStaticDentoLower.cs" />
+    <Compile Include="ORTHOStaticDentoUpper.cs" />
+    <Compile Include="ORTHOStaticDiscrepancy.cs" />
+    <Compile Include="ORTHOStaticDowns.cs" />
+    <Compile Include="ORTHOStaticFrontalEsthetics.cs" />
+    <Compile Include="ORTHOStaticFrontalGrum.cs" />
+    <Compile Include="ORTHOStaticGrowth.cs" />
+    <Compile Include="ORTHOStaticHoldaway.cs" />
+    <Compile Include="ORTHOStaticJawBases.cs" />
+    <Compile Include="ORTHOStaticMandCranial.cs" />
+    <Compile Include="ORTHOStaticMaxMand.cs" />
+    <Compile Include="ORTHOStaticMcNamara.cs" />
+    <Compile Include="ORTHOStaticRakosi.cs" />
+    <Compile Include="ORTHOStaticRicketts.cs" />
+    <Compile Include="ORTHOStaticSagittal.cs" />
+    <Compile Include="ORTHOStaticSchwarz.cs" />
+    <Compile Include="ORTHOStaticSkeletal.cs" />
+    <Compile Include="ORTHOStaticSoftTissue.cs" />
+    <Compile Include="ORTHOStaticSteiner.cs" />
+    <Compile Include="ORTHOStaticTweeds.cs" />
+    <Compile Include="ORTHOStaticVertical.cs" />
+    <Compile Include="ORTHOSteinerDetails.cs" />
+    <Compile Include="ORTHOTweedsDetails.cs" />
+    <Compile Include="ORTHOVerticalDetails.cs" />
+    <Compile Include="PEDOCasesheet.cs" />
+    <Compile Include="PEDOCasesheetProperties.cs" />
+    <Compile Include="PEDOCasesheetPropertyValues.cs" />
+    <Compile Include="PERIOCasesheet.cs" />
+    <Compile Include="PERIOCasesheetProperties.cs" />
+    <Compile Include="PERIOCasesheetPropertyValues.cs" />
+    <Compile Include="Permission.cs" />
+    <Compile Include="PHDCasesheet.cs" />
+    <Compile Include="PHDCasesheetProperties.cs" />
+    <Compile Include="PHDCasesheetPropertyValues.cs" />
+    <Compile Include="PROSCDCasesheet.cs" />
+    <Compile Include="PROSCDCasesheetProperties.cs" />
+    <Compile Include="PROSCDCasesheetPropertyValues.cs" />
+    <Compile Include="PROSDIMCasesheet.cs" />
+    <Compile Include="PROSDIMCasesheetProperties.cs" />
+    <Compile Include="PROSDIMCasesheetPropertyValues.cs" />
+    <Compile Include="PROSFPDAbutmentTeeth.cs" />
+    <Compile Include="PROSFPDCasesheet.cs" />
+    <Compile Include="PROSFPDCasesheetProperties.cs" />
+    <Compile Include="PROSFPDCasesheetPropertyValues.cs" />
+    <Compile Include="PROSMFPCasesheet.cs" />
+    <Compile Include="PROSMFPCasesheetProperties.cs" />
+    <Compile Include="PROSMFPCasesheetPropertyValues.cs" />
+    <Compile Include="PROSMFPTreatmentDescription.cs" />
+    <Compile Include="PROSRPDCasesheet.cs" />
+    <Compile Include="PROSRPDCasesheetProperties.cs" />
+    <Compile Include="PROSRPDCasesheetPropertyValues.cs" />
+    <Compile Include="PROSTreatment.cs" />
+    <Compile Include="RADIORegistration.cs" />
+    <Compile Include="RADIORegistrationDetails.cs" />
+    <Compile Include="RADIOResultEntry.cs" />
+    <Compile Include="RADIOResultEntryDetails.cs" />
+    <Compile Include="RADIOTemplate.cs" />
+    <Compile Include="RADIOTemplateDetails.cs" />
+    <Compile Include="ReferralStatus.cs" />
+    <Compile Include="MASBillingServices.cs" />
+    <Compile Include="MASChiefComplaint.cs" />
+    <Compile Include="MASCity.cs" />
+    <Compile Include="MASCode.cs" />
+    <Compile Include="MASCountry.cs" />
+    <Compile Include="MASDepartment.cs" />
+    <Compile Include="MASDoctor.cs" />
+    <Compile Include="MASPresentIllness.cs" />
+    <Compile Include="MASState.cs" />
+    <Compile Include="MaxOpNo.cs" />
+    <Compile Include="OMRCasesheet.cs" />
+    <Compile Include="OPDPatientRegistration.cs" />
+    <Compile Include="ORPATHCasesheet.cs" />
+    <Compile Include="ORPATHCasesheetProperties.cs" />
+    <Compile Include="ORPATHCasesheetPropertyValues.cs" />
+    <Compile Include="ReferredToOthers.cs" />
+    <Compile Include="Role.cs" />
+    <Compile Include="TreatmentTypes.cs" />
+    <Compile Include="UserDeptPermissions.cs" />
+    <Compile Include="StudentAllotment.cs" />
+    <Compile Include="StudentSchedule.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="UserDepartments.cs" />
+    <Compile Include="UserRoles.cs" />
+    <Compile Include="Entities\ORTHOStaticMaxillaCranial.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

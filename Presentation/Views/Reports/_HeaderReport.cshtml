@@ -1,0 +1,18 @@
+﻿<div class="row">
+    <div class="col-md-4 pull-left">
+        <img src="~/Content/CollegeLogo/logodental.jpg" style="width: 100px;" />
+    </div>
+    <div class="col-md-8 text-center text-uppercase">
+        <h4 style="font-size: 16px;">@System.Web.Configuration.WebConfigurationManager.AppSettings["CollegeName"]</h4>
+        <p style="font-size: 12px; font-family: sans-serif; line-height: 16px;">
+            <span>@System.Web.Configuration.WebConfigurationManager.AppSettings["Address"]</span>,
+            <span>Phone: @System.Web.Configuration.WebConfigurationManager.AppSettings["Phone"]</span>
+            <br style="height: 0" /><span>Fax: @System.Web.Configuration.WebConfigurationManager.AppSettings["Fax"]</span>,
+            <span>Email: @System.Web.Configuration.WebConfigurationManager.AppSettings["Email"]</span>
+            <br style="height: 0" /><span>@System.Web.Configuration.WebConfigurationManager.AppSettings["OtherInformation"]</span>
+            <span>@System.Web.Configuration.WebConfigurationManager.AppSettings["Affiliated"]</span>
+        </p>
+    </div>
+</div>
+<br />
+

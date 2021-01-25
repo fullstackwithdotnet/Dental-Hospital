@@ -1,0 +1,341 @@
+﻿@model DIMS.ViewModels.StudentScheduleViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<link href="~/Content/listbox.css" rel="stylesheet" />
+ 
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+        <div class="box box-default box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title"> Student Schedule</h3>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.SelectStudentCourseId, new { @class = "control-label col-md-2" })
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.SelectStudentCourseId, Model.SelectCourseList, htmlAttributes: new { @class = "form-control", @id = "SelectStudentCourseId" })
+                                    @Html.ValidationMessageFor(x => x.SelectStudentCourseId)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.SelectStudentYearId, new { @class = "control-label col-md-2" })
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(x => x.SelectStudentYearId, Model.SelectYearlist, htmlAttributes: new { @class = "form-control", @id = "SelectStudentYearId" })
+                                    @Html.ValidationMessageFor(x => x.SelectStudentYearId)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                <div class="col-md-2">
+                                </div>
+                                <div class="col-md-8">                                   
+                                    <a id="btnGetStudent"> <i class="fa fa-search fa fa-search btn btn-primary">  Get Student</i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.SchFromDate, new { @class = "control-label col-md-2" })
+                                <div class="col-md-4">
+                                    @Html.EditorFor(x => x.SchFromDate, new { @class = "form-control" })                                   
+                                </div>
+                                @Html.LabelFor(x => x.SchToDate, new { @class = "control-label col-md-2" })
+                                <div class="col-md-4">
+                                    @Html.EditorFor(x => x.SchToDate, new { @class = "form-control" })
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.DeptId, new { @class = "control-label col-md-2" })
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(model => model.DeptId, new SelectList(Model.SelectDepartmentlist, "DeptId", "DeptName"), htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(x => x.DeptId)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="subject-info-box-1">
+                        @Html.ListBoxFor(model => model.FromSelectStudent, new MultiSelectList(Model.FromStudentList, "StudentId", "StudentName", Model.FromStudentList), htmlAttributes: new { @id = "lstBox1", @class = "form-control" })
+                    </div>
+                    <div class="subject-info-arrows text-center">
+                        <input type='button' id='btnAllRight' value='>>' class="btn btn-default" /><br />
+                        <input type='button' id='btnRight' value='>' class="btn btn-default" /><br />
+                        <input type='button' id='btnLeft' value='<' class="btn btn-default" /><br />
+                        <input type='button' id='btnAllLeft' value='<<' class="btn btn-default" />
+                    </div>
+                    <div class="subject-info-box-2">
+                        @Html.ListBoxFor(model => model.ToSelectStudent, new MultiSelectList(Model.ToStudentList, "StudentId", "StudentName", Model.ToStudentList), htmlAttributes: new { @id = "lstBox2", @class = "form-control" })
+                        @Html.HiddenFor(model => Model.SelectedStudents)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <center>
+                            <input type="submit" value="Save" class="fa fa-save btn btn-success" />
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box box-default box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title"> Already alloted students list</h3>
+            </div>
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table id="StudentScheduletable" class="table table-bordered table-condensed table-hover">
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Reg No</th>
+                                <th>Course</th>
+                                <th>Year</th>
+                                <th>From Date</th>
+                                <th>To Date</th>
+                                <th>Department</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $('#btnRight').click(function (e) {
+            var selectedOpts = $('#lstBox1 option:selected');
+            if (selectedOpts.length == 0) {
+                alert("Nothing to move.");
+                e.preventDefault();
+            }
+
+            $('#lstBox2').append($(selectedOpts).clone());
+            $("select option:last").attr("selected", "selected");
+            $("#lstBox2 select[multiple] option").prop("selected", "selected");
+            $(selectedOpts).remove();
+            popluateSelectedStudents();
+            e.preventDefault();
+        });
+
+        $('#btnAllRight').click(function (e) {
+            var selectedOpts = $('#lstBox1 option');
+            if (selectedOpts.length == 0) {
+                alert("Nothing to move.");
+                e.preventDefault();
+            }
+            
+            $('#lstBox2').append($(selectedOpts).clone());
+            $(selectedOpts).remove();
+            popluateSelectedStudents();
+            e.preventDefault();
+        });
+
+        $('#btnLeft').click(function (e) {
+            var selectedOpts = $('#lstBox2 option:selected');
+            if (selectedOpts.length == 0) {
+                alert("Nothing to move.");
+                e.preventDefault();
+            }
+
+            $('#lstBox1').append($(selectedOpts).clone());
+            $(selectedOpts).remove();
+            popluateSelectedStudents();
+            e.preventDefault();
+        });
+
+        $('#btnAllLeft').click(function (e) {
+            var selectedOpts = $('#lstBox2 option');
+            if (selectedOpts.length == 0) {
+                alert("Nothing to move.");
+                e.preventDefault();
+            }
+
+            $('#lstBox1').append($(selectedOpts).clone());
+            $(selectedOpts).remove();
+            popluateSelectedStudents();
+            e.preventDefault();
+        });
+
+        function popluateSelectedStudents() {
+            var $selectedStudents = $('#SelectedStudents');
+            $selectedStudents.val('');         
+            var array = [];
+            $('#lstBox2 option').each(function ()
+            {               
+                array.push($(this).val());
+            })         
+            
+           // var array = $('#lstBox2 option').val() || [];
+            $selectedStudents.val(JSON.stringify(array));           
+        };    
+
+
+        $('#btnSchSubmit').on('click', function () {
+
+            var $SelectStudentCourseId = $("#SelectStudentCourseId").val();
+            var $SelectStudentYearId = $("#SelectStudentYearId").val();
+            var $SchFromDate = $("#SchFromDate").val();
+            var $SchToDate = $("#SchToDate").val();
+            var $DeptId = $("#DeptId").val();
+
+
+            if (($SelectStudentCourseId != "") && ($SelectStudentYearId != "") && ($DeptId != "")) {
+                var $listbox1 = $('#lstBox1');
+                var $listbox2 = $('#lstBox2')
+                $listbox1.empty();
+                $listbox2.empty();
+                $.ajax({
+                    type: "POST",
+                    //url: "/StudentSchedule/GetScheduledStudentDetails",
+                    url: '@Url.Action("GetScheduledStudentDetails", "StudentSchedule")',
+                    data: '{StudentCourseId: "' + $SelectStudentCourseId + ' ",StudentYearId: "' + $SelectStudentYearId + ' " ,SchFromDate: "' + $SchFromDate + ' ",SchToDate: "' + $SchToDate + ' ",DeptId: "' + $DeptId + ' " }',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        $.each(data[0], function (i, data) {
+                            $listbox1.append('<option value="' + data.Value + '">' +
+                                 data.Text + '</option>');
+
+                        });
+                        $.each(data[1], function (i, data) {
+                            $listbox2.append('<option selected="selected" value="' + data.Value + '">' +
+                                 data.Text + '</option>');
+
+                        });
+                        if ($listbox2.length != 0) {
+                            popluateSelectedStudents();
+                        }
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            }
+        })
+
+
+        $('#btnGetStudent').on('click', function () {
+            
+            $('#StudentScheduletable tbody').empty();
+            var $SelectStudentCourseId = $("#SelectStudentCourseId").val();
+            var $SelectStudentYearId = $("#SelectStudentYearId").val();
+
+            //var $SelectStudentCourseId = $("#Course").val();
+            //var $SelectStudentYearId = $("#Year").val();
+            var $SchFromDate = $("#SchFromDate").val();
+            var $SchToDate = $("#SchToDate").val();
+            var $DeptId = $("#DeptId").val();
+            if (($SelectStudentCourseId != "") && ($SelectStudentYearId != "")) {
+                $.ajax({
+                    type: "POST",
+                    //url: "/StudentSchedule/GetAllStudentDetails",
+                    url: '@Url.Action("GetAllStudentDetails", "StudentSchedule")',
+                    data: '{StudentCourseId: "' + $SelectStudentCourseId + ' ",StudentYearId: "' + $SelectStudentYearId + ' " ,SchFromDate: "' + $SchFromDate + ' ",SchToDate: "' + $SchToDate + ' ",DeptId: "' + $DeptId + ' " }',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        var $listbox1 = $('#lstBox1');
+                        var $listbox2 = $('#lstBox2')
+                        $listbox1.empty();
+                        $listbox2.empty();
+                        $.each(data[0], function (i, data) {
+                            $listbox1.append('<option value="' + data.Value + '">' +
+                                 data.Text + '</option>');
+
+                        });
+
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            }
+
+            if (($SelectStudentCourseId != "") && ($SelectStudentYearId != "")) {
+                $.ajax({
+                    type: "POST",                  
+                    url: '@Url.Action("GetScheduledStudentList", "StudentSchedule")',
+                    data: '{StudentCourseId: "' + $SelectStudentCourseId + ' ",StudentYearId: "' + $SelectStudentYearId + ' " }',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        var tr;
+                        for (var i = 0; i < data.length; i++) {
+                            tr = $('<tr/>');
+                            tr.append("<td>" + data[i].StudentName + "");
+                            tr.append("<input type='hidden' value=" + data[i].StudentSchId + "");
+                            tr.append("<input type='hidden' value=" + data[i].StudentId + "</td>");
+                            tr.append("<td>" + data[i].StudentRegNo + "</td>");
+                            tr.append("<td>" + data[i].CourseName + "</td>");
+                            tr.append("<td>" + data[i].CourseYearName + "</td>");
+                            tr.append("<td>" + data[i].SchFromDate + "</td>");
+                            tr.append("<td>" + data[i].SchToDate + "</td>");
+                            tr.append("<td>" + data[i].DeptCode + "</td>");
+                            $('#StudentScheduletable').append(tr);
+                        }
+                    },
+                })
+            }
+        })
+
+
+        $(document).ready(function () {
+            var $course = $("#SelectStudentCourseId"),
+                      $year = $("#SelectStudentYearId")
+            $course.change(function () {
+                $year.empty();
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetCourseYears", "StudentSchedule")',
+                    dataType: 'json',
+                    data: { id: $course.val() },
+                    success: function (Years) {
+                        $.each(Years, function (i, Year) {
+                            $year.append('<option value="'
+                            + Year.Value + '">'
+                            + Year.Text + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Failed to retrieve Years.' + ex);
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
+}
+

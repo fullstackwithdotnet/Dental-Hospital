@@ -1,0 +1,697 @@
+﻿@using Metron.Entities
+@model DIMS.ViewModels.OMFSOPViewModel
+
+@helper CreateCheckbox(string value)
+{
+    @Html.CheckBox("chkBox", !string.IsNullOrEmpty(value), new { @class = "checkbox-inline" })
+}
+
+@functions {
+    object getHtmlAttributes(string value, string CssClass)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            return new { @class = CssClass, disabled = "disabled" };
+        }
+        return new { @class = CssClass };
+    }
+}
+@functions{
+    public string GetClassFromProperties(string propertyName)
+    {
+        var props = Model.Proplist.FirstOrDefault<OMFSOPCasesheetProperties>(x => x.PropertyName == propertyName);
+        if (props != null && props.PropertyVisibility == "N")
+        {
+            return "display:none";
+        }
+        return "";
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+        @*<div class="row">
+                <div class="form-group form-group-sm">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10 dropdown">
+                        @Html.DropDownListFor(model => model.ChiefComplaintName, new SelectList(Model.ChiefComplaintlist, "ChiefComplaintId", "ChiefComplaint"), htmlAttributes: new { @class = "form-control col-md-2" })
+                    </div>
+                </div>
+            </div>*@
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(x => x.ChiefComplaintName, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.HiddenFor(model => model.PatientId)
+                    @Html.HiddenFor(model => model.TreatmentReferredId)
+                    @Html.TextAreaFor(x => x.ChiefComplaint, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h5 class="subHeading"><strong>EXAMINATIONS</strong></h5>
+        <h5 class="subHeading1">UPPER JAW</h5>
+        <div class="row">
+            <div class="col-md-9">
+                <table class="table no-border">
+                    <tr>
+                        <td class="col-md-1 control-label">
+                            <h6 style="color: black"><strong>Right</strong></h6>
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.UR8)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.UR7)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.UR6)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.UR5)
+                        </td>
+
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.UR4)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.UR3)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.UR2)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.UR1)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-1 control-label"></td>
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.UR8)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.UR7)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.UR6)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.UR5)
+                        </td>
+
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.UR4)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.UR3)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.UR2)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.UR1)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-1 control-label">
+                            <h6 style="color: black"><strong>Left</strong></h6>
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.UL1)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.UL2)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.UL3)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.UL4)
+                        </td>
+
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.UL5)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.UL6)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.UL7)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.UL8)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-1 control-label"></td>
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.UL1)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.UL2)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.UL3)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.UL4)
+                        </td>
+
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.UL5)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.UL6)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.UL7)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.UL8)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-3">
+                <center>
+                    <img src="~/Content/Images/SurgeryImages/Final_Ujaw.png" class="img-responsive" alt="12" />
+                </center>
+            </div>
+        </div>
+        <div>
+            <h5 class="subHeading">LOWER JAW</h5>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <table class="table no-border">
+                    <tr>
+                        <td class="col-md-1 control-label">
+                            <h6 style="color: black"><strong>Right</strong></h6>
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.LR8)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.LR7)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.LR6)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.LR5)
+                        </td>
+
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.LR4)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.LR3)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.LR2)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.LR1)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-1 control-label"></td>
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.LR8)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.LR7)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.LR6)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.LR5)
+                        </td>
+
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.LR4)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.LR3)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.LR2)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.LR1)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-1 control-label">
+                            <h6 style="color: black"><strong>Left</strong></h6>
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.LL1)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.LL2)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.LL3)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.LL4)
+                        </td>
+
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.LL5)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.LL6)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.LL7)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.CheckBoxFor(x => x.LL8)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-1 control-label"></td>
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.LL1)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.LL2)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.LL3)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.LL4)
+                        </td>
+
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.LL5)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.LL6)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.LL7)
+                        </td>
+                        <td class="col-md-1 control-label">
+                            @Html.LabelFor(x => x.LL8)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-3 control-label">
+                <center>
+                    <img src="~/Content/Images/SurgeryImages/Final_Ljaw.png" class="img-responsive" alt="12" />
+                </center>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="row">
+            <table class="table no-border">
+                <tr>
+                    <td class="text-center" colspan="11">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-12">
+                                <h5 class="subHeading text-left">MAXILLA</h5>
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+                <tr>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/18.png" class="img-responsive" alt="18" />
+                        </center>
+                    </th>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/17.png" class="img-responsive" alt="17" />
+                        </center>
+                    </th>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/16.png" class="img-responsive" alt="16" />
+                        </center>
+
+                    </th>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/15.png" class="img-responsive" alt="15" />
+                        </center>
+
+                    </th>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/14.png" class="img-responsive" alt="14" />
+                        </center>
+
+                    </th>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/13.png" class="img-responsive" alt="13" />
+                        </center>
+
+                    </th>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/12.png" class="img-responsive" alt="12" />
+                        </center>
+
+                    </th>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/11.png" class="img-responsive" alt="11" />
+                        </center>
+
+                    </th>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/21.png" class="img-responsive" alt="21" />
+                        </center>
+
+                    </th>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/22.png" class="img-responsive" alt="22" />
+                        </center>
+
+                    </th>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/23.png" class="img-responsive" alt="23" />
+                        </center>
+
+                    </th>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/24.png" class="img-responsive" alt="24" />
+                        </center>
+
+                    </th>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/25.png" class="img-responsive" alt="25" />
+                        </center>
+
+                    </th>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/26.png" class="img-responsive" alt="26" />
+                        </center>
+
+                    </th>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/27.png" class="img-responsive" alt="27" />
+                        </center>
+
+                    </th>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/28.png" class="img-responsive" alt="28" />
+                        </center>
+
+                    </th>
+                </tr>
+                <tr>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Max1)
+                    </td>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Max2)
+                    </td>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Max3)
+                    </td>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Max4)
+                    </td>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Max5)
+                    </td>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Max6)
+                    </td>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Max7)
+                    </td>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Max8)
+                    </td>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Max9)
+                    </td>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Max10)
+                    </td>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Max11)
+                    </td>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Max12)
+                    </td>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Max13)
+                    </td>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Max14)
+                    </td>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Max15)
+                    </td>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Max16)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center" colspan="11">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-12">
+                                <h5 class="subHeading text-left">MANDIBLE</h5>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Mand1)
+                    </td>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Mand2)
+                    </td>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Mand3)
+                    </td>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Mand4)
+                    </td>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Mand5)
+                    </td>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Mand6)
+                    </td>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Mand7)
+                    </td>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Mand8)
+                    </td>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Mand9)
+                    </td>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Mand10)
+                    </td>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Mand11)
+                    </td>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Mand12)
+                    </td>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Mand13)
+                    </td>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Mand14)
+                    </td>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Mand15)
+                    </td>
+                    <td class="text-center">
+                        @Html.CheckBoxFor(x => x.Mand16)
+                    </td>
+                </tr>
+                <tr>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/48.png" class="img-responsive" alt="48" />
+                        </center>
+
+                    </th>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/47.png" class="img-responsive" alt="47" />
+                        </center>
+
+                    </th>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/46.png" class="img-responsive" alt="46" />
+                        </center>
+
+                    </th>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/45.png" class="img-responsive" alt="45" />
+                        </center>
+
+                    </th>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/44.png" class="img-responsive" alt="44" />
+                        </center>
+
+                    </th>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/43.png" class="img-responsive" alt="43" />
+                        </center>
+
+                    </th>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/42.png" class="img-responsive" alt="42" />
+                        </center>
+
+                    </th>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/41.png" class="img-responsive" alt="41" />
+                        </center>
+
+                    </th>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/31.png" class="img-responsive" alt="31" />
+                        </center>
+
+                    </th>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/32.png" class="img-responsive" alt="32" />
+                        </center>
+
+                    </th>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/33.png" class="img-responsive" alt="33" />
+                        </center>
+
+                    </th>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/34.png" class="img-responsive" alt="34" />
+                        </center>
+
+                    </th>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/35.png" class="img-responsive" alt="35" />
+                        </center>
+
+                    </th>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/36.png" class="img-responsive" alt="36" />
+                        </center>
+
+                    </th>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/37.png" class="img-responsive" alt="37" />
+                        </center>
+
+                    </th>
+                    <th class="text-center">
+                        <center>
+                            <img src="~/Content/Images/TeethImages/38.png" class="img-responsive" alt="38" />
+                        </center>
+
+                    </th>
+                </tr>
+            </table>
+
+        </div>
+
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(x => x.Findings, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(x => x.Findings, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(x => x.UpperJaw, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(x => x.UpperJaw, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(x => x.UpperJawOthers, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(x => x.UpperJawOthers, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(x => x.LowerJaw, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(x => x.LowerJaw, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(x => x.LowerJawOthers, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(x => x.LowerJawOthers, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+

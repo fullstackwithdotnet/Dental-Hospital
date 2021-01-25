@@ -1,0 +1,66 @@
+﻿@model IEnumerable<DIMS.ViewModels.RadioRegistrationViewModel>
+
+@{
+    string modelName = ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix;
+    int index = 0;
+}
+@functions{
+    string GetId(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}]_{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+    string GetName(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}].{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+}
+
+
+<table class="table table-bordered">
+    <tr style="background-color:aliceblue;">
+        <th class="hidden">
+            @Html.DisplayNameFor(model => model.RadioTempDetId)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.ServiceItems)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.Result)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="hidden">
+                @Html.TextBoxFor(modelItem => item.RadioTempId, new { @class = "col-sm-10 form-control", @id = GetId("RadioTempId", index), @Name = GetName("RadioTempId", index) })
+                @Html.TextBoxFor(modelItem => item.RadioTempDetId, new { @class = "col-sm-10 form-control", @id = GetId("RadioTempDetId", index), @Name = GetName("RadioTempDetId", index) })
+                @Html.TextBoxFor(modelItem => item.ResultDetId, new { @class = "col-sm-10 form-control", @id = GetId("ResultDetId", index), @Name = GetName("ResultDetId", index) })
+            </td>
+
+            @if (item.IsHeader.Trim() == "Y")
+            {
+                <td colspan="2">
+                   <strong> @Html.DisplayFor(modelItem => item.ServiceItems)</strong>
+                    @Html.HiddenFor(modelItem => item.ServiceItems, new { @class = "form-control", @id = GetId("ServiceItems", index), @Name = GetName("ServiceItems", index) })
+                </td>
+            }
+            else
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.ServiceItems)
+                    @Html.HiddenFor(modelItem => item.ServiceItems, new { @class = "form-control", @id = GetId("ServiceItems", index), @Name = GetName("ServiceItems", index) })
+                </td>
+                <td>
+                    @Html.TextBoxFor(modelItem => item.Result, new { @class = "form-control", @id = GetId("Result", index), @Name = GetName("Result", index) })
+                </td>
+            }
+
+        </tr>
+            index++;
+    }
+
+</table>
+
+
+

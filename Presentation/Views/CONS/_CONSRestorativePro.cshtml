@@ -1,0 +1,293 @@
+﻿@model  DIMS.ViewModels.CONSViewModel
+
+@{
+    int index = 0;
+}
+
+<div class="panel-group" id="accordion">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" class="collapsed">Restorative Procedure<span class="small text-fuchsia"> (click to expand/collapse)</span></a>
+        </h4>
+    </div>
+    <div id="collapseFour" class="panel-collapse in" style="height: auto;">
+        <div class="panel-body">
+            <div id="collapseFour" class="panel-collapse in" style="height: auto;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.ToothNumbers, new { @class = "col-md-5 control-label" })
+                                <div class="col-md-4">
+                                    @Html.DropDownListFor(x => x.ToothNumbers, Model.ToothLister, htmlAttributes: new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            @Html.HiddenFor(model => model.RestorativeProId)
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.CavityType, new { @class = "col-md-5 control-label" })
+                                <div class="col-md-4">
+                                    @Html.TextAreaFor(model => model.CavityType, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.PhotographsCastsXray, new { @class = "col-md-5 control-label" })
+                                <div class="col-md-4">
+                                    @Html.TextAreaFor(model => model.PhotographsCastsXray, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.RestorativeMaterial, new { @class = "col-md-5 control-label" })
+                                <div class="col-md-4">
+                                    @Html.TextAreaFor(model => model.RestorativeMaterial, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.CavityPreparation, new { @class = "col-md-5 control-label" })
+                                <div class="col-md-4">
+                                    @Html.TextAreaFor(model => model.CavityPreparation, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.ImpressionPattern, new { @class = "col-md-5 control-label" })
+                                <div class="col-md-4">
+                                    @Html.TextAreaFor(model => model.ImpressionPattern, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.LinearBasesVarnish, new { @class = "col-md-5 control-label" })
+                                <div class="col-md-4">
+                                    @Html.TextAreaFor(model => model.LinearBasesVarnish, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.MatrixBandWedges, new { @class = "col-md-5 control-label" })
+                                <div class="col-md-4">
+                                    @Html.TextAreaFor(model => model.MatrixBandWedges, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Restoration, new { @class = "col-md-5 control-label" })
+                                <div class="col-md-4">
+                                    @Html.TextAreaFor(model => model.Restoration, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.FinishingAndRestoration, new { @class = "col-md-5 control-label" })
+                                <div class="col-md-4">
+                                    @Html.TextAreaFor(model => model.FinishingAndRestoration, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.DirectIndirectReview1, new { @class = "col-md-5 control-label" })
+                                <div class="col-md-4">
+                                    @Html.TextAreaFor(model => model.DirectIndirectReview1, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.DirectIndirectReview2, new { @class = "col-md-5 control-label" })
+                                <div class="col-md-4">
+                                    @Html.TextAreaFor(model => model.DirectIndirectReview2, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.DirectIndirectReview3, new { @class = "col-md-5 control-label" })
+                                <div class="col-md-4">
+                                    @Html.TextAreaFor(model => model.DirectIndirectReview3, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.DeepCariesReview1, new { @class = "col-md-5 control-label" })
+                                <div class="col-md-4">
+                                    @Html.TextAreaFor(model => model.DeepCariesReview1, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.DeepCariesReview2, new { @class = "col-md-5 control-label" })
+                                <div class="col-md-4">
+                                    @Html.TextAreaFor(model => model.DeepCariesReview2, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.DeepCariesReview3, new { @class = "col-md-5 control-label" })
+                                <div class="col-md-4">
+                                    @Html.TextAreaFor(model => model.DeepCariesReview3, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group form-group-sm btnRestroAdd">
+                                    <div class="col-md-offset-4">
+                                        <a class="btnRestroAdd btn btn-success" id="btnRestorativeProAdd">Add</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-hover" style="border-color:red" id="tbRestorativeProDetails">
+                                <tr style="font-size:x-small">
+                                    <th hidden>
+                                        @Html.DisplayNameFor(model => model.ConservativeId)
+                                        @Html.DisplayNameFor(model => model.RestorativeProId)
+                                    </th>
+                                    <th colspan="2">
+                                        Action
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ToothNumber)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CavityType)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.PhotographsCastsXray)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.RestorativeMaterial)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CavityPreparation)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ImpressionPattern)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.LinearBasesVarnish)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.MatrixBandWedges)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Restoration)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.FinishingAndRestoration)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.DirectIndirectReview1)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.DirectIndirectReview2)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.DirectIndirectReview3)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.DeepCariesReview1)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.DeepCariesReview2)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.DeepCariesReview3)
+                                    </th>
+                                    <th></th>
+                                </tr>
+
+                                @foreach (var item in Model.RpList)
+                                {
+
+                                    <tr style="font-size:x-small">
+                                        <td class="hidden">
+                                            @Html.TextBoxFor(modelItem => item.ConservativeId, new { @class = "col-sm-10", @id = "RpList[" + index + "]_" + "ConservativeId", @Name = "RpList[" + index + "]." + "ConservativeId" })
+                                            @Html.TextBoxFor(modelItem => item.RestorativeProId, new { @class = "col-sm-10 js_RestorativeProId", @id = "RpList[" + index + "]_" + "RestorativeProId", @Name = "RpList[" + index + "]." + "RestorativeProId" })
+                                        </td>
+                                        <td>
+                                            <button type="button" class="RestorativeProToothEdit btn btn-primary btn-xs" data-id="@item.RestorativeProId">
+                                                <i class="glyphicon glyphicon-pencil"></i>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="RestorativeProToothdelete btn btn-danger btn-xs" data-id="@item.RestorativeProId">
+                                                <i class="glyphicon glyphicon-trash"></i>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ToothNumber, new { @class = "control-label" })
+                                            @Html.HiddenFor(modelItem => item.ToothNumber, new { @class = "form-control iHidden", @id = "RpList[" + index + "]_" + "ToothNumber", @Name = "RpList[" + index + "]." + "ToothNumber" })
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CavityType, new { @class = "control-label" })
+                                            @Html.HiddenFor(modelItem => item.CavityType, new { @class = "form-control js_CavityType", @id = "RpList[" + index + "]_" + "CavityType", @Name = "RpList[" + index + "]." + "CavityType" })
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.PhotographsCastsXray, new { @class = "control-label" })
+                                            @Html.HiddenFor(modelItem => item.PhotographsCastsXray, new { @class = "form-control js_PhotographsCastsXray", @id = "RpList[" + index + "]_" + "PhotographsCastsXray", @Name = "RpList[" + index + "]." + "PhotographsCastsXray" })
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.RestorativeMaterial, new { @class = "control-label" })
+                                            @Html.HiddenFor(modelItem => item.RestorativeMaterial, new { @class = "form-control js_RestorativeMaterial", @id = "RpList[" + index + "]_" + "RestorativeMaterial", @Name = "RpList[" + index + "]." + "RestorativeMaterial" })
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CavityPreparation, new { @class = "control-label" })
+                                            @Html.HiddenFor(modelItem => item.CavityPreparation, new { @class = "form-control js_CavityPreparation", @id = "RpList[" + index + "]_" + "CavityPreparation", @Name = "RpList[" + index + "]." + "CavityPreparation" })
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ImpressionPattern, new { @class = "control-label" })
+                                            @Html.HiddenFor(modelItem => item.ImpressionPattern, new { @class = "form-control js_ImpressionPattern", @id = "RpList[" + index + "]_" + "ImpressionPattern", @Name = "RpList[" + index + "]." + "ImpressionPattern" })
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.LinearBasesVarnish, new { @class = "control-label" })
+                                            @Html.HiddenFor(modelItem => item.LinearBasesVarnish, new { @class = "form-control js_LinearBasesVarnish", @id = "RpList[" + index + "]_" + "LinearBasesVarnish", @Name = "RpList[" + index + "]." + "LinearBasesVarnish" })
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.MatrixBandWedges, new { @class = "control-label" })
+                                            @Html.HiddenFor(modelItem => item.MatrixBandWedges, new { @class = "form-control js_MatrixBandWedges", @id = "RpList[" + index + "]_" + "MatrixBandWedges", @Name = "RpList[" + index + "]." + "MatrixBandWedges" })
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Restoration, new { @class = "control-label" })
+                                            @Html.HiddenFor(modelItem => item.Restoration, new { @class = "form-control js_Restoration", @id = "RpList[" + index + "]_" + "Restoration", @Name = "RpList[" + index + "]." + "Restoration" })
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.FinishingAndRestoration, new { @class = "control-label" })
+                                            @Html.HiddenFor(modelItem => item.FinishingAndRestoration, new { @class = "form-control js_FinishingAndRestoration", @id = "RpList[" + index + "]_" + "FinishingAndRestoration", @Name = "RpList[" + index + "]." + "FinishingAndRestoration" })
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DirectIndirectReview1, new { @class = "control-label" })
+                                            @Html.HiddenFor(modelItem => item.DirectIndirectReview1, new { @class = "form-control js_DirectIndirectReview1", @id = "RpList[" + index + "]_" + "DirectIndirectReview1", @Name = "RpList[" + index + "]." + "DirectIndirectReview1" })
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DirectIndirectReview2, new { @class = "control-label" })
+                                            @Html.HiddenFor(modelItem => item.DirectIndirectReview2, new { @class = "form-control js_DirectIndirectReview2", @id = "RpList[" + index + "]_" + "DirectIndirectReview2", @Name = "RpList[" + index + "]." + "DirectIndirectReview2" })
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DirectIndirectReview3, new { @class = "control-label" })
+                                            @Html.HiddenFor(modelItem => item.DirectIndirectReview3, new { @class = "form-control js_DirectIndirectReview3", @id = "RpList[" + index + "]_" + "DirectIndirectReview3", @Name = "RpList[" + index + "]." + "DirectIndirectReview3" })
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DeepCariesReview1, new { @class = "control-label" })
+                                            @Html.HiddenFor(modelItem => item.DeepCariesReview1, new { @class = "form-control js_DeepCariesReview1", @id = "RpList[" + index + "]_" + "DeepCariesReview1", @Name = "RpList[" + index + "]." + "DeepCariesReview1" })
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DeepCariesReview2, new { @class = "control-label" })
+                                            @Html.HiddenFor(modelItem => item.DeepCariesReview2, new { @class = "form-control js_DeepCariesReview2", @id = "RpList[" + index + "]_" + "DeepCariesReview2", @Name = "RpList[" + index + "]." + "DeepCariesReview2" })
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DeepCariesReview3, new { @class = "control-label" })
+                                            @Html.HiddenFor(modelItem => item.DeepCariesReview3, new { @class = "form-control js_DeepCariesReview3", @id = "RpList[" + index + "]_" + "DeepCariesReview3", @Name = "RpList[" + index + "]." + "DeepCariesReview3" })
+                                        </td>
+                                    </tr>
+                                    index++;
+                                }
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    //$('.btnRestroAdd').prop('disabled', true);
+</script>

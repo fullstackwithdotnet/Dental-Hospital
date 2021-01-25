@@ -1,0 +1,78 @@
+﻿@model DIMS.ViewModels.BillingViewModal
+
+@{
+    string modelName = ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix;
+    int index = 0;
+}
+@functions{
+    string GetId(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}]_{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+    string GetName(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}].{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+}
+
+<div class="form-horizontal">
+
+    <div class="col-md-12">
+        <div class="row">
+            <div class="form-group form-group-sm">
+                <div class="col-md-1">
+            </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(x => x.CodeId)
+                </div>
+                <div class="col-md-3" id="thReference">
+                    @Html.LabelFor(model => model.ReferenceNo)
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.AmountReceived)
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group form-group-sm">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-3" id="Payment">
+                    @Html.DropDownListFor(model => model.CodeId, new SelectList(Model.Paymodelist, "PaymodeId", "Paymode"), htmlAttributes: new { @class = "js_Pay form-control col-md-2" })
+                </div>               
+                <div class="col-md-3" id="tdReferenceNo">
+                    @Html.TextBoxFor(model => model.CardReferenceNo, new { @class = "form-control ", style = "display: none;" })
+                </div>
+                <div class="col-md-3">
+                    @Html.TextBoxFor(model => model.CashReceived, new { @class = "form-control OnlyNumber" })
+                </div>
+                <div class="col-md-1">                    
+                    <a id="btnAdd" class="btn btn-success fa fa-plus" > Add</a>
+                </div>  
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group form-group-sm">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-3" style="display:none" id="PaymentAdd">
+                    @Html.DropDownListFor(model => model.PaymodeId, new SelectList(Model.PaymodeDetails, "PaymodeId", "Paymode"), htmlAttributes: new { @class = "js_Pay form-control col-md-2" })
+                </div>
+                <div class="col-md-3" id="tdReferenceNo2">
+                    @Html.TextBoxFor(model => model.ReferenceNo, new { @class = "form-control " , style="display:none"})
+                </div>
+
+                <div class="col-md-3" style="display:none" id="DivCardReceived">
+                    @Html.TextBoxFor(model => model.CardReceived, new { @class = "form-control OnlyNumber" })
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+ 

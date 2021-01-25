@@ -1,0 +1,402 @@
+﻿@model DIMS.ViewModels.DCardsSearchViewModal
+
+@functions
+{
+    public string GetUrl()
+    {
+        var user = User as DIMS.Infrastructure.CustomPrincipal;
+        return user.GetRootUrl();
+    }
+}
+<link href="~/Content/listbox.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-toggle.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-toggle.min.js"></script>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true)
+
+        <div class="box box-info ">
+            <div class="box-header with-border" style="background-color:aliceblue;">
+                <h3 class="box-title"> DCard Enable/Disable</h3>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        <div class="col-md-2">
+                            @Html.LabelFor(x => x.IsSearchEnable, new { @class = "control-label" })
+                        </div>
+                        <div class="col-md-2">
+                            <input type="checkbox" name="IsSelected" checked='@Model.IsSearchEnable' data-toggle="toggle" id="IsSelectedchk">
+                            @Html.HiddenFor(x => Model.IsSearchEnable)
+                            @Html.HiddenFor(x => x.DummyEnableId)
+                        </div>
+                        <div class="col-md-2 hidden">
+                            @Html.LabelFor(x => x.ReportForm, new { @class = "control-label" })
+                        </div>
+                        <div class="col-md-2 hidden">
+                            <input type="checkbox" name="IsEnable" checked='@Model.IsReportEnable' data-toggle="toggle" id="IsSelectedchkforReport">
+                            @Html.HiddenFor(x => Model.IsReportEnable)
+                        </div>
+                        <div class="col-md-4 hidden">
+                            <a id="UpdateButton"> <i class="fa fa-check fa fa-search btn btn-success"> Submit</i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box box-info ">           
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-2 form-group form-group-sm">
+                            @Html.LabelFor(x => x.ToDeptId, new { @class = "control-label" })
+                        </div>
+                        <div class="col-md-3 form-group form-group-sm ">
+                            @Html.DropDownListFor(model => model.ToDeptId, new SelectList(Model.ToDepartmentList, "DeptId", "DeptName"), htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ToDeptId)
+                        </div>
+                        <div id="divTreatment">
+                            <div class="col-md-1 form-group form-group-sm">
+                                @Html.LabelFor(x => x.PROSTreatmentId, new { @class = "control-label" })
+                            </div>
+                            <div class="col-md-3 form-group form-group-sm">
+                                @Html.DropDownListFor(model => model.PROSTreatmentId, new SelectList(Model.TreatmentTypeDetails, "TreatmentId", "TreatmentName"), htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-2 form-group form-group-sm">
+                            @Html.LabelFor(x => x.Reg, new { @class = "control-label" })
+                        </div>
+                        <div class="col-md-3 form-group form-group-sm">
+                            @Html.EditorFor(x => x.Reg, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2 form-group form-group-sm">
+                            @Html.LabelFor(x => x.CategoryId, new { @class = "control-label" })
+                        </div>
+                        <div class="col-md-3 form-group form-group-sm">
+                            @Html.DropDownListFor(model => model.CategoryId, new SelectList(Model.Categorylist, "CategoryId", "CategoryName"), htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>                 
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="box-header with-border" style="background-color:aliceblue;">
+                        <h3 class="box-title"> New visit details</h3>
+                    </div>
+                    <div class="box-body">
+                        
+                        <div class="row">
+                            <div class="col-md-4 form-group form-group-sm">
+                                @Html.LabelFor(x => x.NewVisitOrginalCount, new { @class = "control-label" })
+                            </div>
+                            <div class="col-md-4 form-group form-group-sm">
+                                @Html.TextBoxFor(x => x.NewVisitOrginalCount, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 form-group form-group-sm">
+                                @Html.LabelFor(x => x.NewVisitDcardCount, new { @class = "control-label" })
+                            </div>
+                            <div class="col-md-4 form-group form-group-sm">
+                                @Html.TextBoxFor(x => x.NewVisitDcardCount, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 form-group form-group-sm">
+                                @Html.LabelFor(x => x.TotalNewVisitCount, new { @class = "control-label" })
+                            </div>
+                            <div class="col-md-4 form-group form-group-sm">
+                                @Html.TextBoxFor(x => x.TotalNewVisitCount, new { @class = "form-control", @readonly = "readonly" })
+                            </div>                            
+                        </div>
+                        <div class="row">                            
+                            <div class="col-md-4 form-group form-group-sm">
+                                @Html.LabelFor(x => x.DCardCount, new { @class = "control-label" })
+                            </div>
+                            <div class="col-md-4 form-group form-group-sm">
+                                @Html.TextBoxFor(x => x.DCardCount, new { @class = "form-control OnlyNumber", maxlength = "3" })
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="form-group form-group-sm">
+                                <button type="submit" formaction="DCardSave" class="fa fa-save btn btn-success btn-sm" id="SaveNewvisitButton">
+                                    New visit
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="box-header with-border" style="background-color:aliceblue;">
+                        <h3 class="box-title"> Revisit details</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-4 form-group form-group-sm">
+                                @Html.LabelFor(x => x.RevisitOrginalCount, new { @class = "control-label" })
+                            </div>
+                            <div class="col-md-4 form-group form-group-sm">
+                                @Html.TextBoxFor(x => x.RevisitOrginalCount, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 form-group form-group-sm">
+                                @Html.LabelFor(x => x.RevisitDcardCount, new { @class = "control-label" })
+                            </div>
+                            <div class="col-md-4 form-group form-group-sm">
+                                @Html.TextBoxFor(x => x.RevisitDcardCount, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 form-group form-group-sm">
+                                @Html.LabelFor(x => x.TotalRevisitCount, new { @class = "control-label" })
+                            </div>
+                            <div class="col-md-4 form-group form-group-sm">
+                                @Html.TextBoxFor(x => x.TotalRevisitCount, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                             
+                            <div class="col-md-4 form-group form-group-sm">
+                                @Html.LabelFor(x => x.DCardRevisitCount, new { @class = "control-label" })
+                            </div>
+                            <div class="col-md-4 form-group form-group-sm">
+                                @Html.TextBoxFor(x => x.DCardRevisitCount, new { @class = "form-control OnlyNumber", maxlength = "3" })
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="form-group form-group-sm">
+                                <button type="submit" formaction="DCardRevisitSave" class="fa fa-save btn btn-success btn-sm" id="SaveRevisitButton">
+                                    Revisit
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @if (TempData["Message"] != null)
+                {
+                <center>
+                    <span class="messagebox">
+                        @TempData["Message"].ToString()
+                    </span>
+                </center>
+            }
+        </div>
+    </div>
+}
+
+@section scripts {
+
+    <script type="text/jscript">
+        $(document).ready(function () {
+
+            $("#divTreatment").hide();
+
+            var Searchvalue = function () {
+                var $SelectedDate = $("#Reg").val();
+                var $ToDeptId = $("#ToDeptId").val();
+                var $TreatmentId = $("#PROSTreatmentId").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetCountDetails", "Configuration")',
+                    data: '{SearchDate: "' + $SelectedDate + ' ",DeptId:' + $ToDeptId + ',TreatmentId:' + $TreatmentId + '}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        $("#TotalNewVisitCount").val(data.TotalNewVisitCount);
+                        $("#TotalRevisitCount").val(data.TotalRevisitCount);
+                        $("#NewVisitOrginalCount").val(data.NewVisitOrginalCount);
+                        $("#RevisitOrginalCount").val(data.RevisitOrginalCount);
+                        $("#NewVisitDcardCount").val(data.NewVisitDcardCount);
+                        $("#RevisitDcardCount").val(data.RevisitDcardCount);
+                    },
+                })
+            }
+
+
+
+            @*var Searchvalue_1 = function () {
+                var $SelectedDate = $("#Reg").val();
+                var $ToDeptId = $("#ToDeptId").val();
+                var $TreatmentId = $("#PROSTreatmentId").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("SearchTotalNewVisitCountDetails", "Configuration")',
+                    data: '{SearchDate: "' + $SelectedDate + ' ",DeptId:' + $ToDeptId + ',TreatmentId:' + $TreatmentId + '}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        $("#TotalNewVisitCount").val(data);
+                    },
+                })
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("SearchTotalRevisitVisitCountDetails", "Configuration")',
+                    data: '{SearchDate: "' + $SelectedDate + ' ",DeptId:' + $ToDeptId + ',TreatmentId:' + $TreatmentId + '}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        $("#TotalRevisitCount").val(data);
+                    },
+                })
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("SearchOrginalNewVisitCountDetails", "Configuration")',
+                    data: '{SearchDate: "' + $SelectedDate + ' ",DeptId:' + $ToDeptId + ',TreatmentId:' + $TreatmentId + '}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        $("#NewVisitOrginalCount").val(data);
+                    },
+                })
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("SearchOrginalRevisitVisitCountDetails", "Configuration")',
+                    data: '{SearchDate: "' + $SelectedDate + ' ",DeptId:' + $ToDeptId + ',TreatmentId:' + $TreatmentId + '}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        $("#RevisitOrginalCount").val(data);
+                    },
+                })
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("SearchDcardNewVisitCountDetails", "Configuration")',
+                    data: '{SearchDate: "' + $SelectedDate + ' ",DeptId:' + $ToDeptId + ',TreatmentId:' + $TreatmentId + '}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        $("#NewVisitDcardCount").val(data);
+                    },
+                })
+
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("SearchDcardRevisitVisitCountDetails", "Configuration")',
+                    data: '{SearchDate: "' + $SelectedDate + ' ",DeptId:' + $ToDeptId + ',TreatmentId:' + $TreatmentId + '}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        $("#RevisitDcardCount").val(data);
+                    },
+                })
+            }*@
+           
+            Searchvalue();           
+
+            $("#ToDeptId").on("change", function () {
+                if ($("#ToDeptId").val() == 7) {
+                    $("#divTreatment").show();
+                }
+                else {
+                    $("#divTreatment").hide();
+                }
+                Searchvalue();               
+            })
+
+            if ($("#ToDeptId").val() == 7) {
+                $("#divTreatment").show();
+            }
+            else {
+                $("#divTreatment").hide();
+            }
+
+            $("#Reg").on("change", function () {
+                Searchvalue();               
+            })
+
+            $("#PROSTreatmentId").on("change", function () {
+                Searchvalue();               
+            })
+
+            $("#SaveNewvisitButton").on("click", function () {
+                var Con = confirm("Are you sure you want to save ? and Check Date before save..");
+                if (Con == true) {
+                    $("#SaveNewvisitButton").hide();
+                    $("#SaveRevisitButton").hide();
+                }
+                else {
+                    return false;
+                }              
+            })
+
+            $("#SaveRevisitButton").on("click", function () {
+                var Con = confirm("Are you sure you want to save ? and Check Date before save..");
+                if (Con == true) {
+                    $("#SaveNewvisitButton").hide();
+                    $("#SaveRevisitButton").hide();
+                }
+                else {
+                    return false;
+                }
+            })
+
+
+            $('#IsSelectedchk').on('change', function () {
+                var $IsSelected = "";
+                var $IsEnable = "";
+                var $SearchForm = "";
+                var $ReportForm = "";
+
+                if ($("#IsSelectedchk").is(':checked')) {
+                    $IsSelected = "true";
+                    $SearchForm = "Y";
+
+                } else {
+                    $IsSelected = "false";
+                    $SearchForm = "N";
+                }
+                if ($("#IsSelectedchkforReport").is(':checked')) {
+                    $IsEnable = "true";
+                    $ReportForm = "Y";
+                } else {
+                    $IsEnable = "false";
+                    $ReportForm = "N";
+                }
+                var $DummyEnableId = $("#DummyEnableId").val();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Update", "Configuration")',
+                    data: '{IsSelected: "' + $IsSelected + ' ",DummyEnableId: "' + $DummyEnableId + ' ",IsEnable: "' + $IsEnable + ' ",SearchForm: "' + $SearchForm + ' ",ReportForm: "' + $ReportForm + ' "}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        alert('Updated Successfully')
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+
+
+            });
+        });
+    </script>
+}

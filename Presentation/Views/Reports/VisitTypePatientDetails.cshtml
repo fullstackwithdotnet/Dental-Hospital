@@ -1,0 +1,231 @@
+﻿@model DIMS.ViewModels.ReportSearchViewModel
+@{
+    var partialHeaderHtmlString = new HtmlString(Html.Partial("~/Views/Reports/_HeaderReport.cshtml").ToString().Replace(Environment.NewLine, ""));
+}
+
+@section header{
+    <style>
+        #header-area {
+            display: none;
+        }
+
+        @@page {
+            size: A4;
+            margin: 0px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+
+        @@media print {
+            #searchBox {
+                display: none;
+            }
+
+            .box.box-info {
+                border-top-color: transparent !important;
+            }
+
+            table td, table th {
+                padding: 2px !important;
+            }
+
+            .table-bordered > tbody > tr > td {
+                border: 0px !important;
+            }
+
+            html, body {
+                width: 210mm;
+                height: 296mm;
+            }
+        }
+    </style>
+}
+@using (Html.BeginForm())
+{
+
+    @Html.AntiForgeryToken()
+    <div class="box box-info" id="searchBox">
+        <div class="box-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                        <td style="border-top:none">
+                            <div class="form-group form-group-sm no-print">
+                                @Html.LabelFor(x => x.From_Date, new { @class = "control-label" })
+                            </div>
+                        </td>
+                        <td style="border-top:none">
+                            <div class="form-group form-group-sm no-print">
+                                @Html.EditorFor(model => model.From_Date, new { htmlAttributes = new { Value = Model.From_Date.ToString("yyyy-MM-dd") } })
+                            </div>
+                        </td>
+                        <td style="border-top:none">
+                            <div class="form-group form-group-sm no-print">
+                                @Html.LabelFor(x => x.To_Date, new { @class = "control-label" })
+                            </div>
+                        </td>
+                        <td style="border-top:none">
+                            <div class="form-group form-group-sm no-print">
+                                @Html.EditorFor(model => model.To_Date, new { htmlAttributes = new { Value = Model.From_Date.ToString("yyyy-MM-dd") } })
+                            </div>
+                        </td>
+
+                        <td style="border-top:none">
+                            <div class="form-group form-group-sm no-print">
+                                @Html.LabelFor(x => x.VisitType, new { @class = "control-label" })
+                            </div>
+                        </td>
+                        <td style="border-top:none">
+                            <div class="form-group form-group-sm no-print">
+
+                                @Html.DropDownListFor(x => x.VisitType, Model.VisitTypeLister, htmlAttributes: new { @id = "myid", @class = "form-control" })
+
+                            </div>
+
+
+                        </td>
+                        <td style="border-top:none">
+                            <div class="form-group form-group-sm no-print">
+
+                                <button type="submit" class="btn btn-success btn-sm" id="btnSearch" formaction="GetPatientDetailsList">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-info">
+            @*<div id="header-area">
+                    @Html.Partial("~/Views/Reports/_HeaderReport.cshtml")
+                </div>*@
+            <div class="box-header with-border">
+                @partialHeaderHtmlString
+            </div>
+            <div class="box-body">
+
+                @if (Model.SearchDetails != null)
+                {
+                    <div class="table-responsive">
+
+                        <table id="tbPatientDetails" class="table table-bordered table-hover" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th class="col-md-1">DATE</th>
+                                    <th class="col-md-2">OP #</th>
+                                    <th class="col-md-7">PATIENT NAME</th>
+                                    <th class="col-md-1">AGE</th>
+                                    <th class="col-md-1">GENDER</th>
+                                    <th class="col-md-1">VISIT TYPE</th>
+                                </tr>
+                            </thead>
+                            @{
+                                int NewVisit = 0;
+                                int ReVisit = 0;
+                                int TotalCount = 0;
+                                foreach (var item in Model.SearchDetails.ToList())
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(model => item.DisplayDate)
+
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(model => item.OpNo)
+                                            @if (item.IsCreated)
+                                            {
+                                                <i class="fa fa-circle fa-xs"></i>
+                                            }
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(model => item.PatientName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(model => item.Age)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(model => item.GenderName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(model => item.VisitType)
+                                        </td>
+                                        @if (item.VisitType == "N")
+                                        {
+                                            NewVisit++;
+                                        }
+                                        @if (item.VisitType == "R")
+                                        {
+                                            ReVisit++;
+                                        }
+
+                                        @if (item.VisitType == "R" || item.VisitType == "N")
+                                        {
+                                            TotalCount++;
+                                        }
+
+                                    </tr>
+
+                                }
+                            }
+                            <tbody>
+                                <tr id="Nw">
+
+                                    <td></td>
+                                    <td> </td>
+                                    <td></td>
+                                    <td colspan="2" style="font-weight:bold">New Visit Count</td>
+                                    <td style="font-weight:bold">@NewVisit</td>
+                                </tr>
+                                <tr id="RV">
+
+                                    <td></td>
+                                    <td> </td>
+                                    <td></td>
+                                    <td colspan="2" style="font-weight:bold">Revisit Count</td>
+                                    <td style="font-weight:bold">@ReVisit </td>
+
+                                </tr>
+                                <tr id="Tot">
+                                    <td></td>
+                                    <td> </td>
+                                    <td></td>
+                                    <td colspan="2" style="font-weight:bold">Total Count</td>
+                                    <td style="font-weight:bold">@TotalCount</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+
+    var myid = $("#myid option:selected").text();
+    if (myid == "N") {
+        $("#RV").hide();
+    }
+    else if (myid == "Both") {
+        $("#RV").show();
+        $("#Nw").show();
+    }
+    else {
+        $("#RV").show();
+        $("#Nw").hide();
+    }
+
+
+</script>
+

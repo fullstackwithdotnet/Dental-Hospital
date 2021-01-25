@@ -1,0 +1,42 @@
+﻿@model DIMS.ViewModels.DesignationViewModal
+
+
+@{
+    ViewBag.Title = "Details";
+}
+
+ 
+
+
+<div class="box box-default box-solid">
+    <div class="box-header with-border">
+        <h4 class="box-title"> Details of Designation</h4>
+    </div>
+    <div class="box-body">
+        <div class="row">
+            <dl class="dl-horizontal">
+                <dt class="hidden">
+                    @Html.DisplayNameFor(model => model.DesigId)
+                </dt>
+
+                <dd class="hidden">
+                    @Html.DisplayFor(model => model.DesigId)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.DesigName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DesigName)
+                </dd>
+
+            </dl>
+        </div>
+        </div>
+    </div>
+        
+        <p>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.DesigId }) |
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+

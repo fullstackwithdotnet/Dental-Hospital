@@ -1,0 +1,44 @@
+﻿@model IEnumerable<DIMS.ViewModels.StudentAllotmentViewModel>
+
+
+    <table class="table">
+        <tr>
+            <th class="col-md-2">
+                @Html.DisplayNameFor(model => model.DisplayAllotDate)
+            </th>
+            <th class="col-md-10">
+                @Html.DisplayNameFor(model => model.AllotedTo)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.StudentRegNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CourseName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CourseYearName)
+                </th>*@
+        </tr>
+
+        @foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DisplayAllotDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StudentName)
+        </td>
+        @*<td>
+                @Html.DisplayFor(modelItem => item.StudentRegNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseYearName)
+            </td>*@
+    </tr>
+}
+
+    </table>
+ 

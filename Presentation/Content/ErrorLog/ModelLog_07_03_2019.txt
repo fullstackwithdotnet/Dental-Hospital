@@ -1,0 +1,7 @@
+07-03-2019 11:08:06 	The Date of Join field is required.-
+__________________________
+07-03-2019 11:36:02 	The Date of Join field is required.-
+__________________________
+07-03-2019 14:53:50 	System.NullReferenceException: Object reference not set to an instance of an object.
+   at DIMS.Controllers.StudentRegistrationController.Edit(Int32 id, StudentRegistrationViewModel Studentmodal)
+__________________________

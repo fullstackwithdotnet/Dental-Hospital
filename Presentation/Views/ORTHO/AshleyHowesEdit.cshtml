@@ -1,0 +1,150 @@
+﻿
+@model DIMS.ViewModels.OrthoAnalysisViewModal
+
+@{
+    ViewBag.Title = "Ashley Howe's Analysis";
+}
+
+<h2>Ashley Howe's Analysis</h2>
+
+@using (Html.BeginForm("SaveAshleyHowes", "Ortho", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">                                   
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-4">
+                                                @Html.LabelFor(x => x.TotalToothMaterial, new { @class = "col-lg-12 control-label" })
+                                            </div>
+                                            <div class="col-md-4">
+                                                @Html.TextBoxFor(model => model.TotalToothMaterial, new { @class = "form-control col-sm-4" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-4">
+                                                @Html.LabelFor(x => x.DiamPreMolar, new { @class = "col-lg-12 control-label" })
+                                            </div>
+                                            <div class="col-md-4">
+                                                @Html.TextBoxFor(x => x.DiamPreMolar, new { @class = "form-control col-sm-4" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-4">
+                                                @Html.LabelFor(x => x.BasalPreMolarArch, new { @class = "col-lg-12 control-label" })
+                                            </div>
+                                            <div class="col-md-4">
+                                                @Html.TextBoxFor(x => x.BasalPreMolarArch, new { @class = "form-control col-sm-4" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-4">
+                                                @Html.LabelFor(x => x.BasalPreMolarPect, new { @class = "col-lg-12 control-label" })
+                                            </div>
+                                            <div class="col-md-4">
+                                                @Html.TextBoxFor(x => x.BasalPreMolarPect, new { @class = "form-control col-sm-4", @readonly = "readonly" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />                                      
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                <div class="col-md-4">
+                                    @Html.LabelFor(x => x.Inference, new { @class = "col-lg-12 control-label" })
+                                </div>
+                                <div class="col-md-4"   >
+                                    @Html.TextAreaFor(model => model.Inference, new { @class = "form-control col-sm-4" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <br />
+                        <div class="col-sm-1 col-md-offset-4">
+                            @Html.HiddenFor(x => x.OrthoId)
+                            @Html.HiddenFor(x => x.AnalysisId)
+                            <input type="submit" value="Save"  class="fa fa-save btn btn-success"/>
+                        </div>
+                 
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="row">
+                                    <div class="col-md-1">
+                                    </div>
+                                    <div class="col-md-10">
+                                        <h5 style="color: #357ebd"><b>ASHLEY HOWE'S ANALYSIS-Formula's</b></h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div class="col-md-12">
+                                            <b>PreMolar Basal Arch Width % = PreMolar Basal Arch Width X 100 / Total Tooth Material </b>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script>
+        $("#BasalPreMolarArch").on("keydown", function () {
+            
+            Calc();
+        });
+
+        var Calc = function () {
+            var TotalTooth = 0; var Premolar = 0; var Premolarper = 0;
+            TotalTooth = parseFloat($("#TotalToothMaterial").val());
+            Premolar = parseFloat($("#BasalPreMolarArch").val());
+            if (TotalTooth > 0 && Premolar > 0)
+            {
+                Premolarper = parseFloat((Premolar * 100) / TotalTooth);
+                $("#BasalPreMolarPect").val(Premolarper);
+            }
+          
+            
+        }
+    </script>
+}
+
+ 

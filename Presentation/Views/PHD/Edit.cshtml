@@ -1,0 +1,2700 @@
+﻿@model DIMS.ViewModels.PHDViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@functions
+{
+    public List<string> UserRights()
+    {
+        var user = User as DIMS.Infrastructure.CustomPrincipal;
+        return user.UserRights(DIMS.Enums.Department.PHD);
+    }
+
+}
+
+@functions{
+    public string CheckOMRExits(bool IsCampPatient)
+    {
+        if (IsCampPatient)
+        {
+            return "pointer-events: all;";
+        }
+        return "pointer-events: none;";
+
+    }
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+
+        @Html.Partial("../Prescriptions/_CreateMedicalAlert", Model.medicalalertviewmodel)
+
+        <div class="box box-info ">
+            <div class="box-header with-border" style="background-color:aliceblue;">
+                <h3 class="box-title"> PHD Casesheet Update</h3>
+                <div class="box-tools pull-right text-black ">
+                    Case Record #
+                    <strong>@Html.DisplayFor(model => model.PHDNo)</strong>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        @Html.Partial("../PatientInformation/_PatientInformationDetails", Model.patientInformationViewModel,
+                            new ViewDataDictionary()
+                            {
+                                TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "studentAllotmentViewModel" }
+                            })
+                        @Html.HiddenFor(model => model.PHDId)
+                        @Html.HiddenFor(model => model.PHDDate)
+                        @Html.HiddenFor(model => model.PatientId)
+                        @Html.HiddenFor(model => model.TreatmentReferredId)
+
+                        @Html.HiddenFor(model => model.approvalViewModal.ApprovalTypeId)
+                        @Html.HiddenFor(model => model.approvalViewModal.CaserecordId)
+                        @Html.HiddenFor(model => model.approvalViewModal.DeptId)
+                        @Html.HiddenFor(model => model.approvalViewModal.DoctorId)
+                        @Html.HiddenFor(model => model.approvalViewModal.PatientId)
+                        @Html.HiddenFor(model => model.approvalViewModal.ReferredTreatmentId)
+                        @Html.HiddenFor(x => x.Approval1)
+                        @Html.HiddenFor(x => x.Approval2)
+                        @Html.HiddenFor(x => x.Approval3)
+
+                        @Html.HiddenFor(x => x.SendForApproval1)
+                        @Html.HiddenFor(x => x.SendForApproval2)
+                        @Html.HiddenFor(x => x.SendForApproval3)
+
+                        @Html.HiddenFor(x => x.ReadOnlyApproval1)
+                        @Html.HiddenFor(x => x.ReadOnlyApproval2)
+                        @Html.HiddenFor(x => x.ReadOnlyApproval3)
+                        @Html.HiddenFor(x => x.EditCaseSheetAccess)
+                    </div>
+                </div>
+            </div>
+        </div>
+        @{List<string> edit = UserRights();}
+        @if (edit.Contains(DIMS.Infrastructure.PermissionsEnum.Edit.ToString()))
+        {
+
+            <div class="row">
+                <div class="form-group">
+                    <center>
+                        @if (edit.Contains(DIMS.Infrastructure.PermissionsEnum.EditFreezeCase.ToString()))
+                        {
+                            <button type="submit" class="btn btn-success btn-sm" id="UpdateButton">
+                                Update
+                                <i class="fa fa-check"></i>
+                            </button>
+                                <a class="btn btn-info btn-sm" target="_blank" href="@Url.Action("Create", "FileUpload", new { id = Model.studentAllotmentViewModel.AllotId })">File Uploads <i class="fa fa-upload"></i> </a>
+
+                        }
+                        else
+                        {
+                            if ((Model.Approval1 == false) || (Model.Approval2 == false) || (Model.Approval3 == false))
+                            {
+                                <button type="submit" class="btn btn-success btn-sm" id="UpdateButton">
+                                    Update
+                                    <i class="fa fa-check"></i>
+                                </button>
+                            }
+
+                            if ((Model.Approval1 == false) || (Model.Approval2 == false) || (Model.Approval3 == false))
+                            {
+                                <a class="btn btn-info btn-sm" target="_blank" href="@Url.Action("Create", "FileUpload", new { id = Model.studentAllotmentViewModel.AllotId })">File Uploads <i class="fa fa-upload"></i> </a>
+                            }
+                        }
+                        <a class="btn btn-warning btn-sm" target="_blank" href="@Url.Action("Report", "PHD", new { Id = Model.PHDId })">Print <i class="fa fa-print"></i> </a>
+                        @if (edit.Contains(DIMS.Infrastructure.PermissionsEnum.CaserecordApproval.ToString()))
+                        {
+                            <a id="btnApproval" class="btn btn-primary btn-sm hidden"> Approval <i class="fa fa-check-circle"></i></a>
+                        }
+
+                        @if ((Model.Approval1 == true) && (Model.Approval2 == true) && (Model.Approval3 == false))
+                        {
+                            if (edit.Contains(DIMS.Infrastructure.PermissionsEnum.Edit.ToString()))
+                            {
+                                <button type="submit" formaction="UpdateSendForApproval" class="btn bg-red-gradient btn-sm" id="UpdateButtonApproval3">
+                                    Update & Send for final Approval
+                                    <i class="fa fa-check"></i>
+                                </button>
+
+                            }
+                        }
+                        <button type="reset" class="btn btn-primary btn-sm hidden" id="btnUpdatePo">
+                            Refresh
+                            <i class="fa fa-refresh"></i>
+                        </button>
+                    </center>
+                    @if (TempData["Message"] != null)
+                    {
+                        <center>
+                            <span class="messagebox">
+                                @TempData["Message"].ToString()
+                            </span>
+                        </center>
+                    }
+                </div>
+            </div>
+        }
+
+
+
+        <div class="box box-default box-solid">
+            <div class="box-header with-border" style="background-color:aliceblue;">
+                @*<h5 class="box-title sm"></h5>*@
+                @if (Model.ApprovalStage != null)
+                {
+                    if (Model.ApprovalStage == "Waiting for 1st Approval" || Model.ApprovalStage == "Waiting for 2nd Approval" || Model.ApprovalStage == "Waiting for 3rd Approval" || Model.ApprovalStage == "Not Initiated")
+                    {
+                        <div class="box-tools pull-right">
+                            Approval Stage :
+                            <strong style="color:darkorange">@Html.DisplayFor(model => model.ApprovalStage)</strong>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="box-tools pull-right">
+                            Approval Stage :
+                            <strong style="color:green">@Html.DisplayFor(model => model.ApprovalStage)</strong>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="box-tools pull-right text-yellow ">
+                        Approval Stage :
+                        <strong>Not Initiated</strong>
+                    </div>
+                }
+
+
+            </div>
+            <div class="box-body"> 
+                    <div class="col-md-12"> 
+                            <div id="tabContainer">
+                                <ul class="pagination pagination-lg" role="tablist" style="margin:0px">
+                                    <li class="active">
+                                        <a href="#History" role="tab" class="paginationtab no-border" aria-controls="History" data-toggle="tab">History</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#ExtraOralExamination" role="tab" class="paginationtab no-border" aria-controls="ExtraOralExamination" data-toggle="tab">Extra Oral</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#IntraOralExamination" role="tab" class="paginationtab no-border" aria-controls="IntraOralExamination" data-toggle="tab">Intra Oral</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#LocalExamination" role="tab" class="paginationtab no-border" aria-controls="LocalExamination" data-toggle="tab">Local Exam</a>
+                                    </li>
+                                    @if (Model.Approval1 == true)
+                                    {
+                                        <li class="">
+                                            <a href="#Diagnosis" role="tab" class="paginationtab no-border" aria-controls="Diagnosis" data-toggle="tab">Diagnosis</a>
+                                        </li>
+                                    }
+                                    @if (edit.Contains(DIMS.Infrastructure.PermissionsEnum.Investigation.ToString()))
+                                    {
+                                        <li class="">
+                                            <a href="#Investigation" role="tab" class="paginationtab no-border" aria-controls="Investigation" data-toggle="tab">Investigation</a>
+                                        </li>
+                                    }
+                                    @if (Model.Approval1 == true)
+                                    {
+                                    <li class="">
+                                        <a href="#InvestigationReport" role="tab" class="paginationtab no-border" aria-controls="InvestigationReport" data-toggle="tab">Investigation Report</a>
+                                    </li>
+                                    }
+                                    @if (edit.Contains(DIMS.Infrastructure.PermissionsEnum.TreatmentServices.ToString()) && Model.Approval1 == true)
+                                    {
+                                        <li class="">
+                                            <a href="#Treatment" role="tab" class="paginationtab no-border" aria-controls="Treatment" data-toggle="tab">Treatment</a>
+                                        </li>
+                                    }
+                                    @if (Model.Approval1 == true)
+                                    {
+                                    <li class="">
+                                        <a href="#PreventiveProcedures" role="tab" class="paginationtab no-border" aria-controls="PreventiveProcedures" data-toggle="tab">Preventive Procedures</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#Indices" role="tab" class="paginationtab no-border" aria-controls="Indices" data-toggle="tab">Indices</a>
+                                    </li>
+                                    }
+                                    <li class="">
+                                        <a href="#Appointment" role="tab" class="paginationtab no-border" aria-controls="ProcedureNote" data-toggle="tab">Appointments</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#ProcedureNote" role="tab" class="paginationtab no-border" aria-controls="ProcedureNote" data-toggle="tab">Procedure Notes</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#Referral" role="tab" class="paginationtab no-border" aria-controls="Referral" data-toggle="tab">Referral</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane fade active in" id="History">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box box-primary"> 
+                                                    @if (edit.Contains(DIMS.Infrastructure.PermissionsEnum.EditFreezeCase.ToString()))
+                                                    {
+                                                        <div class="box-header with-border">
+                                                            <div class="form-group">
+                                                                @Html.Partial("../PHD/_PHDHistory", Model)
+                                                                @Html.HiddenFor(model => model.PatientId)
+                                                                @Html.HiddenFor(model => model.TreatmentReferredId)
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="box-header with-border js_ReadOnlyApproval1">
+                                                            <div class="form-group">
+                                                                @Html.Partial("../PHD/_PHDHistory", Model)
+                                                                @Html.HiddenFor(model => model.PatientId)
+                                                                @Html.HiddenFor(model => model.TreatmentReferredId)
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="ExtraOralExamination">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box box-primary">
+                                                   
+
+                                                    @if (edit.Contains(DIMS.Infrastructure.PermissionsEnum.EditFreezeCase.ToString()))
+                                                    {
+                                                        <div class="box-header with-border">
+                                                            <div class="form-group">
+                                                                @Html.Partial("../PHD/_PHDExtraOral", Model)
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="box-header with-border js_ReadOnlyApproval1">
+                                                            <div class="form-group">
+                                                                @Html.Partial("../PHD/_PHDExtraOral", Model)
+                                                            </div>
+                                                        </div>
+                                                    }
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="IntraOralExamination">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box box-primary">
+                                                  
+                                                    @if (edit.Contains(DIMS.Infrastructure.PermissionsEnum.EditFreezeCase.ToString()))
+                                                    {
+                                                        <div class="box-header with-border">
+                                                            <div class="form-group">
+                                                                @Html.Partial("../PHD/_PHDIntraOral", Model)
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="box-header with-border js_ReadOnlyApproval1">
+                                                            <div class="form-group">
+                                                                @Html.Partial("../PHD/_PHDIntraOral", Model)
+                                                            </div>
+                                                        </div>
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="LocalExamination">
+                                        <div class="row">
+                                            <div class="col-md-12"> 
+                                                <div class="box box-primary">
+                                                    @if (edit.Contains(DIMS.Infrastructure.PermissionsEnum.EditFreezeCase.ToString()))
+                                                    {
+                                                        <div class="box-header with-border">
+
+                                                            <div class="form-group">
+                                                                @Html.Partial("../PHD/_PHDLocalExamination", Model)
+                                                                @if ((Model.Approval1 == false) && (Model.Approval2 == false) && (Model.Approval3 == false))
+                                                                {
+
+                                                                    if (edit.Contains(DIMS.Infrastructure.PermissionsEnum.Edit.ToString()) && Model.SendForApproval1 == false)
+                                                                    {
+                                                                        <div class="row">
+                                                                            <div class="form-group">
+                                                                                <div class="col-xs-4">
+                                                                                </div>
+                                                                                <div class="col-xs-4">
+                                                                                    <center>
+                                                                                        <button type="submit" formaction="UpdateSendForApproval" class="btn btn-success btn-sm" id="UpdateButtonApproval1">
+                                                                                            Update & Send for Approval
+                                                                                            <i class="fa fa-check"></i>
+                                                                                        </button>
+                                                                                    </center>
+                                                                                </div>
+                                                                                <div class="col-xs-4">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div class="row">
+                                                                        <div class="form-group">
+                                                                            <div class="col-xs-4">
+                                                                            </div>
+                                                                            <div class="col-xs-4">
+                                                                                <center>
+                                                                                    <center>
+                                                                                        @if (Model.Approval1 == true)
+                                                                                        {
+                                                                                            <span class="text-green">
+                                                                                                <strong>
+                                                                                                    @Html.DisplayFor(x => x.DisplayApproval1)
+                                                                                                </strong>
+                                                                                            </span>
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <span class="text-red">
+                                                                                                <strong>
+                                                                                                    @Html.DisplayFor(x => x.DisplayApproval1)
+                                                                                                </strong>
+                                                                                            </span>
+                                                                                        }
+                                                                                    </center>
+                                                                                </center>
+                                                                            </div>
+                                                                            <div class="col-xs-4">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <div class="box-header with-border js_ReadOnlyApproval1">
+
+                                                                            <div class="form-group">
+                                                                                @Html.Partial("../PHD/_PHDLocalExamination", Model)
+                                                                                @if ((Model.Approval1 == false) && (Model.Approval2 == false) && (Model.Approval3 == false))
+                                                                                {
+
+                                                                                    if (edit.Contains(DIMS.Infrastructure.PermissionsEnum.Edit.ToString()) && Model.SendForApproval1 == false)
+                                                                                    {
+                                                                                        <div class="row">
+                                                                                            <div class="form-group">
+                                                                                                <div class="col-xs-4">
+                                                                                                </div>
+                                                                                                <div class="col-xs-4">
+                                                                                                    <center>
+                                                                                                        <button type="submit" formaction="UpdateSendForApproval" class="btn btn-success btn-sm" id="UpdateButtonApproval1">
+                                                                                                            Update & Send for Approval
+                                                                                                            <i class="fa fa-check"></i>
+                                                                                                        </button>
+                                                                                                    </center>
+                                                                                                </div>
+                                                                                                <div class="col-xs-4">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    }
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <div class="row">
+                                                                                        <div class="form-group">
+                                                                                            <div class="col-xs-4">
+                                                                                            </div>
+                                                                                            <div class="col-xs-4">
+                                                                                                <center>
+                                                                                                    <center>
+                                                                                                        @if (Model.Approval1 == true)
+                                                                                                        {
+                                                                                                            <span class="text-green">
+                                                                                                                <strong>
+                                                                                                                    @Html.DisplayFor(x => x.DisplayApproval1)
+                                                                                                                </strong>
+                                                                                                            </span>
+                                                                                                        }
+                                                                                                        else
+                                                                                                        {
+                                                                                                            <span class="text-red">
+                                                                                                                <strong>
+                                                                                                                    @Html.DisplayFor(x => x.DisplayApproval1)
+                                                                                                                </strong>
+                                                                                                            </span>
+                                                                                                        }
+                                                                                                    </center>
+                                                                                                </center>
+                                                                                            </div>
+                                                                                            <div class="col-xs-4">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                }
+                                                                            </div>
+                                                                        </div>
+                                                                                    }
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="Diagnosis">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                               
+                                                <div class="box box-primary">
+                                                    @if (edit.Contains(DIMS.Infrastructure.PermissionsEnum.EditFreezeCase.ToString()))
+                                                    {
+                                                        <div class="box-header with-border">
+                                                            <div class="form-group">
+                                                                @Html.Partial("../PHD/_PHDDiagnosis", Model)
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="box-header with-border js_ReadOnlyApproval2">
+                                                            <div class="form-group">
+                                                                @Html.Partial("../PHD/_PHDDiagnosis", Model)
+                                                            </div>
+                                                        </div>
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="PreventiveProcedures">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box box-primary"> 
+                                                    @if (edit.Contains(DIMS.Infrastructure.PermissionsEnum.EditFreezeCase.ToString()))
+                                                    {
+                                                        <div class="box-header with-border">
+                                                            <div class="form-group">
+                                                               @Html.Partial("../PHD/_PHDPreventiveProcedures", Model)
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="box-header with-border js_ReadOnlyApproval2">
+                                                            <div class="form-group">
+                                                               @Html.Partial("../PHD/_PHDPreventiveProcedures", Model)
+                                                            </div>
+                                                        </div>
+                                                    } 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="Investigation">
+                                        <div class="row">
+                                            <div class="box box-primary">
+                                                <div class="box-header with-border js_ReadOnlyApproval2">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            @Html.Partial("../Investigation/_LabRadCreate", Model.billingLabRadQueueViewModal)
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            @Html.Partial("../Investigation/_LabRadInvestigationList", Model.BillingLabRadQueueDetails,
+                                                              new ViewDataDictionary()
+                                                              {
+                                                                  TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "BillingLabRadQueueDetails" }
+                                                              })
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-12 hidden">
+                                                        @Html.ActionLink("Request for OralPathology", "Index", "ORPATHRequisition", new { id = Model.studentAllotmentViewModel.AllotId }, new { target = "_blank" })
+                                                    </div>
+                                                    @if (Model.paidLabRadInvestigationList.Count() > 0)
+                                                    {
+                                                        <br />
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                @Html.Partial("../Investigation/_PaidInvestigationList", Model.paidLabRadInvestigationList)
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="InvestigationReport">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box box-primary">
+                                                    <div class="box-header with-border">
+                                                        <div class="form-group">
+                                                            @Html.Partial("../Radiography/_RadiographicDetails", Model.radioRegistrationviewmodel)
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box box-primary">
+                                                    <div class="box-header with-border">
+                                                        <div class="form-group">
+                                                            @Html.Partial("../Radiography/_LaboratoryDetails", Model.laboratoryRegistrationviewmodel)
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    <div class="tab-pane fade" id="Treatment">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box box-primary">
+                                                    <div class="box-header with-border">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="box box-default collapsed-box">
+                                                                    <div class="box-header with-border">
+                                                                        <h3 class="box-title">TREATMENT DETAILS</h3>
+                                                                        <div class="box-tools pull-right">
+                                                                            <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                                                                                <i class="fa fa-plus"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="box-body">
+                                                                        <div class="form-group">
+                                                                            @Html.Partial("../Investigation/_Create", Model.billingQueueViewModal)
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            @Html.Partial("../Investigation/_InvestigationList", Model.BillingQueueDetails,
+                                                              new ViewDataDictionary()
+                                                              {
+                                                                  TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "BillingQueueDetails" }
+                                                              })
+                                                                        </div>
+                                                                        @if (Model.paidInvestigationList.Count() > 0)
+                                                                        {
+                                                                            <br />
+                                                                            <div class="col-md-12">
+                                                                                <div class="form-group">
+                                                                                    @Html.Partial("../Investigation/_PaidInvestigationList", Model.paidInvestigationList)
+                                                                                </div>
+                                                                            </div>
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="box box-default collapsed-box">
+                                                                    <div class="box-header with-border">
+                                                                        <h3 class="box-title">TREATMENT PLAN</h3>
+                                                                        <div class="box-tools pull-right">
+                                                                            <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                                                                                <i class="fa fa-plus"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="box-body"> 
+                                                                        @if (edit.Contains(DIMS.Infrastructure.PermissionsEnum.EditFreezeCase.ToString()))
+                                                                        {
+                                                                            <div class="form-group">
+                                                                                @Html.Partial("../PHD/_PHDTreatment", Model)
+                                                                            </div>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <div class="form-group js_ReadOnlyApproval2">
+                                                                                @Html.Partial("../PHD/_PHDTreatment", Model)
+                                                                            </div>
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="box box-default collapsed-box">
+                                                                    <div class="box-header with-border">
+                                                                        <h3 class="box-title">COMPREHENSIVE TREATMENT PLAN</h3>
+                                                                        <div class="box-tools pull-right">
+                                                                            <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                                                                                <i class="fa fa-plus"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="box-body">
+                                                                       
+                                                                        @if (edit.Contains(DIMS.Infrastructure.PermissionsEnum.EditFreezeCase.ToString()))
+                                                                        {
+                                                                            <div class="form-group">
+                                                                                @Html.Partial("../PHD/_PHDCompreTreatmentPlan", Model)
+                                                                            </div>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <div class="form-group js_ReadOnlyApproval2">
+                                                                                @Html.Partial("../PHD/_PHDCompreTreatmentPlan", Model)
+                                                                            </div>
+                                                                        }
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="box box-default collapsed-box">
+                                                                    <div class="box-header with-border">
+                                                                        <h3 class="box-title">PRESCRIPTIONS</h3>
+                                                                        <div class="box-tools pull-right">
+                                                                            <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                                                                                <i class="fa fa-plus"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="box-body">
+                                                                        <div class="form-group">
+                                                                            @Html.Partial("../Prescriptions/_Create", Model.PrescriptionsList)
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            @Html.Partial("../Prescriptions/_PrescriptionList", Model.PrescriptionsDetails,
+                                                                              new ViewDataDictionary()
+                                                                              {
+                                                                                  TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "PrescriptionsDetails" }
+                                                                              })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="box box-default collapsed-box">
+                                                                    <div class="box-header with-border">
+                                                                        <h3 class="box-title">PREVIOUS PRESCRIPTIONS</h3>
+                                                                        <div class="box-tools pull-right">
+                                                                            <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                                                                                <i class="fa fa-plus"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="box-body">
+                                                                        <div class="form-group">
+                                                                            @Html.Partial("../Prescriptions/_PreviousPrescriptions", Model.PreviousPrescriptionList)
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        @if ((Model.Approval1 == true) && (Model.Approval2 == false))
+                                                        {
+                                                            if (edit.Contains(DIMS.Infrastructure.PermissionsEnum.Edit.ToString()) && Model.SendForApproval2 == false)
+                                                            {
+                                                                <div class="row">
+                                                                    <div class="form-group">
+                                                                        <div class="col-xs-4">
+                                                                        </div>
+                                                                        <div class="col-xs-4">
+                                                                            <center>
+                                                                                <button type="submit" formaction="UpdateSendForApproval" class="btn btn-success btn-sm" id="UpdateButtonApproval2">
+                                                                                    Update & Send for Approval
+                                                                                    <i class="fa fa-check"></i>
+                                                                                </button>
+                                                                            </center>
+                                                                        </div>
+                                                                        <div class="col-xs-4">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="row">
+                                                                <div class="form-group">
+                                                                    <div class="col-xs-4">
+                                                                    </div>
+                                                                    <div class="col-xs-4">
+                                                                        <center>
+                                                                            @if (Model.Approval2 == true)
+                                                                            {
+                                                                                <span class="text-green">
+                                                                                    <strong>
+                                                                                        @Html.DisplayFor(x => x.DisplayApproval2)
+                                                                                    </strong>
+                                                                                </span>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <span class="text-red">
+                                                                                    <strong>
+                                                                                        @Html.DisplayFor(x => x.DisplayApproval2)
+                                                                                    </strong>
+                                                                                </span>
+                                                                            }
+                                                                        </center>
+                                                                    </div>
+                                                                    <div class="col-xs-4">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="RadiographicDetails">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box box-primary">
+                                                    <div class="box-header with-border">
+                                                        <div class="form-group">
+                                                            @Html.Partial("../Radiography/_RadiographicDetails", Model.radioRegistrationviewmodel)
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="ProcedureNote">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box box-primary">
+                                                    <div class="box-header with-border">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="box box-default collapsed-box">
+                                                                    <div class="box-header with-border">
+                                                                        <h3 class="box-title">PROCEDURE NOTE</h3>
+                                                                        <div class="box-tools pull-right">
+                                                                            <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                                                                                <i class="fa fa-plus"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="box-body">
+                                                                        <div class="form-group js_ReadOnlyApproval3">
+                                                                            @Html.Partial("../StudentAllotment/_ProcedureNote", Model.studentAllotmentViewModel,
+                                                          new ViewDataDictionary()
+                                                          {
+                                                              TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "studentAllotmentViewModel" }
+                                                          })
+
+                                                                            @if (Model.studentProcedureNotesViewModel.Count() > 0)
+                                                                            {
+                                                                                <div class="box-body">
+                                                                                    @Html.Partial("../StudentAllotment/_ProdedureNoteDetails", Model.studentProcedureNotesViewModel)
+                                                                                </div>
+                                                                            }
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="tab-pane fade" id="Appointment">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box box-primary">
+                                                    <div class="box-header with-border">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="box box-default collapsed-box">
+                                                                    <div class="box-header with-border">
+                                                                        <h3 class="box-title">APPOINTMENT</h3>
+                                                                        <div class="box-tools pull-right">
+                                                                            <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                                                                                <i class="fa fa-plus"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="box-body">
+                                                                        @if (edit.Contains(DIMS.Infrastructure.PermissionsEnum.EditFreezeCase.ToString()))
+                                                                        {
+                                                                            <div class="form-group">
+                                                                                @if (edit.Contains(DIMS.Infrastructure.PermissionsEnum.Appointment.ToString()))
+                                                                                {
+                                                                                    @Html.Partial("../Followup/_PatientFollowUp", Model.followupViewModal,
+                                                                            new ViewDataDictionary()
+                                                                            {
+                                                                                TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "followupViewModal" }
+                                                                            })
+                                                                                }
+                                                                                @if (Model.followupList.Count() > 0)
+                                                                                {
+                                                                                    <div class="form-group">
+                                                                                        @Html.Partial("../Followup/_PatientFollowUpList", Model.followupList)
+                                                                                    </div>
+                                                                                }
+                                                                            </div>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <div class="form-group js_ReadOnlyApproval3">
+                                                                                @if (edit.Contains(DIMS.Infrastructure.PermissionsEnum.Appointment.ToString()))
+                                                                                {
+                                                                                    @Html.Partial("../Followup/_PatientFollowUp", Model.followupViewModal,
+                                                                            new ViewDataDictionary()
+                                                                            {
+                                                                                TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "followupViewModal" }
+                                                                            })
+                                                                                }
+                                                                                @if (Model.followupList.Count() > 0)
+                                                                                {
+                                                                                    <div class="form-group">
+                                                                                        @Html.Partial("../Followup/_PatientFollowUpList", Model.followupList)
+                                                                                    </div>
+                                                                                }
+                                                                            </div>
+                                                                        }
+
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="Referral">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box box-primary">
+                                                    <div class="box-header with-border">
+                                                        <h3 class="box-title">PREVIOUS DEPARTMENT REFERRAL</h3>
+                                                    </div>
+                                                    <div class="box-body">
+                                                        <div class="form-group">
+                                                            @Html.Partial("../ReferralStatus/ViewReferral", Model.ViewdepartmentReferredStatus)
+                                                        </div>
+                                                    </div>
+                                                    @if (edit.Contains(DIMS.Infrastructure.PermissionsEnum.Referral.ToString()))
+                                                    {
+                                                        <div class="box-header with-border">
+                                                            <h3 class="box-title">REFERRAL TO OTHER DEPARTMENTS</h3>
+                                                        </div>
+                                                        <div class="box-body">
+                                                            <div class="form-group js_ReadOnlyApproval3">
+                                                                @Html.Partial("../ReferralStatus/Create", Model.CreatedepartmentReferredStatus,
+                                                            new ViewDataDictionary()
+                                                            {
+                                                                TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "CreatedepartmentReferredStatus" }
+                                                            })
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="Indices">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box box-primary"> 
+                                                    @if (edit.Contains(DIMS.Infrastructure.PermissionsEnum.EditFreezeCase.ToString()))
+                                                    {
+                                                        <div class="box-header with-border">
+                                                            <div class="form-group">
+                                                                @Html.Partial("../PHD/_PHDIndices", Model)
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="box-header with-border js_ReadOnlyApproval2">
+                                                            <div class="form-group">
+                                                                @Html.Partial("../PHD/_PHDIndices", Model)
+                                                            </div>
+                                                        </div>
+                                                    } 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                     
+                                </div>
+                            </div> 
+                    </div> 
+            </div>
+        </div>
+    </div>
+            }
+@Html.Partial("../Approval/_CreateApproval")
+
+
+<div>
+   @Html.ActionLink("<< Back to previous page", "Search", null, new { @class = "btn btn-primary btn-xs" })
+</div>
+
+
+@section scripts {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $("#omrPHDCasesheetViewModel_PresentIllnessName").change(function () {
+                var dropdowntext = $("#omrPHDCasesheetViewModel_PresentIllnessName option:selected").text();
+                var textboxText = $("#omrPHDCasesheetViewModel_PresentIllness").val().trim();
+                if (dropdowntext != 'Select PresentIllness') {
+
+                    //var idArray = [];
+                    //$("#omrPHDCasesheetViewModel_PresentIllness").each(function () {
+                    //    idArray.push(dropdowntext);
+                    //});
+                    //if (jQuery.inArray(textboxText, idArray) != '-1') {
+                    //    alert("Already Added");
+                    //}
+                    if (textboxText.length > 0) {
+                        $("#omrPHDCasesheetViewModel_PresentIllness").val(textboxText + " \n" + dropdowntext);
+                    }
+                    else {
+                        $("#omrPHDCasesheetViewModel_PresentIllness").val(dropdowntext);
+                    }
+                }
+            });
+        })
+        $("#CalculateOral").click(function (e) {
+
+            var DI = 0; var CI = 0;
+            var DISum = 0;
+            var DIS = 0;
+            var CIS = 0;
+            var CISum = 0;
+            var OHI = 0;
+            var DIUpper = 0;
+            var DILower = 0;
+
+            var DIT_1;
+            var DIT_2;
+            var DIT_3;
+            var DIT_4;
+            var DIT_5;
+            var DIT_6;
+            var CIT_1;
+            var CIT_2;
+            var CIT_3;
+            var CIT_4;
+            var CIT_5;
+            var CIT_6;
+
+            DIT_1 = document.getElementById('DIT_1').value;
+            DIT_2 = document.getElementById('DIT_2').value;
+            DIT_3 = document.getElementById('DIT_3').value;
+            DIT_4 = document.getElementById('DIT_4').value;
+            DIT_5 = document.getElementById('DIT_5').value;
+            DIT_6 = document.getElementById('DIT_6').value;
+            CIT_1 = document.getElementById('CIT_1').value;
+            CIT_2 = document.getElementById('CIT_2').value;
+            CIT_3 = document.getElementById('CIT_3').value;
+            CIT_4 = document.getElementById('CIT_4').value;
+            CIT_5 = document.getElementById('CIT_5').value;
+            CIT_6 = document.getElementById('CIT_6').value;
+
+
+
+            DIUpper = parseFloat(
+               parseFloat(DIT_1) +
+               parseFloat(DIT_2) +
+               parseFloat(DIT_3))
+
+            DILower = parseFloat(
+              parseFloat(DIT_4) +
+                parseFloat(DIT_5) +
+                parseFloat(DIT_6))
+
+            DISum = parseFloat(
+                parseFloat(DIT_1) +
+                parseFloat(DIT_2) +
+                parseFloat(DIT_3) +
+                parseFloat(DIT_4) +
+                parseFloat(DIT_5) +
+                parseFloat(DIT_6)
+              )
+
+            CIUpper = parseFloat(
+             parseFloat(CIT_1) +
+              parseFloat(CIT_2) +
+              parseFloat(CIT_3))
+
+            CILower = parseFloat(
+                parseFloat(CIT_4) +
+              parseFloat(CIT_5) +
+              parseFloat(CIT_6))
+
+            CISum = parseFloat(
+              parseFloat(CIT_1) +
+              parseFloat(CIT_2) +
+              parseFloat(CIT_3) +
+              parseFloat(CIT_4) +
+              parseFloat(CIT_5) +
+              parseFloat(CIT_6))
+
+            //
+
+            //
+
+            DIS = parseFloat(Math.round(DISum)) / 6;
+            DIS = Number((DIS).toFixed(2));
+            CIS = parseFloat(CISum) / 6;
+            CIS = Number((CIS).toFixed(2));
+            OHI = parseFloat(DIS) + parseFloat(CIS);
+            //if (isNaN(DIUpper)) {
+            //    DIUpper = 0;
+            //}
+            //if (isNaN(DILower)) {
+            //    DILower = 0;
+            //}
+            //if (isNaN(CIUpper)) {
+            //    CIUpper = 0;
+            //}
+            //if (isNaN(CILower)) {
+            //    CILower = 0;
+            //}
+            //if (isNaN(DIS)) {
+            //    DIS = 0;
+            //}
+            //if (isNaN(CIS)) {
+            //    CIS = 0;
+            //}
+            //if (isNaN(OHI)) {
+            //    OHI = 0;
+            //}
+            $("#DIUpperTotal").val(DIUpper, 2);
+            $("#DILowerTotal").val(DILower, 2);
+            $("#CIUpperTotal").val(CIUpper, 2);
+            $("#CILowerTotal").val(CILower, 2);
+            $("#DITotal").val(DIS, 2);
+            $("#CITotal").val(CIS, 2);
+            $("#OHITotal").val(OHI, 2);
+        }
+
+     );
+        $("#btnGiCalculate").click(function (e) {
+
+            var sum = 0;
+            var NoOfteeth = 0;
+            var GIScore = 0;
+            var NoOfTeeth = 0;
+            sum = calculateSum();
+            NoOfteeth = calNoOfTeeth();
+            GIScore = sum / ((NoOfteeth) * 4);
+            GIScore = Number((GIScore).toFixed(2));
+            $("#GIndexTotal").val(GIScore, 2);
+
+
+        });
+
+        function calculateSum() {
+            var sum = 0;
+
+
+            var GIT17_1 = 0;
+            var GIT17_2 = 0;
+            var GIT17_3 = 0;
+            var GIT17_4 = 0;
+            var GIT16_1 = 0;
+            var GIT16_2 = 0;
+            var GIT16_3 = 0;
+            var GIT16_4 = 0;
+            var GIT15_1 = 0;
+            var GIT15_2 = 0;
+            var GIT15_3 = 0;
+            var GIT15_4 = 0;
+            var GIT14_1 = 0;
+            var GIT14_2 = 0;
+            var GIT14_3 = 0;
+            var GIT14_4 = 0;
+            var GIT13_1 = 0;
+            var GIT13_2 = 0;
+            var GIT13_3 = 0;
+            var GIT13_4 = 0;
+            var GIT12_1 = 0;
+            var GIT12_2 = 0;
+            var GIT12_3 = 0;
+            var GIT12_4 = 0;
+            var GIT11_1 = 0;
+            var GIT11_2 = 0;
+            var GIT11_3 = 0;
+            var GIT11_4 = 0;
+            var GIT21_1 = 0;
+            var GIT21_2 = 0;
+            var GIT21_3 = 0;
+            var GIT21_4 = 0;
+            var GIT22_1 = 0;
+            var GIT22_2 = 0;
+            var GIT22_3 = 0;
+            var GIT22_4 = 0;
+            var GIT23_1 = 0;
+            var GIT23_2 = 0;
+            var GIT23_3 = 0;
+            var GIT23_4 = 0;
+            var GIT24_1 = 0;
+            var GIT24_2 = 0;
+            var GIT24_3 = 0;
+            var GIT24_4 = 0;
+            var GIT25_1 = 0;
+            var GIT25_2 = 0;
+            var GIT25_3 = 0;
+            var GIT25_4 = 0;
+            var GIT26_1 = 0;
+            var GIT26_2 = 0;
+            var GIT26_3 = 0;
+            var GIT26_4 = 0;
+            var GIT27_1 = 0;
+            var GIT27_2 = 0;
+            var GIT27_3 = 0;
+            var GIT27_4 = 0;
+
+            var GIT47_1 = 0;
+            var GIT47_2 = 0;
+            var GIT47_3 = 0;
+            var GIT47_4 = 0;
+            var GIT46_1 = 0;
+            var GIT46_2 = 0;
+            var GIT46_3 = 0;
+            var GIT46_4 = 0;
+            var GIT45_1 = 0;
+            var GIT45_2 = 0;
+            var GIT45_3 = 0;
+            var GIT45_4 = 0;
+            var GIT44_1 = 0;
+            var GIT44_2 = 0;
+            var GIT44_3 = 0;
+            var GIT44_4 = 0;
+            var GIT43_1 = 0;
+            var GIT43_2 = 0;
+            var GIT43_3 = 0;
+            var GIT43_4 = 0;
+            var GIT42_1 = 0;
+            var GIT42_2 = 0;
+            var GIT42_3 = 0;
+            var GIT42_4 = 0;
+            var GIT41_1 = 0;
+            var GIT41_2 = 0;
+            var GIT41_3 = 0;
+            var GIT41_4 = 0;
+            var GIT31_1 = 0;
+            var GIT31_2 = 0;
+            var GIT31_3 = 0;
+            var GIT31_4 = 0;
+            var GIT32_1 = 0;
+            var GIT32_2 = 0;
+            var GIT32_3 = 0;
+            var GIT32_4 = 0;
+            var GIT33_1 = 0;
+            var GIT33_2 = 0;
+            var GIT33_3 = 0;
+            var GIT33_4 = 0;
+            var GIT34_1 = 0;
+            var GIT34_2 = 0;
+            var GIT34_3 = 0;
+            var GIT34_4 = 0;
+            var GIT35_1 = 0;
+            var GIT35_2 = 0;
+            var GIT35_3 = 0;
+            var GIT35_4 = 0;
+            var GIT36_1 = 0;
+            var GIT36_2 = 0;
+            var GIT36_3 = 0;
+            var GIT36_4 = 0;
+            var GIT37_1 = 0;
+            var GIT37_2 = 0;
+            var GIT37_3 = 0;
+            var GIT37_4 = 0;
+
+
+
+            GIT17_1 = document.getElementById('GIT17_1').value;
+            GIT17_2 = document.getElementById('GIT17_2').value;
+            GIT17_3 = document.getElementById('GIT17_3').value;
+            GIT17_4 = document.getElementById('GIT17_4').value;
+            GIT16_1 = document.getElementById('GIT16_1').value;
+            GIT16_2 = document.getElementById('GIT16_2').value;
+            GIT16_3 = document.getElementById('GIT16_3').value;
+            GIT16_4 = document.getElementById('GIT16_4').value;
+            GIT15_1 = document.getElementById('GIT15_1').value;
+            GIT15_2 = document.getElementById('GIT15_2').value;
+            GIT15_3 = document.getElementById('GIT15_3').value;
+            GIT15_4 = document.getElementById('GIT15_4').value;
+            GIT14_1 = document.getElementById('GIT14_1').value;
+            GIT14_2 = document.getElementById('GIT14_2').value;
+            GIT14_3 = document.getElementById('GIT14_3').value;
+            GIT14_4 = document.getElementById('GIT14_4').value;
+            GIT13_1 = document.getElementById('GIT13_1').value;
+            GIT13_2 = document.getElementById('GIT13_2').value;
+            GIT13_3 = document.getElementById('GIT13_3').value;
+            GIT13_4 = document.getElementById('GIT13_4').value;
+            GIT12_1 = document.getElementById('GIT12_1').value;
+            GIT12_2 = document.getElementById('GIT12_2').value;
+            GIT12_3 = document.getElementById('GIT12_3').value;
+            GIT12_4 = document.getElementById('GIT12_4').value;
+            GIT11_1 = document.getElementById('GIT11_1').value;
+            GIT11_2 = document.getElementById('GIT11_2').value;
+            GIT11_3 = document.getElementById('GIT11_3').value;
+            GIT11_4 = document.getElementById('GIT11_4').value;
+            GIT21_1 = document.getElementById('GIT21_1').value;
+            GIT21_2 = document.getElementById('GIT21_2').value;
+            GIT21_3 = document.getElementById('GIT21_3').value;
+            GIT21_4 = document.getElementById('GIT21_4').value;
+            GIT22_1 = document.getElementById('GIT22_1').value;
+            GIT22_2 = document.getElementById('GIT22_2').value;
+            GIT22_3 = document.getElementById('GIT22_3').value;
+            GIT22_4 = document.getElementById('GIT22_4').value;
+            GIT23_1 = document.getElementById('GIT23_1').value;
+            GIT23_2 = document.getElementById('GIT23_2').value;
+            GIT23_3 = document.getElementById('GIT23_3').value;
+            GIT23_4 = document.getElementById('GIT23_4').value;
+            GIT24_1 = document.getElementById('GIT24_1').value;
+            GIT24_2 = document.getElementById('GIT24_2').value;
+            GIT24_3 = document.getElementById('GIT24_3').value;
+            GIT24_4 = document.getElementById('GIT24_4').value;
+            GIT25_1 = document.getElementById('GIT25_1').value;
+            GIT25_2 = document.getElementById('GIT25_2').value;
+            GIT25_3 = document.getElementById('GIT25_3').value;
+            GIT25_4 = document.getElementById('GIT25_4').value;
+            GIT26_1 = document.getElementById('GIT26_1').value;
+            GIT26_2 = document.getElementById('GIT26_2').value;
+            GIT26_3 = document.getElementById('GIT26_3').value;
+            GIT26_4 = document.getElementById('GIT26_4').value;
+            GIT27_1 = document.getElementById('GIT27_1').value;
+            GIT27_2 = document.getElementById('GIT27_2').value;
+            GIT27_3 = document.getElementById('GIT27_3').value;
+            GIT27_4 = document.getElementById('GIT27_4').value;
+            GIT47_1 = document.getElementById('GIT47_1').value;
+            GIT47_2 = document.getElementById('GIT47_2').value;
+            GIT47_3 = document.getElementById('GIT47_3').value;
+            GIT47_4 = document.getElementById('GIT47_4').value;
+            GIT46_1 = document.getElementById('GIT46_1').value;
+            GIT46_2 = document.getElementById('GIT46_2').value;
+            GIT46_3 = document.getElementById('GIT46_3').value;
+            GIT46_4 = document.getElementById('GIT46_4').value;
+            GIT45_1 = document.getElementById('GIT45_1').value;
+            GIT45_2 = document.getElementById('GIT45_2').value;
+            GIT45_3 = document.getElementById('GIT45_3').value;
+            GIT45_4 = document.getElementById('GIT45_4').value;
+            GIT44_1 = document.getElementById('GIT44_1').value;
+            GIT44_2 = document.getElementById('GIT44_2').value;
+            GIT44_3 = document.getElementById('GIT44_3').value;
+            GIT44_4 = document.getElementById('GIT44_4').value;
+            GIT43_1 = document.getElementById('GIT43_1').value;
+            GIT43_2 = document.getElementById('GIT43_2').value;
+            GIT43_3 = document.getElementById('GIT43_3').value;
+            GIT43_4 = document.getElementById('GIT43_4').value;
+            GIT42_1 = document.getElementById('GIT42_1').value;
+            GIT42_2 = document.getElementById('GIT42_2').value;
+            GIT42_3 = document.getElementById('GIT42_3').value;
+            GIT42_4 = document.getElementById('GIT42_4').value;
+            GIT41_1 = document.getElementById('GIT41_1').value;
+            GIT41_2 = document.getElementById('GIT41_2').value;
+            GIT41_3 = document.getElementById('GIT41_3').value;
+            GIT41_4 = document.getElementById('GIT41_4').value;
+            GIT31_1 = document.getElementById('GIT31_1').value;
+            GIT31_2 = document.getElementById('GIT31_2').value;
+            GIT31_3 = document.getElementById('GIT31_3').value;
+            GIT31_4 = document.getElementById('GIT31_4').value;
+            GIT32_1 = document.getElementById('GIT32_1').value;
+            GIT32_2 = document.getElementById('GIT32_2').value;
+            GIT32_3 = document.getElementById('GIT32_3').value;
+            GIT32_4 = document.getElementById('GIT32_4').value;
+            GIT33_1 = document.getElementById('GIT33_1').value;
+            GIT33_2 = document.getElementById('GIT33_2').value;
+            GIT33_3 = document.getElementById('GIT33_3').value;
+            GIT33_4 = document.getElementById('GIT33_4').value;
+            GIT34_1 = document.getElementById('GIT34_1').value;
+            GIT34_2 = document.getElementById('GIT34_2').value;
+            GIT34_3 = document.getElementById('GIT34_3').value;
+            GIT34_4 = document.getElementById('GIT34_4').value;
+            GIT35_1 = document.getElementById('GIT35_1').value;
+            GIT35_2 = document.getElementById('GIT35_2').value;
+            GIT35_3 = document.getElementById('GIT35_3').value;
+            GIT35_4 = document.getElementById('GIT35_4').value;
+            GIT36_1 = document.getElementById('GIT36_1').value;
+            GIT36_2 = document.getElementById('GIT36_2').value;
+            GIT36_3 = document.getElementById('GIT36_3').value;
+            GIT36_4 = document.getElementById('GIT36_4').value;
+            GIT37_1 = document.getElementById('GIT37_1').value;
+            GIT37_2 = document.getElementById('GIT37_2').value;
+            GIT37_3 = document.getElementById('GIT37_3').value;
+            GIT37_4 = document.getElementById('GIT37_4').value;
+
+
+
+
+            if (GIT17_1 == "") { GIT17_1 = 0; }
+            if (GIT17_2 == "") { GIT17_2 = 0; }
+            if (GIT17_3 == "") { GIT17_3 = 0; }
+            if (GIT17_4 == "") { GIT17_4 = 0; }
+            if (GIT16_1 == "") { GIT16_1 = 0; }
+            if (GIT16_2 == "") { GIT16_2 = 0; }
+            if (GIT16_3 == "") { GIT16_3 = 0; }
+            if (GIT16_4 == "") { GIT16_4 = 0; }
+            if (GIT15_1 == "") { GIT15_1 = 0; }
+            if (GIT15_2 == "") { GIT15_2 = 0; }
+            if (GIT15_3 == "") { GIT15_3 = 0; }
+            if (GIT15_4 == "") { GIT15_4 = 0; }
+            if (GIT14_1 == "") { GIT14_1 = 0; }
+            if (GIT14_2 == "") { GIT14_2 = 0; }
+            if (GIT14_3 == "") { GIT14_3 = 0; }
+            if (GIT14_4 == "") { GIT14_4 = 0; }
+            if (GIT13_1 == "") { GIT13_1 = 0; }
+            if (GIT13_2 == "") { GIT13_2 = 0; }
+            if (GIT13_3 == "") { GIT13_3 = 0; }
+            if (GIT13_4 == "") { GIT13_4 = 0; }
+            if (GIT12_1 == "") { GIT12_1 = 0; }
+            if (GIT12_2 == "") { GIT12_2 = 0; }
+            if (GIT12_3 == "") { GIT12_3 = 0; }
+            if (GIT12_4 == "") { GIT12_4 = 0; }
+            if (GIT11_1 == "") { GIT11_1 = 0; }
+            if (GIT11_2 == "") { GIT11_2 = 0; }
+            if (GIT11_3 == "") { GIT11_3 = 0; }
+            if (GIT11_4 == "") { GIT11_4 = 0; }
+            if (GIT21_1 == "") { GIT21_1 = 0; }
+            if (GIT21_2 == "") { GIT21_2 = 0; }
+            if (GIT21_3 == "") { GIT21_3 = 0; }
+            if (GIT21_4 == "") { GIT21_4 = 0; }
+            if (GIT22_1 == "") { GIT22_1 = 0; }
+            if (GIT22_2 == "") { GIT22_2 = 0; }
+            if (GIT22_3 == "") { GIT22_3 = 0; }
+            if (GIT22_4 == "") { GIT22_4 = 0; }
+            if (GIT23_1 == "") { GIT23_1 = 0; }
+            if (GIT23_2 == "") { GIT23_2 = 0; }
+            if (GIT23_3 == "") { GIT23_3 = 0; }
+            if (GIT23_4 == "") { GIT23_4 = 0; }
+            if (GIT24_1 == "") { GIT24_1 = 0; }
+            if (GIT24_2 == "") { GIT24_2 = 0; }
+            if (GIT24_3 == "") { GIT24_3 = 0; }
+            if (GIT24_4 == "") { GIT24_4 = 0; }
+            if (GIT25_1 == "") { GIT25_1 = 0; }
+            if (GIT25_2 == "") { GIT25_2 = 0; }
+            if (GIT25_3 == "") { GIT25_3 = 0; }
+            if (GIT25_4 == "") { GIT25_4 = 0; }
+            if (GIT26_1 == "") { GIT26_1 = 0; }
+            if (GIT26_2 == "") { GIT26_2 = 0; }
+            if (GIT26_3 == "") { GIT26_3 = 0; }
+            if (GIT26_4 == "") { GIT26_4 = 0; }
+            if (GIT27_1 == "") { GIT27_1 = 0; }
+            if (GIT27_2 == "") { GIT27_2 = 0; }
+            if (GIT27_3 == "") { GIT27_3 = 0; }
+            if (GIT27_4 == "") { GIT27_4 = 0; }
+            if (GIT47_1 == "") { GIT47_1 = 0; }
+            if (GIT47_2 == "") { GIT47_2 = 0; }
+            if (GIT47_3 == "") { GIT47_3 = 0; }
+            if (GIT47_4 == "") { GIT47_4 = 0; }
+            if (GIT46_1 == "") { GIT46_1 = 0; }
+            if (GIT46_2 == "") { GIT46_2 = 0; }
+            if (GIT46_3 == "") { GIT46_3 = 0; }
+            if (GIT46_4 == "") { GIT46_4 = 0; }
+            if (GIT45_1 == "") { GIT45_1 = 0; }
+            if (GIT45_2 == "") { GIT45_2 = 0; }
+            if (GIT45_3 == "") { GIT45_3 = 0; }
+            if (GIT45_4 == "") { GIT45_4 = 0; }
+            if (GIT44_1 == "") { GIT44_1 = 0; }
+            if (GIT44_2 == "") { GIT44_2 = 0; }
+            if (GIT44_3 == "") { GIT44_3 = 0; }
+            if (GIT44_4 == "") { GIT44_4 = 0; }
+            if (GIT43_1 == "") { GIT43_1 = 0; }
+            if (GIT43_2 == "") { GIT43_2 = 0; }
+            if (GIT43_3 == "") { GIT43_3 = 0; }
+            if (GIT43_4 == "") { GIT43_4 = 0; }
+            if (GIT42_1 == "") { GIT42_1 = 0; }
+            if (GIT42_2 == "") { GIT42_2 = 0; }
+            if (GIT42_3 == "") { GIT42_3 = 0; }
+            if (GIT42_4 == "") { GIT42_4 = 0; }
+            if (GIT41_1 == "") { GIT41_1 = 0; }
+            if (GIT41_2 == "") { GIT41_2 = 0; }
+            if (GIT41_3 == "") { GIT41_3 = 0; }
+            if (GIT41_4 == "") { GIT41_4 = 0; }
+            if (GIT31_1 == "") { GIT31_1 = 0; }
+            if (GIT31_2 == "") { GIT31_2 = 0; }
+            if (GIT31_3 == "") { GIT31_3 = 0; }
+            if (GIT31_4 == "") { GIT31_4 = 0; }
+            if (GIT32_1 == "") { GIT32_1 = 0; }
+            if (GIT32_2 == "") { GIT32_2 = 0; }
+            if (GIT32_3 == "") { GIT32_3 = 0; }
+            if (GIT32_4 == "") { GIT32_4 = 0; }
+            if (GIT33_1 == "") { GIT33_1 = 0; }
+            if (GIT33_2 == "") { GIT33_2 = 0; }
+            if (GIT33_3 == "") { GIT33_3 = 0; }
+            if (GIT33_4 == "") { GIT33_4 = 0; }
+            if (GIT34_1 == "") { GIT34_1 = 0; }
+            if (GIT34_2 == "") { GIT34_2 = 0; }
+            if (GIT34_3 == "") { GIT34_3 = 0; }
+            if (GIT34_4 == "") { GIT34_4 = 0; }
+            if (GIT35_1 == "") { GIT35_1 = 0; }
+            if (GIT35_2 == "") { GIT35_2 = 0; }
+            if (GIT35_3 == "") { GIT35_3 = 0; }
+            if (GIT35_4 == "") { GIT35_4 = 0; }
+            if (GIT36_1 == "") { GIT36_1 = 0; }
+            if (GIT36_2 == "") { GIT36_2 = 0; }
+            if (GIT36_3 == "") { GIT36_3 = 0; }
+            if (GIT36_4 == "") { GIT36_4 = 0; }
+            if (GIT37_1 == "") { GIT37_1 = 0; }
+            if (GIT37_2 == "") { GIT37_2 = 0; }
+            if (GIT37_3 == "") { GIT37_3 = 0; }
+            if (GIT37_4 == "") { GIT37_4 = 0; }
+
+
+
+            sum = parseFloat(
+                parseFloat(GIT17_1) +
+                parseFloat(GIT17_2) +
+                parseFloat(GIT17_3) +
+                parseFloat(GIT17_4) +
+                parseFloat(GIT16_1) +
+                parseFloat(GIT16_2) +
+                parseFloat(GIT16_3) +
+                parseFloat(GIT16_4) +
+                parseFloat(GIT15_1) +
+                parseFloat(GIT15_2) +
+                parseFloat(GIT15_3) +
+                parseFloat(GIT15_4) +
+                parseFloat(GIT14_1) +
+                parseFloat(GIT14_2) +
+                parseFloat(GIT14_3) +
+                parseFloat(GIT14_4) +
+                parseFloat(GIT13_1) +
+                parseFloat(GIT13_2) +
+                parseFloat(GIT13_3) +
+                parseFloat(GIT13_4) +
+                parseFloat(GIT12_1) +
+                parseFloat(GIT12_2) +
+                parseFloat(GIT12_3) +
+                parseFloat(GIT12_4) +
+                parseFloat(GIT11_1) +
+                parseFloat(GIT11_2) +
+                parseFloat(GIT11_3) +
+                parseFloat(GIT11_4) +
+                parseFloat(GIT21_1) +
+                parseFloat(GIT21_2) +
+                parseFloat(GIT21_3) +
+                parseFloat(GIT21_4) +
+                parseFloat(GIT22_1) +
+                parseFloat(GIT22_2) +
+                parseFloat(GIT22_3) +
+                parseFloat(GIT22_4) +
+                parseFloat(GIT23_1) +
+                parseFloat(GIT23_2) +
+                parseFloat(GIT23_3) +
+                parseFloat(GIT23_4) +
+                parseFloat(GIT24_1) +
+                parseFloat(GIT24_2) +
+                parseFloat(GIT24_3) +
+                parseFloat(GIT24_4) +
+                parseFloat(GIT25_1) +
+                parseFloat(GIT25_2) +
+                parseFloat(GIT25_3) +
+                parseFloat(GIT25_4) +
+                parseFloat(GIT26_1) +
+                parseFloat(GIT26_2) +
+                parseFloat(GIT26_3) +
+                parseFloat(GIT26_4) +
+                parseFloat(GIT27_1) +
+                parseFloat(GIT27_2) +
+                parseFloat(GIT27_3) +
+                parseFloat(GIT27_4) +
+                parseFloat(GIT47_1) +
+                parseFloat(GIT47_2) +
+                parseFloat(GIT47_3) +
+                parseFloat(GIT47_4) +
+                parseFloat(GIT46_1) +
+                parseFloat(GIT46_2) +
+                parseFloat(GIT46_3) +
+                parseFloat(GIT46_4) +
+                parseFloat(GIT45_1) +
+                parseFloat(GIT45_2) +
+                parseFloat(GIT45_3) +
+                parseFloat(GIT45_4) +
+                parseFloat(GIT44_1) +
+                parseFloat(GIT44_2) +
+                parseFloat(GIT44_3) +
+                parseFloat(GIT44_4) +
+                parseFloat(GIT43_1) +
+                parseFloat(GIT43_2) +
+                parseFloat(GIT43_3) +
+                parseFloat(GIT43_4) +
+                parseFloat(GIT42_1) +
+                parseFloat(GIT42_2) +
+                parseFloat(GIT42_3) +
+                parseFloat(GIT42_4) +
+                parseFloat(GIT41_1) +
+                parseFloat(GIT41_2) +
+                parseFloat(GIT41_3) +
+                parseFloat(GIT41_4) +
+                parseFloat(GIT31_1) +
+                parseFloat(GIT31_2) +
+                parseFloat(GIT31_3) +
+                parseFloat(GIT31_4) +
+                parseFloat(GIT32_1) +
+                parseFloat(GIT32_2) +
+                parseFloat(GIT32_3) +
+                parseFloat(GIT32_4) +
+                parseFloat(GIT33_1) +
+                parseFloat(GIT33_2) +
+                parseFloat(GIT33_3) +
+                parseFloat(GIT33_4) +
+                parseFloat(GIT34_1) +
+                parseFloat(GIT34_2) +
+                parseFloat(GIT34_3) +
+                parseFloat(GIT34_4) +
+                parseFloat(GIT35_1) +
+                parseFloat(GIT35_2) +
+                parseFloat(GIT35_3) +
+                parseFloat(GIT35_4) +
+                parseFloat(GIT36_1) +
+                parseFloat(GIT36_2) +
+                parseFloat(GIT36_3) +
+                parseFloat(GIT36_4) +
+                parseFloat(GIT37_1) +
+                parseFloat(GIT37_2) +
+                parseFloat(GIT37_3) +
+                parseFloat(GIT37_4)
+                );
+
+            return sum;
+        }
+        function calNoOfTeeth() {
+            var count = 0;
+
+
+            GIT17_1 = document.getElementById('GIT17_1').value;
+            GIT17_2 = document.getElementById('GIT17_2').value;
+            GIT17_3 = document.getElementById('GIT17_3').value;
+            GIT17_4 = document.getElementById('GIT17_4').value;
+            GIT16_1 = document.getElementById('GIT16_1').value;
+            GIT16_2 = document.getElementById('GIT16_2').value;
+            GIT16_3 = document.getElementById('GIT16_3').value;
+            GIT16_4 = document.getElementById('GIT16_4').value;
+            GIT15_1 = document.getElementById('GIT15_1').value;
+            GIT15_2 = document.getElementById('GIT15_2').value;
+            GIT15_3 = document.getElementById('GIT15_3').value;
+            GIT15_4 = document.getElementById('GIT15_4').value;
+            GIT14_1 = document.getElementById('GIT14_1').value;
+            GIT14_2 = document.getElementById('GIT14_2').value;
+            GIT14_3 = document.getElementById('GIT14_3').value;
+            GIT14_4 = document.getElementById('GIT14_4').value;
+            GIT13_1 = document.getElementById('GIT13_1').value;
+            GIT13_2 = document.getElementById('GIT13_2').value;
+            GIT13_3 = document.getElementById('GIT13_3').value;
+            GIT13_4 = document.getElementById('GIT13_4').value;
+            GIT12_1 = document.getElementById('GIT12_1').value;
+            GIT12_2 = document.getElementById('GIT12_2').value;
+            GIT12_3 = document.getElementById('GIT12_3').value;
+            GIT12_4 = document.getElementById('GIT12_4').value;
+            GIT11_1 = document.getElementById('GIT11_1').value;
+            GIT11_2 = document.getElementById('GIT11_2').value;
+            GIT11_3 = document.getElementById('GIT11_3').value;
+            GIT11_4 = document.getElementById('GIT11_4').value;
+            GIT21_1 = document.getElementById('GIT21_1').value;
+            GIT21_2 = document.getElementById('GIT21_2').value;
+            GIT21_3 = document.getElementById('GIT21_3').value;
+            GIT21_4 = document.getElementById('GIT21_4').value;
+            GIT22_1 = document.getElementById('GIT22_1').value;
+            GIT22_2 = document.getElementById('GIT22_2').value;
+            GIT22_3 = document.getElementById('GIT22_3').value;
+            GIT22_4 = document.getElementById('GIT22_4').value;
+            GIT23_1 = document.getElementById('GIT23_1').value;
+            GIT23_2 = document.getElementById('GIT23_2').value;
+            GIT23_3 = document.getElementById('GIT23_3').value;
+            GIT23_4 = document.getElementById('GIT23_4').value;
+            GIT24_1 = document.getElementById('GIT24_1').value;
+            GIT24_2 = document.getElementById('GIT24_2').value;
+            GIT24_3 = document.getElementById('GIT24_3').value;
+            GIT24_4 = document.getElementById('GIT24_4').value;
+            GIT25_1 = document.getElementById('GIT25_1').value;
+            GIT25_2 = document.getElementById('GIT25_2').value;
+            GIT25_3 = document.getElementById('GIT25_3').value;
+            GIT25_4 = document.getElementById('GIT25_4').value;
+            GIT26_1 = document.getElementById('GIT26_1').value;
+            GIT26_2 = document.getElementById('GIT26_2').value;
+            GIT26_3 = document.getElementById('GIT26_3').value;
+            GIT26_4 = document.getElementById('GIT26_4').value;
+            GIT27_1 = document.getElementById('GIT27_1').value;
+            GIT27_2 = document.getElementById('GIT27_2').value;
+            GIT27_3 = document.getElementById('GIT27_3').value;
+            GIT27_4 = document.getElementById('GIT27_4').value;
+            GIT47_1 = document.getElementById('GIT47_1').value;
+            GIT47_2 = document.getElementById('GIT47_2').value;
+            GIT47_3 = document.getElementById('GIT47_3').value;
+            GIT47_4 = document.getElementById('GIT47_4').value;
+            GIT46_1 = document.getElementById('GIT46_1').value;
+            GIT46_2 = document.getElementById('GIT46_2').value;
+            GIT46_3 = document.getElementById('GIT46_3').value;
+            GIT46_4 = document.getElementById('GIT46_4').value;
+            GIT45_1 = document.getElementById('GIT45_1').value;
+            GIT45_2 = document.getElementById('GIT45_2').value;
+            GIT45_3 = document.getElementById('GIT45_3').value;
+            GIT45_4 = document.getElementById('GIT45_4').value;
+            GIT44_1 = document.getElementById('GIT44_1').value;
+            GIT44_2 = document.getElementById('GIT44_2').value;
+            GIT44_3 = document.getElementById('GIT44_3').value;
+            GIT44_4 = document.getElementById('GIT44_4').value;
+            GIT43_1 = document.getElementById('GIT43_1').value;
+            GIT43_2 = document.getElementById('GIT43_2').value;
+            GIT43_3 = document.getElementById('GIT43_3').value;
+            GIT43_4 = document.getElementById('GIT43_4').value;
+            GIT42_1 = document.getElementById('GIT42_1').value;
+            GIT42_2 = document.getElementById('GIT42_2').value;
+            GIT42_3 = document.getElementById('GIT42_3').value;
+            GIT42_4 = document.getElementById('GIT42_4').value;
+            GIT41_1 = document.getElementById('GIT41_1').value;
+            GIT41_2 = document.getElementById('GIT41_2').value;
+            GIT41_3 = document.getElementById('GIT41_3').value;
+            GIT41_4 = document.getElementById('GIT41_4').value;
+            GIT31_1 = document.getElementById('GIT31_1').value;
+            GIT31_2 = document.getElementById('GIT31_2').value;
+            GIT31_3 = document.getElementById('GIT31_3').value;
+            GIT31_4 = document.getElementById('GIT31_4').value;
+            GIT32_1 = document.getElementById('GIT32_1').value;
+            GIT32_2 = document.getElementById('GIT32_2').value;
+            GIT32_3 = document.getElementById('GIT32_3').value;
+            GIT32_4 = document.getElementById('GIT32_4').value;
+            GIT33_1 = document.getElementById('GIT33_1').value;
+            GIT33_2 = document.getElementById('GIT33_2').value;
+            GIT33_3 = document.getElementById('GIT33_3').value;
+            GIT33_4 = document.getElementById('GIT33_4').value;
+            GIT34_1 = document.getElementById('GIT34_1').value;
+            GIT34_2 = document.getElementById('GIT34_2').value;
+            GIT34_3 = document.getElementById('GIT34_3').value;
+            GIT34_4 = document.getElementById('GIT34_4').value;
+            GIT35_1 = document.getElementById('GIT35_1').value;
+            GIT35_2 = document.getElementById('GIT35_2').value;
+            GIT35_3 = document.getElementById('GIT35_3').value;
+            GIT35_4 = document.getElementById('GIT35_4').value;
+            GIT36_1 = document.getElementById('GIT36_1').value;
+            GIT36_2 = document.getElementById('GIT36_2').value;
+            GIT36_3 = document.getElementById('GIT36_3').value;
+            GIT36_4 = document.getElementById('GIT36_4').value;
+            GIT37_1 = document.getElementById('GIT37_1').value;
+            GIT37_2 = document.getElementById('GIT37_2').value;
+            GIT37_3 = document.getElementById('GIT37_3').value;
+            GIT37_4 = document.getElementById('GIT37_4').value;
+
+
+
+            if (parseFloat(GIT17_1) >= 0 && parseFloat(GIT17_2) >= 0 && parseFloat(GIT17_3) >= 0 && parseFloat(GIT17_4) >= 0) {
+                count++;
+            }
+            if (parseFloat(GIT16_1) >= 0 && parseFloat(GIT16_2) >= 0 && parseFloat(GIT16_3) >= 0 && parseFloat(GIT16_4) >= 0) {
+                count++;
+            }
+            if (parseFloat(GIT15_1) >= 0 && parseFloat(GIT15_2) >= 0 && parseFloat(GIT15_3) >= 0 && parseFloat(GIT15_4) >= 0) {
+                count++;
+            }
+            if (parseFloat(GIT14_1) >= 0 && parseFloat(GIT14_2) >= 0 && parseFloat(GIT14_3) >= 0 && parseFloat(GIT14_4) >= 0) {
+                count++;
+            }
+            if (parseFloat(GIT13_1) >= 0 && parseFloat(GIT13_2) >= 0 && parseFloat(GIT13_3) >= 0 && parseFloat(GIT13_4) >= 0) {
+                count++;
+            }
+            if (parseFloat(GIT12_1) >= 0 && parseFloat(GIT12_2) >= 0 && parseFloat(GIT12_3) >= 0 && parseFloat(GIT12_4) >= 0) {
+                count++;
+            }
+            if (parseFloat(GIT11_1) >= 0 && parseFloat(GIT11_2) >= 0 && parseFloat(GIT11_3) >= 0 && parseFloat(GIT11_4) >= 0) {
+                count++;
+            }
+            if (parseFloat(GIT21_1) >= 0 && parseFloat(GIT21_2) >= 0 && parseFloat(GIT21_3) >= 0 && parseFloat(GIT21_4) >= 0) {
+                count++;
+            }
+            if (parseFloat(GIT22_1) >= 0 && parseFloat(GIT22_2) >= 0 && parseFloat(GIT22_3) >= 0 && parseFloat(GIT22_4) >= 0) {
+                count++;
+            }
+            if (parseFloat(GIT23_1) >= 0 && parseFloat(GIT23_2) >= 0 && parseFloat(GIT23_3) >= 0 && parseFloat(GIT23_4) >= 0) {
+                count++;
+            }
+            if (parseFloat(GIT24_1) >= 0 && parseFloat(GIT24_2) >= 0 && parseFloat(GIT24_3) >= 0 && parseFloat(GIT24_4) >= 0) {
+                count++;
+            }
+            if (parseFloat(GIT25_1) >= 0 && parseFloat(GIT25_2) >= 0 && parseFloat(GIT25_3) >= 0 && parseFloat(GIT25_4) >= 0) {
+                count++;
+            }
+            if (parseFloat(GIT26_1) >= 0 && parseFloat(GIT26_2) >= 0 && parseFloat(GIT26_3) >= 0 && parseFloat(GIT26_4) >= 0) {
+                count++;
+            }
+            if (parseFloat(GIT27_1) >= 0 && parseFloat(GIT27_2) >= 0 && parseFloat(GIT27_3) >= 0 && parseFloat(GIT27_4) >= 0) {
+                count++;
+            }
+
+            if (parseFloat(GIT47_1) >= 0 && parseFloat(GIT47_2) >= 0 && parseFloat(GIT47_3) >= 0 && parseFloat(GIT47_4) >= 0) {
+                count++;
+            }
+            if (parseFloat(GIT46_1) >= 0 && parseFloat(GIT46_2) >= 0 && parseFloat(GIT46_3) >= 0 && parseFloat(GIT46_4) >= 0) {
+                count++;
+            }
+            if (parseFloat(GIT45_1) >= 0 && parseFloat(GIT45_2) >= 0 && parseFloat(GIT45_3) >= 0 && parseFloat(GIT45_4) >= 0) {
+                count++;
+            }
+            if (parseFloat(GIT44_1) >= 0 && parseFloat(GIT44_2) >= 0 && parseFloat(GIT44_3) >= 0 && parseFloat(GIT44_4) >= 0) {
+                count++;
+            }
+            if (parseFloat(GIT43_1) >= 0 && parseFloat(GIT43_2) >= 0 && parseFloat(GIT43_3) >= 0 && parseFloat(GIT43_4) >= 0) {
+                count++;
+            }
+            if (parseFloat(GIT42_1) >= 0 && parseFloat(GIT42_2) >= 0 && parseFloat(GIT42_3) >= 0 && parseFloat(GIT42_4) >= 0) {
+                count++;
+            }
+            if (parseFloat(GIT41_1) >= 0 && parseFloat(GIT41_2) >= 0 && parseFloat(GIT41_3) >= 0 && parseFloat(GIT41_4) >= 0) {
+                count++;
+            }
+            if (parseFloat(GIT31_1) >= 0 && parseFloat(GIT31_2) >= 0 && parseFloat(GIT31_3) >= 0 && parseFloat(GIT31_4) >= 0) {
+                count++;
+            }
+            if (parseFloat(GIT32_1) >= 0 && parseFloat(GIT32_2) >= 0 && parseFloat(GIT32_3) >= 0 && parseFloat(GIT32_4) >= 0) {
+                count++;
+            }
+            if (parseFloat(GIT33_1) >= 0 && parseFloat(GIT33_2) >= 0 && parseFloat(GIT33_3) >= 0 && parseFloat(GIT33_4) >= 0) {
+                count++;
+            }
+            if (parseFloat(GIT34_1) >= 0 && parseFloat(GIT34_2) >= 0 && parseFloat(GIT34_3) >= 0 && parseFloat(GIT34_4) >= 0) {
+                count++;
+            }
+            if (parseFloat(GIT35_1) >= 0 && parseFloat(GIT35_2) >= 0 && parseFloat(GIT35_3) >= 0 && parseFloat(GIT35_4) >= 0) {
+                count++;
+            }
+            if (parseFloat(GIT36_1) >= 0 && parseFloat(GIT36_2) >= 0 && parseFloat(GIT36_3) >= 0 && parseFloat(GIT36_4) >= 0) {
+                count++;
+            }
+            if (parseFloat(GIT37_1) >= 0 && parseFloat(GIT37_2) >= 0 && parseFloat(GIT37_3) >= 0 && parseFloat(GIT37_4) >= 0) {
+                count++;
+            }
+
+
+            return count;
+        }
+
+        $("#btnGiCalculateDMFT").click(function (e) {
+
+            var DMFTSum = 0;
+            var DSum = 0;
+            var MSum = 0;
+            var FSum = 0;
+            var DMFT55;
+            var DMFT54;
+            var DMFT53;
+            var DMFT52;
+            var DMFT51;
+            var DMFT61;
+            var DMFT62;
+            var DMFT63;
+            var DMFT64;
+            var DMFT65;
+            var DMFT18;
+            var DMFT17;
+            var DMFT16;
+            var DMFT15;
+            var DMFT14;
+            var DMFT13;
+            var DMFT12;
+            var DMFT11;
+            var DMFT21;
+            var DMFT22;
+            var DMFT23;
+            var DMFT24;
+            var DMFT25;
+            var DMFT26;
+            var DMFT27;
+            var DMFT28;
+            var DMFT48;
+            var DMFT47;
+            var DMFT46;
+            var DMFT45;
+            var DMFT44;
+            var DMFT43;
+            var DMFT42;
+            var DMFT41;
+            var DMFT31;
+            var DMFT31;
+            var DMFT32;
+            var DMFT33;
+            var DMFT34;
+            var DMFT35;
+            var DMFT36;
+            var DMFT37;
+            var DMFT38;
+            var DMFT85;
+            var DMFT84;
+            var DMFT83;
+            var DMFT82;
+            var DMFT81;
+            var DMFT71;
+            var DMFT72;
+            var DMFT73;
+            var DMFT74;
+            var DMFT75;
+
+
+            var DTotal = 0;
+            var MTotal = 0;
+            var FTotal = 0;
+
+            DMFT55 = document.getElementById('DMFT55').value;
+            DMFT54 = document.getElementById('DMFT54').value;
+            DMFT53 = document.getElementById('DMFT53').value;
+            DMFT52 = document.getElementById('DMFT52').value;
+            DMFT51 = document.getElementById('DMFT51').value;
+            DMFT61 = document.getElementById('DMFT61').value;
+            DMFT62 = document.getElementById('DMFT62').value;
+            DMFT63 = document.getElementById('DMFT63').value;
+            DMFT64 = document.getElementById('DMFT64').value;
+            DMFT65 = document.getElementById('DMFT65').value;
+            DMFT18 = document.getElementById('DMFT18').value;
+            DMFT17 = document.getElementById('DMFT17').value;
+            DMFT16 = document.getElementById('DMFT16').value;
+            DMFT15 = document.getElementById('DMFT15').value;
+            DMFT14 = document.getElementById('DMFT14').value;
+            DMFT13 = document.getElementById('DMFT13').value;
+            DMFT12 = document.getElementById('DMFT12').value;
+            DMFT11 = document.getElementById('DMFT11').value;
+            DMFT21 = document.getElementById('DMFT21').value;
+            DMFT22 = document.getElementById('DMFT22').value;
+            DMFT23 = document.getElementById('DMFT23').value;
+            DMFT24 = document.getElementById('DMFT24').value;
+            DMFT25 = document.getElementById('DMFT25').value;
+            DMFT26 = document.getElementById('DMFT26').value;
+            DMFT27 = document.getElementById('DMFT27').value;
+            DMFT28 = document.getElementById('DMFT28').value;
+            DMFT48 = document.getElementById('DMFT48').value;
+            DMFT47 = document.getElementById('DMFT47').value;
+            DMFT46 = document.getElementById('DMFT46').value;
+            DMFT45 = document.getElementById('DMFT45').value;
+            DMFT44 = document.getElementById('DMFT44').value;
+            DMFT43 = document.getElementById('DMFT43').value;
+            DMFT42 = document.getElementById('DMFT42').value;
+            DMFT41 = document.getElementById('DMFT41').value;
+            DMFT31 = document.getElementById('DMFT31').value;
+            DMFT32 = document.getElementById('DMFT32').value;
+            DMFT33 = document.getElementById('DMFT33').value;
+            DMFT34 = document.getElementById('DMFT34').value;
+            DMFT35 = document.getElementById('DMFT35').value;
+            DMFT36 = document.getElementById('DMFT36').value;
+            DMFT37 = document.getElementById('DMFT37').value;
+            DMFT38 = document.getElementById('DMFT38').value;
+            DMFT84 = document.getElementById('DMFT84').value;
+            DMFT83 = document.getElementById('DMFT83').value;
+            DMFT82 = document.getElementById('DMFT82').value;
+            DMFT81 = document.getElementById('DMFT81').value;
+            DMFT71 = document.getElementById('DMFT71').value;
+            DMFT72 = document.getElementById('DMFT72').value;
+            DMFT73 = document.getElementById('DMFT73').value;
+            DMFT74 = document.getElementById('DMFT74').value;
+            DMFT75 = document.getElementById('DMFT75').value;
+            DMFT85 = document.getElementById('DMFT85').value;
+            AllTotal = DMFT55 + DMFT54 + DMFT53 + DMFT52 + DMFT51 +
+                DMFT61 + DMFT62 + DMFT63 + DMFT64 + DMFT65 +
+                DMFT18 + DMFT17 + DMFT16 + DMFT15 + DMFT14 + DMFT13 + DMFT12 + DMFT11 +
+                DMFT21 + DMFT22 + DMFT23 + DMFT24 + DMFT25 + DMFT26 + DMFT27 + DMFT28 +
+                DMFT48 + DMFT47 + DMFT46 + DMFT45 + DMFT44 + DMFT43 + DMFT42 + DMFT41 +
+                DMFT31 + DMFT32 + DMFT33 + DMFT34 + DMFT35 + DMFT36 + DMFT37 + DMFT38 +
+                DMFT85 + DMFT84 + DMFT83 + DMFT82 + DMFT81 +
+                DMFT71 + DMFT72 + DMFT73 + DMFT74 + DMFT75;
+
+            var temp = AllTotal;
+            var DTotal = (temp.match(/D/g) || []).length;
+            console.log(DTotal);
+            var MTotal = (temp.match(/M/g) || []).length;
+            console.log(MTotal);
+            var FTotal = (temp.match(/F/g) || []).length;
+            console.log(FTotal);
+            DMFTSum = DTotal + MTotal + FTotal;
+
+            //if (isNaN(DIUpper)) {
+            //    DIUpper = 0;
+            //}
+            //if (isNaN(DILower)) {
+            //    DILower = 0;
+            //}
+            //if (isNaN(CIUpper)) {
+            //    CIUpper = 0;
+            //}
+            //if (isNaN(CILower)) {
+            //    CILower = 0;
+            //}
+            //if (isNaN(DIS)) {
+            //    DIS = 0;
+            //}
+            //if (isNaN(CIS)) {
+            //    CIS = 0;
+            //}
+            //if (isNaN(OHI)) {
+            //    OHI = 0;
+            //}
+
+
+            $("#DMFTDT").val(DTotal);
+            $("#DMFTMT").val(MTotal);
+            $("#DMFTFT").val(FTotal);
+            $("#DMFTTotal").val(DMFTSum);
+        });
+
+        $("#btnGiCalculateDMFS").click(function (e) {
+
+            var DMFSTotal = 0;
+            var DMFSDT = 0;
+            var DMFSMT = 0;
+            var DMFSFT = 0;
+            var DMFS55_1;
+            var DMFS55_2;
+            var DMFS55_3;
+            var DMFS55_4;
+            var DMFS55_5;
+            var DMFS54_1;
+            var DMFS54_2;
+            var DMFS54_3;
+            var DMFS54_4;
+            var DMFS54_5;
+            var DMFS53_1;
+            var DMFS53_2;
+            var DMFS53_3;
+            var DMFS53_4;
+            var DMFS52_1;
+            var DMFS52_2;
+            var DMFS52_3;
+            var DMFS52_4;
+            var DMFS51_1;
+            var DMFS51_2;
+            var DMFS51_3;
+            var DMFS51_4;
+            var DMFS61_1;
+            var DMFS61_2;
+            var DMFS61_3;
+            var DMFS61_4;
+            var DMFS62_1;
+            var DMFS62_2;
+            var DMFS62_3;
+            var DMFS62_4;
+            var DMFS63_1;
+            var DMFS63_2;
+            var DMFS63_3;
+            var DMFS63_4;
+            var DMFS64_1;
+            var DMFS64_2;
+            var DMFS64_3;
+            var DMFS64_4;
+            var DMFS64_5;
+            var DMFS65_1;
+            var DMFS65_2;
+            var DMFS65_3;
+            var DMFS65_4;
+            var DMFS65_5;
+            var DMFS18_1;
+            var DMFS18_2;
+            var DMFS18_3;
+            var DMFS18_4;
+            var DMFS18_5;
+            var DMFS17_1;
+            var DMFS17_2;
+            var DMFS17_3;
+            var DMFS17_4;
+            var DMFS17_5;
+            var DMFS16_1;
+            var DMFS16_2;
+            var DMFS16_3;
+            var DMFS16_4;
+            var DMFS16_5;
+            var DMFS15_1;
+            var DMFS15_2;
+            var DMFS15_3;
+            var DMFS15_4;
+            var DMFS15_5;
+            var DMFS14_1;
+            var DMFS14_2;
+            var DMFS14_3;
+            var DMFS14_4;
+            var DMFS14_5;
+            var DMFS13_1;
+            var DMFS13_2;
+            var DMFS13_3;
+            var DMFS13_4;
+            var DMFS12_1;
+            var DMFS12_2;
+            var DMFS12_3;
+            var DMFS12_4;
+            var DMFS11_1;
+            var DMFS11_2;
+            var DMFS11_3;
+            var DMFS11_4;
+            var DMFS21_1;
+            var DMFS21_2;
+            var DMFS21_3;
+            var DMFS21_4;
+            var DMFS22_1;
+            var DMFS22_2;
+            var DMFS22_3;
+            var DMFS22_4;
+            var DMFS23_1;
+            var DMFS23_2;
+            var DMFS23_3;
+            var DMFS23_4;
+            var DMFS24_1;
+            var DMFS24_2;
+            var DMFS24_3;
+            var DMFS24_4;
+            var DMFS24_5;
+            var DMFS25_1;
+            var DMFS25_2;
+            var DMFS25_3;
+            var DMFS25_4;
+            var DMFS25_5;
+            var DMFS26_1;
+            var DMFS26_2;
+            var DMFS26_3;
+            var DMFS26_4;
+            var DMFS26_5;
+            var DMFS27_1;
+            var DMFS27_2;
+            var DMFS27_3;
+            var DMFS27_4;
+            var DMFS27_5;
+            var DMFS28_1;
+            var DMFS28_2;
+            var DMFS28_3;
+            var DMFS28_4;
+            var DMFS28_5;
+            var DMFS48_1;
+            var DMFS48_2;
+            var DMFS48_3;
+            var DMFS48_4;
+            var DMFS48_5;
+            var DMFS47_1;
+            var DMFS47_2;
+            var DMFS47_3;
+            var DMFS47_4;
+            var DMFS47_5;
+            var DMFS46_1;
+            var DMFS46_2;
+            var DMFS46_3;
+            var DMFS46_4;
+            var DMFS46_5;
+            var DMFS45_1;
+            var DMFS45_2;
+            var DMFS45_3;
+            var DMFS45_4;
+            var DMFS45_5;
+            var DMFS44_1;
+            var DMFS44_2;
+            var DMFS44_3;
+            var DMFS44_4;
+            var DMFS44_5;
+            var DMFS43_1;
+            var DMFS43_2;
+            var DMFS43_3;
+            var DMFS43_4;
+            var DMFS42_1;
+            var DMFS42_2;
+            var DMFS42_3;
+            var DMFS42_4;
+            var DMFS41_1;
+            var DMFS41_2;
+            var DMFS41_3;
+            var DMFS41_4;
+            var DMFS31_1;
+            var DMFS31_2;
+            var DMFS31_3;
+            var DMFS31_4;
+            var DMFS32_1;
+            var DMFS32_2;
+            var DMFS32_3;
+            var DMFS32_4;
+            var DMFS33_1;
+            var DMFS33_2;
+            var DMFS33_3;
+            var DMFS33_4;
+            var DMFS34_1;
+            var DMFS34_2;
+            var DMFS34_3;
+            var DMFS34_4;
+            var DMFS34_5;
+            var DMFS35_1;
+            var DMFS35_2;
+            var DMFS35_3;
+            var DMFS35_4;
+            var DMFS35_5;
+            var DMFS36_1;
+            var DMFS36_2;
+            var DMFS36_3;
+            var DMFS36_4;
+            var DMFS36_5;
+            var DMFS37_1;
+            var DMFS37_2;
+            var DMFS37_3;
+            var DMFS37_4;
+            var DMFS37_5;
+            var DMFS38_1;
+            var DMFS38_2;
+            var DMFS38_3;
+            var DMFS38_4;
+            var DMFS38_5;
+            var DMFS85_1;
+            var DMFS85_2;
+            var DMFS85_3;
+            var DMFS85_4;
+            var DMFS85_5;
+            var DMFS84_1;
+            var DMFS84_2;
+            var DMFS84_3;
+            var DMFS84_4;
+            var DMFS84_5;
+            var DMFS83_1;
+            var DMFS83_2;
+            var DMFS83_3;
+            var DMFS83_4;
+            var DMFS82_1;
+            var DMFS82_2;
+            var DMFS82_3;
+            var DMFS82_4;
+            var DMFS81_1;
+            var DMFS81_2;
+            var DMFS81_3;
+            var DMFS81_4;
+            var DMFS71_1;
+            var DMFS71_2;
+            var DMFS71_3;
+            var DMFS71_4;
+            var DMFS72_1;
+            var DMFS72_2;
+            var DMFS72_3;
+            var DMFS72_4;
+            var DMFS73_1;
+            var DMFS73_2;
+            var DMFS73_3;
+            var DMFS73_4;
+            var DMFS74_1;
+            var DMFS74_2;
+            var DMFS74_3;
+            var DMFS74_4;
+            var DMFS74_5;
+            var DMFS75_1;
+            var DMFS75_2;
+            var DMFS75_3;
+            var DMFS75_4;
+            var DMFS75_5;
+
+
+            DMFS55_1 = document.getElementById('DMFS55_1').value;
+            DMFS55_2 = document.getElementById('DMFS55_2').value;
+            DMFS55_3 = document.getElementById('DMFS55_3').value;
+            DMFS55_4 = document.getElementById('DMFS55_4').value;
+            DMFS55_5 = document.getElementById('DMFS55_5').value;
+            DMFS54_1 = document.getElementById('DMFS54_1').value;
+            DMFS54_2 = document.getElementById('DMFS54_2').value;
+            DMFS54_3 = document.getElementById('DMFS54_3').value;
+            DMFS54_4 = document.getElementById('DMFS54_4').value;
+            DMFS54_5 = document.getElementById('DMFS54_5').value;
+            DMFS53_1 = document.getElementById('DMFS53_1').value;
+            DMFS53_2 = document.getElementById('DMFS53_2').value;
+            DMFS53_3 = document.getElementById('DMFS53_3').value;
+            DMFS53_4 = document.getElementById('DMFS53_4').value;
+            DMFS52_1 = document.getElementById('DMFS52_1').value;
+            DMFS52_2 = document.getElementById('DMFS52_2').value;
+            DMFS52_3 = document.getElementById('DMFS52_3').value;
+            DMFS52_4 = document.getElementById('DMFS52_4').value;
+            DMFS51_1 = document.getElementById('DMFS51_1').value;
+            DMFS51_2 = document.getElementById('DMFS51_2').value;
+            DMFS51_3 = document.getElementById('DMFS51_3').value;
+            DMFS51_4 = document.getElementById('DMFS51_4').value;
+            DMFS61_1 = document.getElementById('DMFS61_1').value;
+            DMFS61_2 = document.getElementById('DMFS61_2').value;
+            DMFS61_3 = document.getElementById('DMFS61_3').value;
+            DMFS61_4 = document.getElementById('DMFS61_4').value;
+            DMFS62_1 = document.getElementById('DMFS62_1').value;
+            DMFS62_2 = document.getElementById('DMFS62_2').value;
+            DMFS62_3 = document.getElementById('DMFS62_3').value;
+            DMFS62_4 = document.getElementById('DMFS62_4').value;
+            DMFS63_1 = document.getElementById('DMFS63_1').value;
+            DMFS63_2 = document.getElementById('DMFS63_2').value;
+            DMFS63_3 = document.getElementById('DMFS63_3').value;
+            DMFS63_4 = document.getElementById('DMFS63_4').value;
+            DMFS64_1 = document.getElementById('DMFS64_1').value;
+            DMFS64_2 = document.getElementById('DMFS64_2').value;
+            DMFS64_3 = document.getElementById('DMFS64_3').value;
+            DMFS64_4 = document.getElementById('DMFS64_4').value;
+            DMFS64_5 = document.getElementById('DMFS64_5').value;
+            DMFS65_1 = document.getElementById('DMFS65_1').value;
+            DMFS65_2 = document.getElementById('DMFS65_2').value;
+            DMFS65_3 = document.getElementById('DMFS65_3').value;
+            DMFS65_4 = document.getElementById('DMFS65_4').value;
+            DMFS65_5 = document.getElementById('DMFS65_5').value;
+            DMFS18_1 = document.getElementById('DMFS18_1').value;
+            DMFS18_2 = document.getElementById('DMFS18_2').value;
+            DMFS18_3 = document.getElementById('DMFS18_3').value;
+            DMFS18_4 = document.getElementById('DMFS18_4').value;
+            DMFS18_5 = document.getElementById('DMFS18_5').value;
+            DMFS17_1 = document.getElementById('DMFS17_1').value;
+            DMFS17_2 = document.getElementById('DMFS17_2').value;
+            DMFS17_3 = document.getElementById('DMFS17_3').value;
+            DMFS17_4 = document.getElementById('DMFS17_4').value;
+            DMFS17_5 = document.getElementById('DMFS17_5').value;
+            DMFS16_1 = document.getElementById('DMFS16_1').value;
+            DMFS16_2 = document.getElementById('DMFS16_2').value;
+            DMFS16_3 = document.getElementById('DMFS16_3').value;
+            DMFS16_4 = document.getElementById('DMFS16_4').value;
+            DMFS16_5 = document.getElementById('DMFS16_5').value;
+            DMFS15_1 = document.getElementById('DMFS15_1').value;
+            DMFS15_2 = document.getElementById('DMFS15_2').value;
+            DMFS15_3 = document.getElementById('DMFS15_3').value;
+            DMFS15_4 = document.getElementById('DMFS15_4').value;
+            DMFS15_5 = document.getElementById('DMFS15_5').value;
+            DMFS14_1 = document.getElementById('DMFS14_1').value;
+            DMFS14_2 = document.getElementById('DMFS14_2').value;
+            DMFS14_3 = document.getElementById('DMFS14_3').value;
+            DMFS14_4 = document.getElementById('DMFS14_4').value;
+            DMFS14_5 = document.getElementById('DMFS14_5').value;
+            DMFS13_1 = document.getElementById('DMFS13_1').value;
+            DMFS13_2 = document.getElementById('DMFS13_2').value;
+            DMFS13_3 = document.getElementById('DMFS13_3').value;
+            DMFS13_4 = document.getElementById('DMFS13_4').value;
+            DMFS12_1 = document.getElementById('DMFS12_1').value;
+            DMFS12_2 = document.getElementById('DMFS12_2').value;
+            DMFS12_3 = document.getElementById('DMFS12_3').value;
+            DMFS12_4 = document.getElementById('DMFS12_4').value;
+            DMFS11_1 = document.getElementById('DMFS11_1').value;
+            DMFS11_2 = document.getElementById('DMFS11_2').value;
+            DMFS11_3 = document.getElementById('DMFS11_3').value;
+            DMFS11_4 = document.getElementById('DMFS11_4').value;
+            DMFS21_1 = document.getElementById('DMFS21_1').value;
+            DMFS21_2 = document.getElementById('DMFS21_2').value;
+            DMFS21_3 = document.getElementById('DMFS21_3').value;
+            DMFS21_4 = document.getElementById('DMFS21_4').value;
+            DMFS22_1 = document.getElementById('DMFS22_1').value;
+            DMFS22_2 = document.getElementById('DMFS22_2').value;
+            DMFS22_3 = document.getElementById('DMFS22_3').value;
+            DMFS22_4 = document.getElementById('DMFS22_4').value;
+            DMFS23_1 = document.getElementById('DMFS23_1').value;
+            DMFS23_2 = document.getElementById('DMFS23_2').value;
+            DMFS23_3 = document.getElementById('DMFS23_3').value;
+            DMFS23_4 = document.getElementById('DMFS23_4').value;
+            DMFS24_1 = document.getElementById('DMFS24_1').value;
+            DMFS24_2 = document.getElementById('DMFS24_2').value;
+            DMFS24_3 = document.getElementById('DMFS24_3').value;
+            DMFS24_4 = document.getElementById('DMFS24_4').value;
+            DMFS24_5 = document.getElementById('DMFS24_5').value;
+            DMFS25_1 = document.getElementById('DMFS25_1').value;
+            DMFS25_2 = document.getElementById('DMFS25_2').value;
+            DMFS25_3 = document.getElementById('DMFS25_3').value;
+            DMFS25_4 = document.getElementById('DMFS25_4').value;
+            DMFS25_5 = document.getElementById('DMFS25_5').value;
+            DMFS26_1 = document.getElementById('DMFS26_1').value;
+            DMFS26_2 = document.getElementById('DMFS26_2').value;
+            DMFS26_3 = document.getElementById('DMFS26_3').value;
+            DMFS26_4 = document.getElementById('DMFS26_4').value;
+            DMFS26_5 = document.getElementById('DMFS26_5').value;
+            DMFS27_1 = document.getElementById('DMFS27_1').value;
+            DMFS27_2 = document.getElementById('DMFS27_2').value;
+            DMFS27_3 = document.getElementById('DMFS27_3').value;
+            DMFS27_4 = document.getElementById('DMFS27_4').value;
+            DMFS27_5 = document.getElementById('DMFS27_5').value;
+            DMFS28_1 = document.getElementById('DMFS28_1').value;
+            DMFS28_2 = document.getElementById('DMFS28_2').value;
+            DMFS28_3 = document.getElementById('DMFS28_3').value;
+            DMFS28_4 = document.getElementById('DMFS28_4').value;
+            DMFS28_5 = document.getElementById('DMFS28_5').value;
+            DMFS48_1 = document.getElementById('DMFS48_1').value;
+            DMFS48_2 = document.getElementById('DMFS48_2').value;
+            DMFS48_3 = document.getElementById('DMFS48_3').value;
+            DMFS48_4 = document.getElementById('DMFS48_4').value;
+            DMFS48_5 = document.getElementById('DMFS48_5').value;
+            DMFS47_1 = document.getElementById('DMFS47_1').value;
+            DMFS47_2 = document.getElementById('DMFS47_2').value;
+            DMFS47_3 = document.getElementById('DMFS47_3').value;
+            DMFS47_4 = document.getElementById('DMFS47_4').value;
+            DMFS47_5 = document.getElementById('DMFS47_5').value;
+            DMFS46_1 = document.getElementById('DMFS46_1').value;
+            DMFS46_2 = document.getElementById('DMFS46_2').value;
+            DMFS46_3 = document.getElementById('DMFS46_3').value;
+            DMFS46_4 = document.getElementById('DMFS46_4').value;
+            DMFS46_5 = document.getElementById('DMFS46_5').value;
+            DMFS45_1 = document.getElementById('DMFS45_1').value;
+            DMFS45_2 = document.getElementById('DMFS45_2').value;
+            DMFS45_3 = document.getElementById('DMFS45_3').value;
+            DMFS45_4 = document.getElementById('DMFS45_4').value;
+            DMFS45_5 = document.getElementById('DMFS45_5').value;
+            DMFS44_1 = document.getElementById('DMFS44_1').value;
+            DMFS44_2 = document.getElementById('DMFS44_2').value;
+            DMFS44_3 = document.getElementById('DMFS44_3').value;
+            DMFS44_4 = document.getElementById('DMFS44_4').value;
+            DMFS44_5 = document.getElementById('DMFS44_5').value;
+            DMFS43_1 = document.getElementById('DMFS43_1').value;
+            DMFS43_2 = document.getElementById('DMFS43_2').value;
+            DMFS43_3 = document.getElementById('DMFS43_3').value;
+            DMFS43_4 = document.getElementById('DMFS43_4').value;
+            DMFS42_1 = document.getElementById('DMFS42_1').value;
+            DMFS42_2 = document.getElementById('DMFS42_2').value;
+            DMFS42_3 = document.getElementById('DMFS42_3').value;
+            DMFS42_4 = document.getElementById('DMFS42_4').value;
+            DMFS41_1 = document.getElementById('DMFS41_1').value;
+            DMFS41_2 = document.getElementById('DMFS41_2').value;
+            DMFS41_3 = document.getElementById('DMFS41_3').value;
+            DMFS41_4 = document.getElementById('DMFS41_4').value;
+            DMFS31_1 = document.getElementById('DMFS31_1').value;
+            DMFS31_2 = document.getElementById('DMFS31_2').value;
+            DMFS31_3 = document.getElementById('DMFS31_3').value;
+            DMFS31_4 = document.getElementById('DMFS31_4').value;
+            DMFS32_1 = document.getElementById('DMFS32_1').value;
+            DMFS32_2 = document.getElementById('DMFS32_2').value;
+            DMFS32_3 = document.getElementById('DMFS32_3').value;
+            DMFS32_4 = document.getElementById('DMFS32_4').value;
+            DMFS33_1 = document.getElementById('DMFS33_1').value;
+            DMFS33_2 = document.getElementById('DMFS33_2').value;
+            DMFS33_3 = document.getElementById('DMFS33_3').value;
+            DMFS33_4 = document.getElementById('DMFS33_4').value;
+            DMFS34_1 = document.getElementById('DMFS34_1').value;
+            DMFS34_2 = document.getElementById('DMFS34_2').value;
+            DMFS34_3 = document.getElementById('DMFS34_3').value;
+            DMFS34_4 = document.getElementById('DMFS34_4').value;
+            DMFS34_5 = document.getElementById('DMFS34_5').value;
+            DMFS35_1 = document.getElementById('DMFS35_1').value;
+            DMFS35_2 = document.getElementById('DMFS35_2').value;
+            DMFS35_3 = document.getElementById('DMFS35_3').value;
+            DMFS35_4 = document.getElementById('DMFS35_4').value;
+            DMFS35_5 = document.getElementById('DMFS35_5').value;
+            DMFS36_1 = document.getElementById('DMFS36_1').value;
+            DMFS36_2 = document.getElementById('DMFS36_2').value;
+            DMFS36_3 = document.getElementById('DMFS36_3').value;
+            DMFS36_4 = document.getElementById('DMFS36_4').value;
+            DMFS36_5 = document.getElementById('DMFS36_5').value;
+            DMFS37_1 = document.getElementById('DMFS37_1').value;
+            DMFS37_2 = document.getElementById('DMFS37_2').value;
+            DMFS37_3 = document.getElementById('DMFS37_3').value;
+            DMFS37_4 = document.getElementById('DMFS37_4').value;
+            DMFS37_5 = document.getElementById('DMFS37_5').value;
+            DMFS38_1 = document.getElementById('DMFS38_1').value;
+            DMFS38_2 = document.getElementById('DMFS38_2').value;
+            DMFS38_3 = document.getElementById('DMFS38_3').value;
+            DMFS38_4 = document.getElementById('DMFS38_4').value;
+            DMFS38_5 = document.getElementById('DMFS38_5').value;
+            DMFS85_1 = document.getElementById('DMFS85_1').value;
+            DMFS85_2 = document.getElementById('DMFS85_2').value;
+            DMFS85_3 = document.getElementById('DMFS85_3').value;
+            DMFS85_4 = document.getElementById('DMFS85_4').value;
+            DMFS85_5 = document.getElementById('DMFS85_5').value;
+            DMFS84_1 = document.getElementById('DMFS84_1').value;
+            DMFS84_2 = document.getElementById('DMFS84_2').value;
+            DMFS84_3 = document.getElementById('DMFS84_3').value;
+            DMFS84_4 = document.getElementById('DMFS84_4').value;
+            DMFS84_5 = document.getElementById('DMFS84_5').value;
+            DMFS83_1 = document.getElementById('DMFS83_1').value;
+            DMFS83_2 = document.getElementById('DMFS83_2').value;
+            DMFS83_3 = document.getElementById('DMFS83_3').value;
+            DMFS83_4 = document.getElementById('DMFS83_4').value;
+            DMFS82_1 = document.getElementById('DMFS82_1').value;
+            DMFS82_2 = document.getElementById('DMFS82_2').value;
+            DMFS82_3 = document.getElementById('DMFS82_3').value;
+            DMFS82_4 = document.getElementById('DMFS82_4').value;
+            DMFS81_1 = document.getElementById('DMFS81_1').value;
+            DMFS81_2 = document.getElementById('DMFS81_2').value;
+            DMFS81_3 = document.getElementById('DMFS81_3').value;
+            DMFS81_4 = document.getElementById('DMFS81_4').value;
+            DMFS71_1 = document.getElementById('DMFS71_1').value;
+            DMFS71_2 = document.getElementById('DMFS71_2').value;
+            DMFS71_3 = document.getElementById('DMFS71_3').value;
+            DMFS71_4 = document.getElementById('DMFS71_4').value;
+            DMFS72_1 = document.getElementById('DMFS72_1').value;
+            DMFS72_2 = document.getElementById('DMFS72_2').value;
+            DMFS72_3 = document.getElementById('DMFS72_3').value;
+            DMFS72_4 = document.getElementById('DMFS72_4').value;
+            DMFS73_1 = document.getElementById('DMFS73_1').value;
+            DMFS73_2 = document.getElementById('DMFS73_2').value;
+            DMFS73_3 = document.getElementById('DMFS73_3').value;
+            DMFS73_4 = document.getElementById('DMFS73_4').value;
+            DMFS74_1 = document.getElementById('DMFS74_1').value;
+            DMFS74_2 = document.getElementById('DMFS74_2').value;
+            DMFS74_3 = document.getElementById('DMFS74_3').value;
+            DMFS74_4 = document.getElementById('DMFS74_4').value;
+            DMFS74_5 = document.getElementById('DMFS74_5').value;
+            DMFS75_1 = document.getElementById('DMFS75_1').value;
+            DMFS75_2 = document.getElementById('DMFS75_2').value;
+            DMFS75_3 = document.getElementById('DMFS75_3').value;
+            DMFS75_4 = document.getElementById('DMFS75_4').value;
+            DMFS75_5 = document.getElementById('DMFS75_5').value;
+
+
+            AllTotal = DMFS55_1 +
+            DMFS55_2 +
+            DMFS55_3 +
+            DMFS55_4 +
+            DMFS55_5 +
+            DMFS54_1 +
+            DMFS54_2 +
+            DMFS54_3 +
+            DMFS54_4 +
+            DMFS54_5 +
+            DMFS53_1 +
+            DMFS53_2 +
+            DMFS53_3 +
+            DMFS53_4 +
+            DMFS52_1 +
+            DMFS52_2 +
+            DMFS52_3 +
+            DMFS52_4 +
+            DMFS51_1 +
+            DMFS51_2 +
+            DMFS51_3 +
+            DMFS51_4 +
+            DMFS61_1 +
+            DMFS61_2 +
+            DMFS61_3 +
+            DMFS61_4 +
+            DMFS62_1 +
+            DMFS62_2 +
+            DMFS62_3 +
+            DMFS62_4 +
+            DMFS63_1 +
+            DMFS63_2 +
+            DMFS63_3 +
+            DMFS63_4 +
+            DMFS64_1 +
+            DMFS64_2 +
+            DMFS64_3 +
+            DMFS64_4 +
+            DMFS64_5 +
+            DMFS65_1 +
+            DMFS65_2 +
+            DMFS65_3 +
+            DMFS65_4 +
+            DMFS65_5 +
+            DMFS18_1 +
+            DMFS18_2 +
+            DMFS18_3 +
+            DMFS18_4 +
+            DMFS18_5 +
+            DMFS17_1 +
+            DMFS17_2 +
+            DMFS17_3 +
+            DMFS17_4 +
+            DMFS17_5 +
+            DMFS16_1 +
+            DMFS16_2 +
+            DMFS16_3 +
+            DMFS16_4 +
+            DMFS16_5 +
+            DMFS15_1 +
+            DMFS15_2 +
+            DMFS15_3 +
+            DMFS15_4 +
+            DMFS15_5 +
+            DMFS14_1 +
+            DMFS14_2 +
+            DMFS14_3 +
+            DMFS14_4 +
+            DMFS14_5 +
+            DMFS13_1 +
+            DMFS13_2 +
+            DMFS13_3 +
+            DMFS13_4 +
+            DMFS12_1 +
+            DMFS12_2 +
+            DMFS12_3 +
+            DMFS12_4 +
+            DMFS11_1 +
+            DMFS11_2 +
+            DMFS11_3 +
+            DMFS11_4 +
+            DMFS21_1 +
+            DMFS21_2 +
+            DMFS21_3 +
+            DMFS21_4 +
+            DMFS22_1 +
+            DMFS22_2 +
+            DMFS22_3 +
+            DMFS22_4 +
+            DMFS23_1 +
+            DMFS23_2 +
+            DMFS23_3 +
+            DMFS23_4 +
+            DMFS24_1 +
+            DMFS24_2 +
+            DMFS24_3 +
+            DMFS24_4 +
+            DMFS24_5 +
+            DMFS25_1 +
+            DMFS25_2 +
+            DMFS25_3 +
+            DMFS25_4 +
+            DMFS25_5 +
+            DMFS26_1 +
+            DMFS26_2 +
+            DMFS26_3 +
+            DMFS26_4 +
+            DMFS26_5 +
+            DMFS27_1 +
+            DMFS27_2 +
+            DMFS27_3 +
+            DMFS27_4 +
+            DMFS27_5 +
+            DMFS28_1 +
+            DMFS28_2 +
+            DMFS28_3 +
+            DMFS28_4 +
+            DMFS28_5 +
+            DMFS48_1 +
+            DMFS48_2 +
+            DMFS48_3 +
+            DMFS48_4 +
+            DMFS48_5 +
+            DMFS47_1 +
+            DMFS47_2 +
+            DMFS47_3 +
+            DMFS47_4 +
+            DMFS47_5 +
+            DMFS46_1 +
+            DMFS46_2 +
+            DMFS46_3 +
+            DMFS46_4 +
+            DMFS46_5 +
+            DMFS45_1 +
+            DMFS45_2 +
+            DMFS45_3 +
+            DMFS45_4 +
+            DMFS45_5 +
+            DMFS44_1 +
+            DMFS44_2 +
+            DMFS44_3 +
+            DMFS44_4 +
+            DMFS44_5 +
+            DMFS43_1 +
+            DMFS43_2 +
+            DMFS43_3 +
+            DMFS43_4 +
+            DMFS42_1 +
+            DMFS42_2 +
+            DMFS42_3 +
+            DMFS42_4 +
+            DMFS41_1 +
+            DMFS41_2 +
+            DMFS41_3 +
+            DMFS41_4 +
+            DMFS31_1 +
+            DMFS31_2 +
+            DMFS31_3 +
+            DMFS31_4 +
+            DMFS32_1 +
+            DMFS32_2 +
+            DMFS32_3 +
+            DMFS32_4 +
+            DMFS33_1 +
+            DMFS33_2 +
+            DMFS33_3 +
+            DMFS33_4 +
+            DMFS34_1 +
+            DMFS34_2 +
+            DMFS34_3 +
+            DMFS34_4 +
+            DMFS34_5 +
+            DMFS35_1 +
+            DMFS35_2 +
+            DMFS35_3 +
+            DMFS35_4 +
+            DMFS35_5 +
+            DMFS36_1 +
+            DMFS36_2 +
+            DMFS36_3 +
+            DMFS36_4 +
+            DMFS36_5 +
+            DMFS37_1 +
+            DMFS37_2 +
+            DMFS37_3 +
+            DMFS37_4 +
+            DMFS37_5 +
+            DMFS38_1 +
+            DMFS38_2 +
+            DMFS38_3 +
+            DMFS38_4 +
+            DMFS38_5 +
+            DMFS85_1 +
+            DMFS85_2 +
+            DMFS85_3 +
+            DMFS85_4 +
+            DMFS85_5 +
+            DMFS84_1 +
+            DMFS84_2 +
+            DMFS84_3 +
+            DMFS84_4 +
+            DMFS84_5 +
+            DMFS83_1 +
+            DMFS83_2 +
+            DMFS83_3 +
+            DMFS83_4 +
+            DMFS82_1 +
+            DMFS82_2 +
+            DMFS82_3 +
+            DMFS82_4 +
+            DMFS81_1 +
+            DMFS81_2 +
+            DMFS81_3 +
+            DMFS81_4 +
+            DMFS71_1 +
+            DMFS71_2 +
+            DMFS71_3 +
+            DMFS71_4 +
+            DMFS72_1 +
+            DMFS72_2 +
+            DMFS72_3 +
+            DMFS72_4 +
+            DMFS73_1 +
+            DMFS73_2 +
+            DMFS73_3 +
+            DMFS73_4 +
+            DMFS74_1 +
+            DMFS74_2 +
+            DMFS74_3 +
+            DMFS74_4 +
+            DMFS74_5 +
+            DMFS75_1 +
+            DMFS75_2 +
+            DMFS75_3 +
+            DMFS75_4 +
+            DMFS75_5;
+
+
+            var temp = AllTotal;
+            var DMFSDT = (temp.match(/D/g) || []).length;
+
+            var DMFSMT = (temp.match(/M/g) || []).length;
+
+            var DMFSFT = (temp.match(/F/g) || []).length;
+
+            DMFSTotal = DMFSDT + DMFSMT + DMFSFT;
+
+            $("#DMFSDT").val(DMFSDT);
+            $("#DMFSMT").val(DMFSMT);
+            $("#DMFSFT").val(DMFSFT);
+            $("#DMFSTotal").val(DMFSTotal);
+        });
+
+    </script>
+}

@@ -1,0 +1,563 @@
+﻿ @model DIMS.ViewModels.ORPATHRequisitionViewModel
+
+@{
+    ViewBag.Title = "";
+}
+
+
+
+<style>
+    .col30 {
+        width: 30%;
+        padding: 5px !important;
+    }
+
+    .col40 {
+        width: 40%;
+        padding: 5px !important;
+    }
+
+    .col50 {
+        width: 50%;
+        padding: 5px !important;
+    }
+
+    .col60 {
+        width: 60%;
+        padding: 5px !important;
+    }
+
+    .col70 {
+        width: 70%;
+        padding: 5px !important;
+    }
+
+    .col80 {
+        width: 80%;
+        padding: 5px !important;
+    }
+
+    .col35 {
+        width: 35%;
+        padding: 5px !important;
+    }
+
+    .col20 {
+        width: 20%;
+        padding: 5px !important;
+    }
+
+    .col625 {
+        width: 6%;
+        padding: 5px !important;
+    }
+
+    .col5 {
+        width: 10%;
+        padding: 5px !important;
+    }
+
+    .col10 {
+        width: 10%;
+        padding: 5px !important;
+    }
+</style>
+
+@functions{
+    public string IsVisible(string propertyName)
+    {
+        if (propertyName == null)
+        {
+            return "display:none";
+        }
+        return "";
+    }
+
+}
+
+<div class="box box-default box-solid">
+    <div class="box-header with-border">
+        <h3 class="box-title"><strong>Oral Pathology Department Patient Casesheet</strong></h3>
+        <div class="box-tools pull-right text-black ">
+            Case Record #
+            <strong>@Html.DisplayFor(model => model.RequisitionNo)</strong>
+        </div>
+    </div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <h4><strong>Patient Details</strong></h4>
+                    @Html.Partial("../Reports/_PatientDetailsReportHeader", Model.patientInformationViewModel)
+                    @if (Model.MChiefComplaint != null)
+                    {
+                        <h4><strong>Microbiology</strong></h4>
+                        <table class="table table-bordered">
+                            <tr style='@IsVisible(@Model.MChiefComplaint)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MChiefComplaint)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.MChiefComplaint)</td>
+                            </tr>
+                        </table>
+                    }
+                    @if (Model.MTypeOfLesionDn != null || Model.MOnsetDuration != null || Model.MProgress != null || Model.MAssociatedSymptoms != null)
+                    {
+                        <h4 class="text-center">History of present Illness</h4>
+                        <table class="table table-bordered">
+                            <tr style='@IsVisible(@Model.MTypeOfLesionDn)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MTypeOfLesionId)</td>
+                                <td class="col35">@Html.DisplayFor(model => model.MTypeOfLesionDn)</td>
+                                <td class="col35">@Html.DisplayFor(model => model.MTypeOfLesion)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.MOnsetDuration)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MOnsetDuration)</td>
+                                <td colspan="3">@Html.DisplayFor(model => model.MOnsetDuration)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.MProgress)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MProgress)</td>
+                                <td colspan="3">@Html.DisplayFor(model => model.MProgress)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.MAssociatedSymptoms)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MAssociatedSymptoms)</td>
+                                <td colspan="3">@Html.DisplayFor(model => model.MAssociatedSymptoms)</td>
+                            </tr>
+
+                        </table>
+                    }
+
+                    @if (Model.MSiteAndExtent != null || Model.MSizeAndShape != null || Model.MColour != null || Model.MMargins != null || Model.MTenderness != null ||
+Model.MConsistency != null || Model.MDischarge != null || Model.MLymphNodeStatus != null || Model.MLymphLocationlevel != null || Model.MNumberAndSize != null ||
+Model.MTenderness != null || Model.MLymphConsistency != null || Model.MFixity != null || Model.MTnmStaging != null)
+                    {
+                        <h4 class="text-center">Clinical Details</h4>
+                        <table class="table table-bordered">
+                            <tr style='@IsVisible(@Model.MSiteAndExtent)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MSiteAndExtent)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.MSiteAndExtent)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.MSizeAndShape)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MSizeAndShape)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.MSizeAndShape)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.MColour)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MColour)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.MColour)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.MMargins)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MMargins)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.MMargins)</td>
+                            </tr>
+
+                            <tr style='@IsVisible(@Model.MTenderness)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MTendernessId)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.MTenderness)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.MConsistency)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MConsistencyId)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.MConsistency)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.MDischarge)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MDischarge)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.MDischarge)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.MLymphNodeStatus)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MLymphNodeStatusId)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.MLymphNodeStatus)</td>
+                            </tr>
+
+                            <tr style='@IsVisible(@Model.MLymphLocationlevel)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MLymphLocationlevel)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.MLymphLocationlevel)</td>
+                            </tr>
+
+                            <tr style='@IsVisible(@Model.MNumberAndSize)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MNumberAndSize)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.MNumberAndSize)</td>
+                            </tr>
+
+                            <tr style='@IsVisible(@Model.MTenderness)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MTendernessId)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.MTenderness)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.MLymphConsistency)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MLymphConsistencyId)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.MLymphConsistency)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.MFixity)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MFixity)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.MFixity)</td>
+                            </tr>
+
+                            <tr style='@IsVisible(@Model.MTnmStaging)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MTnmStaging)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.MTnmStaging)</td>
+                            </tr>
+
+                        </table>
+
+                    }
+
+                    @if (Model.MExtraOralFindings != null || Model.MRadiographicFindings != null || Model.MInvestigations != null ||
+Model.MInvestigationReport != null || Model.MProvisionalDiagnosis != null || Model.MSampleCollectionDate != null ||
+Model.MSampleCollectionTime != null || Model.MTypeOfSample != null || Model.MOperativeFindings != null || Model.MSampleOthers != null)
+
+                    {
+                        <h4 class="text-center">Findings</h4>
+                        <table class="table table-bordered">
+                            <tr style='@IsVisible(@Model.MSampleCollectionDate.ToString())'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MSampleCollectionDate)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.MSampleCollectionDate)</td>
+                            </tr>
+
+                            <tr style='@IsVisible(@Model.MSampleCollectionTime.ToString())'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MSampleCollectionTime)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.MSampleCollectionTime)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.MTypeOfSample)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MTypeOfSampleId)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.MTypeOfSample)</td>
+                            </tr>
+
+                            <tr style='@IsVisible(@Model.MExtraOralFindings)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MExtraOralFindings)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.MExtraOralFindings)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.MRadiographicFindings)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MRadiographicFindings)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.MRadiographicFindings)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.MInvestigations)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MInvestigations)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.MInvestigations)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.MProvisionalDiagnosis)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MProvisionalDiagnosis)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.MProvisionalDiagnosis)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.MOperativeFindings)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MOperativeFindings)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.MOperativeFindings)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.MInvestigationReport)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MInvestigationReport)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.MInvestigationReport)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.MSampleOthers)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MSampleOthers)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.MSampleOthers)</td>
+                            </tr>
+
+
+
+                        </table>
+
+                    }
+                    @if (Model.MSampleNo != null || Model.MMacroscopy != null || Model.MCulturing != null ||
+            Model.MCulturingType != null || Model.MBiochemicalTest != null)
+                    {
+
+                        <h4 class="text-center">Department use only</h4>
+                        <table class="table table-bordered">
+
+
+                            <tr style='@IsVisible(@Model.MSampleNo)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MSampleNo)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.MSampleNo)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.MMacroscopy)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MMacroscopy)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.MMacroscopy)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.MCulturing.ToString())'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MCulturing)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.MCulturing)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.MCulturingType)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MCulturingType)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.MCulturingType)</td>
+                            </tr>
+
+                            <tr style='@IsVisible(@Model.MBiochemicalTest)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MBiochemicalTest)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.MBiochemicalTest)</td>
+                            </tr>
+
+                        </table>
+                    }
+
+                    @if (Model.BChiefComplaint != null || Model.BTypeOfLesionDn != null || Model.BOnsetDuration != null ||
+            Model.BProgress != null || Model.BFamilyHistory != null)
+                    {
+                        <h4><strong>Histopathology</strong></h4>
+                        <table class="table table-bordered">
+                            <tr style='@IsVisible(@Model.BChiefComplaint)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BChiefComplaint)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.BChiefComplaint)</td>
+                            </tr>
+                        </table>
+                        <h4 class="text-center">History of present Illness</h4>
+                        <table class="table table-bordered">
+                            <tr style='@IsVisible(@Model.BTypeOfLesionDn)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BTypeOfLesionId)</td>
+                                <td class="col35">@Html.DisplayFor(model => model.BTypeOfLesionDn)</td>
+                                <td class="col35">@Html.DisplayFor(model => model.BTypeOfLesion)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.BOnsetDuration)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BOnsetDuration)</td>
+                                <td colspan="3">@Html.DisplayFor(model => model.BOnsetDuration)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.BProgress)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BProgress)</td>
+                                <td colspan="3">@Html.DisplayFor(model => model.BProgress)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.BFamilyHistory)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BFamilyHistory)</td>
+                                <td colspan="3">@Html.DisplayFor(model => model.BFamilyHistory)</td>
+                            </tr>
+
+                        </table>
+                    }
+
+                    @if (Model.BTobaccoQty != null || Model.BSmokingQty != null || Model.BAlcoholQty != null ||
+            Model.BOtherQty != null || Model.BOtherHabits != null)
+                    {
+                        <h4 class="text-center">Habits</h4>
+                        <table class="table table-bordered">
+
+                            <tr>
+                                <th></th>
+                                <th>Quantity</th>
+                                <th>Duration</th>
+                                <th>Frequency</th>
+                            </tr>
+                            <tr style='@IsVisible(@Model.BTobaccoQty)'>
+                                <td class="col40">@Html.DisplayNameFor(model => model.BTobaccoQty)</td>
+                                <td class="col20">@Html.DisplayFor(model => model.BTobaccoQty)</td>
+                                <td class="col20">@Html.DisplayFor(model => model.BTobaccoDur)</td>
+                                <td>@Html.DisplayFor(model => model.BTobaccoFreq)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.BSmokingQty)'>
+                                <td class="col40">@Html.DisplayNameFor(model => model.BSmokingQty)</td>
+                                <td class="col20">@Html.DisplayFor(model => model.BSmokingQty)</td>
+                                <td class="col20">@Html.DisplayFor(model => model.BSmokingDur)</td>
+                                <td>@Html.DisplayFor(model => model.BSmokingFreq)</td>
+                            </tr>
+
+                            <tr style='@IsVisible(@Model.BAlcoholQty)'>
+                                <td class="col40">@Html.DisplayNameFor(model => model.BAlcoholQty)</td>
+                                <td class="col20">@Html.DisplayFor(model => model.BAlcoholQty)</td>
+                                <td class="col20">@Html.DisplayFor(model => model.BAlcoholDur)</td>
+                                <td>@Html.DisplayFor(model => model.BAlcoholFreq)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.BOtherQty)'>
+                                <td class="col40">@Html.DisplayNameFor(model => model.BOtherHabits)</td>
+                                <td class="col20">@Html.DisplayFor(model => model.BOtherQty)</td>
+                                <td class="col20">@Html.DisplayFor(model => model.BOtherDur)</td>
+                                <td>@Html.DisplayFor(model => model.BOtherFreq)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.BOtherHabits)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BOtherHabits)</td>
+                                <td colspan="4">@Html.DisplayFor(model => model.BOtherHabits)</td>
+                            </tr>
+
+                        </table>
+                    }
+                    @if (Model.BSiteAndExtent != null || Model.BSizeAndShape != null || Model.BColour != null || Model.BMargins != null ||
+  Model.BTenderness != null || Model.BConsistency != null || Model.MDischarge != null || Model.BTexture != null ||
+ Model.Binduration != null || Model.BHardTissueExamination != null || Model.BLymphNodeStatus != null ||
+ Model.BLymphLocationlevel != null || Model.BTenderness != null || Model.MLymphConsistency != null)
+
+                    {
+
+                        <h4 class="text-center">Clinical Details</h4>
+                        <table class="table table-bordered">
+                            <tr style='@IsVisible(@Model.BSiteAndExtent)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BSiteAndExtent)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.BSiteAndExtent)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.BSizeAndShape)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BSizeAndShape)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.BSizeAndShape)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.BColour)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BColour)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.BColour)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.BMargins)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BMargins)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.BMargins)</td>
+                            </tr>
+
+                            <tr style='@IsVisible(@Model.BTenderness)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BTendernessId)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.BTenderness)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.BConsistency)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BConsistencyId)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.BConsistency)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.MDischarge)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MDischarge)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.MDischarge)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.BTexture)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BTexture)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.BTexture)</td>
+                            </tr>
+
+                            <tr style='@IsVisible(@Model.Binduration)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.Binduration)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.Binduration)</td>
+                            </tr>
+
+                            <tr style='@IsVisible(@Model.BHardTissueExamination)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BHardTissueExamination)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.BHardTissueExamination)</td>
+                            </tr>
+
+                            <tr style='@IsVisible(@Model.BLymphNodeStatus)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BLymphNodeStatusId)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.BLymphNodeStatus)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.BLymphLocationlevel)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BLymphLocationlevel)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.BLymphLocationlevel)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.BTenderness)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BTendernessId)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.BTenderness)</td>
+                            </tr>
+
+                            <tr style='@IsVisible(@Model.MLymphConsistency)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MLymphConsistencyId)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.MLymphConsistency)</td>
+                            </tr>
+
+                        </table>
+
+                    }
+                    @if (Model.BExtraOralFindings != null || Model.BRadiographicFindings != null || Model.BInvestigations != null || Model.BInvestigationReport != null ||
+    Model.BProvisionalDiagnosis != null || Model.BOperativeFindings != null || Model.BBiopsyCollectionDate != null || Model.BBiopsyCollectionTime != null ||
+     Model.BTypeOfSample != null || Model.BSiteOfBiopsy != null || Model.BHardTissue != null || Model.BPreviousBiopsyCytologyDetails != null)
+                    {
+                        <h4 class="text-center">Findings</h4>
+                        <table class="table table-bordered">
+                            <tr style='@IsVisible(@Model.BExtraOralFindings)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BExtraOralFindings)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.BExtraOralFindings)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.BRadiographicFindings)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BRadiographicFindings)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.BRadiographicFindings)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.BInvestigations)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BInvestigations)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.BInvestigations)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.BInvestigationReport)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BInvestigationReport)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.BInvestigationReport)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.BProvisionalDiagnosis)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BProvisionalDiagnosis)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.BProvisionalDiagnosis)</td>
+                            </tr>
+
+                            <tr style='@IsVisible(@Model.BOperativeFindings)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BOperativeFindings)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.BOperativeFindings)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.BBiopsyCollectionDate.ToString())'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BBiopsyCollectionDate)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.BBiopsyCollectionDate)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.BBiopsyCollectionTime.ToString())'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BBiopsyCollectionTime)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.BBiopsyCollectionTime)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.BTypeOfSample)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BTypeOfSampleId)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.BTypeOfSample)</td>
+                            </tr>
+
+                            <tr style='@IsVisible(@Model.BSiteOfBiopsy)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BSiteOfBiopsy)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.BSiteOfBiopsy)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.BHardTissue)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BHardTissueId)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.BHardTissue)</td>
+                            </tr>
+
+                            <tr style='@IsVisible(@Model.BPreviousBiopsyCytologyDetails)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BPreviousBiopsyCytologyDetails)</td>
+                                <td colspan="2">@Html.DisplayFor(model => model.BPreviousBiopsyCytologyDetails)</td>
+                            </tr>
+                        </table>
+                    }
+
+                    @if (Model.BBiopsyNo != null || Model.BBiopsyReport != null || Model.BMacroscopy != null)
+                    {
+
+                        <h4 class="text-center">Department use only</h4>
+                        <table class="table table-bordered">
+
+
+                            <tr style='@IsVisible(@Model.BBiopsyNo)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BBiopsyNo)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.BBiopsyNo)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.BBiopsyReport)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BBiopsyReport)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.BBiopsyReport)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.BMacroscopy)'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.BMacroscopy)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.BMacroscopy)</td>
+                            </tr>
+
+                        </table>
+                    }
+                    @if (Model.paidInvestigationList.Count() > 0)
+                    {
+                        <h4><strong>Investigations</strong></h4>
+                        @Html.Partial("../Reports/_PaidInvestigationList", Model.paidInvestigationList)
+                    }
+                    @if (Model.deptTreatmentList.Count() > 0)
+                    {
+                        <h4><strong>Treatment Details</strong></h4>
+                        @Html.Partial("../Reports/_DeptTreatmentList", Model.deptTreatmentList)
+                    }
+                    @if (Model.studentProcedureNotesViewModel.Count() > 0)
+                    {
+                        <h4><strong>Procedure Notes Details</strong></h4>
+                        @Html.Partial("../StudentAllotment/_ProdedureNoteDetails", Model.studentProcedureNotesViewModel)
+                    }
+
+                    @if (Model.followupList.Count() > 0)
+                    {
+                        <h4><strong>Appointment Details</strong></h4>
+                        @Html.Partial("../Followup/_PatientFollowUpList", Model.followupList)
+                    }
+
+                    @if (Model.FileUploadlist.Count() > 0)
+                    {
+                        <h4><strong>Images</strong></h4>
+                        @Html.Partial("../Reports/_RadAndPhotoImagesReport", Model.FileUploadlist)
+                    }
+                    @if (Model.ViewdepartmentReferredStatus.Count() > 0)
+                    {
+                        <h4><strong>Referral Details</strong></h4>
+                        @Html.Partial("../Reports/ViewReferralReport", Model.ViewdepartmentReferredStatus)
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

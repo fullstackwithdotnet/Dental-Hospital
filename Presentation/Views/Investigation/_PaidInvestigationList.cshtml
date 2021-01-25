@@ -1,0 +1,83 @@
+﻿@model IEnumerable<DIMS.ViewModels.BillingViewModal>
+@{
+    ViewBag.Title = "_PaidInvestigationList";
+}
+
+<h5>Paid Treatments</h5>
+<table class="table">
+    <tr>
+         
+        <th class="col-md-1">
+            @Html.DisplayNameFor(model => model.BillNo)
+        </th>
+        <th class="col-md-1">
+            @Html.DisplayNameFor(model => model.BillDateTimeDisplay)
+        </th>
+        <th class="col-md-2">
+            @Html.DisplayNameFor(model => model.ServiceName)
+        </th>
+        <th class="col-md-1">
+            @Html.DisplayNameFor(model => model.ServiceQty)
+        </th>
+        <th class="col-md-1">
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th class="col-md-1">
+            @Html.DisplayNameFor(model => model.Payable)
+        </th>
+        <th class="col-md-1">
+            @Html.DisplayNameFor(model => model.DiscountPer)
+        </th>
+        <th class="col-md-1">
+            @Html.DisplayNameFor(model => model.DiscountAmt)
+        </th>
+        <th class="col-md-1">
+            @Html.DisplayNameFor(model => model.PaidAmount)
+        </th>
+        <th class="col-md-1">
+            @Html.DisplayNameFor(model => model.Balance)
+        </th>
+        
+    </tr>
+    @{int i = 0;}
+    @foreach (var item in Model)
+    {
+        i++;
+        <tr>
+            <td>
+                <span>@i )     </span>
+                @Html.DisplayFor(modelItem => item.BillNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillDateTimeDisplay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServiceName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServiceQty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Payable)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiscountPer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiscountAmt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaidAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PayableAmount)
+            </td>
+            
+        </tr>
+    }
+
+</table>
+

@@ -1,0 +1,390 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--Project was exported from assembly: F:\projects\DENTAL HOSPITAL MANAGEMENT\HKES\hkes\bin\DIMS.dll-->
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C065D8A6-4721-4950-9DE0-2D234F4BFBAE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AssemblyName>DIMS</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+    <FileAlignment>512</FileAlignment>
+    <RootNamespace>DIMS</RootNamespace>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.3.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.3.1\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Protobuf, Version=3.6.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.6.1\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="Metron.Entities">
+      <HintPath>..\CStone.Entities\bin\Debug\Metron.Entities.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=8.0.16.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.8.0.16\lib\net452\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Repository, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Repository\bin\Debug\Repository.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=106.6.10.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.6.10\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Optimization">
+      <HintPath>lib\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>lib\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Unity.Container">
+      <HintPath>lib\Unity.Container.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.WebPages">
+      <HintPath>lib\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="AutoMapper">
+      <HintPath>lib\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Unity.Abstractions">
+      <HintPath>lib\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mvc5">
+      <HintPath>lib\Unity.Mvc5.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BundleConfig.cs" />
+    <Compile Include="Controllers\CollegeLibraryController.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
+    <Compile Include="Controllers\InventoryController.cs" />
+    <Compile Include="Controllers\PERIODiagnosisController.cs" />
+    <Compile Include="FilterConfig.cs" />
+    <Compile Include="Helpers\BootstrapAlert.cs" />
+    <Compile Include="Helpers\ExtensionModelTempState.cs" />
+    <Compile Include="Helpers\ResultMapper.cs" />
+    <Compile Include="RouteConfig.cs" />
+    <Compile Include="MvcApplication.cs" />
+    <Compile Include="Queries.cs" />
+    <Compile Include="Services\Abstract\IInventory.cs" />
+    <Compile Include="Services\Abstract\ILibrary.cs" />
+    <Compile Include="Services\Abstract\IPERIODiagnosisCasesheetService.cs" />
+    <Compile Include="Services\Implementation\BooksService.cs" />
+    <Compile Include="Services\Implementation\InventoryService.cs" />
+    <Compile Include="Services\Implementation\PERIODiagnosisCasesheetService.cs" />
+    <Compile Include="ViewModels\BillingPaymentViewModel.cs" />
+    <Compile Include="ViewModels\BillingQueueServiceViewModel.cs" />
+    <Compile Include="ViewModels\BillingSubServicesViewModal.cs" />
+    <Compile Include="ViewModels\BillingServicesViewModal.cs" />
+    <Compile Include="ViewModels\BillingViewModal.cs" />
+    <Compile Include="ViewModels\BillingSearchViewModal.cs" />
+    <Compile Include="ViewModels\BillSearchDetails.cs" />
+    <Compile Include="ViewModels\ChartViewModel.cs" />
+    <Compile Include="ViewModels\ApprovalViewModal.cs" />
+    <Compile Include="ViewModels\CONSViewModel.cs" />
+    <Compile Include="ViewModels\CONSSearchViewModel.cs" />
+    <Compile Include="ViewModels\CONSSearchDetails.cs" />
+    <Compile Include="ViewModels\DCardsSearchViewModal.cs" />
+    <Compile Include="ViewModels\InventoryViewModel.cs" />
+    <Compile Include="ViewModels\LibraryViewModel.cs" />
+    <Compile Include="ViewModels\OPDCardsSearchDetails.cs" />
+    <Compile Include="ViewModels\DCardSearchDetails.cs" />
+    <Compile Include="ViewModels\DCardGetDetails.cs" />
+    <Compile Include="ViewModels\DeptAllotedListViewModel.cs" />
+    <Compile Include="ViewModels\DeptReferralListViewModel.cs" />
+    <Compile Include="ViewModels\DeptHomeViewModel.cs" />
+    <Compile Include="ViewModels\DesignationViewModal.cs" />
+    <Compile Include="ViewModels\FileUploadViewModel.cs" />
+    <Compile Include="ViewModels\FollowupViewModal.cs" />
+    <Compile Include="ViewModels\OPDFollowupSearchViewModel.cs" />
+    <Compile Include="ViewModels\OPDFollowupSearchDetails.cs" />
+    <Compile Include="ViewModels\LaboratoryRegistrationViewModel.cs" />
+    <Compile Include="ViewModels\LaboratoryRegistrationSearchViewModel.cs" />
+    <Compile Include="ViewModels\LaboratoryRegistrationSearchDetails.cs" />
+    <Compile Include="ViewModels\MedicalAlertViewModel.cs" />
+    <Compile Include="ViewModels\OMFSIPScheduleViewModel.cs" />
+    <Compile Include="ViewModels\PERIODiagnosisViewModel.cs" />
+    <Compile Include="ViewModels\ScheduleSearchViewModel.cs" />
+    <Compile Include="ViewModels\ScheduleSearchDetails.cs" />
+    <Compile Include="ViewModels\OMFSIPViewModel.cs" />
+    <Compile Include="ViewModels\OMFSIPSearchViewModel.cs" />
+    <Compile Include="ViewModels\PrescriptionsViewModel.cs" />
+    <Compile Include="ViewModels\GroupViewModel.cs" />
+    <Compile Include="ViewModels\InvestigationViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\OMFSOPViewModel.cs" />
+    <Compile Include="ViewModels\OMFSSearchDetails.cs" />
+    <Compile Include="ViewModels\OMFSTreatmentViewModel.cs" />
+    <Compile Include="ViewModels\OPDRevisitRegistrationViewModel.cs" />
+    <Compile Include="ViewModels\OPDRevisitSearchViewModel.cs" />
+    <Compile Include="ViewModels\OPDRevisitSearchDetails.cs" />
+    <Compile Include="ViewModels\OrpathRegistrationViewModel.cs" />
+    <Compile Include="ViewModels\OrpathRegistrationSearchViewModel.cs" />
+    <Compile Include="ViewModels\OrpathRegistrationSearchDetails.cs" />
+    <Compile Include="ViewModels\OrthoAnalysisViewModal.cs" />
+    <Compile Include="ViewModels\OrthoStaticAnalysisViewModel.cs" />
+    <Compile Include="ViewModels\OrthoViewModal.cs" />
+    <Compile Include="ViewModels\OrthoSearchViewModel.cs" />
+    <Compile Include="ViewModels\OrthoSearchDetails.cs" />
+    <Compile Include="ViewModels\PEDOViewModel.cs" />
+    <Compile Include="ViewModels\PEDOSearchViewModel.cs" />
+    <Compile Include="ViewModels\PEDOSearchDetails.cs" />
+    <Compile Include="ViewModels\PERIOViewModel.cs" />
+    <Compile Include="ViewModels\PERIOSearchViewModel.cs" />
+    <Compile Include="ViewModels\PERIOSearchDetails.cs" />
+    <Compile Include="ViewModels\PHDViewModel.cs" />
+    <Compile Include="ViewModels\PHDSearchViewModel.cs" />
+    <Compile Include="ViewModels\PHDSearchDetails.cs" />
+    <Compile Include="ViewModels\OMRPHDCasesheetViewModel.cs" />
+    <Compile Include="ViewModels\PROSCDViewModel.cs" />
+    <Compile Include="ViewModels\PROSDIMViewModel.cs" />
+    <Compile Include="ViewModels\PROSFPDViewModel.cs" />
+    <Compile Include="ViewModels\PROSMFPViewModel.cs" />
+    <Compile Include="ViewModels\PROSRPDViewModel.cs" />
+    <Compile Include="ViewModels\PROSTreatmentViewModel.cs" />
+    <Compile Include="ViewModels\PROSSearchViewModel.cs" />
+    <Compile Include="ViewModels\PROSSearchDetails.cs" />
+    <Compile Include="ViewModels\RadioRegistrationDetailsViewModel.cs" />
+    <Compile Include="ViewModels\RadioRegistrationViewModel.cs" />
+    <Compile Include="ViewModels\RadioRegistrationSearchViewModal.cs" />
+    <Compile Include="ViewModels\RadioRegistrationSearchDetails.cs" />
+    <Compile Include="ViewModels\ReferralStatusViewModel.cs" />
+    <Compile Include="ViewModels\DepartmentViewModal.cs" />
+    <Compile Include="ViewModels\DoctorViewModal.cs" />
+    <Compile Include="ViewModels\CityViewModal.cs" />
+    <Compile Include="ViewModels\CountryViewModal.cs" />
+    <Compile Include="ViewModels\ORPATHRequisitionViewModel.cs" />
+    <Compile Include="ViewModels\ORPATHRequisitionSearchViewModel.cs" />
+    <Compile Include="ViewModels\OrpathRequisitionSearchDetails.cs" />
+    <Compile Include="ViewModels\ReferredToOthersViewModel.cs" />
+    <Compile Include="ViewModels\ReportViewModel.cs" />
+    <Compile Include="ViewModels\ReportSearchViewModel.cs" />
+    <Compile Include="ViewModels\StateViewModal.cs" />
+    <Compile Include="ViewModels\OMRViewModel.cs" />
+    <Compile Include="ViewModels\OMRSearchViewModel.cs" />
+    <Compile Include="ViewModels\OMRSearchDetails.cs" />
+    <Compile Include="ViewModels\PatientInformationViewModel.cs" />
+    <Compile Include="ViewModels\PatientSearchViewModal.cs" />
+    <Compile Include="ViewModels\OPDPatientRegistrationViewModel.cs" />
+    <Compile Include="ViewModels\OPDSearchViewModel.cs" />
+    <Compile Include="ViewModels\OPDSearchDetails.cs" />
+    <Compile Include="ViewModels\StudentAllotmentViewModel.cs" />
+    <Compile Include="ViewModels\CasesheetApprovalListViewModel.cs" />
+    <Compile Include="ViewModels\StudentRegistrationViewModel.cs" />
+    <Compile Include="ViewModels\StudentScheduleDisplayViewModel.cs" />
+    <Compile Include="ViewModels\StudentScheduleViewModel.cs" />
+    <Compile Include="ViewModels\StudentTransferViewModel.cs" />
+    <Compile Include="ViewModels\TemplateDetailsViewModel.cs" />
+    <Compile Include="ViewModels\TemplateViewModal.cs" />
+    <Compile Include="ViewModels\TemplateSearchViewModal.cs" />
+    <Compile Include="ViewModels\TemplateSearchDetails.cs" />
+    <Compile Include="ViewModels\DCardEnableViewModel.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
+    <Compile Include="Services\Implementation\ApprovalService.cs" />
+    <Compile Include="Services\Implementation\BillingService.cs" />
+    <Compile Include="Services\Implementation\BillQueueService.cs" />
+    <Compile Include="Services\Implementation\ChartService.cs" />
+    <Compile Include="Services\Implementation\DCardsService.cs" />
+    <Compile Include="Services\Implementation\ErrorLogService.cs" />
+    <Compile Include="Services\Implementation\CasesheetNoService.cs" />
+    <Compile Include="Services\Implementation\CONSCasesheetService.cs" />
+    <Compile Include="Services\Implementation\FileUploadService.cs" />
+    <Compile Include="Services\Implementation\LaboratoryRegistrationService.cs" />
+    <Compile Include="Services\Implementation\OrpathCasesheetService.cs" />
+    <Compile Include="Services\Implementation\PrescriptionsService.cs" />
+    <Compile Include="Services\Implementation\FollowUpService.cs" />
+    <Compile Include="Services\Implementation\MasBillingServicesService.cs" />
+    <Compile Include="Services\Implementation\MASChiefComplaintService.cs" />
+    <Compile Include="Services\Implementation\MASCityService.cs" />
+    <Compile Include="Services\Implementation\MASCodeService.cs" />
+    <Compile Include="Services\Implementation\MASCountryService.cs" />
+    <Compile Include="Services\Implementation\MasDepartmentService.cs" />
+    <Compile Include="Services\Implementation\MasDesignationServices.cs" />
+    <Compile Include="Services\Implementation\MasDoctorService.cs" />
+    <Compile Include="Services\Implementation\MASGroupService.cs" />
+    <Compile Include="Services\Implementation\MASPresentIllnessService.cs" />
+    <Compile Include="Services\Implementation\MASStateService.cs" />
+    <Compile Include="Services\Implementation\MASStudentRegistrationService.cs" />
+    <Compile Include="Services\Implementation\OMFSCasesheetService.cs" />
+    <Compile Include="Services\Implementation\OMRCasesheetService.cs" />
+    <Compile Include="Services\Implementation\OPDPatientRegistrationService.cs" />
+    <Compile Include="Services\Implementation\OPDRevisitRegistrationService.cs" />
+    <Compile Include="Services\Implementation\ORTHOAnalysisService.cs" />
+    <Compile Include="Services\Implementation\ORTHOCasesheetService.cs" />
+    <Compile Include="Services\Implementation\PEDOCasesheetService.cs" />
+    <Compile Include="Services\Implementation\PERIOCasesheetService.cs" />
+    <Compile Include="Services\Implementation\PHDCasesheetService.cs" />
+    <Compile Include="Services\Implementation\PROSCasesheetService.cs" />
+    <Compile Include="Services\Implementation\RadioRegistrationService.cs" />
+    <Compile Include="Services\Implementation\ReferralStatusService.cs" />
+    <Compile Include="Services\Implementation\ORPATHRequisitionService.cs" />
+    <Compile Include="Services\Implementation\ReportService.cs" />
+    <Compile Include="Services\Implementation\StudentAllotmentService.cs" />
+    <Compile Include="Services\Implementation\StudentScheduleService.cs" />
+    <Compile Include="Services\Implementation\StudentTransferService.cs" />
+    <Compile Include="Services\Implementation\TemplateService.cs" />
+    <Compile Include="Services\Implementation\UserService.cs" />
+    <Compile Include="Services\Abstract\IApprovalService.cs" />
+    <Compile Include="Services\Abstract\IBillingService.cs" />
+    <Compile Include="Services\Abstract\IBillQueueService.cs" />
+    <Compile Include="Services\Abstract\IChartService.cs" />
+    <Compile Include="Services\Abstract\IDCardsService.cs" />
+    <Compile Include="Services\Abstract\IErrorLogService.cs" />
+    <Compile Include="Services\Abstract\ICasesheetNoService.cs" />
+    <Compile Include="Services\Abstract\ICONSCasesheetService.cs" />
+    <Compile Include="Services\Abstract\IFileUploadService.cs" />
+    <Compile Include="Services\Abstract\ILaboratoryRegistrationService.cs" />
+    <Compile Include="Services\Abstract\IOrpathCasesheetService.cs" />
+    <Compile Include="Services\Abstract\IPrescriptionsService.cs" />
+    <Compile Include="Services\Abstract\IFollowUpService.cs" />
+    <Compile Include="Services\Abstract\IMASBillingServicesService.cs" />
+    <Compile Include="Services\Abstract\IMASChiefComplaintService.cs" />
+    <Compile Include="Services\Abstract\IMASCityService.cs" />
+    <Compile Include="Services\Abstract\IMASCodeService.cs" />
+    <Compile Include="Services\Abstract\IMASCountryService.cs" />
+    <Compile Include="Services\Abstract\IMASDepartmentService.cs" />
+    <Compile Include="Services\Abstract\IMASDesignationService.cs" />
+    <Compile Include="Services\Abstract\IMASDoctorService.cs" />
+    <Compile Include="Services\Abstract\IMASGroupService.cs" />
+    <Compile Include="Services\Abstract\IMASPresentIllnessService.cs" />
+    <Compile Include="Services\Abstract\IMASStateService.cs" />
+    <Compile Include="Services\Abstract\IMASStudentRegistrationService.cs" />
+    <Compile Include="Services\Abstract\IOMFSCasesheetService.cs" />
+    <Compile Include="Services\Abstract\IOMRCasesheetService.cs" />
+    <Compile Include="Services\Abstract\IOPDPatientRegistrationService.cs" />
+    <Compile Include="Services\Abstract\IOPDRevisitRegistrationService.cs" />
+    <Compile Include="Services\Abstract\IORTHOAnalysisService.cs" />
+    <Compile Include="Services\Abstract\IORTHOCasesheetService.cs" />
+    <Compile Include="Services\Abstract\IPEDOCasesheetService.cs" />
+    <Compile Include="Services\Abstract\IPERIOCasesheetService.cs" />
+    <Compile Include="Services\Abstract\IPHDCasesheetService.cs" />
+    <Compile Include="Services\Abstract\IPROSCasesheetService.cs" />
+    <Compile Include="Services\Abstract\IRadioRegistrationService.cs" />
+    <Compile Include="Services\Abstract\IReferralStatusService.cs" />
+    <Compile Include="Services\Abstract\IORPATHRequisitionService.cs" />
+    <Compile Include="Services\Abstract\IReportService.cs" />
+    <Compile Include="Services\Abstract\IStudentAllotmentService.cs" />
+    <Compile Include="Services\Abstract\IStudentScheduleService.cs" />
+    <Compile Include="Services\Abstract\IStudentTransferService.cs" />
+    <Compile Include="Services\Abstract\ITemplateService.cs" />
+    <Compile Include="Services\Abstract\IUserService.cs" />
+    <Compile Include="Infrastructure\BaseViewPage.cs" />
+    <Compile Include="Infrastructure\BaseViewPage`1.cs" />
+    <Compile Include="Infrastructure\CustomAuthorizeAttribute.cs" />
+    <Compile Include="Infrastructure\CustomPrincipal.cs" />
+    <Compile Include="Infrastructure\CustomPrincipalSerializedModel.cs" />
+    <Compile Include="Infrastructure\DeptPermissions.cs" />
+    <Compile Include="Infrastructure\ICustomPrincipal.cs" />
+    <Compile Include="Infrastructure\PermissionsEnum.cs" />
+    <Compile Include="Enums\SuperAdmin.cs" />
+    <Compile Include="Enums\Gender.cs" />
+    <Compile Include="Enums\MaritalStatus.cs" />
+    <Compile Include="Enums\Religion.cs" />
+    <Compile Include="Enums\Diet.cs" />
+    <Compile Include="Enums\VisitType.cs" />
+    <Compile Include="Enums\Status.cs" />
+    <Compile Include="Enums\ToothNumbers.cs" />
+    <Compile Include="Enums\MedicalAlert.cs" />
+    <Compile Include="Enums\FromFlag.cs" />
+    <Compile Include="Enums\Department.cs" />
+    <Compile Include="Enums\CodeType.cs" />
+    <Compile Include="Enums\OrthoAnalysis.cs" />
+    <Compile Include="Enums\CasesheetType.cs" />
+    <Compile Include="Enums\TypesOfTreatment.cs" />
+    <Compile Include="Enums\CourseYear.cs" />
+    <Compile Include="Enums\ApprovalType.cs" />
+    <Compile Include="Enums\CaseApprovalType.cs" />
+    <Compile Include="Enums\Visit.cs" />
+    <Compile Include="Enums\Paymode.cs" />
+    <Compile Include="Enums\Category.cs" />
+    <Compile Include="Controllers\ApprovalController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BillingController.cs" />
+    <Compile Include="Controllers\BillingServicesController.cs" />
+    <Compile Include="Controllers\ChartController.cs" />
+    <Compile Include="Controllers\CONSController.cs" />
+    <Compile Include="Controllers\ConfigurationController.cs" />
+    <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\FileUploadController.cs" />
+    <Compile Include="Controllers\GroupController.cs" />
+    <Compile Include="Controllers\LaboratoryController.cs" />
+    <Compile Include="Controllers\LaboratoryTemplateController.cs" />
+    <Compile Include="Controllers\PrescriptionsController.cs" />
+    <Compile Include="Controllers\OMFSController.cs" />
+    <Compile Include="Controllers\OPDRevisitRegistrationController.cs" />
+    <Compile Include="Controllers\OralPathologyController.cs" />
+    <Compile Include="Controllers\ORPATHTemplateController.cs" />
+    <Compile Include="Controllers\OrthoController.cs" />
+    <Compile Include="Controllers\PEDOController.cs" />
+    <Compile Include="Controllers\PERIOController.cs" />
+    <Compile Include="Controllers\PHDController.cs" />
+    <Compile Include="Controllers\PROSTHOController.cs" />
+    <Compile Include="Controllers\RadiologyController.cs" />
+    <Compile Include="Controllers\RadiologyTemplateController.cs" />
+    <Compile Include="Controllers\ReferralStatusController.cs" />
+    <Compile Include="Controllers\DesignationController.cs" />
+    <Compile Include="Controllers\DoctorController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InvestigationController.cs" />
+    <Compile Include="Controllers\OMRController.cs" />
+    <Compile Include="Controllers\RegistrationController.cs" />
+    <Compile Include="Controllers\ORPATHRequisitionController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
+    <Compile Include="Controllers\StudentAllotmentController.cs" />
+    <Compile Include="Controllers\StudentRegistrationController.cs" />
+    <Compile Include="Controllers\StudentScheduleController.cs" />
+    <Compile Include="Controllers\StudentTransferController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Queries.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

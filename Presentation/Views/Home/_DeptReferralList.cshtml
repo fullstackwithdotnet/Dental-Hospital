@@ -1,0 +1,77 @@
+﻿@model IEnumerable<DIMS.ViewModels.DeptReferralListViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<table class="table">
+    <tr>
+        <th>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FromDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OpNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PatientName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Age)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FromDeptName)
+        </th>
+        <th>
+        </th>
+    </tr>
+    @{int i = 0;}
+    @foreach (var item in Model)
+    {
+        i++;
+        <tr>
+            <td>
+                <span>@i</span>
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FromDate)
+                @Html.HiddenFor(modelItem => item.ReferredId)
+                @Html.HiddenFor(modelItem => item.PatientId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OpNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PatientName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FromDeptName)
+            </td>
+            <td>
+                <a class="btn btn-default btn-xs" onclick="showModel(@item.PatientId,@item.ReferredId)">Allotment</a>                
+            </td>
+        </tr>
+    }
+</table>
+<div class="container" style="width:90%;margin-top:2%">
+    <div class="modal fade" id="myModel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h3 class="modal-title">Allotment</h3>
+                </div>
+                <div class="modal-body" id="myModelBodyDiv">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

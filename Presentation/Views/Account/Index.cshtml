@@ -1,0 +1,39 @@
+﻿@model DIMS.ViewModels.LoginViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true)
+
+    <div class="form-group has-feedback">
+
+        @Html.TextBoxFor(model => model.Username, new { placeholder = "Username", @class = "form-control" })
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        @Html.ValidationMessageFor(model => model.Username)
+
+    </div>
+    <br />
+    <div class="form-group has-feedback">
+        @Html.PasswordFor(model => model.Password, new { placeholder = "Password", @class = "form-control" })
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        @Html.ValidationMessageFor(model => model.Password)
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-xs-4 ">             
+        </div>
+        <div class="col-xs-4">
+            <input type="submit" value="Login" class="btn btn-primary btn-block btn-flat" />
+        </div>
+        <div class="col-xs-4">
+        </div>
+    </div>
+}
+
+
+

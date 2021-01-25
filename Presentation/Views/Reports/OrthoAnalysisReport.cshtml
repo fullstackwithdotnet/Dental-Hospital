@@ -1,0 +1,699 @@
+﻿@model DIMS.ViewModels.OrthoAnalysisViewModal
+
+@{
+    ViewBag.Title = "CONSCaserecordReport";
+}
+
+<style>
+    .col30 {
+        width: 30%;
+        padding: 5px !important;
+    }
+
+    .col40 {
+        width: 40%;
+        padding: 5px !important;
+    }
+
+    .col50 {
+        width: 50%;
+        padding: 5px !important;
+    }
+
+    .col60 {
+        width: 60%;
+        padding: 5px !important;
+    }
+
+    .col70 {
+        width: 70%;
+        padding: 5px !important;
+    }
+
+    .col80 {
+        width: 80%;
+        padding: 5px !important;
+    }
+
+    .col35 {
+        width: 35%;
+        padding: 5px !important;
+    }
+
+    .col625 {
+        width: 6%;
+        padding: 5px !important;
+    }
+
+    .col10 {
+        width: 10%;
+        padding: 5px !important;
+    }
+</style>
+
+@functions{
+    public string IsVisible(string propertyName)
+    {
+
+        if (propertyName == null)
+        {
+            return "display:none";
+        }
+        return "";
+    }
+}
+
+
+<div class="box box-default box-solid">
+    <div class="box-header with-border">
+        <h3 class="box-title"><strong>Orthodontics Department Analysis</strong></h3>
+        <div class="box-tools pull-right text-black ">
+            Case Record #
+            <strong>@Html.DisplayFor(model => model.OrthoNo)</strong>
+        </div>
+    </div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+
+                    <h4><strong>Patient Details</strong></h4>
+                    @Html.Partial("../Reports/_PatientDetailsReportHeader", Model.patientInformationViewModel)       
+                    
+
+                    @if (Model.SteinerAnalysisList!=null)
+                    {
+                        <table class="table table-bordered">
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.AnalysisDisplayName)</b></td>
+                                <td colspan="8"><b>@Html.DisplayFor(model => model.AnalysisDisplayName)</b></td>
+                            </tr>
+                            <tr>                                
+                                <th>@Html.DisplayNameFor(model => model.Measurements)</th>
+                                <th>@Html.DisplayNameFor(model => model.Mean)</th>
+                                <th>@Html.DisplayNameFor(model => model.PreTreatment)</th>
+                                <th>@Html.DisplayNameFor(model => model.PreSurgical)</th>
+                                <th>@Html.DisplayNameFor(model => model.PostAlignment)</th>
+                                <th>@Html.DisplayNameFor(model => model.PostSurgical)</th>
+                                <th>@Html.DisplayNameFor(model => model.MidTreatment)</th>
+                                <th>@Html.DisplayNameFor(model => model.Posttreatment)</th>
+                                <th>@Html.DisplayNameFor(model => model.Retention)</th>
+                            </tr>
+                            @foreach (var item in Model.SteinerAnalysisList.ToList())
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.Measurements)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Mean)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PreTreatment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PreSurgical)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PostAlignment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PostSurgical)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.MidTreatment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Posttreatment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Retention)</td>
+                                </tr>
+                            }
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.Inference)</b></td>
+                                <td colspan="8">@Html.DisplayFor(model => model.Inference)</td>                                 
+                            </tr>
+                        </table>
+                    }
+                    @if (Model.DownsAnalysisList != null)
+                    {
+                        <table class="table table-bordered">
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.DownsAnalysisName)</b></td>
+                                <td colspan="8"><b>@Html.DisplayFor(model => model.DownsAnalysisName)</b></td>
+                            </tr>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.Measurements)</th>
+                                <th>@Html.DisplayNameFor(model => model.Mean)</th>
+                                <th>@Html.DisplayNameFor(model => model.PreTreatment)</th>
+                                <th>@Html.DisplayNameFor(model => model.PreSurgical)</th>
+                                <th>@Html.DisplayNameFor(model => model.PostAlignment)</th>
+                                <th>@Html.DisplayNameFor(model => model.PostSurgical)</th>
+                                <th>@Html.DisplayNameFor(model => model.MidTreatment)</th>
+                                <th>@Html.DisplayNameFor(model => model.Posttreatment)</th>
+                                <th>@Html.DisplayNameFor(model => model.Retention)</th>
+                            </tr>
+                            @foreach (var item in Model.DownsAnalysisList.ToList())
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.Measurements)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Mean)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PreTreatment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PreSurgical)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PostAlignment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PostSurgical)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.MidTreatment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Posttreatment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Retention)</td>
+                                </tr>
+                            }
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.DownsInference)</b></td>
+                                <td colspan="8">@Html.DisplayFor(model => model.DownsInference)</td>
+                            </tr>
+                        </table>
+                    }
+                    @if (Model.SchwarzAnalysisList != null)
+                    {
+                        <table class="table table-bordered">
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.SchwarzAnalysisName)</b></td>
+                                <td colspan="8"><b>@Html.DisplayFor(model => model.SchwarzAnalysisName)</b></td>
+                            </tr>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.Parameters)</th>
+                                <th>@Html.DisplayNameFor(model => model.Mean)</th>
+                                <th>@Html.DisplayNameFor(model => model.PreTreatment)</th>
+                                <th>@Html.DisplayNameFor(model => model.PreSurgical)</th>
+                                <th>@Html.DisplayNameFor(model => model.PostAlignment)</th>
+                                <th>@Html.DisplayNameFor(model => model.PostSurgical)</th>
+                                <th>@Html.DisplayNameFor(model => model.MidTreatment)</th>
+                                <th>@Html.DisplayNameFor(model => model.Posttreatment)</th>
+                                <th>@Html.DisplayNameFor(model => model.Retention)</th>
+                            </tr>
+                            @foreach (var item in Model.SchwarzAnalysisList.ToList())
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.Parameters)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Mean)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PreTreatment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PreSurgical)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PostAlignment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PostSurgical)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.MidTreatment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Posttreatment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Retention)</td>
+                                </tr>
+                            }
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.SchwarzInference)</b></td>
+                                <td colspan="8">@Html.DisplayFor(model => model.SchwarzInference)</td>
+                            </tr>
+                        </table>
+                    }
+                    @if (Model.RakosiAnalysisList != null)
+                    {
+                        <table class="table table-bordered">
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.RakosiAnalysisName)</b></td>
+                                <td colspan="8"><b>@Html.DisplayFor(model => model.RakosiAnalysisName)</b></td>
+                            </tr>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.Measurements)</th>
+                                <th>@Html.DisplayNameFor(model => model.Mean)</th>
+                                <th>@Html.DisplayNameFor(model => model.PreTreatment)</th>
+                                <th>@Html.DisplayNameFor(model => model.PreSurgical)</th>
+                                <th>@Html.DisplayNameFor(model => model.PostAlignment)</th>
+                                <th>@Html.DisplayNameFor(model => model.PostSurgical)</th>
+                                <th>@Html.DisplayNameFor(model => model.MidTreatment)</th>
+                                <th>@Html.DisplayNameFor(model => model.Posttreatment)</th>
+                                <th>@Html.DisplayNameFor(model => model.Retention)</th>
+                            </tr>
+                            @foreach (var item in Model.RakosiAnalysisList.ToList())
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.Measurements)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Mean)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PreTreatment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PreSurgical)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PostAlignment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PostSurgical)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.MidTreatment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Posttreatment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Retention)</td>
+                                </tr>
+                            }
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.RakosiInference)</b></td>
+                                <td colspan="8">@Html.DisplayFor(model => model.RakosiInference)</td>
+                            </tr>
+                        </table>
+                    }
+                    @if (Model.BurstoneHardAnalysisList != null)
+                    {
+                        <table class="table table-bordered">
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.HardAnalysisName)</b></td>
+                                <td colspan="9"><b>@Html.DisplayFor(model => model.HardAnalysisName)</b></td>
+                            </tr>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.Measurements)</th>
+                                <th>@Html.DisplayNameFor(model => model.Male)</th>
+                                <th>@Html.DisplayNameFor(model => model.Female)</th>
+                                <th>@Html.DisplayNameFor(model => model.PreTreatment)</th>
+                                <th>@Html.DisplayNameFor(model => model.PreSurgical)</th>
+                                <th>@Html.DisplayNameFor(model => model.PostAlignment)</th>
+                                <th>@Html.DisplayNameFor(model => model.PostSurgical)</th>
+                                <th>@Html.DisplayNameFor(model => model.MidTreatment)</th>
+                                <th>@Html.DisplayNameFor(model => model.Posttreatment)</th>
+                                <th>@Html.DisplayNameFor(model => model.Retention)</th>
+                            </tr>
+                            @foreach (var item in Model.BurstoneHardAnalysisList.ToList())
+                            {
+                                <tr>
+                                    @if (item.Indicator == "HEADER")
+                                    {
+                                        <td><strong>@Html.DisplayFor(modelItem => item.Measurements)</strong> </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Measurements)
+                                        </td>
+                                    }
+                                    <td>@Html.DisplayFor(modelItem => item.Male)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Female)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PreTreatment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PreSurgical)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PostAlignment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PostSurgical)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.MidTreatment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Posttreatment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Retention)</td>
+                                </tr>
+                            }
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.HardInference)</b></td>
+                                <td colspan="9">@Html.DisplayFor(model => model.HardInference)</td>
+                            </tr>
+                        </table>
+                    }
+                    @if (Model.BurstoneSoftAnalysisList != null)
+                    {
+                        <table class="table table-bordered">
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.SoftAnalysisName)</b></td>
+                                <td colspan="8"><b>@Html.DisplayFor(model => model.SoftAnalysisName)</b></td>
+                            </tr>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.Measurements)</th>
+                                <th>@Html.DisplayNameFor(model => model.Mean)</th>
+                                <th>@Html.DisplayNameFor(model => model.PreTreatment)</th>
+                                <th>@Html.DisplayNameFor(model => model.PreSurgical)</th>
+                                <th>@Html.DisplayNameFor(model => model.PostAlignment)</th>
+                                <th>@Html.DisplayNameFor(model => model.PostSurgical)</th>
+                                <th>@Html.DisplayNameFor(model => model.MidTreatment)</th>
+                                <th>@Html.DisplayNameFor(model => model.Posttreatment)</th>
+                                <th>@Html.DisplayNameFor(model => model.Retention)</th>
+                            </tr>
+                            @foreach (var item in Model.BurstoneSoftAnalysisList.ToList())
+                            {
+                                <tr>
+                                    @if (item.Indicator == "HEADER")
+                                    {
+                                        <td><strong>@Html.DisplayFor(modelItem => item.Measurements)</strong> </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Measurements)
+                                        </td>
+                                    }
+                                    <td>@Html.DisplayFor(modelItem => item.Mean)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PreTreatment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PreSurgical)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PostAlignment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PostSurgical)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.MidTreatment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Posttreatment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Retention)</td>
+                                </tr>
+                            }
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.SoftInference)</b></td>
+                                <td colspan="8">@Html.DisplayFor(model => model.SoftInference)</td>
+                            </tr>
+                        </table>
+                    }
+                    @if (Model.GrummonsAnalysisList != null)
+                    {
+                        <table class="table table-bordered">
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.GrummonsAnalysisName)</b></td>
+                                <td colspan="6"><b>@Html.DisplayFor(model => model.GrummonsAnalysisName)</b></td>
+                            </tr>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.Field)</th>
+                                <th>@Html.DisplayNameFor(model => model.LeftPreRx)</th>
+                                <th>@Html.DisplayNameFor(model => model.LeftPostRx)</th>
+                                <th>@Html.DisplayNameFor(model => model.RightPreRx)</th>
+                                <th>@Html.DisplayNameFor(model => model.RightPostRx)</th>
+                                <th>@Html.DisplayNameFor(model => model.DiffPreRx)</th>
+                                <th>@Html.DisplayNameFor(model => model.DiffPostRx)</th>
+                            </tr>
+                            @foreach (var item in Model.GrummonsAnalysisList.ToList())
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.Field)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.LeftPreRx)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.LeftPostRx)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.RightPreRx)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.RightPostRx)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.DiffPreRx)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.DiffPostRx)</td>
+                                </tr>
+                            }
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.GrummonsInference)</b></td>
+                                <td colspan="6">@Html.DisplayFor(model => model.GrummonsInference)</td>
+                            </tr>
+                        </table>
+                    }
+                    @if (Model.EstheticsAnalysisList != null)
+                    {
+                        <table class="table table-bordered">
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.EstheticsAnalysisName)</b></td>
+                                <td colspan="2"><b>@Html.DisplayFor(model => model.EstheticsAnalysisName)</b></td>
+                                
+                            </tr>
+                            <tr>
+                                <th class="col30">@Html.DisplayNameFor(model => model.Field)</th>
+                                <th class="col35">@Html.DisplayNameFor(model => model.Percentage)</th>
+                                <th class="col35">@Html.DisplayNameFor(model => model.Value)</th>
+                            </tr>
+                            @foreach (var item in Model.EstheticsAnalysisList.ToList())
+                            {
+                                <tr>
+                                    <td class="col30">@Html.DisplayFor(modelItem => item.Field)</td>
+                                    <td class="col35">@Html.DisplayFor(modelItem => item.Percentage)</td>
+                                    <td class="col35">@Html.DisplayFor(modelItem => item.Value)</td>
+                                </tr>
+                            }
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.EstheticsInference)</b></td>
+                                <td colspan="2">@Html.DisplayFor(model => model.EstheticsInference)</td>
+                            </tr>
+                        </table>
+                    }
+                    @if (Model.HoldawayAnalysisList != null)
+                    {
+                        <table class="table table-bordered">
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.HoldawayAnalysisName)</b></td>
+                                <td colspan="4"><b>@Html.DisplayFor(model => model.HoldawayAnalysisName)</b></td>
+                            </tr>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.Measurements)</th>
+                                <th>@Html.DisplayNameFor(model => model.Mean)</th>
+                                <th>@Html.DisplayNameFor(model => model.PreRx)</th>
+                                <th>@Html.DisplayNameFor(model => model.PostRx)</th>
+                                <th>@Html.DisplayNameFor(model => model.During)</th>
+                            </tr>
+                            @foreach (var item in Model.HoldawayAnalysisList.ToList())
+                            {
+                                <tr>
+                                    @if (item.Indicator == "HEADER")
+                                    {
+                                        <td><strong>@Html.DisplayFor(modelItem => item.Measurements)</strong></td>
+                                    }
+                                    else
+                                    {
+                                        <td>@Html.DisplayFor(modelItem => item.Measurements)</td>
+                                    }
+                                    @if (item.Indicator != "HEADER")
+                                    {
+                                        <td>@Html.DisplayFor(modelItem => item.Mean)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.PreRx)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.PostRx)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.During)</td>
+                                    }
+                                </tr>
+                            }
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.HoldawayInference)</b></td>
+                                <td colspan="4">@Html.DisplayFor(model => model.HoldawayInference)</td>
+                            </tr>
+                        </table>
+                    }
+                    @if (Model.TweedsAnalysisList != null)
+                    {
+                        <table class="table table-bordered">
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.TweedsAnalysisName)</b></td>
+                                <td colspan="8"><b>@Html.DisplayFor(model => model.TweedsAnalysisName)</b></td>
+                            </tr>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.Angle)</th>
+                                <th>@Html.DisplayNameFor(model => model.Mean)</th>
+                                <th>@Html.DisplayNameFor(model => model.PreTreatment)</th>
+                                <th>@Html.DisplayNameFor(model => model.PreSurgical)</th>
+                                <th>@Html.DisplayNameFor(model => model.PostAlignment)</th>
+                                <th>@Html.DisplayNameFor(model => model.PostSurgical)</th>
+                                <th>@Html.DisplayNameFor(model => model.MidTreatment)</th>
+                                <th>@Html.DisplayNameFor(model => model.Posttreatment)</th>
+                                <th>@Html.DisplayNameFor(model => model.Retention)</th>
+                            </tr>
+                            @foreach (var item in Model.TweedsAnalysisList.ToList())
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.Angle)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Mean)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PreTreatment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PreSurgical)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PostAlignment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PostSurgical)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.MidTreatment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Posttreatment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Retention)</td>
+                                </tr>
+                            }
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.TweedsInference)</b></td>
+                                <td colspan="8">@Html.DisplayFor(model => model.TweedsInference)</td>
+                            </tr>
+                        </table>
+                    }
+                    @if (Model.RickettsAnalysisList != null)
+                    {
+                         <table class="table table-bordered">
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.RickettsAnalysisName)</b></td>
+                                <td colspan="5"><b>@Html.DisplayFor(model => model.RickettsAnalysisName)</b></td>
+                            </tr>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.Angles)</th>
+                                <th>@Html.DisplayNameFor(model => model.MeanAt)</th>
+                                <th>@Html.DisplayNameFor(model => model.AgeChange)</th>
+                                <th>@Html.DisplayNameFor(model => model.PreRx)</th>
+                                <th>@Html.DisplayNameFor(model => model.During)</th>
+                                <th>@Html.DisplayNameFor(model => model.PostRx)</th>
+                            </tr>
+                        @foreach (var item in Model.RickettsAnalysisList.ToList())
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.Angles)</td>
+                                <td>@Html.DisplayFor(modelItem => item.MeanAt)</td>
+                                <td>@Html.DisplayFor(modelItem => item.AgeChange)</td>
+                                <td>@Html.DisplayFor(modelItem => item.PreRx)</td>
+                                <td>@Html.DisplayFor(modelItem => item.During)</td>
+                                <td>@Html.DisplayFor(modelItem => item.PostRx)</td>
+                               
+                            </tr>
+                        }
+                        <tr>
+                            <td><b>@Html.DisplayNameFor(model => model.RickettsInference)</b></td>
+                            <td colspan="5">@Html.DisplayFor(model => model.RickettsInference)</td>
+                        </tr>
+                    </table>
+                    }
+                    @if (Model.McNamaraAnalysisList != null)
+                    {
+                        <table class="table table-bordered">
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.McNamaraAnalysisName)</b></td>
+                                <td colspan="8"><b>@Html.DisplayFor(model => model.McNamaraAnalysisName)</b></td>
+                            </tr>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.Measurements)</th>
+                                <th>@Html.DisplayNameFor(model => model.Mean)</th>
+                                <th>@Html.DisplayNameFor(model => model.PreTreatment)</th>
+                                <th>@Html.DisplayNameFor(model => model.PreSurgical)</th>
+                                <th>@Html.DisplayNameFor(model => model.PostAlignment)</th>
+                                <th>@Html.DisplayNameFor(model => model.PostSurgical)</th>
+                                <th>@Html.DisplayNameFor(model => model.MidTreatment)</th>
+                                <th>@Html.DisplayNameFor(model => model.Posttreatment)</th>
+                                <th>@Html.DisplayNameFor(model => model.Retention)</th>
+                            </tr>
+                            @foreach (var item in Model.McNamaraAnalysisList.ToList())
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.Measurements)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Mean)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PreTreatment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PreSurgical)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PostAlignment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PostSurgical)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.MidTreatment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Posttreatment)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Retention)</td>
+                                </tr>
+                            }
+                            <tr>
+                                <td><b>@Html.DisplayNameFor(model => model.McNamaraInference)</b></td>
+                                <td colspan="8">@Html.DisplayFor(model => model.McNamaraInference)</td>
+                            </tr>
+                        </table>
+                    }
+
+                    @if (Model.WitsInference != null)
+                    {
+                        <table class="table table-bordered">
+                            <tr style='@IsVisible(@Model.WitsAnalysisName.ToString())'>
+                                <td><b>@Html.DisplayNameFor(model => model.WitsAnalysisName)</b></td>
+                                <td><b>@Html.DisplayFor(model => model.WitsAnalysisName)</b></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" style="vertical-align:middle"><img src="~/Content/Images/Steiner Sticks_667_171.jpg" class="img-responsive" alt="12" /></td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.WitsMale.ToString())'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.WitsMale)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.WitsMale)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.WitsFemale.ToString())'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.WitsFemale)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.WitsFemale)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.WitsInference.ToString())'>
+                                <td><b>@Html.DisplayNameFor(model => model.WitsInference)</b></td>
+                                <td>@Html.DisplayFor(model => model.WitsInference)</td>
+                            </tr>
+                        </table>
+                    }
+
+                    @if (Model.LinderInference != null)
+                    {
+                        <table class="table table-bordered">
+                            <tr style='@IsVisible(@Model.LinderAnalysisName.ToString())'>
+                                <td><b>@Html.DisplayNameFor(model => model.LinderAnalysisName)</b></td>
+                                <td colspan="2"><b>@Html.DisplayFor(model => model.LinderAnalysisName)</b></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><strong>UPPER</strong></td>
+                                <td><strong>LOWER</strong></td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.UpperTooth.ToString())'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.UpperTooth)</td>
+                                <td class="col35">@Html.DisplayFor(model => model.UpperTooth)</td>
+                                <td class="col35">@Html.DisplayFor(model => model.LowerTooth)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.UpperArch.ToString())'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.UpperArch)</td>
+                                <td class="col35">@Html.DisplayFor(model => model.UpperArch)</td>
+                                <td class="col35">@Html.DisplayFor(model => model.LowerArch)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.UpperDifference.ToString())'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.UpperDifference)</td>
+                                <td class="col35">@Html.DisplayFor(model => model.UpperDifference)</td>
+                                <td class="col35">@Html.DisplayFor(model => model.LowerDifference)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.UpperInference.ToString())'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.UpperInference)</td>
+                                <td class="col35">@Html.DisplayFor(model => model.UpperInference)</td>
+                                <td class="col35">@Html.DisplayFor(model => model.LowerInference)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.LinderInference.ToString())'>
+                                <td><b>@Html.DisplayNameFor(model => model.LinderInference)</b></td>
+                                <td colspan="2">@Html.DisplayFor(model => model.LinderInference)</td>
+                            </tr>
+                        </table>
+                    }
+                    @if (Model.MoyerInference != null)
+                    {
+                        <table class="table table-bordered">
+                            <tr style='@IsVisible(@Model.MoyerAnalysisName.ToString())'>
+                                <td><b>@Html.DisplayNameFor(model => model.MoyerAnalysisName)</b></td>
+                                <td><b>@Html.DisplayFor(model => model.MoyerAnalysisName)</b></td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.MoyerMesio.ToString())'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MoyerMesio)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.MoyerMesio)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.MoyerIncisor.ToString())'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MoyerIncisor)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.MoyerIncisor)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.SumMoyerIncisor.ToString())'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.SumMoyerIncisor)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.SumMoyerIncisor)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.MoyerWidth.ToString())'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MoyerWidth)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.MoyerWidth)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.MoyerSpace.ToString())'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.MoyerSpace)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.MoyerSpace)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.MoyerInference.ToString())'>
+                                <td><b>@Html.DisplayNameFor(model => model.MoyerInference)</b></td>
+                                <td>@Html.DisplayFor(model => model.MoyerInference)</td>
+                            </tr>
+                        </table>
+                    }
+
+                    @if (Model.TanakaInference != null)
+                    {
+                        <table class="table table-bordered">
+                            <tr style='@IsVisible(@Model.TanakaAnalysisName.ToString())'>
+                                <td><b>@Html.DisplayNameFor(model => model.TanakaAnalysisName)</b></td>
+                                <td><b>@Html.DisplayFor(model => model.TanakaAnalysisName)</b></td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.TanakaMesiodistal.ToString())'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.TanakaMesiodistal)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.TanakaMesiodistal)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.TanakaMandibular.ToString())'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.TanakaMandibular)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.TanakaMandibular)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.TanakaMeriodistal.ToString())'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.TanakaMeriodistal)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.TanakaMeriodistal)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.TanakaMaxillary.ToString())'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.TanakaMaxillary)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.TanakaMaxillary)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.WitsInference.ToString())'>
+                                <td><b>@Html.DisplayNameFor(model => model.TanakaInference)</b></td>
+                                <td>@Html.DisplayFor(model => model.TanakaInference)</td>
+                            </tr>
+                        </table>
+                    }
+                    @if (Model.RadiographicInference != null)
+                    {
+                        <table class="table table-bordered">
+                            <tr style='@IsVisible(@Model.RadiographicAnalysisName.ToString())'>
+                                <td><b>@Html.DisplayNameFor(model => model.RadiographicAnalysisName)</b></td>
+                                <td><b>@Html.DisplayFor(model => model.RadiographicAnalysisName)</b></td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.ActualWidth.ToString())'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.ActualWidth)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.ActualWidth)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.RadiographicWidth.ToString())'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.RadiographicWidth)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.RadiographicWidth)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.RadiographicWidth.ToString())'>
+                                <td class="col30">@Html.DisplayNameFor(model => model.RadiographicPremolar)</td>
+                                <td class="col70">@Html.DisplayFor(model => model.RadiographicPremolar)</td>
+                            </tr>
+                            <tr style='@IsVisible(@Model.RadiographicInference.ToString())'>
+                                <td><b>@Html.DisplayNameFor(model => model.RadiographicInference)</b></td>
+                                <td>@Html.DisplayFor(model => model.RadiographicInference)</td>
+                            </tr>
+                        </table>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

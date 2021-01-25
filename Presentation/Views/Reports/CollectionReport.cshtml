@@ -1,0 +1,324 @@
+﻿ @model DIMS.ViewModels.ReportSearchViewModel
+
+<div class="box box-info">
+    <div class="box-body">
+        <div class="table-responsive">
+            <div class="col-md-6">
+                <table class="table">
+                    <tr>
+                        <td style="border-top:none">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.DateRange, new { @class = "control-label" })
+                            </div>
+                        </td>
+                        <td style="border-top:none">
+                            <div class="form-group form-group-sm">
+                                @Html.EditorFor(model => model.DateRange, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </td>
+                        <td style="border-top:none">
+                            <div class="form-group form-group-sm">
+                                @Html.DropDownListFor(x => x.DeptId, Model.DeptList, "Select", htmlAttributes: new { @class = "form-control", @id = "Department" })
+                            </div>
+                        </td>
+                        @*<td>
+                                <div class="form-group form-group-sm">
+                                    @Html.DropDownListFor(x => x.DoctorId, Model.DoctorList, htmlAttributes: new { @class = "form-control", @id = "Doctor" })
+                                </div>
+                            </td>
+                            <td>
+                                    <div class="form-group form-group-sm">
+                                        @Html.DropDownListFor(x => x.UserId , Model.userList, htmlAttributes: new { @class = "form-control", @id = "User" })
+                                    </div>
+                                </td>
+                            <td>
+                                <div class="col-md-2 form-group form-group-sm">
+                                    <a id="btncollectionSearch"> <i class="fa fa-search fa fa-search btn btn-success"> Search</i></a>
+                                </div>
+                            </td>*@
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">Collection Report</h3>
+            </div>
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table id="tbCollectionReport" class="table table-bordered table-hover" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th class="col-md-2">DATE </th>
+                                <th class="col-md-2">TOTAL AMOUNT</th>
+                                <th class="col-md-2">DISCOUNT AMOUNT</th>
+                                <th class="col-md-2">CANCELLED AMOUNT</th>
+                                <th class="col-md-2">BALANCE AMOUNT</th>
+                                <th class="col-md-2">RECEIVED AMOUNT</th>
+                                @*<th class="col-md-2 hidden">NO OF BILLS </th>*@
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                        <tfoot>
+                            <tr><th></th><th></th><th></th><th></th><th></th><th></th></tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+    <script src="~/Scripts/dataTables.buttons.min.js"></script>
+    <script src="~/Scripts/buttons.flash.min.js"></script>
+    <script src="~/Scripts/jszip.min.js"></script>
+    <script src="~/Scripts/pdfmake.min.js"></script>
+    <script src="~/Scripts/vfs_fonts.js"></script>
+    <script src="~/Scripts/buttons.html5.min.js"></script>
+    <script src="~/Scripts/buttons.print.min.js"></script>
+}
+
+
+<script>
+
+    $(function () {
+        var start = moment();
+        var end = moment();
+
+        $('#DateRange').daterangepicker({
+            startDate: start,
+            endDate: end,
+            locale: {
+                format: 'DD/MM/YYYY'
+            },
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            }
+        }, cb);
+        function cb(start, end) {
+            $('#DateRange span').html(start.format('YYYY/MM/DD') + ' - ' + end.format('YYYY/MM/DD'));
+        }
+        cb(start, end);
+
+    });
+
+    $(document).ready(function () {
+
+        $('#btncollectionSearch').on('click', function (e) {
+            e.preventDefault();
+            Searchvalue();
+        });
+
+        var SearchValue = function () {
+            
+                var selected = $("#DateRange").val();
+                var from = selected.split("-");
+                var fromdate = $.trim(from[0]); var todate =$.trim(from[1]);
+                var date1 = fromdate.split("/").reverse().join("-");
+                var date2 = todate.split("/").reverse().join("-");
+                var $DeptId = $("#Department").val();
+                if ($DeptId == "")
+                {
+                    $DeptId = "All";
+                }
+                else
+                {
+                    $DeptId = $("#Department option:selected").text();
+                }
+              $.ajax({
+                url: '@Url.Action("GetCollectionReportList", "Report")',
+                type: "POST",
+                data: '{FromDateValue: "' + date1 + ' ",ToDateValue: "' + date2 + ' ",DeptId: "' + $("#Department").val() + ' "}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    table = $('#tbCollectionReport').DataTable();
+                    table.destroy();
+                    $('#tbCollectionReport').dataTable({
+                        data: data,
+                        columns: [
+                            { 'data': 'DisplayDate' },
+                            { 'data': 'TotalAmount' },
+                            { 'data': 'DiscountAmt' },
+                            { 'data': 'CancelledBill' },
+                            { 'data': 'BalanceAmount' },
+                            { 'data': 'ReceivedAmount' },
+                            //{ 'data': 'NoofBills' }
+                        ],
+                        "columnDefs": [
+                           { className: "dt-right", "targets": [1, 2, 3, 4, 5] },
+                          // { className: "dt-center", "targets": [5] },
+                        ],
+                        "footerCallback": function (row, data, start, end, display) {
+                            var api = this.api();
+                            var intVal = function (i) {
+                                return typeof i === 'string' ?
+                                    i.replace(/[\$,]/g, '') * 1 :
+                                    typeof i === 'number' ?
+                                    i : 0;
+                            };
+
+                            pageTotal = api
+                             .column(1, { page: 'current' })
+                             .data()
+                             .reduce(function (a, b) {
+                                 return intVal(a) + intVal(b);
+                             }, 0);
+
+                            pageDiscount = api
+                            .column(2, { page: 'current' })
+                            .data()
+                            .reduce(function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0);
+
+                            pageCancelled = api
+                            .column(3, { page: 'current' })
+                            .data()
+                            .reduce(function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0);
+
+                            pageBalance = api
+                            .column(4, { page: 'current' })
+                            .data()
+                            .reduce(function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0);
+
+                            pageReceived = api
+                           .column(5, { page: 'current' })
+                           .data()
+                           .reduce(function (a, b) {
+                               return intVal(a) + intVal(b);
+                           }, 0);
+
+                           // pageNoofBills = api
+                           //.column(5, { page: 'current' })
+                           //.data()
+                           //.reduce(function (a, b) {
+                           //    return intVal(a) + intVal(b);
+                           //}, 0);
+
+                            $(api.column(0).footer()).html('Total');
+                            jQuery(api.column(1).footer()).html(Math.round(pageTotal.toFixed(2)));
+                            jQuery(api.column(2).footer()).html(Math.round(pageDiscount.toFixed(2)));
+                            jQuery(api.column(3).footer()).html(Math.round(pageCancelled.toFixed(2)));
+                            jQuery(api.column(4).footer()).html(Math.round(pageBalance.toFixed(2)));
+                            jQuery(api.column(5).footer()).html(Math.round(pageReceived.toFixed(2)));
+                         //   jQuery(api.column(5).footer()).html(Math.round(pageNoofBills.toFixed(2)));
+                        },
+                        "dom": "Bfrtip",
+                        "buttons": [
+                            {
+                                extend: 'copy',
+                                footer: true,
+                                className: 'copyButton',
+                                text: '<i class ="fa fa-clone"></i>Copy'
+
+                            },
+                            {
+                                extend: 'excel',
+                                footer: true,
+                                text: '<i class ="fa fa-file-excel-o"></i>Excel'
+
+                            },
+                             {
+                                 extend: 'pdf',
+                                 footer: true,
+                                 text: '<i class ="fa fa-file-pdf-o"></i>Pdf'
+
+                             },
+                             {
+                                 extend: 'csv',
+                                 footer: true,
+                                 text: '<i class ="fa fa-file-excel-o"></i>CSV'
+
+                             },
+                             {
+                                 extend: 'print',
+                                 footer: true,
+                                 messageTop: '<h3 class="text-center" style="margin-bottom:0;margin-top:0;">Collection Report</h3><br/><h4 class="text-center" style="margin-top:0;margin-bottom:0;"> From &nbsp ' + date1 + ' &nbsp To &nbsp  ' + date2 + '</h4><br/><h4 class="text-center" style="margin-top:0;">  Department : ' + $DeptId + '</h4>',
+                                 customize: function (win) {
+                                     $(win.document.body)
+                                         .css('font-size', '10pt')
+                                         .prepend(
+                                             '<img src="~/Content/logo-fade.png" style="position:absolute; top:0; left:0;" />'
+                                         );
+
+
+                                     $(win.document.body).find('table tfoot th:nth-child(1) ,thead th:nth-child(1)').css('text-align', 'right')
+                                     $(win.document.body).find('table tfoot th:nth-child(2) ,tbody td:nth-child(2) ,thead th:nth-child(2)').css('text-align', 'right')
+                                     $(win.document.body).find('table tfoot th:nth-child(3) ,tbody td:nth-child(3) ,thead th:nth-child(3)').css('text-align', 'right')
+                                     $(win.document.body).find('table tfoot th:nth-child(4) ,tbody td:nth-child(4) ,thead th:nth-child(4)').css('text-align', 'right')
+                                     $(win.document.body).find('table tfoot th:nth-child(5) ,tbody td:nth-child(5) ,thead th:nth-child(5)').css('text-align', 'right')
+                                     $(win.document.body).find('table tfoot th:nth-child(6) ,tbody td:nth-child(6) ,thead th:nth-child(6)').css('text-align', 'right')
+                                         .addClass('compact')
+                                         .css('font-size', 'inherit');
+
+                                 }
+
+                             }
+                        ],
+                    })
+
+                },
+            })
+
+        }
+
+        SearchValue();
+        $("#DateRange").on("change", function () {
+            SearchValue();
+        })
+        $("#Department").on("change", function () {
+            SearchValue();
+        })
+    });
+
+
+
+
+    var $Department = $("#Department"),
+        $Doctor = $("#Doctor")
+
+    //Dropdownlist Selected change event
+    $Department.change(function () {
+        $Doctor.empty();
+
+        $Doctor.append('<option value="0"> --Select --</option>');
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetDoctor")', // we are calling json method
+            dataType: 'json',
+            data: { id: $Department.val() },
+            success: function (doctors) {
+                $.each(doctors, function (i, Doctor) {
+                    $Doctor.append('<option value="' + Doctor.Value + '">' +
+                         Doctor.Text + '</option>');
+                });
+            },
+            error: function (ex) {
+                //alert('Failed to retrieve states.' + ex);
+            }
+        });
+        return false;
+    });
+
+
+
+
+</script>

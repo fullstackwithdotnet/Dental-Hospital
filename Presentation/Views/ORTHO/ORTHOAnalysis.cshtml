@@ -1,0 +1,68 @@
+﻿@model DIMS.ViewModels.OrthoStaticAnalysisViewModel
+
+@{
+    ViewBag.Title = "ORTHO Analysis";
+}
+
+<div class="row">
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-8">
+        <h3 style="color: #357ebd">List of All the Analysis Undergone</h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        @Html.HiddenFor(x => x.OrthoId)
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="form-group">
+                    <table class="table">
+                        <tr>
+                            <th class="col-md-1">
+                               Sl.No
+                            </th>
+                            <th class="col-md-10">
+                                @Html.DisplayNameFor(model => model.AnalysisDisplayName)
+                            </th>
+                            <th class="col-md-1 hidden">
+                                @Html.DisplayNameFor(model => model.Visibility)
+                            </th>
+                            <th></th>
+                        </tr>
+                        @{int i = 0;}
+                        @foreach (var itemp in Model.AnalysisList.ToList())
+                        {
+                            i++;
+                            <tr>
+                                <td>
+                                    <span>@i</span>
+                                    @Html.HiddenFor(modelItem => itemp.AnalysisId)
+                                </td>
+                                <td class="analysisList">
+                                    @Html.DisplayFor(modelItem => itemp.AnalysisDisplayName)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Analysis", "Analysis", new { id = @Model.OrthoId, Analysis = @itemp.AnalysisId }, new { target = "_blank" })
+                                </td>
+                                <td>
+                                    @Html.HiddenFor(modelItem => itemp.Visibility)
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+ 

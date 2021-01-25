@@ -1,0 +1,123 @@
+﻿@model DIMS.ViewModels.PROSMFPViewModel
+
+@{
+    int index = 0;
+}
+<div class="panel-group" id="accordion">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseG" class="collapsed">Treatment Description<span class="small text-fuchsia"> (click to expand/collapse)</span></a>
+        </h4>
+    </div>
+    <div id="collapseG" class="panel-collapse in" style="height: auto;">
+        <div class="panel-body">
+            <div id="collapseG" class="panel-collapse in" style="height: auto;">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="col-md-6">
+                            @Html.HiddenFor(model => model.ProsMaxilloProId)
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.MfpTreatmentDate, new { @class = "col-md-5 control-label" })
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.MfpTreatmentDateUpdate)
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.MfpTreatmentDescription, new { @class = "col-md-5 control-label" })
+                                <div class="col-md-7">
+                                    @Html.TextAreaFor(model => model.MfpTreatmentDescription, new { @class = "form-control"})
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.MfpRemarks, new { @class = "col-md-5 control-label" })
+                                <div class="col-md-4">
+                                    @Html.TextAreaFor(model => model.MfpRemarks, 2, 2, new { @class = "form-control", style = "min-height:30px!important;width:200px;" })
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-12">
+                                <div class="form-group form-group-sm">
+                                    <div class="col-md-offset-4">
+                                        <a class="btn btn-success" id="btnMfpProAdd">Add</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-hover" style="border-color:red" id="tbMfpProDetails">
+                                <tr style="font-size:x-small">
+                                    <th hidden>
+                                        @Html.DisplayNameFor(model => model.ProsthoMFPId)
+                                        @Html.DisplayNameFor(model => model.ProsMaxilloProId)
+                                    </th>
+                                    <th colspan="2"  class="text-center">
+                                        Action
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.MfpTreatmentDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.MfpTreatmentDescription)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.MfpRemarks)
+                                    </th>
+
+                                    <th></th>
+                                </tr>
+
+                                @foreach (var item in Model.MfpTreatList)
+                                        {
+
+                                            <tr style="font-size:x-small">
+                                                <td class="hidden">
+                                                    @Html.TextBoxFor(modelItem => item.ProsthoMFPId, new { @class = "col-sm-10", @id = "MfpTreatList[" + index + "]_" + "ProsthoMFPId", @Name = "MfpTreatList[" + index + "]." + "ProsthoMFPId" })
+                                                    @Html.TextBoxFor(modelItem => item.ProsMaxilloProId, new { @class = "col-sm-10 js_ProsMaxilloProId", @id = "MfpTreatList[" + index + "]_" + "ProsMaxilloProId", @Name = "MfpTreatList[" + index + "]." + "ProsMaxilloProId" })
+                                                </td>
+                                                <td class="text-right">
+                                                    <button type="button" class="MfpProEdit btn btn-primary btn-xs" data-id="@item.ProsMaxilloProId">
+                                                        <i class="glyphicon glyphicon-pencil"></i>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="MfpProdelete btn btn-danger btn-xs" data-id="@item.ProsMaxilloProId">
+                                                        <i class="glyphicon glyphicon-trash"></i>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.MfpTreatmentDateDisplay, new { @class = "control-label" })
+                                                    @Html.HiddenFor(modelItem => item.MfpTreatmentDateDisplay, new { @class = "form-control iHidden", @id = "MfpTreatList[" + index + "]_" + "MfpTreatmentDateDisplay", @Name = "MfpTreatList[" + index + "]." + "MfpTreatmentDateDisplay" })
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.MfpTreatmentDescription, new { @class = "control-label" })
+                                                    @Html.HiddenFor(modelItem => item.MfpTreatmentDescription, new { @class = "form-control js_MfpTreatmentDescription", @id = "MfpTreatList[" + index + "]_" + "MfpTreatmentDescription", @Name = "MfpTreatList[" + index + "]." + "MfpTreatmentDescription" })
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.MfpRemarks, new { @class = "control-label" })
+                                                    @Html.HiddenFor(modelItem => item.MfpRemarks, new { @class = "form-control js_MfpRemarks", @id = "MfpTreatList[" + index + "]_" + "MfpRemarks", @Name = "MfpTreatList[" + index + "]." + "MfpRemarks" })
+                                                </td>
+
+                                            </tr>
+                                            index++;
+                                        }
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

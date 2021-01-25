@@ -1,0 +1,167 @@
+﻿ @model DIMS.ViewModels.RadioRegistrationViewModel
+
+@{
+    ViewBag.Title = "RadiologyReport";
+}
+
+
+<style>
+    .col30 {
+        width: 30%;
+        padding: 5px !important;
+    }
+
+    .col40 {
+        width: 40%;
+        padding: 5px !important;
+    }
+
+    .col50 {
+        width: 50%;
+        padding: 5px !important;
+    }
+
+    .col60 {
+        width: 60%;
+        padding: 5px !important;
+    }
+
+    .col70 {
+        width: 70%;
+        padding: 5px !important;
+    }
+
+    .col80 {
+        width: 80%;
+        padding: 5px !important;
+    }
+
+    .col35 {
+        width: 35%;
+        padding: 5px !important;
+    }
+
+    .col625 {
+        width: 6%;
+        padding: 5px !important;
+    }
+
+    .col10 {
+        width: 10%;
+        padding: 5px !important;
+    }
+
+    .colImage {
+        max-height: 300px;
+        max-width: 300px;
+    }
+</style>
+
+@functions{
+    public string IsVisible(string propertyName)
+    {
+
+        if (propertyName == null)
+        {
+            return "display:none";
+        }
+        return "";
+    }
+}
+
+
+<div class="box box-default box-solid">
+    <div class="box-header with-border">
+        <h3 class="box-title"><strong>Radiology Department</strong></h3>
+        <div class="box-tools pull-right text-black ">
+            Lab #
+            <strong>@Html.DisplayFor(model => model.LabNo)</strong>
+        </div>
+    </div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <h4><strong>Patient Details</strong></h4>
+                    @Html.Partial("../Reports/_RadiologyPatientInformationDetails", Model)
+                </div>
+                @{int i = 0;}
+                @if (Model.TestNameReportList != null)
+                {
+                    <table class="table table-bordered" style="margin-bottom: 0px !important;">
+                        @foreach (var Name in Model.TestNameReportList.ToList())
+                        {
+                            i++;
+                            <tr style='@IsVisible(Name.ServiceName)'>
+                                <td colspan="2"><strong><span>@i</span>.@Html.DisplayFor(model => Name.ServiceName)</strong></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <table class="table  table-bordered" style="margin-bottom: 0px !important;">
+                                        @if (Model.TestItemList.Count() > 0)
+                                        {
+                                            foreach (var item in Model.TestItemList.ToList())
+                                            {
+                                                if (Name.ServiceName == item.ServiceName)
+                                                {
+                                                    <tr style='@IsVisible(item.ServiceItems)'>
+                                                        @if (item.IsHeader.Trim() == "Y")
+                                                        {
+                                                            <td colspan="2"><strong>@Html.DisplayFor(modelItem => item.ServiceItems)</strong></td>
+                                                        }
+                                                        else
+                                                        {
+                                                            if (item.Result != null)
+                                                            {
+                                                                <td class="col30"><strong class="text-sm">@Html.DisplayFor(model => item.ServiceItems)</strong></td>
+                                                                <td class="col70 text-sm">@Html.DisplayFor(model => item.Result)</td>
+                                                            }
+                                                        }
+
+                                                    </tr>
+
+                                                }
+                                            }
+                                        }
+                                    </table>
+                                </td>
+                            </tr>
+                            if (Name.Impression != null)
+                            {
+                                <tr style='@IsVisible(Name.Impression)'>
+                                    <td class="col30"><strong class="text-sm">Other Findings (if any) :</strong></td>
+                                    <td class="col70 text-sm">@Html.DisplayFor(model => Name.Impression)</td>
+                                </tr>
+                            }
+                            if (Name.Remarks != null)
+                            {
+                                <tr style='@IsVisible(Name.Remarks)'>
+                                    <td class="col30"><strong class="text-sm">Remarks :</strong></td>
+                                    <td class="col70 text-sm">@Html.DisplayFor(model => Name.Remarks)</td>
+                                </tr>
+                            }
+                            if (Model.FileUploadlist.Count() > 0)
+                            {
+                                foreach (var file in Model.FileUploadlist.ToList())
+                                {
+                                    if (Name.LabDetId == file.TestDetId)
+                                    {
+                                        <tr style='@IsVisible(file.FilePath)'>
+                                            <td class="col30 text-sm">@Html.DisplayFor(model => file.FileName)</td>
+                                            <td class="col70"><img src="@Url.Content(String.Format("~/Content/Upload/{0}", file.FileDisplayPath))" class="colImage" /></td>
+                                        </tr>
+                                    }
+                                }
+                            }
+
+                        }
+                    </table>
+                }
+            </div>
+            <div class="col-md-12">
+                <h4><strong class="text-sm">Signature of Radiologist</strong></h4>
+            </div>
+        </div>
+
+    </div>
+</div>

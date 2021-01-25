@@ -1,0 +1,616 @@
+﻿@using Metron.Entities
+@model DIMS.ViewModels.PHDViewModel
+
+@helper CreateCheckbox(string value)
+{
+    @Html.CheckBox("chkBox", !string.IsNullOrEmpty(value), new { @class = "checkbox-inline" })
+}
+@functions {
+    object getHtmlAttributes(string value, string CssClass)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            return new { @class = CssClass, disabled = "disabled" };
+        }
+        return new { @class = CssClass };
+    }
+}
+
+@functions{
+    public string GetClassFromProperties(string propertyName)
+    {
+        var props = Model.Proplist.FirstOrDefault<PHDCasesheetProperties>(x => x.PropertyName == propertyName);
+
+        if (props != null && props.PropertyVisibility == "N")
+        {
+            return "display:none";
+        }
+
+        return "";
+    }
+}
+
+<div class="col-md-12">
+    <div class="box box-default collapsed-box">
+        <div class="box-header with-border">
+            <h3 class="box-title">GENERAL PHYSICAL EXAMINATIONS</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                    <i class="fa fa-plus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="divBuilt">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Built, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.Built, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divClubbing">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Clubbing, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.Clubbing, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divConjuctiva">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Conjuctiva, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.Conjuctiva, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divCyanosis">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Cyanosis, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.Cyanosis, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divGait">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Gait, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.Gait, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divHair">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Hair, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.Hair, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divHeight">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Height, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.Height, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divIcterus">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Icterus, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.Icterus, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divProfile">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Profile, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.Profile, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div id="divNails">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Nails, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.Nails, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divNourishment">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Nourishment, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.Nourishment, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divOedema">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Oedema, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.Oedema, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divPallor">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Pallor, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.Pallor, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divPosture">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Posture, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.Posture, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divSclera">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Sclera, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.Sclera, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divSkin">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Skin, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.Skin, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divWeight">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Weight, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.Weight, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divPhysicalExamOthers">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.PhysicalExamOthers, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.PhysicalExamOthers, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="box box-default collapsed-box">
+        <div class="box-header with-border">
+            <h3 class="box-title">EXTRA ORAL EXAMINATION</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                    <i class="fa fa-plus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="divEyes">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Eyes, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.Eyes, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divFace">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Face, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.Face, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divNose">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Nose, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.Nose, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divSalivaryGlands">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.SalivaryGlands, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.SalivaryGlands, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>                   
+                </div>
+                <div class="col-md-6">
+                    <div id="divClinicalSkin">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.ClinicalSkin, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ClinicalSkin, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divMouthOpening">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.MouthOpening, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.MouthOpening, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divTMJ">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.TMJ, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.TMJ, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divClinicalExamOthers">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.ClinicalExamOthers, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.ClinicalExamOthers, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+           </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="box box-default collapsed-box">
+        <div class="box-header with-border">
+            <h3 class="box-title">VITAL SIGNS</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                    <i class="fa fa-plus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="col-md-6">
+                <div id="divBPDia">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.BPDia, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(x => x.BPDia, new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(x => x.BPSys, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divPulse">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.Pulse, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.Pulse, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divRespiratoryrate">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.Respiratoryrate, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.Respiratoryrate, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>               
+            </div>
+            <div class="col-md-6">
+                <div id="divTemperature">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.Temperature, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.Temperature, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divVitalOthers">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.VitalOthers, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.VitalOthers, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="box box-default collapsed-box">
+        <div class="box-header with-border">
+            <h3 class="box-title">LYMPH NODES</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                    <i class="fa fa-plus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="col-md-6">
+                <div id="divConsistencyId">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.ConsistencyId, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-4 dropdown">
+                                @Html.DropDownListFor(model => model.ConsistencyId, new SelectList(Model.Consistencylist, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(x => x.ConsistencyOthers, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divConsistencyId">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.LymphCrossBite, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.LymphCrossBite, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divGroupId">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.GroupId, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-4 dropdown">
+                                @Html.DropDownListFor(model => model.GroupId, new SelectList(Model.Grouplist, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(x => x.GroupOthers, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divSize">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.Size, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.Size, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divLymphTenderness">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-4 control-label">
+                                @Html.LabelFor(x => x.LymphTenderness)
+                                @CreateCheckbox(Model.LymphTenderness)
+                            </div>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.LymphTenderness, getHtmlAttributes(Model.LymphTenderness, "form-control"))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div id="divMobility">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-4 control-label">
+                                @Html.LabelFor(x => x.Mobility)
+                                @CreateCheckbox(Model.Mobility)
+                            </div>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.Mobility, getHtmlAttributes(Model.Mobility, "form-control"))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divPalpable">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-4 control-label">
+                                @Html.LabelFor(x => x.Palpable)
+                                @CreateCheckbox(Model.Palpable)
+                            </div>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.Palpable, getHtmlAttributes(Model.Palpable, "form-control"))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divNonpalpable">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-4 control-label">
+                                @Html.LabelFor(x => x.Nonpalpable)
+                                @CreateCheckbox(Model.Nonpalpable)
+                            </div>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.Nonpalpable, getHtmlAttributes(Model.Nonpalpable, "form-control"))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divLymphOthers">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.LymphOthers, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(x => x.LymphOthers, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="box box-default collapsed-box">
+        <div class="box-header with-border">
+            <h3 class="box-title">TEMPOROMANDIBULAR JOINT</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                    <i class="fa fa-plus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="divClicking">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                <div class="col-md-4 control-label">
+                                    @Html.LabelFor(x => x.Clicking)
+                                    @CreateCheckbox(Model.Clicking)
+                                </div>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.Clicking, getHtmlAttributes(Model.Clicking, "form-control"))
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divDifficultopennext">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                <div class="col-md-4 control-label">
+                                    @Html.LabelFor(x => x.Difficultopennext)
+                                    @CreateCheckbox(Model.Difficultopennext)
+                                </div>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.Difficultopennext, getHtmlAttributes(Model.Difficultopennext, "form-control"))
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divJawDeviation">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                <div class="col-md-4 control-label">
+                                    @Html.LabelFor(x => x.JawDeviation)
+                                    @CreateCheckbox(Model.JawDeviation)
+                                </div>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.JawDeviation, getHtmlAttributes(Model.JawDeviation, "form-control"))
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div id="divTemporoJointTenderness">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                <div class="col-md-4 control-label">
+                                    @Html.LabelFor(x => x.TemporoJointTenderness)
+                                    @CreateCheckbox(Model.TemporoJointTenderness)
+                                </div>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.TemporoJointTenderness, getHtmlAttributes(Model.TemporoJointTenderness, "form-control"))
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divTemporoJointOthers">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.TemporoJointOthers, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextAreaFor(x => x.TemporoJointOthers, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

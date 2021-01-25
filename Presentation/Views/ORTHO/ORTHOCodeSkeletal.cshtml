@@ -1,0 +1,185 @@
+﻿@model DIMS.ViewModels.OrthoViewModal
+
+@helper CreateCheckbox(string value)
+{
+    @Html.CheckBox("chkBox", !string.IsNullOrEmpty(value), new { @class = "checkbox-inline" })
+}
+
+@helper CreateCheckbox_1(string Name, string value)
+{
+    string chkName = "chk" + Name;
+    @Html.CheckBox(chkName, !string.IsNullOrEmpty(value), new { @class = "checkbox-inline" })
+}
+@functions {
+    object getHtmlAttributes(string value, string CssClass)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            return new { @class = CssClass, disabled = "disabled" };
+        }
+        return new { @class = CssClass };
+    }
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <hr />
+        <div class="col-md-6">
+            <h5 style="color: #357ebd"><b>CVMI/MP3 TABLE</b></h5>
+            <hr />
+            <table class="table table-striped">
+                <tr>
+                    <td>
+                        <div class="col-md-4 control-label">
+                            @Html.LabelFor(x => x.CVMI1)
+                            @Html.CheckBoxFor(x => x.CVMI1)
+                        </div>
+                        <div class="col-md-4 control-label">
+                            @Html.LabelFor(x => x.CVMI2)
+                            @Html.CheckBoxFor(x => x.CVMI2)
+                        </div>
+                        <div class="col-md-4 control-label">
+                            @Html.LabelFor(x => x.CVMI3)
+                            @Html.CheckBoxFor(x => x.CVMI3)
+                        </div>
+
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+
+        <div class="col-md-6">
+            <h5 style="color: white"><b>.</b></h5>
+            <hr />
+            <table class="table table-striped">
+                <tr>
+                    <td>
+                        <div class="col-md-4 control-label">
+                            @Html.LabelFor(x => x.CVMI4)
+                            @Html.CheckBoxFor(x => x.CVMI4)
+                        </div>
+                        <div class="col-md-4 control-label">
+                            @Html.LabelFor(x => x.CVMI5)
+                            @Html.CheckBoxFor(x => x.CVMI5)
+                        </div>
+                        <div class="col-md-4 control-label">
+                            @Html.LabelFor(x => x.CVMI6)
+                            @Html.CheckBoxFor(x => x.CVMI6)
+                        </div>
+
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+
+
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <tr>
+                    <td>1</td>
+                    <td>MP3 F/</td>
+                    <td>EPIPHYSIS AS WIDE AS METAPHYSIS</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>CVMI 1</td>
+                    <td>C1 C2 C3 C4 INFERIOR BORDERS ARE FLAT</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>MP3 FG/</td>
+                    <td>DISTINCT LATERAL BORDERS OF EPIPHYSIS FORM A LINE OF DEMARCATION</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>CVMI 2</td>
+                    <td>C2 C3 INFERIOR BORDERS DEVELOP CONCAVITIES(65-85% GROWTH LEFT)</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>MP3 G/</td>
+                    <td>EPIPHYSIS THICKENS AND CAPS METAPHYSIS(CUPID BOW APPEARANCE)</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>CVMI3</td>
+                    <td>C2 C3 DISTINCT CONCAVITIES PRESENT C4 CONCAVITIES START DEVELOPING(25-65% GROWTH LEFT)</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>MP3 H/</td>
+                    <td>FUSION OF METAPHYSIS AND EPIPHYSIS BEGINS</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>CVMI 4</td>
+                    <td>C2 C3 C4 SHOW DISTINCT CONCAVITIES C3 C4 SQUARE(1-25% GROWTH LEFT)</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>MP3 HI/</td>
+                    <td>SUPERIOR SURFACE OF EPIPHYSIS SHOWS CONCAVITY</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>CVMI 5</td>
+                    <td>ACCENTUATED CONCAVITIES OF C2 C3 C4</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>MP3 I/</td>
+                    <td>FUSION OF EPIPHYSIS AND METAPHYSIS COMPLETE</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>CVMI 6</td>
+                    <td>C2 C3 C4 SHOW DEEP CONCAVITIES C3 C4 HEIGHT GREATER THAN WIDTH</td>
+                </tr>
+
+            </table>
+        </div>
+
+    <div class="col-md-12">
+        <table class="table table-bordered">
+            <tr>
+                <td>1</td>
+
+                <td>START OF CURVE OF PUBERTAL GROWTH SPURT</td>
+            </tr>
+
+            <tr>
+                <td>2</td>
+
+                <td>ACCELERATION OF CURVE OF PUBERTAL GROWTH SPURT</td>
+            </tr>
+
+            <tr>
+                <td>3</td>
+
+                <td>MAXIMUM POINT OF PUBERTAL GROWTH SPURT</td>
+            </tr>
+
+            <tr>
+                <td>4</td>
+
+                <td>DECELERATION CURVE OF PUBERTAL GROWTH SPURT</td>
+            </tr>
+
+            <tr>
+                <td>5</td>
+
+                <td>MATURATION CURVE OF GROWTH SPURT</td>
+            </tr>
+
+            <tr>
+                <td>6</td>
+
+                <td>END OF PUBERTAL GROWTH SPURT</td>
+            </tr>
+        </table>
+    </div>
+</div>

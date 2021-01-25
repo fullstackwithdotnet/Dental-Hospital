@@ -1,0 +1,62 @@
+﻿@model IEnumerable<DIMS.ViewModels.OMFSIPOtConsumablesDetailsViewModel>
+
+@{
+    string modelName = ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix;
+    int index = 0;
+}
+@functions{
+    string GetId(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}]_{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+    string GetName(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}].{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+}
+
+
+<table class="table table-bordered" id="tbconsumabledetails">
+    <tr>
+        <th class="hidden">
+            @Html.DisplayNameFor(model => model.ConsumableId)
+            @Html.DisplayNameFor(model => model.OMFSIpId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaterialQty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaterialRate)
+        </th>
+        @{int i = 0;}
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        i++;
+        <tr>
+            <td class="hidden">
+                @Html.TextBoxFor(modelItem => item.ConsumableId, new { @class = "col-sm-10", @id = GetId("ConsumableId", index), @Name = GetName("ConsumableId", index) })
+                @Html.TextBoxFor(modelItem => item.OMFSIpId, new { @class = "col-sm-10", @id = GetId("OMFSIpId", index), @Name = GetName("OMFSIpId", index) })
+                @Html.TextBoxFor(modelItem => item.ProductId, new { @class = "col-sm-10", @id = GetId("ProductId", index), @Name = GetName("ProductId", index) })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+                @Html.HiddenFor(modelItem => item.ProductName, new { @class = "form-control ConsumableHidden", @id = GetId("ProductName", index), @Name = GetName("ProductName", index) })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaterialQty)
+                @Html.HiddenFor(modelItem => item.MaterialQty, new { @class = "form-control", @id = GetId("MaterialQty", index), @Name = GetName("MaterialQty", index) })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaterialRate)
+                @Html.HiddenFor(modelItem => item.MaterialRate, new { @class = "form-control", @id = GetId("MaterialRate", index), @Name = GetName("MaterialRate", index) })
+            </td>
+        </tr>
+        index++;
+    }
+
+</table>

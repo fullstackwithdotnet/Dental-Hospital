@@ -1,0 +1,183 @@
+﻿@model IEnumerable<DIMS.ViewModels.CONSRestorativeProViewModel>
+
+@{
+    string modelName = ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix;
+    int index = 0;
+}
+@functions{
+    string GetId(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}]_{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+    string GetName(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}].{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+}
+<div class="form-horizontal">
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <table class="table table-bordered" id="tbRestorativeProDetails">
+                <tr>
+                    <th hidden>
+                        @Html.DisplayNameFor(model => model.ConservativeId)
+                    </th>
+                    <th hidden>
+                        @Html.DisplayNameFor(model => model.RestorativeProId)
+                    </th>
+                    <th>
+
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ToothNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CavityType)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PhotographsCastsXray)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RestorativeMaterial)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CavityPreparation)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ImpressionPattern)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LinearBasesVarnish)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MatrixBandWedges)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Restoration)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FinishingAndRestoration)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DirectIndirectReview1)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DirectIndirectReview2)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DirectIndirectReview3)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DeepCariesReview1)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DeepCariesReview2)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DeepCariesReview3)
+                    </th>
+                    <th></th>
+                    @{int i = 0;}
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    i++;
+                    <tr>
+
+                        <td class="hidden">
+                            @Html.TextBoxFor(modelItem => item.ConservativeId, new { @class = "col-sm-10", @id = GetId("ConservativeId", index), @Name = GetName("ConservativeId", index) })
+                            @Html.TextBoxFor(modelItem => item.RestorativeProId, new { @class = "col-sm-10", @id = GetId("RestorativeProId", index), @Name = GetName("RestorativeProId", index) })
+                            @*@Html.TextBoxFor(modelItem => item.ToothNumber, new { @class = "col-sm-10", @id = GetId("ToothNumber", index), @Name = GetName("ToothNumber", index) })*@
+
+                        </td>
+                        <td>
+                            <button type="button" class="RestorativeProToothdelete btn btn-danger btn-xs" data-id="@item.RestorativeProId">
+                                <i class="glyphicon glyphicon-trash"></i>
+                            </button>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ToothNumber, new { @class = "control-label" })
+                            @Html.HiddenFor(modelItem => item.ToothNumber, new { @class = "form-control iHidden", @id = GetId("ToothNumber", index), @Name = GetName("ToothNumber", index) })
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CavityType, new { @class = "control-label" })
+                            @Html.HiddenFor(modelItem => item.CavityType, new { @class = "form-control", @id = GetId("CavityType", index), @Name = GetName("CavityType", index) })
+                        </td>
+                        <td>
+
+                            @Html.DisplayFor(modelItem => item.PhotographsCastsXray, new { @class = "control-label" })
+                            @Html.HiddenFor(modelItem => item.PhotographsCastsXray, new { @class = "form-control", @id = GetId("PhotographsCastsXray", index), @Name = GetName("PhotographsCastsXray", index) })
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RestorativeMaterial, new { @class = "control-label" })
+                            @Html.HiddenFor(modelItem => item.RestorativeMaterial, new { @class = "form-control", @id = GetId("RestorativeMaterial", index), @Name = GetName("RestorativeMaterial", index) })
+                        </td>
+                        <td>
+
+                            @Html.DisplayFor(modelItem => item.CavityPreparation, new { @class = "control-label" })
+                            @Html.HiddenFor(modelItem => item.CavityPreparation, new { @class = "form-control", @id = GetId("CavityPreparation", index), @Name = GetName("CavityPreparation", index) })
+                        </td>
+                        <td>
+
+                            @Html.DisplayFor(modelItem => item.ImpressionPattern, new { @class = "control-label" })
+                            @Html.HiddenFor(modelItem => item.ImpressionPattern, new { @class = "form-control", @id = GetId("ImpressionPattern", index), @Name = GetName("ImpressionPattern", index) })
+                        </td>
+                        <td>
+
+                            @Html.DisplayFor(modelItem => item.LinearBasesVarnish, new { @class = "control-label" })
+                            @Html.HiddenFor(modelItem => item.LinearBasesVarnish, new { @class = "form-control", @id = GetId("LinearBasesVarnish", index), @Name = GetName("LinearBasesVarnish", index) })
+                        </td>
+                        <td>
+
+                            @Html.DisplayFor(modelItem => item.MatrixBandWedges, new { @class = "control-label" })
+                            @Html.HiddenFor(modelItem => item.MatrixBandWedges, new { @class = "form-control", @id = GetId("MatrixBandWedges", index), @Name = GetName("MatrixBandWedges", index) })
+                        </td>
+                        <td>
+
+                            @Html.DisplayFor(modelItem => item.Restoration, new { @class = "control-label" })
+                            @Html.HiddenFor(modelItem => item.Restoration, new { @class = "form-control", @id = GetId("Restoration", index), @Name = GetName("Restoration", index) })
+                        </td>
+                        <td>
+
+                            @Html.DisplayFor(modelItem => item.FinishingAndRestoration, new { @class = "control-label" })
+                            @Html.HiddenFor(modelItem => item.FinishingAndRestoration, new { @class = "form-control", @id = GetId("FinishingAndRestoration", index), @Name = GetName("FinishingAndRestoration", index) })
+                        </td>
+                        <td>
+
+                            @Html.DisplayFor(modelItem => item.DirectIndirectReview1, new { @class = "control-label" })
+                            @Html.HiddenFor(modelItem => item.DirectIndirectReview1, new { @class = "form-control", @id = GetId("DirectIndirectReview1", index), @Name = GetName("DirectIndirectReview1", index) })
+                        </td>
+                        <td>
+
+                            @Html.DisplayFor(modelItem => item.DirectIndirectReview2, new { @class = "control-label" })
+                            @Html.HiddenFor(modelItem => item.DirectIndirectReview2, new { @class = "form-control", @id = GetId("DirectIndirectReview2", index), @Name = GetName("DirectIndirectReview2", index) })
+                        </td>
+                        <td>
+
+                            @Html.DisplayFor(modelItem => item.DirectIndirectReview3, new { @class = "control-label" })
+                            @Html.HiddenFor(modelItem => item.DirectIndirectReview3, new { @class = "form-control", @id = GetId("DirectIndirectReview3", index), @Name = GetName("DirectIndirectReview3", index) })
+                        </td>
+                        <td>
+
+                            @Html.DisplayFor(modelItem => item.DeepCariesReview1, new { @class = "control-label" })
+                            @Html.HiddenFor(modelItem => item.DeepCariesReview1, new { @class = "form-control", @id = GetId("DeepCariesReview1", index), @Name = GetName("DeepCariesReview1", index) })
+                        </td>
+                        <td>
+
+                            @Html.DisplayFor(modelItem => item.DeepCariesReview2, new { @class = "control-label" })
+                            @Html.HiddenFor(modelItem => item.DeepCariesReview2, new { @class = "form-control", @id = GetId("DeepCariesReview2", index), @Name = GetName("DeepCariesReview2", index) })
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DeepCariesReview3, new { @class = "control-label" })
+                            @Html.HiddenFor(modelItem => item.DeepCariesReview3, new { @class = "form-control", @id = GetId("DeepCariesReview3", index), @Name = GetName("DeepCariesReview3", index) })
+                        </td>
+                    </tr>
+                    index++;
+                }
+
+            </table>
+
+        </div>
+    </div>
+</div>

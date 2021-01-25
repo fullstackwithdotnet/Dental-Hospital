@@ -1,0 +1,141 @@
+﻿@using DIMS.Helpers
+@model DIMS.ViewModels.BooksViewModel
+
+@{
+    ViewBag.Title = "Issue Item";
+    var result = ViewBag.Result;
+    var deparments = ViewBag.Departments;
+    var categories = ViewBag.Categories;
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="form-horizontal">
+        <div class="box box-default box-solid">
+            <div class="box-header with-border">
+                <h4 class="box-title">@ViewBag.Title</h4>
+            </div>
+            <div class="box-body">
+                @if (result != null && result.Success && !ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+                {
+                    @BootstrapAlert.BootstrapCustomAlertHtmlString(result.Message, BootstrapAlertType.Success)
+                }
+                @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+                {
+                    foreach (var modelError in Html.ViewData.ModelState.SelectMany(keyValuePair => keyValuePair.Value.Errors))
+                    {
+                        @BootstrapAlert.BootstrapCustomAlertHtmlString(@modelError.ErrorMessage, BootstrapAlertType.Danger)
+                    }
+                }
+                @Html.ValidationSummary(true)
+
+                <div class="row">
+                    <div class="col-md-8">
+                        @Html.HiddenFor(x=>x.Id)
+                        <div class="form-group form-group-sm required">
+                            <label class="control-label col-md-3" for="Title">Book Title</label>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(x => x.Title, new { @class = "form-control", @maxLength = "30", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.Title)
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm required">
+                            <label class="control-label col-md-3" for="BookNo">Book Number</label>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(x => x.BookNo, new { @class = "form-control", @maxLength = "30", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.BookNo)
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm required">
+                            <label class="control-label col-md-3" for="IsbnNo">Isbn</label>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(x => x.IsbnNo, new { @class = "form-control", @maxLength = "30", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.IsbnNo)
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm required">
+                            <label class="control-label col-md-3" for="Publish">Publisher</label>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(x => x.Publish, new { @class = "form-control", @maxLength = "30", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.Publish)
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm required">
+                            <label class="control-label col-md-3" for="Author">Author</label>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(x => x.Author, new { @class = "form-control", @maxLength = "30", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.Author)
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm required">
+                            <label class="control-label col-md-3" for="Subject">Subject</label>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(x => x.Subject, new { @class = "form-control", @maxLength = "30", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.Subject)
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm required">
+                            <label class="control-label col-md-3" for="RankNo">Rack Number</label>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(x => x.RankNo, new { @class = "form-control", @maxLength = "30", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.RankNo)
+                            </div>
+                        </div>
+
+
+                        <div class="form-group form-group-sm">
+                            <label class="control-label col-md-3" for="Quantity">Quantity</label>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(x => x.Quantity, new { @class = "form-control", @type = "number" })
+                                @Html.ValidationMessageFor(model => model.Quantity)
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm required">
+                            <label class="control-label col-md-3" for="UnitCost">Book Price</label>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(x => x.UnitCost, new { @class = "form-control", @maxLength = "30", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.UnitCost)
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-3" })
+                            <div class="col-md-6">
+                                @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Description)
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-offset-5 col-md-10">
+                                <input type="submit" value="Save" class="fa fa-save btn btn-success" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+
+
+@section scripts {
+
+}

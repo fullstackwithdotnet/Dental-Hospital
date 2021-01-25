@@ -1,0 +1,158 @@
+﻿@model DIMS.ViewModels.CONSSearchViewModel
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+
+
+            <div class="col-md-12">
+                <div class="col-md-1 form-group form-group-sm">
+                    @Html.LabelFor(x => x.DateRange, new { @class = "control-label" })
+                </div>
+                <div class="col-md-3 form-group form-group-sm">
+                    @Html.EditorFor(model => model.DateRange, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="col-md-8 form-group form-group-sm">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h1 class="box-title">Conservative Casesheet Search</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="table-responsive">
+                            <table id="tbCONSSearch" class="table table-bordered table-hover" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>DATE </th>
+                                        <th>OP #</th>
+                                        <th>CONS #</th>
+                                        <th>PATIENT NAME</th>
+                                        <th>GENDER</th>
+                                        <th>AGE</th>
+                                        <th>PHONE</th>
+                                        <th>AREA</th>
+                                        <th>APPROVAL STATUS</th>
+                                        @*<th>VISIT TYPE</th>*@
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section scripts {
+    <script type="text/jscript">
+
+        $(document).ready(function () {
+            var start = moment();
+            var end = moment();
+            $('#DateRange').daterangepicker({
+                startDate: start,
+                endDate: end,
+                locale: {
+                    format: 'DD/MM/YYYY'
+                },
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                }
+            }, cb);
+            function cb(start, end) {
+                $('#DateRange span').html(start.format('YYYY/MM/DD') + ' - ' + end.format('YYYY/MM/DD'));
+            }
+            cb(start, end);
+
+
+            //$('#btnCONSSearch').on('click', function (e) {
+            //    e.preventDefault();
+            //    Searchvalue();
+            //});
+            var Searchvalue = function () {
+                var itemIndex = $("#tbCONSSearch input.iHidden").length;
+                $('#tbCONSSearch tbody').empty();
+
+                var selected = $("#DateRange").val();
+                var from = selected.split("-");
+                var fromdate = $.trim(from[0]);
+                var todate = $.trim(from[1]);
+
+                var $From_Date = fromdate.split("/").reverse().join("-");
+                var $To_Date = todate.split("/").reverse().join("-");
+
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetCONSSearchList", "CONS")',
+                    data: '{From_Date: "' + $From_Date + ' ",To_Date: "' + $To_Date + ' "}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        table = $('#tbCONSSearch').DataTable();
+                        table.destroy();
+                        $('#tbCONSSearch').dataTable({
+                            data: data,
+                            columns: [
+                                { 'data': 'ConservativeDate' },
+                                { 'data': 'OpNo' },
+                                { 'data': 'CONSNo' },
+                                { 'data': 'PatientName' },
+                                { 'data': 'GenderName' },
+                                { 'data': 'Age' },
+                                { 'data': 'Phone' },
+                                { 'data': 'Area' },
+{ 'data': 'ApprovalType' ,
+                                'render': function (ApprovalType) {
+                                    if (ApprovalType == "Waiting for 1st Approval" || ApprovalType == "Waiting for 2nd Approval" || ApprovalType == "Waiting for 3rd Approval") {
+                                        return '<span class="text-orange">' + ApprovalType + '</span>';
+                                    }
+                                    else if (ApprovalType == "1st level" || ApprovalType == "2nd level" || ApprovalType == "Final level")
+                                    {
+                                        return '<span class="text-green">' + ApprovalType + '</span>';
+                                    }
+                                    else {
+                                        ApprovalType = "Not yet sent";
+                                        return '<span class="text-orange">' + ApprovalType + '</span>';
+                                    }
+                                }
+                                },
+                                //{ 'data': 'VisitType' },
+                                {
+                                    'data': 'Link',
+                                    'searchable': false,
+                                    'sortable': false,
+                                    'render': function (Link) {
+                                        //return '<a href=' + Link + '>Edit</a>';
+                                        return '<a href=' + Link + ' class="btn btn-success btn-xs" >Edit Casesheet <i class="fa fa-edit"></a>';
+                                    }
+                                },
+
+                            ]
+                        })
+                    },
+                })
+            }
+            Searchvalue();
+            $("#DateRange").on("change", function () {
+                Searchvalue();
+            })
+        });
+    </script>
+}

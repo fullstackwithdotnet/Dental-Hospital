@@ -1,0 +1,130 @@
+﻿@model IEnumerable<DIMS.ViewModels.OrthoAnalysisViewModal>
+
+@{
+    string modelName = ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix;
+    int index = 0;
+}
+@functions{
+    string GetId(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}]_{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+    string GetName(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}].{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <tr>
+                <th colspan="2">HARD TISSUE</th>
+                <th colspan="2">PreRx</th>
+                <th colspan="2">Post Modulation</th>
+                <th colspan="2">PostRx</th>
+                <th colspan="2">Retention</th>
+                <th colspan="2" >Change</th>
+            </tr>
+            <tr>
+                <th class="hidden">
+                    @Html.DisplayNameFor(model => model.SagittalStaticId)
+                </th>
+                <th class="hidden">
+                    @Html.DisplayNameFor(model => model.SagittalId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Measurements)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mean)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.PreRxMeasurement)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PreRxClass)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SurgeryMeasurement)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SurgeryClass)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PostRxMeasurement)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PostRxClass)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RetentionMeasurement)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RetentionClass)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ChangeMeasurement)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ChangeClass)
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="hidden">
+                        @Html.TextBoxFor(modelItem => item.SagittalStaticId, new { @class = "col-sm-10 form-control", @id = GetId("SagittalStaticId", index), @Name = GetName("SagittalStaticId", index) })
+                    </td>
+                    <td class="hidden">
+                        @Html.TextBoxFor(modelItem => item.SagittalId, new { @class = "col-sm-10 form-control", @id = GetId("SagittalId", index), @Name = GetName("SagittalId", index) })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Measurements)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mean)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(modelItem => item.PreRxMeasurement, new { @class = "col-sm-10 form-control", @id = GetId("PreRxMeasurement", index), @Name = GetName("PreRxMeasurement", index) })
+                        @Html.HiddenFor(modelItem => item.PreRx)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(modelItem => item.PreRxClass, new { @class = "col-sm-10 form-control", @id = GetId("PreRxClass", index), @Name = GetName("PreRxClass", index) })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(modelItem => item.SurgeryMeasurement, new { @class = "col-sm-10 form-control", @id = GetId("SurgeryMeasurement", index), @Name = GetName("SurgeryMeasurement", index) })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(modelItem => item.SurgeryClass, new { @class = "col-sm-10 form-control", @id = GetId("SurgeryClass", index), @Name = GetName("SurgeryClass", index) })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(modelItem => item.PostRxMeasurement, new { @class = "col-sm-10 form-control", @id = GetId("PostRxMeasurement", index), @Name = GetName("PostRxMeasurement", index) })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(modelItem => item.PostRxClass, new { @class = "col-sm-10 form-control", @id = GetId("PostRxClass", index), @Name = GetName("PostRxClass", index) })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(modelItem => item.RetentionMeasurement, new { @class = "col-sm-10 form-control", @id = GetId("RetentionMeasurement", index), @Name = GetName("RetentionMeasurement", index) })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(modelItem => item.RetentionClass, new { @class = "col-sm-10 form-control", @id = GetId("RetentionClass", index), @Name = GetName("RetentionClass", index) })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(modelItem => item.ChangeMeasurement, new { @class = "col-sm-10 form-control", @id = GetId("ChangeMeasurement", index), @Name = GetName("ChangeMeasurement", index) })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(modelItem => item.ChangeClass, new { @class = "col-sm-10 form-control", @id = GetId("ChangeClass", index), @Name = GetName("ChangeClass", index) })
+                    </td>
+
+                </tr>
+                index++;
+            }
+        </table>
+
+
+
+    </div>
+</div>

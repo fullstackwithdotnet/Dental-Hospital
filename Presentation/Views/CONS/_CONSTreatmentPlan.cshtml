@@ -1,0 +1,169 @@
+﻿@using Metron.Entities
+@model DIMS.ViewModels.CONSViewModel
+@functions{
+    public string GetClassFromProperties(string propertyName)
+    {
+        var props = Model.Proplist.FirstOrDefault<CONSCasesheetProperties>(x => x.PropertyName == propertyName);
+
+        if (props != null && props.PropertyVisibility == "N")
+        {
+            return "display:none";
+        }
+
+        return "";
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            @Html.Partial("../CONS/_CONSRestorativePro",Model)
+            @Html.HiddenFor(x => x.ConservativeId)
+            @Html.HiddenFor(x => x.RestorativeProId)
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            @Html.Partial("../CONS/_CONSPostAndCore", Model)
+            @Html.HiddenFor(x => x.ConservativeId)
+            @Html.HiddenFor(x => x.PostAndCoreId)
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            @Html.Partial("../CONS/_CONSSurgicalPro", Model)
+            @Html.HiddenFor(x => x.ConservativeId)
+            @Html.HiddenFor(x => x.SurgicalProId)
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            @Html.Partial("../CONS/_CONSEstheticCorr", Model)
+            @Html.HiddenFor(x => x.ConservativeId)
+            @Html.HiddenFor(x => x.EstheticCorrId)
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            @Html.Partial("../CONS/_CONSBleaching", Model)
+            @Html.HiddenFor(x => x.ConservativeId)
+            @Html.HiddenFor(x => x.BleachingId)
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            @Html.Partial("../CONS/_CONSTraumatisedTooth", Model)
+            @Html.HiddenFor(x => x.ConservativeId)
+            @Html.HiddenFor(x => x.TraumatisedToothId)
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            @Html.Partial("../CONS/_CONSRootCanal", Model)
+            @Html.HiddenFor(x => x.ConservativeId)
+            @Html.HiddenFor(x => x.RootCanalId)
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            @Html.Partial("../CONS/_CONSReRct", Model)
+            @Html.HiddenFor(x => x.ConservativeId)
+            @Html.HiddenFor(x => x.ReRootCanalId)
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            @Html.Partial("../CONS/_CONSIncompleteRootForm", Model)
+            @Html.HiddenFor(x => x.ConservativeId)
+            @Html.HiddenFor(x => x.IncompleteRootId)
+        </div>
+    </div>
+</div>
+
+<div class="row hidden">
+    <div id="divFilling" style='@GetClassFromProperties("Filling")'>
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(model => model.Filling, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Filling, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="divBleaching" style='@GetClassFromProperties("Bleaching")'>
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(model => model.Bleaching, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Bleaching, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="divCrown" style='@GetClassFromProperties("Crown")'>
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(model => model.Crown, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Crown, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="divRootCanal" style='@GetClassFromProperties("RootCanal")'>
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(model => model.RootCanal, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.RootCanal, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="divPostRootCanal" style='@GetClassFromProperties("PostRootCanal")'>
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(model => model.PostRootCanal, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.PostRootCanal, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="divOtherTreatment" style='@GetClassFromProperties("OtherTreatment")'>
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(model => model.OtherTreatment, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.OtherTreatment, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,205 @@
+﻿@model DIMS.ViewModels.OrthoAnalysisViewModal
+@{
+    ViewBag.Title = "Dento Alveolar Upper  Analysis";
+}
+
+@helper CreateCheckbox(string value)
+{
+    @Html.CheckBox("chkBox", !string.IsNullOrEmpty(value), new { @class = "checkbox-inline" })
+}
+<h2>Dento Alveolar Upper  Analysis</h2>
+
+@using (Html.BeginForm("SaveDentoUpper", "Ortho", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.Partial("../ORTHO/_ViewDentoUpperEdit", Model.DentoUpperAnalysisList,
+                                new ViewDataDictionary()
+                                    {
+                                        TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "DentoUpperAnalysisList" }
+                                    })
+                        </div>
+                        @Html.HiddenFor(x => x.OrthoId)
+                        @Html.HiddenFor(x => x.AnalysisId)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-4 control-label">
+                                                @Html.LabelFor(x => x.CraniumMaxilla, new { @class = "col-md-12 control-label" })
+                                            </div>
+                                            <div class="col-md-3">
+                                                @Html.TextBoxFor(x => x.CraniumMaxilla, new { @class = "form-control col-md-4" })
+                                            </div>
+                                            <div class="col-md-1">
+                                                MM
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-4 control-label">
+                                                @Html.LabelFor(x => x.IncisorRetraction, new { @class = "col-md-12 control-label" })
+                                            </div>
+                                            <div class="col-md-3">
+                                                @Html.TextBoxFor(x => x.IncisorRetraction, new { @class = "form-control col-md-4" })
+                                            </div>
+                                            <div class="col-md-1">
+                                                MM
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-4 control-label">
+                                                @Html.LabelFor(x => x.CoumflageTreatment, new { @class = "col-md-12 control-label" })
+                                            </div>
+                                            <div class="col-md-3">
+                                                @Html.TextBoxFor(x => x.CoumflageTreatment, new { @class = "form-control col-md-4" })
+                                            </div>
+                                            <div class="col-md-1">
+                                                MM
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-4 control-label">
+                                                @Html.LabelFor(x => x.CorrectedRetraction, new { @class = "col-md-12 control-label" })
+                                            </div>
+                                            <div class="col-md-3">
+                                                @Html.TextBoxFor(x => x.CorrectedRetraction, new { @class = "form-control col-md-4" })
+                                            </div>
+                                            <div class="col-md-1">
+                                                MM
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-4 control-label">
+                                                @Html.LabelFor(x => x.Inference, new { @class = "col-md-3 control-label" })
+                                            </div>
+                                            <div class="col-md-3">
+                                                @Html.TextAreaFor(x => x.Inference, new { @class = "form-control col-md-4" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="form-group form-group-sm">
+                                                    <div class="col-md-7 control-label">
+                                                        @Html.LabelFor(x => x.NasoAngle)
+                                                    </div>
+                                                    <div class="col-md-2 control-label">
+                                                        @Html.RadioButtonFor(x => x.NasoAngle, "Yes")
+                                                        @Html.LabelFor(x => x.rdnNasolabialAngleYes)
+                                                    </div>
+                                                    <div class="col-md-3 control-label">
+                                                        @Html.RadioButtonFor(x => x.NasoAngle, "No")
+                                                        @Html.LabelFor(x => x.rdnNasolabialAngleNo)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                          
+                                            <div class="row">
+                                                <div class="form-group form-group-sm">
+                                                    <div class="col-md-7 control-label">
+                                                        @Html.LabelFor(x => x.LipStrain)
+                                                    </div>
+                                                    <div class="col-md-2 control-label">
+                                                        @Html.RadioButtonFor(x => x.LipStrain, "Yes")
+                                                        @Html.LabelFor(x => x.rdnLipStrainYes)
+                                                    </div>
+                                                    <div class="col-md-3 control-label">
+                                                        @Html.RadioButtonFor(x => x.LipStrain, "No")
+                                                        @Html.LabelFor(x => x.rdnLipStrainNo)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="form-group form-group-sm">
+                                                    <div class="col-md-7 control-label">
+                                                        @Html.LabelFor(x => x.LipThickness)
+                                                    </div>
+                                                    <div class="col-md-2 control-label">
+                                                        @Html.RadioButtonFor(x => x.LipThickness, "Yes")
+                                                        @Html.LabelFor(x => x.rdnLipThicknessYes)
+                                                    </div>
+                                                    <div class="col-md-3 control-label">
+                                                        @Html.RadioButtonFor(x => x.LipThickness, "No")
+                                                        @Html.LabelFor(x => x.rdnLipThicknessNo)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                          
+                                            <div class="row">
+                                                <div class="form-group form-group-sm">
+                                                    <div class="col-md-7 control-label">
+                                                        @Html.LabelFor(x => x.LipestheticLines)
+                                                    </div>
+                                                    <div class="col-md-2 control-label">
+                                                        @Html.RadioButtonFor(x => x.LipestheticLines, "Yes")
+                                                        @Html.LabelFor(x => x.rdnLipestheticLinesYes)
+                                                    </div>
+                                                    <div class="col-md-3 control-label">
+                                                        @Html.RadioButtonFor(x => x.LipestheticLines, "No")
+                                                        @Html.LabelFor(x => x.rdnLipestheticLinesNo)
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="row">
+                                        <div class="col-md-12 col-md-offset-4">
+                                            <div class="form-group">
+                                                <div class="col-sm-1">
+                                                    <input type="submit" value="Save" class="fa fa-save btn btn-success"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>              
+
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+
+}
+
+
+
+
+

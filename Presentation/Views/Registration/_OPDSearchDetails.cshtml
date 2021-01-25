@@ -1,0 +1,204 @@
+﻿@model DIMS.ViewModels.OPDSearchViewModel
+
+
+@functions
+{
+    public string GetUrl()
+    {
+        var user = User as DIMS.Infrastructure.CustomPrincipal;
+        return user.GetRootUrl();
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel-heading">
+            <h4>Out Patient Registration Department</h4>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="panel-body">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-2 form-group form-group-sm">
+                        @Html.LabelFor(x => x.From_Date, new {@class = "control-label"})
+                    </div>
+                    <div class="col-md-3 form-group form-group-sm">
+                        @Html.EditorFor(model => model.From_Date, new {htmlAttributes = new {Value = Model.From_Date.ToString("yyyy-MM-dd")}})
+                    </div>
+                    <div class="col-md-2 form-group form-group-sm">
+                        @Html.LabelFor(x => x.To_Date, new {@class = "control-label"})
+                    </div>
+                    <div class="col-md-3 form-group form-group-sm">
+                        @Html.EditorFor(model => model.To_Date, new {htmlAttributes = new {Value = Model.From_Date.ToString("yyyy-MM-dd")}})
+                    </div>
+                    <div class="col-md-2 form-group form-group-sm">
+                        <a id="btnSearch"> <i class="fa fa-search fa fa-search btn btn-success"> Search</i></a>
+                        @Html.HiddenFor(model => model.userid)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 form-group form-group-sm">
+                        @Html.LabelFor(x => x.OPNo, new {@class = "control-label"})
+                    </div>
+                    <div class="col-md-3 form-group form-group-sm">
+                        @Html.TextBoxFor(x => x.OPNo, new {@class = "form-control"})
+                    </div>
+                    <div class="col-md-2 form-group form-group-sm">
+                        @Html.LabelFor(x => x.PatientName, new {@class = "control-label"})
+                    </div>
+                    <div class="col-md-3 form-group form-group-sm">
+                        @Html.TextBoxFor(x => x.PatientName, new {@class = "form-control"})
+                    </div>
+                </div>
+                @*<div class="col-md-12">
+                    <div class="col-md-1 form-group form-group-sm">
+                        @Html.LabelFor(x => x.DateRange, new { @class = "control-label" })
+                    </div>
+                    <div class="col-md-3 form-group form-group-sm">
+                        @Html.EditorFor(model => model.DateRange, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="col-md-8 form-group form-group-sm">
+                        @Html.HiddenFor(model => model.userid)
+                    </div>
+                </div>*@
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Patient Registration Search</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table id="tbOPDSearchDetails" class="table table-bordered table-hover" style="width: 100%">
+                                    <thead>
+                                    <tr>
+                                        <th>DATE </th>
+                                        <th>TIME </th>
+                                        <th>OP #</th>
+                                        <th>PATIENT NAME</th>
+                                        <th>AGE</th>
+                                        <th>AREA</th>
+                                        <th>CATEGORY</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+@section scripts {
+    <script type="text/jscript">
+
+        $(document).ready(function () {
+            var start = moment();
+            var end = moment();
+            $('#DateRange').daterangepicker({
+                startDate: start,
+                endDate: end,
+                locale: {
+                    format: 'DD/MM/YYYY'
+                },
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                }
+            }, cb);
+            function cb(start, end) {
+                $('#DateRange span').html(start.format('YYYY/MM/DD') + ' - ' + end.format('YYYY/MM/DD'));
+            }
+            cb(start, end);
+
+
+            $('#btnSearch').on('click', function (e) {
+                
+                e.preventDefault();
+                Searchvalue();
+            });
+
+
+            $("#OPNo").change(function () {
+                var $OPNo = $("#OPNo").val();
+
+            });
+
+            var Searchvalue = function () {
+                var itemIndex = $("#tbOPDSearchDetails input.iHidden").length;
+                $('#tbOPDSearchDetails tbody').empty();
+                var $From_Date = $("#From_Date").val();
+                var $To_Date = $("#To_Date").val();
+                var $OPNo = $("#OPNo").val();
+                var $PatientName = $("#PatientName").val();
+                var user = $("#userid").val();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetOPDSearchDetList", "Registration")',
+                    data: '{From_Date: "' + $From_Date + ' ",To_Date: "' + $To_Date + ' ",OPNo:"' + $OPNo + '",PatientName:"' + $PatientName + '"}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        table = $('#tbOPDSearchDetails').DataTable();
+                        table.destroy();
+                        $('#tbOPDSearchDetails').dataTable({
+                            data: data,
+                            columns: [
+                                { 'data': 'RegDate' },
+                                { 'data': 'RegTime', },
+                                { 'data': 'OPNo' },
+                                { 'data': 'PatientName' },
+                                { 'data': 'Age' },
+                                { 'data': 'Area' },
+                                { 'data': 'Category' },
+                                {
+                                    'data': 'Link',
+                                    'searchable': false,
+                                    'sortable': false,
+                                    'render': function (Link) {
+                                        return '<a ' + Link + ' >View</a>';
+                                    }
+                                }
+                            ]
+                        })
+                    },
+                })
+            }
+
+            Searchvalue();
+            //$("#DateRange").on("change", function () {
+            //    Searchvalue();
+            //})
+        });
+
+        var ViewModel = function (patientId) {
+            
+            var url = "@GetUrl()/Registration/ViewReferralStatus?PatientId=" + patientId + "";
+            $("#myModelBodyDivPatient").load(url, function () {
+                $("#myModelPatient").modal("show");
+            })
+        }
+
+    </script>
+}
+
+

@@ -1,0 +1,68 @@
+﻿@model IEnumerable<DIMS.ViewModels.DeptAllotedListViewModel>
+
+<table class="table">
+    <tr>
+        <th>
+
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllotDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OpNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PatientName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Age)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentRegNo)
+        </th>
+        <th>
+             
+        </th>
+    </tr>
+
+    @{int i = 0;}
+    @foreach (var item in Model)
+    {
+        i++;
+        <tr>
+            <td>
+                <span>@i</span>
+                @Html.HiddenFor(modelItem => item.AllotId)
+                @Html.HiddenFor(modelItem => item.PatientId)
+                @Html.HiddenFor(modelItem => item.ReferredId)
+                @Html.HiddenFor(modelItem => item.DeptId)
+                @Html.HiddenFor(modelItem => item.StudentId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AllotDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OpNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PatientName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentRegNo)
+            </td>
+            <td>
+                @Html.ActionLink("Treatment", "Operations", "ORTHO", new { allotId = item.AllotId, patientId = item.PatientId }, null)
+            </td>           
+        </tr>
+    }
+
+</table>

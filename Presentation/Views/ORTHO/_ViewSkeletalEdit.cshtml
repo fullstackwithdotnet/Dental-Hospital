@@ -1,0 +1,93 @@
+﻿@model IEnumerable<DIMS.ViewModels.OrthoAnalysisViewModal>
+
+@{
+    string modelName = ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix;
+    int index = 0;
+}
+@functions{
+    string GetId(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}]_{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+    string GetName(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}].{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <tr>
+                <th class="hidden">
+                    @Html.DisplayNameFor(model => model.SkeletalStaticId)
+                </th>
+                <th class="hidden">
+                    @Html.DisplayNameFor(model => model.SkeletalId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Measurements)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mean)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.PreRx)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PostModulation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PostRx)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Retention)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Change)
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="hidden">
+                        @Html.TextBoxFor(modelItem => item.SkeletalStaticId, new { @class = "col-sm-10 form-control", @id = GetId("SkeletalStaticId", index), @Name = GetName("SkeletalStaticId", index) })
+                    </td>
+                    <td class="hidden">
+                        @Html.TextBoxFor(modelItem => item.SkeletalId, new { @class = "col-sm-10 form-control", @id = GetId("SkeletalId", index), @Name = GetName("SkeletalId", index) })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Measurements)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mean)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(modelItem => item.PreRx, new { @class = "col-sm-10 form-control", @id = GetId("PreRx", index), @Name = GetName("PreRx", index) })
+                        @Html.HiddenFor(modelItem => item.PreRx)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(modelItem => item.PostModulation, new { @class = "col-sm-10 form-control", @id = GetId("PostModulation", index), @Name = GetName("PostModulation", index) })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(modelItem => item.PostRx, new { @class = "col-sm-10 form-control", @id = GetId("PostRx", index), @Name = GetName("PostRx", index) })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(modelItem => item.Retention, new { @class = "col-sm-10 form-control", @id = GetId("Retention", index), @Name = GetName("Retention", index) })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(modelItem => item.Change, new { @class = "col-sm-10 form-control", @id = GetId("Change", index), @Name = GetName("Change", index) })
+                    </td>
+
+                </tr>
+                index++;
+            }
+        </table>
+
+
+
+    </div>
+</div>
+

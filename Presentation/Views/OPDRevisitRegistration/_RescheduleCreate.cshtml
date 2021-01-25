@@ -1,0 +1,103 @@
+﻿
+@model DIMS.ViewModels.FollowupViewModal
+@{
+    ViewBag.Title = "RescheduleCreate";
+}
+
+@functions
+{
+    public string GetUrl()
+    {
+        var user = User as DIMS.Infrastructure.CustomPrincipal;
+        return user.GetRootUrl();
+    }
+}
+
+<div>
+    <form id="Rescheduleform">
+        <div class="form-horizontal">
+              @Html.Partial("../PatientInformation/_PatientAllotmentDetails", Model.patientInformationViewModel)
+            <div class="row">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.FollowupDate, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-2">
+                                        @Html.EditorFor(x => x.FollowupDate)
+                                        @Html.ValidationMessageFor(x => x.FollowupDate)
+                                        @Html.HiddenFor(x => x.FollowupId)
+                                        @Html.HiddenFor(x => x.DeptCode)
+                                    </div>
+                                    @Html.LabelFor(x => x.FollowupTime, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-2">
+                                        @Html.TextBoxFor(x => x.FollowupTime, htmlAttributes: new { @class = "timepicker form-control" })
+                                        @Html.ValidationMessageFor(x => x.FollowupTime)
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a id="btnReschedule" class="fa fa-save btn btn-success"> Submit</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.FollowupReason, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextAreaFor(x => x.FollowupReason, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<script type="text/javascript">
+
+
+    $('#btnReschedule').on('click', function () {
+        
+        var allotform = $("#Rescheduleform").serialize();
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("RescheduleCreate", "OPDRevisitRegistration")',
+            data: allotform,
+            success: function (data) {
+                var $DeptCode = $("#DeptCode").val();
+                $("#myModel").modal("hide");
+                if ($DeptCode == 'OMR') {
+                    window.location.href = "@GetUrl()/OMR/DeptAppointmentSearch";
+                }
+                else if ($DeptCode == 'PERIO') {
+                    window.location.href = "@GetUrl()/PERIO/DeptAppointmentSearch";
+                }
+                else if ($DeptCode == 'ORTHO') {
+                    window.location.href = "@GetUrl()/ORTHO/DeptAppointmentSearch";
+                }
+                else if ($DeptCode == 'CONS') {
+                    window.location.href = "@GetUrl()/CONS/DeptAppointmentSearch";
+                }
+                else if ($DeptCode == 'PROSTHO') {
+                    window.location.href = "@GetUrl()/PROSTHO/DeptAppointmentSearch";
+                }
+                else if ($DeptCode == 'PHD') {
+                    window.location.href = "@GetUrl()/PHD/DeptAppointmentSearch";
+                }
+                else if ($DeptCode == 'OMFS') {
+                    window.location.href = "@GetUrl()/OMFS/DeptAppointmentSearch";
+                }
+                else if ($DeptCode == 'PEDO') {
+                    window.location.href = "@GetUrl()/PEDO/DeptAppointmentSearch";
+                }
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+        })
+    });
+</script>

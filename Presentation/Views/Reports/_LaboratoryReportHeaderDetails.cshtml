@@ -1,0 +1,82 @@
+﻿ @model DIMS.ViewModels.LaboratoryRegistrationViewModel
+
+@functions{
+    public string IsVisible(string propertyName)
+    {
+        if (propertyName == null)
+        {
+            return "display:none";
+        }
+        return "";
+    }
+
+}
+
+<style>
+    .col30 {
+        width: 30%;
+        padding: 5px !important;
+    }
+
+    .col40 {
+        width: 40%;
+        padding: 5px !important;
+    }
+
+    .col50 {
+        width: 50%;
+        padding: 5px !important;
+    }
+
+    .col60 {
+        width: 60%;
+        padding: 5px !important;
+    }
+
+    .col70 {
+        width: 70%;
+        padding: 5px !important;
+    }
+
+    .col80 {
+        width: 80%;
+        padding: 5px !important;
+    }
+
+    .col35 {
+        width: 35%;
+        padding: 5px !important;
+    }
+
+    .col625 {
+        width: 6%;
+        padding: 5px !important;
+    }
+
+    .col10 {
+        width: 10%;
+        padding: 5px !important;
+    }
+</style>
+
+<table class="table table-bordered" style="margin-bottom: 0px !important;">
+    <tr>
+        <td class="col25"><strong class="text-sm">PATIENT NAME</strong></td>
+        <td class="col25">@Html.DisplayFor(model => model.PatientName)</td>
+        <td class="col25"><strong class="text-sm">AGE/GENDER</strong></td>
+        <td class="col25">@Html.DisplayFor(model => model.AgeGender)</td>
+    </tr>
+    <tr>
+        <td class="col25"><strong class="text-sm">DATE</strong></td>
+        <td class="col25">@Html.DisplayFor(model => model.Dateofreceiving)</td>
+        <td class="col25"><strong class="text-sm">OP #</strong></td>
+        <td class="col25">@Html.DisplayFor(model => model.OpNo)</td>
+    </tr>
+    <tr>
+        <td class="col25"><strong class="text-sm">RECEIPT # </strong></td>
+        <td class="col25">@Html.DisplayFor(model => model.BillNo)</td>
+        <td class="col25"><strong class="text-sm">REFERRED FROM </strong></td>
+        <td class="col25">@Html.DisplayFor(model => model.DeptCode)</td>
+    </tr>
+
+</table>

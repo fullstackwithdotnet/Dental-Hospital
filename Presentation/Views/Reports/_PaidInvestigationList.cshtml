@@ -1,0 +1,70 @@
+﻿ @model IEnumerable<DIMS.ViewModels.BillingViewModal>
+@{
+    ViewBag.Title = "_PaidInvestigationList";
+}
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <tr>
+            <th >S.No</th>
+            <th class="col-md-2">
+                @Html.DisplayNameFor(model => model.ServiceName)
+            </th>
+
+            <th >
+                @Html.DisplayNameFor(model => model.TeethNo)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Qty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NetAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaidAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BillNo)
+            </th>
+            <th>
+                <label><strong>Date</strong></label>
+            </th>
+        </tr>
+        @{int i = 0;}
+        @foreach (var item in Model)
+        {
+            i++;
+            <tr>
+                <td>
+                    <span>@i</span>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ServiceName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TeethNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Qty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NetAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaidAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BillNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BillDateTimeDisplay)
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+
+

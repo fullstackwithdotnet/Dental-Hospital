@@ -1,0 +1,87 @@
+﻿
+@model  DIMS.ViewModels.PrescriptionsViewModel
+
+@{
+    ViewBag.Title = "PreviousPrescriptionReport";
+}
+
+<style>
+     .colImage {
+        max-height: 50px;
+        max-width: 50px;
+        display: block;
+    margin-left: auto;
+    margin-right: auto;
+        
+    }
+
+</style>
+
+@using (Html.BeginForm("PresciptionReport", "Prescriptions", FormMethod.Post))
+{
+    <section class="invoice">
+        <!-- title row -->
+        <div class="row">
+            <div class="col-xs-12">
+                <h2 class="page-header text-center" style="border-bottom:none">
+                    Prescription
+                </h2>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- info row -->
+        <div class="row invoice-info">
+            <table class="table table-bordered" style="margin-bottom: 0px !important;">
+                <tr>
+                    <td style="border-left:none;"><img src="~/Content/Images/rx2.png" class="img-responsive colImage"  alt="17"/></td>
+                    <td class="text-center">
+                        <p style="text-align:center;"><strong>Patient Name : </strong> @Html.DisplayFor(x => x.PatientName)<br></p>
+                        <p style="text-align:center;"><strong>Age/Gender : </strong> @Html.DisplayFor(x => x.AgeGender)<br></p>
+                        <p style="text-align:center;"><strong>Doctor : </strong>@Html.DisplayFor(x => x.Doctor)<br></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <table class="table table-bordered table-hover" style="width:100%;margin-bottom: 0px !important;">
+                            <tr>
+                                <th class="text-center">Medication</th>
+                                <th class="text-center">Medicine Type</th>
+                                <th class="text-center">Dosage</th>
+                                <th class="text-center">Qty</th>
+                                <th class="text-center">Frequency</th>
+                                <th class="text-center">No of Days</th>
+                                <th class="text-center">Remarks</th>
+                            </tr>
+
+                            @foreach (var item in Model.PrescriptionsList)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(x => item.PresMedication)</td>
+                                    <td>@Html.DisplayFor(x => item.TypeName)</td>
+                                    <td class="text-center">@Html.DisplayFor(x => item.PresStrength)</td>
+                                    <td class="text-center">@Html.DisplayFor(x => item.PrescriptionQty)</td>
+                                    <td class="text-center">@Html.DisplayFor(x => item.PresFrequency)</td>
+                                    <td class="text-center">@Html.DisplayFor(x => item.PresDays)</td>
+                                    <td class="text-center">@Html.DisplayFor(x => item.PresTimes)</td>
+                                </tr>
+                            }
+
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border-right:none"><b>@Html.DisplayNameFor(model => model.DisplayDate)</b></td>
+                    <td style="border-left:none" class="text-center"><b>@Html.DisplayNameFor(model => model.DoctorSignature)</b></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="row no-print">
+            <div class="col-xs-offset-5">
+                <a href="#" target="_blank" class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</a>
+            </div>
+        </div>
+    </section>
+
+
+}

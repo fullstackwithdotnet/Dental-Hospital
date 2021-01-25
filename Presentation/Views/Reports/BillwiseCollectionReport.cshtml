@@ -1,0 +1,258 @@
+﻿
+@model DIMS.ViewModels.ReportSearchViewModel
+ 
+
+<div class="box box-info">
+    <div class="box-body">
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <td style="border-top:none">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.From_Date, new { @class = "control-label" })
+                        </div>
+                    </td>
+                    <td style="border-top:none">
+                        <div class="form-group form-group-sm">
+                            @Html.EditorFor(model => model.From_Date, new { htmlAttributes = new { Value = Model.From_Date.ToString("yyyy-MM-dd") } })
+                        </div>
+                    </td>
+                    <td style="border-top:none">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.To_Date, new { @class = "control-label" })
+                        </div>
+                    </td>
+                    <td style="border-top:none">
+                        <div class="form-group form-group-sm">
+                            @Html.EditorFor(model => model.To_Date, new { htmlAttributes = new { Value = Model.To_Date.ToString("yyyy-MM-dd") } })
+                        </div>
+                    </td>
+                    <td style="border-top:none">
+                        <div class="form-group form-group-sm">
+                            @Html.DropDownListFor(model => model.DeptId, new SelectList(Model.Departmentlist, "DeptId", "DeptName"),"Select", htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </td>
+                    <td style="border-top:none">
+                        <div class="form-group form-group-sm">
+                            <a id="btnBillwiseCollectionSearch"> <i class="fa fa-search fa fa-search btn btn-success"> Search</i></a>
+
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">Patient Billwise Details</h3>
+            </div>
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table id="tbBillwiseCollectionDetails" class="table table-bordered table-hover" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th class="col-md-1">S.No</th>
+                                <th class="col-md-2">DATE </th>
+                                <th class="col-md-1">OP #</th>
+                                <th class="col-md-1">DEPARTMENT</th>
+                                <th class="col-md-1">PAYMODE</th>
+                                <th class="col-md-1">TOTAL </th>
+                                <th class="col-md-1">DISCOUNT </th>
+                                <th class="col-md-2">BALANCE </th>
+                                <th class="col-md-2">RECEIVED </th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                        <tfoot>
+                            <tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<link href="~/Content/buttons.dataTables.min.css" rel="stylesheet" />
+
+
+
+@section scripts {
+    <script src="~/Scripts/dataTables.buttons.min.js"></script>
+    <script src="~/Scripts/buttons.flash.min.js"></script>
+    <script src="~/Scripts/jszip.min.js"></script>
+    <script src="~/Scripts/pdfmake.min.js"></script>
+    <script src="~/Scripts/vfs_fonts.js"></script>
+    <script src="~/Scripts/buttons.html5.min.js"></script>
+    <script src="~/Scripts/buttons.print.min.js"></script>
+    <script type="text/jscript">
+
+        $(document).ready(function () {
+
+            $('#btnBillwiseCollectionSearch').on('click', function (e) {
+                e.preventDefault();
+                Searchvalue();
+            });
+
+            var Searchvalue = function () {
+                $('#tbBillwiseCollectionDetails tbody').empty();
+                
+                var $From_Date = $("#From_Date").val();
+                var $To_Date = $("#To_Date").val();
+                var $DeptId = $("#DeptId").val();
+                if ($DeptId == "") {
+                  var  $DeptName = "All";
+                }
+                else {
+                    var $DeptName = $("#DeptId option:selected").text();
+                }
+                 $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("BillwiseCollectionList", "Report")',
+                    data: '{From_Date: "' + $From_Date + ' ",To_Date: "' + $To_Date + ' ",DeptId: "' + $DeptId + ' "}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        table = $('#tbBillwiseCollectionDetails').DataTable();
+                        table.destroy();
+                        $('#tbBillwiseCollectionDetails').dataTable({
+                            data: data,
+                            columns: [
+                                { 'data': 'RowNum' },
+                                { 'data': 'DisplayDate' },
+                                { 'data': 'OpNo' },
+                                { 'data': 'DeptCode' },
+                                { 'data': 'CodeDescription' },
+                                { 'data': 'TotalAmount' },
+                                { 'data': 'DiscountAmt' },
+                                { 'data': 'Balance' },
+                                { 'data': 'ReceivedAmount' },                                 
+                            ],
+
+                            "columnDefs": [
+                            { className: "dt-right", "targets": [5,6,7,8] },                          
+                            ],
+                            "footerCallback": function(row, data, start, end, display) {
+                                var api = this.api();
+                                var intVal = function (i) {
+                                    return typeof i === 'string' ?
+                                        i.replace(/[\$,]/g, '') * 1 :
+                                        typeof i === 'number' ?
+                                        i : 0;
+                                };
+
+                                pageTotal = api
+                                 .column(5)
+                                 .data()
+                                 .reduce(function (a, b) {
+                                     return intVal(a) + intVal(b);
+                                 }, 0);
+
+                                pageDiscount = api
+                                .column(6)
+                                .data()
+                                .reduce(function (a, b) {
+                                    return intVal(a) + intVal(b);
+                                }, 0);
+
+                                pageBalance = api
+                                .column(7)
+                                .data()
+                                .reduce(function (a, b) {
+                                    return intVal(a) + intVal(b);
+                                }, 0);
+
+                                pageReceived = api
+                                .column(8)
+                                .data()
+                                .reduce(function (a, b) {
+                                    return intVal(a) + intVal(b);
+                                }, 0);
+
+                                if (end == data.length) {
+                                    $(api.column(4).footer()).html('Total');
+                                    jQuery(api.column(5).footer()).html(pageTotal.toFixed(2));
+                                    jQuery(api.column(6).footer()).html(pageDiscount.toFixed(2));
+                                    jQuery(api.column(7).footer()).html(pageBalance.toFixed(2));
+                                    jQuery(api.column(8).footer()).html(pageReceived.toFixed(2));
+                                } else {
+                                    $(api.column(4).footer()).html('')
+                                    jQuery(api.column(5).footer()).html('');
+                                    jQuery(api.column(6).footer()).html('');
+                                    jQuery(api.column(7).footer()).html('');
+                                    jQuery(api.column(8).footer()).html('');
+                                }
+
+                                //$(api.column(4).footer()).html('Total');
+                                //jQuery(api.column(5).footer()).html(pageTotal.toFixed(2));
+                                //jQuery(api.column(6).footer()).html(pageDiscount.toFixed(2));
+                                //jQuery(api.column(7).footer()).html(pageBalance.toFixed(2));
+                                //jQuery(api.column(8).footer()).html(pageReceived.toFixed(2));
+                            },
+                            "dom": "Bfrtip",
+                            "buttons": [
+                                {
+                                    extend: 'copy',
+                                    footer: true,
+                                    className:'copyButton',
+                                    text:'<i class ="fa fa-clone"></i>Copy'
+
+                                },
+                                {
+                                    extend: 'excel',
+                                    footer: true,
+                                    text: '<i class ="fa fa-file-excel-o"></i>Excel'
+
+                                },
+                                 {
+                                     extend: 'pdf',
+                                     footer: true,
+                                     text: '<i class ="fa fa-file-pdf-o"></i>Pdf'
+
+                                 },
+                                 {
+                                     extend: 'csv',
+                                     footer: true,
+                                     text: '<i class ="fa fa-file-excel-o"></i>CSV'
+
+                                 },
+                                 {
+
+                                     extend: 'print',
+                                     footer: true,
+                                     messageTop: '<h3 class="text-center" style="margin-bottom:0;margin-top:0;">Billwise Collection Report</h3><br/><h4 class="text-center" style="margin-bottom:0;margin-top:0;"> From &nbsp ' + $From_Date + ' &nbsp To &nbsp  ' + $To_Date + '</h4><br/><h4 class="text-center" style="margin-top:0;">  Department : ' + $DeptName + '</h4>',
+                                     customize: function ( win ) {
+                                         $(win.document.body)
+                                             .css( 'font-size', '10pt' )
+                                             .prepend(
+                                                 '<img src="~/Content/logo-fade.png" style="position:absolute; top:0; left:0;" />'
+                                             );
+                                         $(win.document.body).find('table tbody td:nth-child(1) ,thead th:nth-child(1)').css('text-align', 'center')
+                                         $(win.document.body).find('table tbody td:nth-child(4) ,thead th:nth-child(4)').css('text-align', 'center')
+                                         $(win.document.body).find('table tbody td:nth-child(5) ,thead th:nth-child(5)').css('text-align', 'center')
+
+                                         $(win.document.body).find('table tfoot th:nth-child(5) ,thead th:nth-child(5)').css('text-align', 'right')
+                                         $(win.document.body).find('table tfoot th:nth-child(6) ,tbody td:nth-child(6) ,thead th:nth-child(6)').css('text-align', 'right')
+                                         $(win.document.body).find('table tfoot th:nth-child(7) ,tbody td:nth-child(7) ,thead th:nth-child(7)').css('text-align', 'right')
+                                         $(win.document.body).find('table tfoot th:nth-child(8) ,tbody td:nth-child(8) ,thead th:nth-child(8)').css('text-align', 'right')
+                                         $(win.document.body).find('table tfoot th:nth-child(9) ,tbody td:nth-child(9) ,thead th:nth-child(9)').css('text-align', 'right')
+                                             .addClass( 'compact' )
+                                             .css('font-size', 'inherit');
+
+                                     }
+
+                                 }
+                            ],
+                        })
+
+                    },
+                })
+            }
+            Searchvalue();
+        });
+
+
+    </script>
+}

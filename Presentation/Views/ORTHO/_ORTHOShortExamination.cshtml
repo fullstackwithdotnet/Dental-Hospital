@@ -1,0 +1,1024 @@
+﻿@using Metron.Entities @model DIMS.ViewModels.OrthoViewModal
+
+<style>
+    /* Container needed to position the overlay. Adjust the width as needed */
+    .containerPreview {
+        margin-top: 4px;
+        position: relative;
+        /* width: 40%; */
+        max-width: 400px;
+        margin-bottom: 20px;    margin-top: 4px;
+        position: relative;
+        /* width: 40%; */
+        max-width: 400px;
+        margin-bottom: 20px;
+        width: 150px;
+        height: 150px;
+    }
+
+        /* Make the image to responsive */
+        .containerPreview .image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* The overlay effect (full height and width) - lays on top of the container and over the image */
+        .containerPreview .overlay {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            width: 100%;
+            opacity: 0.3;
+            transition: .3s ease;
+            background-color: black;
+        }
+
+
+        /* The icon inside the overlay is positioned in the middle vertically and horizontally */
+        .containerPreview .icon {
+            color: white;
+            font-size: 30px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        /* When you move the mouse over the icon, change color */
+        .containerPreview .fa-user:hover {
+            color: #eee;
+        }
+</style>
+
+@helper CreateCheckbox(string value)
+{
+    @Html.CheckBox("chkBox", !String.IsNullOrEmpty(value), new { @class = "checkbox-inline" })
+}
+
+@helper CreateCheckbox_1(string Name, string value)
+{
+    string chkName = "chk" + Name;
+    @Html.CheckBox(chkName, !String.IsNullOrEmpty(value), new { @class = "checkbox-inline" })
+}
+@functions {
+    object getHtmlAttributes(string value, string CssClass)
+    {
+        if (String.IsNullOrEmpty(value))
+        {
+            return new { @class = CssClass, disabled = "disabled" };
+        }
+        return new { @class = CssClass };
+    }
+}
+@functions{
+    public string GetClassFromProperties(string propertyName)
+    {
+        var props = Model.Proplist.FirstOrDefault<ORTHOCasesheetProperties>(x => x.PropertyName == propertyName);
+
+        if (props != null && props.PropertyVisibility == "N")
+        {
+            return "display:none";
+        }
+
+        return "";
+    }
+}
+<style>
+    hr {
+        border: none;
+        height: 1px;
+        /* Set the hr color */
+        color: #333; /* old IE */
+        background-color: #333; /* Modern Browsers */
+    }
+
+    .vl {
+        border-left: 6px solid green;
+        height: 500px;
+    }
+
+    .test:after {
+        content: '';
+        width: 0;
+        height: 100%;
+        position: absolute;
+        border: 1px solid black;
+        top: 0;
+        left: 100px;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group form-group-sm required">
+            @Html.LabelFor(x => x.ChiefComplaintName, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.PatientId)
+                @Html.HiddenFor(model => model.TreatmentReferredId)
+                @Html.TextAreaFor(x => x.ChiefComplaint, new { @class = "form-control", required = "required" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default collapsed-box">
+            <div class="box-header with-border">
+                <h3 class="box-title">EXTRA ORAL EXAMINATION</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="col-md-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(x => x.ShortFacialSymmetryId, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8 ">
+                            @Html.DropDownListFor(model => model.ShortFacialSymmetryId, new SelectList(Model.ShortFacialSymmetryList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(x => x.FacialProfileId, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8 ">
+                            @Html.DropDownListFor(model => model.FacialProfileId, new SelectList(Model.FacialProfileOrthoList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(x => x.NasoLabialAngleId, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8 ">
+                            @Html.DropDownListFor(model => model.NasoLabialAngleId, new SelectList(Model.NasolabialAngleList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(x => x.LipsShortId, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8 ">
+                            @Html.DropDownListFor(model => model.LipsShortId, new SelectList(Model.LipsShortList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(x => x.GrowthPatternId, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8 ">
+                            @Html.DropDownListFor(model => model.GrowthPatternId, new SelectList(Model.GrowthPatternList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(x => x.FaceDivergenceId, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8 ">
+                            @Html.DropDownListFor(model => model.FaceDivergenceId, new SelectList(Model.FacialDivergenceList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group form-group-sm">
+                        @{
+                            var strExtraFrontalOralImage = "/Content/Images/preview.jpg";
+                            if (!String.IsNullOrEmpty(Model.ExtraFrontalOralImage))
+                            {
+                                strExtraFrontalOralImage = Model.ExtraFrontalOralImage;
+                            }
+                        }
+
+                        @Html.LabelFor(x => x.ExtraFrontalOralImage, new {@class = "col-md-4 control-label"})
+                        @Html.HiddenFor(x => x.ExtraFrontalOralImage)
+
+                        <div class="col-md-8">
+                            <input type="file" class="imageUploadSimple" id="ExtraFrontalOralImage" data-url-field="ExtraFrontalOralImage"/>
+                            <div class="containerPreview">
+                                <img src="@strExtraFrontalOralImage" id="ExtraFrontalOralImage" class="image">
+                                <div class="overlay">
+                                    <a href="#" class="icon" data-remove-image="ExtraFrontalOralImage">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group form-group-sm">
+                        @{
+                            var strExtraFrontalSmileOralImage = "/Content/Images/preview.jpg";
+                            if (!String.IsNullOrEmpty(Model.ExtraFrontalSmileOralImage))
+                            {
+                                strExtraFrontalSmileOralImage = Model.ExtraFrontalSmileOralImage;
+                            }
+                        }
+                        @Html.LabelFor(x => x.ExtraFrontalSmileOralImage, new {@class = "col-md-4 control-label"})
+                        @Html.HiddenFor(x => x.ExtraFrontalSmileOralImage)
+
+                        <div class="col-md-8">
+                            <input type="file" class="imageUploadSimple" id="ExtraFrontalSmileOralImage" data-url-field="ExtraFrontalSmileOralImage"/>
+                            <div class="containerPreview">
+                                <img src="@strExtraFrontalSmileOralImage" id="ExtraFrontalSmileOralImage" class="image">
+                                <div class="overlay">
+                                    <a href="#" class="icon" data-remove-image="ExtraFrontalSmileOralImage">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group form-group-sm">
+                        @{
+                            var strExtraProfileOralImage = "/Content/Images/preview.jpg";
+                            if (!String.IsNullOrEmpty(Model.ExtraProfileOralImage))
+                            {
+                                strExtraProfileOralImage = Model.ExtraProfileOralImage;
+                            }
+                        }
+                        @Html.LabelFor(x => x.ExtraProfileOralImage, new { @class = "col-md-4 control-label" })
+                        @Html.HiddenFor(x => x.ExtraProfileOralImage)
+
+                        <div class="col-md-8">
+                            <input type="file" class="imageUploadSimple" id="ExtraProfileOralImage" data-url-field="ExtraProfileOralImage" />
+                            <div class="containerPreview">
+                                <img src="@strExtraProfileOralImage" id="ExtraProfileOralImage" class="image">
+                                <div class="overlay">
+                                    <a href="#" class="icon" data-remove-image="ExtraProfileOralImage">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group form-group-sm">
+                        @{
+                            var strExtra34ViewOralImage = "/Content/Images/preview.jpg";
+                            if (!String.IsNullOrEmpty(Model.Extra34ViewOralImage))
+                            {
+                                strExtra34ViewOralImage = Model.Extra34ViewOralImage;
+                            }
+                        }
+                        @Html.LabelFor(x => x.Extra34ViewOralImage, new { @class = "col-md-4 control-label" })
+                        @Html.HiddenFor(x => x.Extra34ViewOralImage)
+
+                        <div class="col-md-8">
+                            <input type="file" class="imageUploadSimple" id="Extra34ViewOralImage" data-url-field="Extra34ViewOralImage" />
+                            <div class="containerPreview">
+                                <img src="@strExtra34ViewOralImage" id="Extra34ViewOralImage" class="image">
+                                <div class="overlay">
+                                    <a href="#" class="icon" data-remove-image="Extra34ViewOralImage">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group form-group-sm">
+                        @{
+                            var strExtra34SmileOralImage = "/Content/Images/preview.jpg";
+                            if (!String.IsNullOrEmpty(Model.Extra34SmileOralImage))
+                            {
+                                strExtra34SmileOralImage = Model.Extra34SmileOralImage;
+                            }
+                        }
+                        @Html.LabelFor(x => x.Extra34SmileOralImage, new { @class = "col-md-4 control-label" })
+                        @Html.HiddenFor(x => x.Extra34SmileOralImage)
+
+                        <div class="col-md-8">
+                            <input type="file" class="imageUploadSimple" id="Extra34SmileOralImage" data-url-field="Extra34SmileOralImage" />
+                            <div class="containerPreview">
+                                <img src="@strExtra34SmileOralImage" id="Extra34SmileOralImage" class="image">
+                                <div class="overlay">
+                                    <a href="#" class="icon" data-remove-image="Extra34SmileOralImage">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group form-group-sm">
+                        @{
+                            var strExtraVidOralImage = "/Content/Images/preview.jpg";
+                            if (!String.IsNullOrEmpty(Model.ExtraVidOralImage))
+                            {
+                                strExtraVidOralImage = Model.ExtraVidOralImage;
+                            }
+                        }
+                        @Html.LabelFor(x => x.ExtraVidOralImage, new { @class = "col-md-4 control-label" })
+                        @Html.HiddenFor(x => x.ExtraVidOralImage)
+
+                        <div class="col-md-8">
+                            <input type="file" class="imageUploadSimple" id="ExtraVidOralImage" data-url-field="ExtraVidOralImage" />
+                            <div class="containerPreview">
+                                <img src="@strExtraVidOralImage" id="ExtraVidOralImage" class="image">
+                                <div class="overlay">
+                                    <a href="#" class="icon" data-remove-image="ExtraVidOralImage">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default collapsed-box">
+            <div class="box-header with-border">
+                <h3 class="box-title">INTRA ORAL EXAMINATION</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="col-md-12">
+                    <div class="row js_ShortTeeth">
+                        <div class="panel-heading" style="pointer-events: all;">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseQ">Abbreviation<span class="small text-fuchsia "> (click to expand/collapse)</span></a>
+                            </h4>
+                        </div>
+                        <div id="collapseQ" class="panel-collapse collapse" style="height: auto;">
+                            <div class="panel-body">
+                                <table class="table no-border">
+                                    <tbody>
+
+                                        <tr>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothUl8)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothUl7)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothUl6)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothUl5)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothUl4)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothUl3)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothUl2)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothUl1)
+                                            </th>
+                                            <th class="text-center">
+
+                                            </th>
+                                            <th class="text-center">
+
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothUr1)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothUr2)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothUr3)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothUr4)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothUr5)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothUr6)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothUr7)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothUr8)
+                                            </th>
+
+                                        <tr>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothUl8, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothUl7, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothUl6, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothUl5, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothUl4, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothUl3, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothUl2, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothUl1, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+
+                                            </th>
+                                            <th class="text-center">
+
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothUr1, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothUr2, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothUr3, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothUr4, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothUr5, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothUr6, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothUr7, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothUr8, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">
+
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">
+
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothLl8, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothLl7, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothLl6, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothLl5, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothLl4, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothLl3, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothLl2, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothLl1, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+
+                                            </th>
+                                            <th class="text-center">
+
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothLr1, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothLr2, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothLr3, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothLr4, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothLr5, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothLr6, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothLr7, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothLr8, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothLl8)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothLl7)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothLl6)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothLl5)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothLl4)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothLl3)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothLl2)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothLl1)
+                                            </th>
+                                            <th class="text-center">
+
+                                            </th>
+                                            <th class="text-center">
+
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothLr1)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothLr2)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothLr3)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothLr4)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothLr5)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothLr6)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothLr7)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothLr8)
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h5 class="subHeading1">ABBREVIATIONS <input type="text" id="txtShortAbbreviation" style="font-weight:bold;color:black" /></h5>
+                        <div class="js_ShortAbbr">
+                            <div class="row">
+
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        <button type="button" style="background-color: #d1cf42; width: 70%" data-id="M" class="btn btn-xs">M-Missing</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" style="background-color: #d53232;color:#fff; width: 70%" data-id="C" class="btn btn-xs">C-Crown</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" style="background-color: #2f9362;color:#fff; width: 70%" data-id="CR" class="btn btn-xs">CR-Crowding</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" style="background-color: #be2f75;color:#fff; width: 70%" data-id="S" class="btn btn-xs">S-Spacing</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        <button type="button" style="background-color:#45e4c7; width: 70%" data-id="CB" class="btn btn-xs">CB-Crossbite</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" style="background-color: #6b1421; color: #fff; width: 70%" data-id="SB" class="btn btn-xs">SB-Scissor Bite</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" style="background-color: #a030c1; color: #fff; width: 70%" data-id="O" class="btn btn-xs">O-Other</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" style="width: 70%" data-id="" class="btn btn-xs">Clear</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="row js_DecidiousTeeth">
+                        <div class="panel-heading" style="pointer-events: all;">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseZ">Decidious Teeth<span class="small text-fuchsia "> (click to expand/collapse)</span></a>
+                            </h4>
+                        </div>
+                        <div id="collapseZ" class="panel-collapse collapse" style="height: auto;">
+                            <div class="panel-body">
+                                <table class="table no-border">
+                                    <tbody>
+
+                                        <tr>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothUlE)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothUlD)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothUlC)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothUlB)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothUlA)
+                                            </th>
+
+                                            <th class="text-center">
+
+                                            </th>
+                                            <th class="text-center">
+
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothUrA)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothUrB)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothUrC)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothUrD)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothUrE)
+                                            </th>
+
+                                        <tr>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothUlE, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothUlD, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothUlC, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothUlB, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothUlA, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+
+                                            <th class="text-center">
+
+                                            </th>
+                                            <th class="text-center">
+
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothUrA, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothUrB, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothUrC, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothUrD, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothUrE, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+
+
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">
+
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">
+
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothLlE, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothLlD, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothLlC, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothLlB, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothLlA, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+
+                                            <th class="text-center">
+
+                                            </th>
+                                            <th class="text-center">
+
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothLrA, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothLrB, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothLrC, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothLrD, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.TextAreaFor(x => x.ToothLrE, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                            </th>
+
+
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothLlE)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothLlD)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothLlC)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothLlB)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothLlA)
+                                            </th>
+
+                                            <th class="text-center">
+
+                                            </th>
+                                            <th class="text-center">
+
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothLrA)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothLrB)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothLrC)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothLrD)
+                                            </th>
+                                            <th class="text-center">
+                                                @Html.LabelFor(x => x.ToothLrE)
+                                            </th>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h5 class="subHeading1">ABBREVIATIONS <input type="text" id="txtDecidiousAbbreviation" style="font-weight:bold;color:black" /></h5>
+                        <div class="js_DecidiousAbbr">
+
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        <button type="button" style="background-color: #187781;color:#000; width: 70%" data-id="P" class="btn btn-xs">P-PRESENT</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" style="width: 70%" data-id="" class="btn btn-xs">Clear</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(x => x.MolarRelation, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-4">
+                            @Html.DropDownListFor(model => model.MolarRelationLShortId, new SelectList(Model.MolarRelationLShortList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                        </div>
+                        <div class="col-md-4">
+                            @Html.DropDownListFor(model => model.MolarRelationRShortId, new SelectList(Model.MolarRelationRShortList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(x => x.CanineRelation, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-4">
+                            @Html.DropDownListFor(model => model.CanineRelationLShortId, new SelectList(Model.CanineRelationLShortList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                        </div>
+                        <div class="col-md-4">
+                            @Html.DropDownListFor(model => model.CanineRelationRShortId, new SelectList(Model.CanineRelationRShortList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(x => x.CrossbiteShortId, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8 ">
+                            @Html.DropDownListFor(model => model.CrossbiteShortId, new SelectList(Model.CrossbiteShortList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" style="clear: both;">
+                    <div class="form-group form-group-sm">
+                        @{
+                            var strIntraFrontalOralImage = "/Content/Images/preview.jpg";
+                            if (!String.IsNullOrEmpty(Model.IntraFrontalOralImage))
+                            {
+                                strIntraFrontalOralImage = Model.IntraFrontalOralImage;
+                            }
+                        }
+                        @Html.LabelFor(x => x.IntraFrontalOralImage, new {@class = "col-md-4 control-label"})
+                        @Html.HiddenFor(x => x.IntraFrontalOralImage)
+
+                        <div class="col-md-8">
+                            <input type="file" class="imageUploadSimple" id="IntraFrontalOralImage" data-url-field="IntraFrontalOralImage"/>
+                            <div class="containerPreview">
+                                <img src="@strIntraFrontalOralImage" id="IntraFrontalOralImage" class="image">
+                                <div class="overlay">
+                                    <a href="#" class="icon" data-remove-image="IntraFrontalOralImage">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group form-group-sm">
+                        @{
+                            var strIntraRightBuccalOcculsionImage = "/Content/Images/preview.jpg";
+                            if (!String.IsNullOrEmpty(Model.IntraRightBuccalOcculsionImage))
+                            {
+                                strIntraRightBuccalOcculsionImage = Model.IntraRightBuccalOcculsionImage;
+                            }
+                        }
+                        @Html.LabelFor(x => x.IntraRightBuccalOcculsionImage, new { @class = "col-md-4 control-label" })
+                        @Html.HiddenFor(x => x.IntraRightBuccalOcculsionImage)
+
+                        <div class="col-md-8">
+                            <input type="file" class="imageUploadSimple" id="IntraRightBuccalOcculsionImage" data-url-field="IntraRightBuccalOcculsionImage" />
+                            <div class="containerPreview">
+                                <img src="@strIntraRightBuccalOcculsionImage" id="IntraRightBuccalOcculsionImage" class="image">
+                                <div class="overlay">
+                                    <a href="#" class="icon" data-remove-image="IntraRightBuccalOcculsionImage">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group form-group-sm">
+                        @{
+                            var strIntraLeftBuccalOcculsionImage = "/Content/Images/preview.jpg";
+                            if (!String.IsNullOrEmpty(Model.IntraLeftBuccalOcculsionImage))
+                            {
+                                strIntraLeftBuccalOcculsionImage = Model.IntraLeftBuccalOcculsionImage;
+                            }
+                        }
+                        @Html.LabelFor(x => x.IntraLeftBuccalOcculsionImage, new { @class = "col-md-4 control-label" })
+                        @Html.HiddenFor(x => x.IntraLeftBuccalOcculsionImage)
+
+                        <div class="col-md-8">
+                            <input type="file" class="imageUploadSimple" id="IntraLeftBuccalOcculsionImage" data-url-field="IntraLeftBuccalOcculsionImage" />
+                            <div class="containerPreview">
+                                <img src="@strIntraLeftBuccalOcculsionImage" id="IntraLeftBuccalOcculsionImage" class="image">
+                                <div class="overlay">
+                                    <a href="#" class="icon" data-remove-image="IntraLeftBuccalOcculsionImage">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group form-group-sm">
+                        @{
+                            var strIntraMaxillaryOcculsionImage = "/Content/Images/preview.jpg";
+                            if (!String.IsNullOrEmpty(Model.IntraMaxillaryOcculsionImage))
+                            {
+                                strIntraMaxillaryOcculsionImage = Model.IntraMaxillaryOcculsionImage;
+                            }
+                        }
+                        @Html.LabelFor(x => x.IntraMaxillaryOcculsionImage, new { @class = "col-md-4 control-label" })
+                        @Html.HiddenFor(x => x.IntraMaxillaryOcculsionImage)
+
+                        <div class="col-md-8">
+                            <input type="file" class="imageUploadSimple" id="IntraMaxillaryOcculsionImage" data-url-field="IntraMaxillaryOcculsionImage" />
+                            <div class="containerPreview">
+                                <img src="@strIntraMaxillaryOcculsionImage" id="IntraMaxillaryOcculsionImage" class="image">
+                                <div class="overlay">
+                                    <a href="#" class="icon" data-remove-image="IntraMaxillaryOcculsionImage">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group form-group-sm">
+                        @{
+                            var strIntraMandBularImage = "/Content/Images/preview.jpg";
+                            if (!String.IsNullOrEmpty(Model.IntraMandBularImage))
+                            {
+                                strIntraMandBularImage = Model.IntraMandBularImage;
+                            }
+                        }
+                        @Html.LabelFor(x => x.IntraMandBularImage, new { @class = "col-md-4 control-label" })
+                        @Html.HiddenFor(x => x.IntraMandBularImage)
+
+                        <div class="col-md-8">
+                            <input type="file" class="imageUploadSimple" id="IntraMandBularImage" data-url-field="IntraMandBularImage" />
+                            <div class="containerPreview">
+                                <img src="@strIntraMandBularImage" id="IntraMandBularImage" class="image">
+                                <div class="overlay">
+                                    <a href="#" class="icon" data-remove-image="IntraMandBularImage">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+

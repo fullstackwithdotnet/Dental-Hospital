@@ -1,0 +1,29 @@
+﻿@model IEnumerable<DIMS.ViewModels.OMFSIPDrugDetailsViewModel>
+ 
+<table class="table table-bordered" id="tbdischargedetails">
+    <tr>         
+        <th class="col-md-3">
+            @Html.DisplayNameFor(model => model.DrugGiven)
+        </th>
+        <th class="col-md-4">
+            @Html.DisplayNameFor(model => model.DoseN)
+        </th>
+        @{int i = 0;}
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DrugNameN)
+                @Html.HiddenFor(modelItem => item.DrugNameN )
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DoseN)
+                @Html.HiddenFor(modelItem => item.DoseN )
+            </td>
+        </tr>
+        
+    }
+
+</table>

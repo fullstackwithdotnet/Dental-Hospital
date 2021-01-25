@@ -1,0 +1,169 @@
+﻿@model DIMS.ViewModels.RadioRegistrationSearchViewModal
+
+@{
+    ViewBag.Title = "RadiologySearch";
+}
+<h4>Department Of Radiology</h4>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel-body">
+
+            @*<table class="table">
+                    <tr>
+                        <td>
+                            <div class="form-group form-group-sm">
+                                @Html.DisplayNameFor(model => model.From_Date)
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group form-group-sm">
+                                @Html.EditorFor(model => model.From_Date, new { htmlAttributes = new { Value = Model.From_Date.ToString("yyyy-MM-dd") } })
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group form-group-sm">
+                                @Html.DisplayNameFor(model => model.To_Date)
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group form-group-sm">
+                                @Html.EditorFor(model => model.To_Date, new { htmlAttributes = new { Value = Model.From_Date.ToString("yyyy-MM-dd") } })
+                                @Html.HiddenFor(model => model.DeptId)
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group form-group-sm">
+                                <a href="#" id="btnRadioSearch" class="btn btn-success btn-sm"> Search</a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>*@
+            <div class="col-md-12">
+                <div class="col-md-2 form-group form-group-sm">
+                    @Html.LabelFor(x => x.DateRange, new { @class = "control-label" })
+                </div>
+                <div class="col-md-3 form-group form-group-sm">
+                    @Html.EditorFor(model => model.DateRange, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="col-md-7 form-group form-group-sm">
+                    @Html.HiddenFor(model => model.DeptId)
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Radiology Patient List</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table id="tbRadioSearch" class="table table-bordered table-hover" style="width:100%;">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-md-1">Invoice Date </th>
+                                            <th class="col-md-1">Invoice # </th>
+                                            <th class="col-md-1">Op # </th>
+                                            <th class="col-md-2">Patient Name</th>
+                                            <th class="col-md-3">Department</th>
+                                            <th class="col-md-1">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+
+
+
+@section scripts
+{
+    <script>
+
+        $(document).ready(function () {
+            var start = moment();
+            var end = moment();
+            $('#DateRange').daterangepicker({
+                startDate: start,
+                endDate: end,
+                locale: {
+                    format: 'DD/MM/YYYY'
+                },
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                }
+            }, cb);
+            function cb(start, end) {
+                $('#DateRange span').html(start.format('YYYY/MM/DD') + ' - ' + end.format('YYYY/MM/DD'));
+            }
+            cb(start, end);
+        });
+
+
+        var SearchRadiovalue = function () {
+            $('#tbRadioSearch tbody').empty();
+            
+            var selected = $("#DateRange").val();
+            var from = selected.split("-");
+            var fromdate = $.trim(from[0]);
+            var todate = $.trim(from[1]);
+
+            var $From_Date = fromdate.split("/").reverse().join("-");
+            var $To_Date = todate.split("/").reverse().join("-");
+
+            //var $From_Date = $("#From_Date").val();
+            //var $To_Date = $("#To_Date").val();
+
+            var $DeptId = $("#DeptId").val();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetRadioSearchList", "Radiology")',
+                data: '{From_Date: "' + $From_Date + ' ",To_Date: "' + $To_Date + ' ",DeptId: "' + $DeptId + ' "}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    table = $('#tbRadioSearch').DataTable();
+                    table.destroy();
+                    $('#tbRadioSearch').dataTable({
+                        data: data,
+                        columns: [
+                            { 'data': 'BillDateTimeDisplay' },
+                            { 'data': 'BillNo' },
+                            { 'data': 'OpNo' },
+                            { 'data': 'PatientName' },
+                            { 'data': 'DeptCode' },
+                            {
+                                'data': 'Link',
+                                'searchable': false,
+                                'sortable': false,
+                                'render': function (Link) {
+                                    return '<a href=' + Link + '>Result Entry</a>';
+                                }
+                            },
+
+
+                        ]
+                    })
+                },
+            })
+        }
+        SearchRadiovalue();
+        $("#DateRange").on("change", function () {
+            SearchRadiovalue();
+        })
+    </script>
+}

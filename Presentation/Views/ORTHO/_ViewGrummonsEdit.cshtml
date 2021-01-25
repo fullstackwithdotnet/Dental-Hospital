@@ -1,0 +1,103 @@
+﻿@model IEnumerable<DIMS.ViewModels.OrthoAnalysisViewModal>
+
+@{
+    string modelName = ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix;
+    int index = 0;
+}
+@functions{
+    string GetId(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}]_{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+    string GetName(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}].{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <tr>
+                <th></th>
+                <th></th>
+                <th>Pt's Left</th>
+                <th></th>
+                <th>Pt's Right</th>
+                <th></th>
+                <th>Difference</th>
+            </tr>
+            <tr>
+                <th class="hidden">
+                    @Html.DisplayNameFor(model => model.FrontalGrumStaticId)
+                </th>
+                <th class="hidden">
+                    @Html.DisplayNameFor(model => model.FrontalGrumId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Field)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LeftPreRx)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.LeftPostRx)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RightPreRx)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RightPostRx)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DiffPreRx)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DiffPostRx)
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="hidden">
+                        @Html.TextBoxFor(modelItem => item.FrontalGrumStaticId, new { @class = "col-sm-10 form-control", @id = GetId("FrontalGrumStaticId", index), @Name = GetName("FrontalGrumStaticId", index) })
+                    </td>
+                    <td class="hidden">
+                        @Html.TextBoxFor(modelItem => item.FrontalGrumId, new { @class = "col-sm-10 form-control", @id = GetId("FrontalGrumId", index), @Name = GetName("FrontalGrumId", index) })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Field)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(modelItem => item.LeftPreRx, new { @class = "col-sm-10 form-control", @id = GetId("LeftPreRx", index), @Name = GetName("LeftPreRx", index) })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(modelItem => item.LeftPostRx, new { @class = "col-sm-10 form-control", @id = GetId("LeftPostRx", index), @Name = GetName("LeftPostRx", index) })
+                        @Html.HiddenFor(modelItem => item.PreRx)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(modelItem => item.RightPreRx, new { @class = "col-sm-10 form-control", @id = GetId("RightPreRx", index), @Name = GetName("RightPreRx", index) })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(modelItem => item.RightPostRx, new { @class = "col-sm-10 form-control", @id = GetId("RightPostRx", index), @Name = GetName("RightPostRx", index) })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(modelItem => item.DiffPreRx, new { @class = "col-sm-10 form-control", @id = GetId("DiffPreRx", index), @Name = GetName("DiffPreRx", index) })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(modelItem => item.DiffPostRx, new { @class = "col-sm-10 form-control", @id = GetId("DiffPostRx", index), @Name = GetName("DiffPostRx", index) })
+                    </td>
+
+                </tr>
+                index++;
+            }
+        </table>
+
+
+
+    </div>
+</div>
+
+

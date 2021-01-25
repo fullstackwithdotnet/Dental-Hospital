@@ -1,0 +1,162 @@
+﻿ @model DIMS.ViewModels.StudentRegistrationViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="form-horizontal">
+        <div class="box box-default box-solid">
+            <div class="box-header with-border">
+                <h4 class="box-title">Student Registration</h4>
+            </div>
+            <div class="box-body">
+
+                @Html.ValidationSummary(true)
+
+                <div class="row">
+                    <div class="col-md-8">
+
+                        <div class="form-group form-group-sm required">
+                            @Html.LabelFor(model => model.StudentName, new { @class = "control-label col-md-3" })
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(x => x.StudentName, new { @class = "form-control", @maxLength = "30", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.StudentName)
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.StudentRegNo, new { @class = "control-label col-md-3" })
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(x => x.StudentRegNo, new { @class = "form-control", @maxLength = "10" })
+                                @Html.ValidationMessageFor(model => model.StudentRegNo)
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm dropdown">
+                            @Html.LabelFor(x => x.StudentCourseId, new { @class = "control-label col-md-3" })
+                            <div class="col-md-6">
+                                @Html.DropDownListFor(x => x.StudentCourseId, Model.CourseList, htmlAttributes: new { @class = "form-control", @id = "Course" })
+                                @Html.ValidationMessageFor(x => x.StudentCourseId)
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm dropdown">
+                            @Html.LabelFor(x => x.StudentYearId, new { @class = "control-label col-md-3" })
+                            <div class="col-md-6">
+                                @Html.DropDownListFor(x => x.StudentYearId, Model.Yearlist, htmlAttributes: new { @class = "form-control", @id = "Year" })
+                                @Html.ValidationMessageFor(x => x.StudentYearId)
+                            </div>
+                        </div>
+
+                        <div id="Department" class="form-group form-group-sm dropdown">
+                            @Html.LabelFor(model => model.DeptId, new { @class = "control-label col-md-3" })
+                            <div class="col-md-6">
+                                @Html.DropDownListFor(model => model.DeptId, new SelectList(Model.Departmentlist, "DeptId", "DeptName"), htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.DeptId)
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm" id="BatchType">
+                            @Html.LabelFor(model => model.Batch, new { @class = "control-label col-md-3" })
+                            <div class="col-md-6">
+                                @Html.DropDownListFor(model => model.CodeId, new SelectList(Model.Batchlist, "CodeId", "CodeDescription"), htmlAttributes: new { @class = "js_Pay form-control col-md-2" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm" id="Batch">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-3">
+                                @Html.TextBoxFor(x => x.Batch1, new { @class = "form-control OnlyNumber ", @maxLength = "4", @placeholder = "YYYY" })
+                            </div>
+                            <div class="col-md-3">
+                                @Html.TextBoxFor(x => x.Batch2, new { @class = "form-control OnlyNumber", @maxLength = "4", @placeholder = "YYYY" })
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-offset-5 col-md-10">
+                                <input type="submit" value="Save" class="fa fa-save btn btn-success" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var $course = $("#Course"),
+                  $year = $("#Year")
+            $course.change(function () {
+                $year.empty();
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetCourseYears")',
+                    dataType: 'json',
+                    data: { id: $course.val() },
+                    success: function (Years) {
+                        $.each(Years, function (i, Year) {
+                            $year.append('<option value="'
+                            + Year.Value + '">'
+                            + Year.Text + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Failed to retrieve Years.' + ex);
+                    }
+                });
+                return false;
+            });
+        })
+
+
+        $("#Course").change(function () {
+            MDSDepartment();
+        });
+
+        $("#Year").change(function () {
+            MDSDepartment();
+        });
+
+        var MDSDepartment = function () {
+            var dropdowntext = $("#Course option:selected").text();
+            if (dropdowntext == "MDS") {
+                $("#Department").show();
+                $("#BatchType").hide();
+                $("#CodeId").val(0);
+                $("#Batch").hide();
+            }
+            else {
+                var cyear = $("#Year option:selected").text();
+                if (cyear == "Fourth Year") {
+                    $("#Department").hide();
+                    $("#DeptId").val(0);
+                    $("#BatchType").show();
+                    $("#Batch").hide();
+                }
+                else {
+                    $("#Department").hide();
+                    $("#DeptId").val(0);
+                    $("#BatchType").hide();
+                    $("#Batch").hide();
+                }
+            }
+        }
+        MDSDepartment();
+
+
+    </script>
+}

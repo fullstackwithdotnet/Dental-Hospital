@@ -1,0 +1,44 @@
+﻿@model DIMS.ViewModels.DeptHomeViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+@functions
+{
+    public string GetUrl()
+    {
+        var user = User as DIMS.Infrastructure.CustomPrincipal;
+        return user.GetRootUrl();
+    }
+}
+
+<h4>Oral Maxillofacial Surgery</h4>
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-12">
+            @*<span class="text-red small">Treatment - PG,UG Allotment</span>*@
+            <div class="form-group">
+                @*@Html.Partial("../Home/_DepartmentOMFSIndex", Model)*@
+                @Html.Partial("../Home/_AllotmentIndex", Model)
+            </div>
+        </div>
+    </div>
+}
+@Html.Partial("../StudentAllotment/_CreateAllotment")
+
+
+@section scripts {
+    <script type="text/javascript">
+        var showModel = function (patientId, referredId) {
+            var url = "@GetUrl()/OMFS/Allotment?PatientId=" + patientId + "&ReferredId=" + referredId + "";
+            $("#myModelBodyDiv").load(url, function () {
+                $("#myModel").modal("show");
+            })
+        }   
+        
+    </script>
+}
+
+
+ 

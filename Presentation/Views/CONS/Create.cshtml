@@ -1,0 +1,372 @@
+﻿ @model DIMS.ViewModels.CONSViewModel
+
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@functions
+{
+    public List<string> UserRights()
+    {
+        var user = User as DIMS.Infrastructure.CustomPrincipal;
+        return user.UserRights(DIMS.Enums.Department.CONS);
+    }
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+
+        @Html.Partial("../Prescriptions/_CreateMedicalAlert", Model.medicalalertviewmodel)
+        <div class="box box-info ">
+            <div class="box-header with-border" style="background-color:aliceblue;">
+                <h3 class="box-title"> Conservative Casesheet</h3>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        @Html.Partial("../PatientInformation/_PatientInformationDetails", Model.patientInformationViewModel,
+                            new ViewDataDictionary()
+                            {
+                                TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "studentAllotmentViewModel" }
+                            })
+                    </div>
+                </div>
+            </div>
+        </div>
+        @{List<string> add = UserRights();}
+        @if (add.Contains(DIMS.Infrastructure.PermissionsEnum.Add.ToString()))
+        {
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-xs-4">
+                    </div>
+                    <div class="col-xs-4">
+                        <center>
+                            <button type="submit" class="btn btn-success btn-sm" id="SaveButton">
+                                Save
+                                <i class="fa fa-save"></i>
+                            </button>
+                        </center>
+                    </div>
+                    <div class="col-xs-4">
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="box box-default box-solid">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel-body">
+                            <div id="tabContainer">
+                                <ul class="pagination pagination-lg" role="tablist" style="margin:0px">
+                                    <li class="active">
+                                        <a href="#History" role="tab" class="paginationtab no-border" aria-controls="History" data-toggle="tab">History</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#Clinicalfinding" role="tab" class="paginationtab no-border" aria-controls="Clinicalfinding" data-toggle="tab">Clinical Finding</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#Examination" role="tab" class="paginationtab no-border" aria-controls="Examination" data-toggle="tab">Examination</a>
+                                    </li>
+                                    @if (add.Contains(DIMS.Infrastructure.PermissionsEnum.Investigation.ToString()))
+                                    {
+                                        <li class="">
+                                            <a href="#Investigation" role="tab" class="paginationtab no-border" aria-controls="Investigation" data-toggle="tab">Investigation</a>
+                                        </li>
+                                    }
+                                    <li class="">
+                                        <a href="#InvestigationReport" role="tab" class="paginationtab no-border" aria-controls="InvestigationReport" data-toggle="tab">Investigation Report</a>
+                                    </li>
+
+                                    @if (add.Contains(DIMS.Infrastructure.PermissionsEnum.TreatmentServices.ToString()))
+                                    {
+                                        <li class="">
+                                            <a href="#Treatment" role="tab" class="paginationtab no-border" aria-controls="Treatment" data-toggle="tab">Treatment</a>
+                                        </li>
+                                    }
+                                    <li class="">
+                                        <a href="#ProcedureNote" role="tab" class="paginationtab no-border" aria-controls="ProcedureNote" data-toggle="tab">Procedure Notes</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#Referral" role="tab" class="paginationtab no-border" aria-controls="Referral" data-toggle="tab">Referral</a>
+                                    </li>
+
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane fade active in" id="History">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box box-primary">
+                                                    <div class="box-header with-border">
+                                                        <div class="form-group">
+                                                            @Html.Partial("../CONS/_CONSHistory", Model)
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="Clinicalfinding">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box box-primary">
+                                                    <div class="box-header with-border">
+                                                        <div class="form-group">
+                                                            @Html.Partial("../CONS/_CONSClinicalFinding", Model)
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="Examination">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box box-primary">
+                                                    <div class="box-header with-border">
+                                                        <div class="form-group">
+                                                            @Html.Partial("../CONS/_CONSExamination", Model)
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="Investigation">
+                                        <div class="row">
+                                            <div class="box box-primary">
+                                                <div class="box-header with-border">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            @Html.Partial("../Investigation/_LabRadCreate", Model.billingLabRadQueueViewModal)
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            @Html.Partial("../Investigation/_LabRadInvestigationList", Model.BillingLabRadQueueDetails,
+                                                              new ViewDataDictionary()
+                                                              {
+                                                                  TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "BillingLabRadQueueDetails" }
+                                                              })
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-12 hidden">
+                                                        @Html.ActionLink("Request for OralPathology", "Index", "ORPATHRequisition", new { id = Model.studentAllotmentViewModel.AllotId }, new { target = "_blank" })
+                                                    </div>
+                                                    @if (Model.paidLabRadInvestigationList.Count() > 0)
+                                                    {
+                                                        <br />
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                @Html.Partial("../Investigation/_PaidInvestigationList", Model.paidLabRadInvestigationList)
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane fade" id="Treatment">
+                                        <div class="row">
+                                            <div class="box box-primary">
+                                                <div class="box-header with-border">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="box box-default collapsed-box">
+                                                                <div class="box-header with-border">
+                                                                    <h3 class="box-title">TREATMENT DETAILS</h3>
+                                                                    <div class="box-tools pull-right">
+                                                                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                                                                            <i class="fa fa-plus"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="box-body">
+                                                                    <div class="form-group">
+                                                                        @Html.Partial("../Investigation/_Create", Model.billingQueueViewModal)
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        @Html.Partial("../Investigation/_InvestigationList", Model.BillingQueueDetails,
+                                                              new ViewDataDictionary()
+                                                              {
+                                                                  TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "BillingQueueDetails" }
+                                                              })
+                                                                    </div>
+                                                                    @if (Model.paidInvestigationList.Count() > 0)
+                                                                    {
+                                                                        <br />
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                @Html.Partial("../Investigation/_PaidInvestigationList", Model.paidInvestigationList)
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="box box-default collapsed-box">
+                                                                <div class="box-header with-border">
+                                                                    <h3 class="box-title">PRESCRIPTIONS</h3>
+                                                                    <div class="box-tools pull-right">
+                                                                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                                                                            <i class="fa fa-plus"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="box-body">
+                                                                    <div class="form-group">
+                                                                        @Html.Partial("../Prescriptions/_Create", Model.PrescriptionsList)
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        @Html.Partial("../Prescriptions/_PrescriptionList", Model.PrescriptionsDetails,
+                                                                              new ViewDataDictionary()
+                                                                              {
+                                                                                  TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "PrescriptionsDetails" }
+                                                                              })
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="box box-default collapsed-box">
+                                                                <div class="box-header with-border">
+                                                                    <h3 class="box-title">PREVIOUS PRESCRIPTIONS</h3>
+                                                                    <div class="box-tools pull-right">
+                                                                        <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                                                                            <i class="fa fa-plus"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="box-body">
+                                                                    <div class="form-group">
+                                                                        @Html.Partial("../Prescriptions/_PreviousPrescriptions", Model.PreviousPrescriptionList)
+                                                                    </div>
+
+
+                                                                </div>
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane fade" id="InvestigationReport">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box box-primary">
+                                                    <div class="box-header with-border">
+                                                        <div class="form-group">
+                                                            @Html.Partial("../Radiography/_RadiographicDetails", Model.radioRegistrationviewmodel)
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box box-primary">
+                                                    <div class="box-header with-border">
+                                                        <div class="form-group">
+                                                            @Html.Partial("../Radiography/_LaboratoryDetails", Model.laboratoryRegistrationviewmodel)
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="ProcedureNote">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box box-primary">
+                                                    <div class="box-header with-border">
+                                                        <div class="box-body">
+                                                            <div class="form-group">
+                                                                @Html.Partial("../StudentAllotment/_ProcedureNote", Model.studentAllotmentViewModel,
+                                                          new ViewDataDictionary()
+                                                          {
+                                                              TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "studentAllotmentViewModel" }
+                                                          })
+                                                            </div>
+                                                        </div>
+                                                        <div class="box-body">
+                                                            @Html.Partial("../StudentAllotment/_ProdedureNoteDetails", Model.studentProcedureNotesViewModel)
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="tab-pane fade" id="Referral">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box box-primary">
+                                                    <div class="box-header with-border">
+                                                        <h3 class="box-title">PREVIOUS DEPARTMENT REFERRAL</h3>
+                                                    </div>
+
+                                                    <div class="box-body">
+                                                        <div class="form-group">
+                                                            @Html.Partial("../ReferralStatus/ViewReferral", Model.ViewdepartmentReferredStatus)
+                                                        </div>
+                                                    </div>
+
+                                                    @if (add.Contains(DIMS.Infrastructure.PermissionsEnum.Referral.ToString()))
+                                                    {
+                                                        <div class="box-header with-border">
+                                                            <h3 class="box-title">REFERRAL TO OTHER DEPARTMENTS</h3>
+                                                        </div>
+                                                        <div class="box-body">
+                                                            <div class="form-group">
+                                                                @Html.Partial("../ReferralStatus/Create", Model.CreatedepartmentReferredStatus,
+                                                                  new ViewDataDictionary()
+                                                                  {
+                                                                      TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "CreatedepartmentReferredStatus" }
+                                                                  })
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+            }
+
+@*<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@
+
+<div>
+    @Html.ActionLink("<< Back to previous page", "Index", null, new { @class = "btn btn-primary btn-xs" })
+</div>
+
+

@@ -1,0 +1,27 @@
+﻿@model DIMS.ViewModels.StudentAllotmentViewModel
+
+@{
+	var str = Model.DeptId == 0 ? "Provisional Diagnosis" : "Procedure Notes";
+}
+<div class="row" hidden>
+    <div class="form-group">
+        @Html.LabelFor(model => model.DoctorApproval, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.DoctorApproval)
+            @Html.HiddenFor(model => model.AllotId)
+			@Html.HiddenFor(model => model.DeptId)
+            @Html.ValidationMessageFor(model => model.DoctorApproval)
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group form-group-sm">
+        @Html.LabelFor(model => model.ProcedureNotes, @str, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.ProcedureNotes, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ProcedureNotes)
+        </div>
+    </div>
+</div>
+
+

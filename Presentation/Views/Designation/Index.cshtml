@@ -1,0 +1,55 @@
+﻿@model IEnumerable<DIMS.ViewModels.DesignationViewModal>
+
+@{
+    ViewBag.Title = "Designation";
+}
+
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+<div class="box box-default box-solid">
+    <div class="box-header with-border">
+        <h4 class="box-title">Designation List</h4>
+    </div>
+    <div class="box-body">
+        <table class="table table-bordered">
+            <tr>
+                <th>
+                    S.No
+                </th>
+                <th class="hidden">
+                    @Html.DisplayNameFor(model => model.DesigId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DesigName)
+                </th>
+                <th>Actions</th>
+            </tr>
+            @{int i = 0;}
+            @foreach (var item in Model)
+            {
+                i++;
+                <tr>
+                    <td><span>@i</span></td>
+                    <td class="hidden">
+                        @Html.DisplayFor(modelItem => item.DesigId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DesigName)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.DesigId })
+                    </td>                   
+                </tr>
+            }
+
+        </table>
+     </div>
+</div>
+        
+
+

@@ -1,0 +1,21 @@
+﻿@model DIMS.ViewModels.PHDViewModel
+@{
+    ViewBag.Title = "_PHDChiefComplaint";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(x => x.ChiefComplaintName, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.HiddenFor(model => model.PatientId)
+                    @Html.HiddenFor(model => model.TreatmentReferredId)
+                    @Html.TextAreaFor(x => x.ChiefComplaint, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

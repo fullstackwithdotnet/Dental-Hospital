@@ -1,0 +1,147 @@
+﻿@model IEnumerable<DIMS.ViewModels.ReferralStatusViewModel>
+
+
+@functions
+{
+    public string GetUrl()
+    {
+        var user = User as DIMS.Infrastructure.CustomPrincipal;
+        return user.GetRootUrl();
+    }
+}
+
+
+    <div class="table-responsive">
+
+        <table class="table table-bordered table-hover" id="tblViewReferedStatus">
+            <tr>
+                <th class="text-center">
+                    @Html.DisplayNameFor(model => model.FromDate)
+                </th>
+                <th class="text-center">
+                    @Html.DisplayNameFor(model => model.Priority)
+                </th>
+                <th class="text-center">
+                    @Html.DisplayNameFor(model => model.FromDeptName)
+                </th>
+                <th class="text-center">
+                    @Html.DisplayNameFor(model => model.ToDeptName)
+                </th>
+                <th class="text-center hidden">
+                    @Html.DisplayNameFor(model => model.ReferredReason)
+                </th>
+                <th class="text-center">
+                    @Html.DisplayNameFor(model => model.TreatmentStatus)
+                </th>
+                <th class="text-center">
+                    @Html.DisplayNameFor(model => model.TreatmentDate)
+                </th>
+                <th class="text-center">Action</th>
+                <th class="text-center">
+                    @Html.DisplayNameFor(model => model.Link)
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.FromDateDisplay)
+                        @Html.HiddenFor(modelItem => item.ReferredId)
+                        @Html.HiddenFor(modelItem => item.PatientId)
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.Priority)
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.FromDeptCode)
+                        @Html.HiddenFor(modelItem => item.FromdeptId)
+                    </td>
+
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.ToDeptCode)
+                        @Html.HiddenFor(modelItem => item.ToDeptId)
+                    </td>
+                    <td class="hidden">
+                        @Html.DisplayFor(modelItem => item.ReferredReason)
+                    </td>
+                    @if (item.TreatmentStatus == "Visited")
+                    {
+                        <td class="text-green text-bold text-center">
+                            @Html.DisplayFor(modelItem => item.TreatmentStatus)
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="text-red text-bold text-center">
+                            @Html.DisplayFor(modelItem => item.TreatmentStatus)
+                        </td>
+                    }
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.TreatmentDateDisplay)
+                    </td>
+                    @if (ViewBag.id=="Y")
+                    {
+                        <td></td>
+                    }
+                    else
+                    {
+                        if (item.Approvalvalue =="Y")
+                        {
+                            <td class="text-green text-bold text-center">
+                               Approved
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="text-center">
+                                <a class="btn btn-primary btn-xs" title="Edit" onclick="showModel(@item.ReferredId)"><i class="glyphicon glyphicon-pencil"></i></a>
+                            </td>
+                        }
+                    }
+                    <td class="text-center">
+
+                        @if (item.CaserecordId > 0)
+                        {
+                            if (item.ReferredTreatmentId > 0)
+                            {
+                                @Html.ActionLink("View", item.TreatmentCode.Trim(), item.ToDeptCode, new { Id = item.CaserecordId }, new { target = "_blank" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("View", "Report", item.ToDeptCode, new { Id = item.CaserecordId }, new { target = "_blank" })
+                            }
+                        }
+
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+
+<div class="container" style="width:90%;margin-top:2%">
+    <div class="modal fade" id="myModelReferral">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a class="close" data-dismiss="modal">&times;</a>
+                    <h4 class="modal-title" style="margin-bottom:0;margin-top:0;">Update Referred Reason</h4>
+                </div>
+                <div class="modal-body" id="myModelBodyDivReferral">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var showModel = function (ReferredId) {
+        
+        var url = "@GetUrl()/ReferralStatus/EditReferralStatus?ReferredId=" + ReferredId + "";
+        $("#myModelBodyDivReferral").load(url, function () {
+            $("#myModelReferral").modal("show");
+        })
+    }
+
+</script>

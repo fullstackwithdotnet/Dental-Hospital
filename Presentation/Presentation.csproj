@@ -1,0 +1,1238 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AA6895A6-BA04-4984-857A-1CAFAFEF743F}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Presentation</RootNamespace>
+    <AssemblyName>Presentation</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="CommonServiceLocator, Version=2.0.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.3.2\lib\net45\CommonServiceLocator.dll</HintPath>
+    </Reference>
+    <Reference Include="DIMS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DIMS\bin\Debug\DIMS.dll</HintPath>
+    </Reference>
+    <Reference Include="jQuery.Validation.Unobtrusive.Native, Version=1.1.5809.17463, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\jQuery.Validation.Unobtrusive.Native.MVC5.1.3.0\lib\net45\jQuery.Validation.Unobtrusive.Native.dll</HintPath>
+    </Reference>
+    <Reference Include="Metron.Entities">
+      <HintPath>..\CStone.Entities\bin\Debug\Metron.Entities.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Repository">
+      <HintPath>..\Repository\bin\Debug\Repository.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard1.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.1\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Unit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unit.1.0.0.0\lib\net45\Unit.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Abstractions, Version=2.3.1.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.3.2\lib\net45\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Configuration, Version=5.1.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.3.2\lib\net45\Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Container, Version=5.3.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.3.2\lib\net45\Unity.Container.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Interception, Version=5.1.0.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.3.2\lib\net45\Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Interception.Configuration, Version=5.1.0.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.3.2\lib\net45\Unity.Interception.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mvc, Version=5.9.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Mvc.5.9.2\lib\net45\Unity.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mvc5, Version=1.3.0.0, Culture=neutral, PublicKeyToken=43da31bc42a85347, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Mvc5.1.3.0\lib\net45\Unity.Mvc5.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RegistrationByConvention, Version=2.1.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.3.2\lib\net45\Unity.RegistrationByConvention.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ServiceLocation, Version=2.0.8.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.3.2\lib\net45\Unity.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Diagnostics.DiagnosticSource">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net45\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.TelemetryCorrelation">
+      <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.0\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\AdminLTE.css" />
+    <Content Include="Content\AdminLTE.min.css" />
+    <Content Include="Content\background2.jpg" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap-toggle.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\buttons.dataTables.min.css" />
+    <Content Include="Content\CollegeLogo\logodental.jpg" />
+    <Content Include="Content\CollegeLogo\MIniLogRoyal.png" />
+    <Content Include="Content\CollegeLogo\MIniLogRoyalTp.jpg" />
+    <Content Include="Content\CollegeLogo\MIniLogRoyalTransparent.png" />
+    <Content Include="Content\custom.css" />
+    <Content Include="Content\dataTables.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.bootstrap.css" />
+    <Content Include="Content\DataTables\css\autoFill.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\autoFill.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.dataTables.css" />
+    <Content Include="Content\DataTables\css\autoFill.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.foundation.css" />
+    <Content Include="Content\DataTables\css\autoFill.foundation.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.jqueryui.css" />
+    <Content Include="Content\DataTables\css\autoFill.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.semanticui.css" />
+    <Content Include="Content\DataTables\css\autoFill.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\buttons.bootstrap.css" />
+    <Content Include="Content\DataTables\css\buttons.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\buttons.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\buttons.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\buttons.dataTables.css" />
+    <Content Include="Content\DataTables\css\buttons.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\buttons.foundation.css" />
+    <Content Include="Content\DataTables\css\buttons.foundation.min.css" />
+    <Content Include="Content\DataTables\css\buttons.jqueryui.css" />
+    <Content Include="Content\DataTables\css\buttons.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\buttons.semanticui.css" />
+    <Content Include="Content\DataTables\css\buttons.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.bootstrap.css" />
+    <Content Include="Content\DataTables\css\colReorder.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\colReorder.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.dataTables.css" />
+    <Content Include="Content\DataTables\css\colReorder.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.foundation.css" />
+    <Content Include="Content\DataTables\css\colReorder.foundation.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.jqueryui.css" />
+    <Content Include="Content\DataTables\css\colReorder.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.semanticui.css" />
+    <Content Include="Content\DataTables\css\colReorder.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.bootstrap.css" />
+    <Content Include="Content\DataTables\css\dataTables.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\dataTables.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.foundation.css" />
+    <Content Include="Content\DataTables\css\dataTables.foundation.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.jqueryui.css" />
+    <Content Include="Content\DataTables\css\dataTables.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.material.css" />
+    <Content Include="Content\DataTables\css\dataTables.material.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.semanticui.css" />
+    <Content Include="Content\DataTables\css\dataTables.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.uikit.css" />
+    <Content Include="Content\DataTables\css\dataTables.uikit.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.bootstrap.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.dataTables.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.foundation.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.foundation.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.jqueryui.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.semanticui.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.bootstrap.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.dataTables.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.foundation.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.foundation.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.jqueryui.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.semanticui.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\jquery.dataTables.css" />
+    <Content Include="Content\DataTables\css\jquery.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\jquery.dataTables_themeroller.css" />
+    <Content Include="Content\DataTables\css\keyTable.bootstrap.css" />
+    <Content Include="Content\DataTables\css\keyTable.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\keyTable.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.dataTables.css" />
+    <Content Include="Content\DataTables\css\keyTable.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.foundation.css" />
+    <Content Include="Content\DataTables\css\keyTable.foundation.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.jqueryui.css" />
+    <Content Include="Content\DataTables\css\keyTable.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.semanticui.css" />
+    <Content Include="Content\DataTables\css\keyTable.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\responsive.bootstrap.css" />
+    <Content Include="Content\DataTables\css\responsive.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\responsive.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\responsive.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\responsive.dataTables.css" />
+    <Content Include="Content\DataTables\css\responsive.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\responsive.foundation.css" />
+    <Content Include="Content\DataTables\css\responsive.foundation.min.css" />
+    <Content Include="Content\DataTables\css\responsive.jqueryui.css" />
+    <Content Include="Content\DataTables\css\responsive.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\responsive.semanticui.css" />
+    <Content Include="Content\DataTables\css\responsive.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\rowGroup.bootstrap.css" />
+    <Content Include="Content\DataTables\css\rowGroup.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\rowGroup.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\rowGroup.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\rowGroup.dataTables.css" />
+    <Content Include="Content\DataTables\css\rowGroup.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\rowGroup.foundation.css" />
+    <Content Include="Content\DataTables\css\rowGroup.foundation.min.css" />
+    <Content Include="Content\DataTables\css\rowGroup.jqueryui.css" />
+    <Content Include="Content\DataTables\css\rowGroup.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\rowGroup.semanticui.css" />
+    <Content Include="Content\DataTables\css\rowGroup.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.bootstrap.css" />
+    <Content Include="Content\DataTables\css\rowReorder.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\rowReorder.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.dataTables.css" />
+    <Content Include="Content\DataTables\css\rowReorder.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.foundation.css" />
+    <Content Include="Content\DataTables\css\rowReorder.foundation.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.jqueryui.css" />
+    <Content Include="Content\DataTables\css\rowReorder.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.semanticui.css" />
+    <Content Include="Content\DataTables\css\rowReorder.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\scroller.bootstrap.css" />
+    <Content Include="Content\DataTables\css\scroller.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\scroller.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\scroller.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\scroller.dataTables.css" />
+    <Content Include="Content\DataTables\css\scroller.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\scroller.foundation.css" />
+    <Content Include="Content\DataTables\css\scroller.foundation.min.css" />
+    <Content Include="Content\DataTables\css\scroller.jqueryui.css" />
+    <Content Include="Content\DataTables\css\scroller.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\scroller.semanticui.css" />
+    <Content Include="Content\DataTables\css\scroller.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\select.bootstrap.css" />
+    <Content Include="Content\DataTables\css\select.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\select.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\select.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\select.dataTables.css" />
+    <Content Include="Content\DataTables\css\select.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\select.foundation.css" />
+    <Content Include="Content\DataTables\css\select.foundation.min.css" />
+    <Content Include="Content\DataTables\css\select.jqueryui.css" />
+    <Content Include="Content\DataTables\css\select.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\select.semanticui.css" />
+    <Content Include="Content\DataTables\css\select.semanticui.min.css" />
+    <Content Include="Content\DataTables\images\details_close.png" />
+    <Content Include="Content\DataTables\images\details_open.png" />
+    <Content Include="Content\DataTables\images\sort_asc.png" />
+    <Content Include="Content\DataTables\images\sort_asc_disabled.png" />
+    <Content Include="Content\DataTables\images\sort_both.png" />
+    <Content Include="Content\DataTables\images\sort_desc.png" />
+    <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
+    <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\datepicker3.css" />
+    <Content Include="Content\daterangepicker.css" />
+    <Content Include="Content\ErrorLog\ModelLog_01_03_2019.txt" />
+    <Content Include="Content\ErrorLog\ModelLog_06_03_2019.txt" />
+    <Content Include="Content\ErrorLog\ModelLog_07_03_2019.txt" />
+    <Content Include="Content\ErrorLog\ModelLog_21_02_2019.txt" />
+    <Content Include="Content\ErrorLog\ModelLog_25_02_2019.txt" />
+    <Content Include="Content\ErrorLog\ModelLog_28_02_2019.txt" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\Images\250px-Rx_symbol_border.svg.png" />
+    <Content Include="Content\Images\avatar.png" />
+    <Content Include="Content\Images\PedoImages\lower_jaw_child.png" />
+    <Content Include="Content\Images\PedoImages\upper_jaw_child.png" />
+    <Content Include="Content\Images\preview.jpg" />
+    <Content Include="Content\Images\rx.png" />
+    <Content Include="Content\Images\rx2.png" />
+    <Content Include="Content\Images\sort_asc.png" />
+    <Content Include="Content\Images\sort_asc_disabled.png" />
+    <Content Include="Content\Images\sort_both.png" />
+    <Content Include="Content\Images\sort_desc.png" />
+    <Content Include="Content\Images\sort_desc_disabled.png" />
+    <Content Include="Content\Images\Steiner Sticks_667_171.jpg" />
+    <Content Include="Content\Images\SurgeryImages\Final_Ljaw.png" />
+    <Content Include="Content\Images\SurgeryImages\Final_Ljaw1.png" />
+    <Content Include="Content\Images\SurgeryImages\Final_Ujaw.png" />
+    <Content Include="Content\Images\SurgeryImages\Final_Ujaw1.png" />
+    <Content Include="Content\Images\SurgeryImages\Mandibular.jpg" />
+    <Content Include="Content\Images\SurgeryImages\Maxilla.jpg" />
+    <Content Include="Content\Images\TeethImages\11.png" />
+    <Content Include="Content\Images\TeethImages\12.png" />
+    <Content Include="Content\Images\TeethImages\13.png" />
+    <Content Include="Content\Images\TeethImages\14.png" />
+    <Content Include="Content\Images\TeethImages\15.png" />
+    <Content Include="Content\Images\TeethImages\16.png" />
+    <Content Include="Content\Images\TeethImages\17.png" />
+    <Content Include="Content\Images\TeethImages\18.png" />
+    <Content Include="Content\Images\TeethImages\21.png" />
+    <Content Include="Content\Images\TeethImages\22.png" />
+    <Content Include="Content\Images\TeethImages\23.png" />
+    <Content Include="Content\Images\TeethImages\24.png" />
+    <Content Include="Content\Images\TeethImages\25.png" />
+    <Content Include="Content\Images\TeethImages\26.png" />
+    <Content Include="Content\Images\TeethImages\27.png" />
+    <Content Include="Content\Images\TeethImages\28.png" />
+    <Content Include="Content\Images\TeethImages\31.png" />
+    <Content Include="Content\Images\TeethImages\32.png" />
+    <Content Include="Content\Images\TeethImages\33.png" />
+    <Content Include="Content\Images\TeethImages\34.png" />
+    <Content Include="Content\Images\TeethImages\35.png" />
+    <Content Include="Content\Images\TeethImages\36.png" />
+    <Content Include="Content\Images\TeethImages\37.png" />
+    <Content Include="Content\Images\TeethImages\38.png" />
+    <Content Include="Content\Images\TeethImages\41.png" />
+    <Content Include="Content\Images\TeethImages\42.png" />
+    <Content Include="Content\Images\TeethImages\43.png" />
+    <Content Include="Content\Images\TeethImages\44.png" />
+    <Content Include="Content\Images\TeethImages\45.png" />
+    <Content Include="Content\Images\TeethImages\46.png" />
+    <Content Include="Content\Images\TeethImages\47.png" />
+    <Content Include="Content\Images\TeethImages\48.png" />
+    <Content Include="Content\Images\TeethImages\51.png" />
+    <Content Include="Content\Images\TeethImages\52.png" />
+    <Content Include="Content\Images\TeethImages\53.png" />
+    <Content Include="Content\Images\TeethImages\54.png" />
+    <Content Include="Content\Images\TeethImages\55.png" />
+    <Content Include="Content\Images\TeethImages\61.png" />
+    <Content Include="Content\Images\TeethImages\62.png" />
+    <Content Include="Content\Images\TeethImages\63.png" />
+    <Content Include="Content\Images\TeethImages\64.png" />
+    <Content Include="Content\Images\TeethImages\65.png" />
+    <Content Include="Content\Images\TeethImages\71.png" />
+    <Content Include="Content\Images\TeethImages\72.png" />
+    <Content Include="Content\Images\TeethImages\73.png" />
+    <Content Include="Content\Images\TeethImages\74.png" />
+    <Content Include="Content\Images\TeethImages\75.png" />
+    <Content Include="Content\Images\TeethImages\81.png" />
+    <Content Include="Content\Images\TeethImages\82.png" />
+    <Content Include="Content\Images\TeethImages\83.png" />
+    <Content Include="Content\Images\TeethImages\84.png" />
+    <Content Include="Content\Images\TeethImages\85.png" />
+    <Content Include="Content\Images\thumb_image_not_available.png" />
+    <Content Include="Content\ionicons.css" />
+    <Content Include="Content\ionicons.min.css" />
+    <Content Include="Content\jquery-ui.min.css" />
+    <Content Include="Content\listbox.css" />
+    <Content Include="Content\opensans.css" />
+    <Content Include="Content\select2.min.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\toast-alert\sstoast.js" />
+    <Content Include="Content\toast-alert\toastr.css" />
+    <Content Include="Content\toast-alert\toastr.js" />
+    <Content Include="Content\Upload\Untitled-31f14b002-7384-4557-bfab-32fb7506a993.jpg" />
+    <Content Include="Content\wickedpicker.css" />
+    <Content Include="Content\_all-skins.css" />
+    <Content Include="Content\_all-skins.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\additional-methods.js" />
+    <Content Include="Scripts\additional-methods.min.js" />
+    <Content Include="Scripts\app.js" />
+    <Content Include="Scripts\app.min.js" />
+    <Content Include="Scripts\bootstrap-toggle.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\buttons.flash.min.js" />
+    <Content Include="Scripts\buttons.html5.min.js" />
+    <Content Include="Scripts\buttons.print.min.js" />
+    <Content Include="Scripts\dataTables.buttons.min.js" />
+    <Content Include="Scripts\dataTables.min.js" />
+    <Content Include="Scripts\dataTables.scroller.min.js" />
+    <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
+    <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\autoFill.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\autoFill.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\autoFill.foundation.js" />
+    <Content Include="Scripts\DataTables\autoFill.foundation.min.js" />
+    <Content Include="Scripts\DataTables\autoFill.jqueryui.js" />
+    <Content Include="Scripts\DataTables\autoFill.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\autoFill.semanticui.js" />
+    <Content Include="Scripts\DataTables\autoFill.semanticui.min.js" />
+    <Content Include="Scripts\DataTables\buttons.bootstrap.js" />
+    <Content Include="Scripts\DataTables\buttons.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\buttons.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\buttons.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\buttons.colVis.js" />
+    <Content Include="Scripts\DataTables\buttons.colVis.min.js" />
+    <Content Include="Scripts\DataTables\buttons.flash.js" />
+    <Content Include="Scripts\DataTables\buttons.flash.min.js" />
+    <Content Include="Scripts\DataTables\buttons.foundation.js" />
+    <Content Include="Scripts\DataTables\buttons.foundation.min.js" />
+    <Content Include="Scripts\DataTables\buttons.html5.js" />
+    <Content Include="Scripts\DataTables\buttons.html5.min.js" />
+    <Content Include="Scripts\DataTables\buttons.jqueryui.js" />
+    <Content Include="Scripts\DataTables\buttons.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\buttons.print.js" />
+    <Content Include="Scripts\DataTables\buttons.print.min.js" />
+    <Content Include="Scripts\DataTables\buttons.semanticui.js" />
+    <Content Include="Scripts\DataTables\buttons.semanticui.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.autoFill.js" />
+    <Content Include="Scripts\DataTables\dataTables.autoFill.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap.js" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.buttons.js" />
+    <Content Include="Scripts\DataTables\dataTables.buttons.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.colReorder.js" />
+    <Content Include="Scripts\DataTables\dataTables.colReorder.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.fixedColumns.js" />
+    <Content Include="Scripts\DataTables\dataTables.fixedColumns.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.fixedHeader.js" />
+    <Content Include="Scripts\DataTables\dataTables.fixedHeader.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.foundation.js" />
+    <Content Include="Scripts\DataTables\dataTables.foundation.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.jqueryui.js" />
+    <Content Include="Scripts\DataTables\dataTables.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.keyTable.js" />
+    <Content Include="Scripts\DataTables\dataTables.keyTable.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.material.js" />
+    <Content Include="Scripts\DataTables\dataTables.material.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.responsive.js" />
+    <Content Include="Scripts\DataTables\dataTables.responsive.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.rowGroup.js" />
+    <Content Include="Scripts\DataTables\dataTables.rowGroup.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.rowReorder.js" />
+    <Content Include="Scripts\DataTables\dataTables.rowReorder.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.scroller.js" />
+    <Content Include="Scripts\DataTables\dataTables.scroller.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.select.js" />
+    <Content Include="Scripts\DataTables\dataTables.select.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.semanticui.js" />
+    <Content Include="Scripts\DataTables\dataTables.semanticui.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.uikit.js" />
+    <Content Include="Scripts\DataTables\dataTables.uikit.min.js" />
+    <Content Include="Scripts\DataTables\jquery.dataTables.js" />
+    <Content Include="Scripts\DataTables\jquery.dataTables.min.js" />
+    <Content Include="Scripts\DataTables\responsive.bootstrap.js" />
+    <Content Include="Scripts\DataTables\responsive.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\responsive.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\responsive.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\responsive.foundation.js" />
+    <Content Include="Scripts\DataTables\responsive.foundation.min.js" />
+    <Content Include="Scripts\DataTables\responsive.jqueryui.js" />
+    <Content Include="Scripts\DataTables\responsive.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\responsive.semanticui.js" />
+    <Content Include="Scripts\DataTables\responsive.semanticui.min.js" />
+    <Content Include="Scripts\daterangepicker.js" />
+    <Content Include="Scripts\googlechart.js" />
+    <Content Include="Scripts\helptext.js" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\DataTables\css\semanticui.scss" />
+    <Content Include="Content\DataTables\css\mixins.scss" />
+    <Content Include="Content\DataTables\css\common.scss" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Scripts\jquery-3.2.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.2.1.js" />
+    <Content Include="Scripts\jquery-3.2.1.min.js" />
+    <Content Include="Scripts\jquery-3.2.1.slim.js" />
+    <Content Include="Scripts\jquery-3.2.1.slim.min.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jszip.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\momentdaterangepicker.js" />
+    <Content Include="Scripts\momentdaterangepicker.min.js" />
+    <Content Include="Scripts\pdfmake.min.js" />
+    <Content Include="Scripts\plugins\jSignature-master\src\jSignature.js" />
+    <Content Include="Scripts\plugins\jSignature-master\src\plugins\jSignature.CompressorBase30.js" />
+    <Content Include="Scripts\plugins\jSignature-master\src\plugins\jSignature.CompressorSVG.js" />
+    <Content Include="Scripts\plugins\jSignature-master\src\plugins\jSignature.UndoButton.js" />
+    <Content Include="Scripts\plugins\jSignature-master\src\plugins\signhere\jSignature.SignHere.js" />
+    <Content Include="Scripts\plugins\jSignature-master\src\plugins\signhere\signhere.svg" />
+    <Content Include="Scripts\plugins\select2\select2.full.min.js" />
+    <Content Include="Scripts\plugins\select2\select2.min.css" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\select2.full.min.js" />
+    <Content Include="Scripts\signature_pad.js" />
+    <Content Include="Scripts\typing.plugin.js" />
+    <Content Include="Scripts\Utils.js" />
+    <Content Include="Scripts\vfs_fonts.js" />
+    <Content Include="Scripts\wickedpicker.js" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.2.1.min.map" />
+    <None Include="Scripts\_references.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\ItemCategory\Create.cshtml" />
+    <Content Include="Views\ItemCategory\Index.cshtml" />
+    <Content Include="Views\ItemCategory\Edit.cshtml" />
+    <Content Include="Views\ItemStore\Index.cshtml" />
+    <Content Include="Views\ItemStore\Create.cshtml" />
+    <Content Include="Views\ItemStore\Edit.cshtml" />
+    <Content Include="Views\ItemSupplier\Index.cshtml" />
+    <Content Include="Views\ItemSupplier\Create.cshtml" />
+    <Content Include="Views\ItemSupplier\Edit.cshtml" />
+    <Content Include="Views\Item\Index.cshtml" />
+    <Content Include="Views\Item\Create.cshtml" />
+    <Content Include="Views\Item\Edit.cshtml" />
+    <Content Include="Views\ItemStock\Index.cshtml" />
+    <Content Include="Views\ItemStock\Create.cshtml" />
+    <Content Include="Views\ItemStock\Edit.cshtml" />
+    <Content Include="Views\ItemIssue\Index.cshtml" />
+    <Content Include="Views\ItemIssue\Create.cshtml" />
+    <Content Include="Views\ItemIssue\Edit.cshtml" />
+    <Content Include="Views\Books\Index.cshtml" />
+    <Content Include="Views\Books\Create.cshtml" />
+    <Content Include="Views\Books\Edit.cshtml" />
+    <Content Include="Views\BookIssue\Index.cshtml" />
+    <Content Include="Views\BookIssue\Create.cshtml" />
+    <Content Include="Views\OMR\CreateOpd.cshtml" />
+    <Content Include="Views\OMR\EditOpd.cshtml" />
+    <Content Include="Views\OMFS\CreateOpd.cshtml" />
+    <Content Include="Views\OMFS\EditOpd.cshtml" />
+    <Content Include="Views\PERIO\CreateOpd.cshtml" />
+    <Content Include="Views\PERIO\EditOpd.cshtml" />
+    <Content Include="Views\PEDO\CreateOpd.cshtml" />
+    <Content Include="Views\PEDO\EditOpd.cshtml" />
+    <Content Include="Views\PROSTHO\CreateOpd.cshtml" />
+    <Content Include="Views\PROSTHO\EditOpd.cshtml" />
+    <Content Include="Views\PHD\CreateOpd.cshtml" />
+    <Content Include="Views\PHD\EditOpd.cshtml" />
+    <Content Include="Views\ORTHO\CreateOpd.cshtml" />
+    <Content Include="Views\ORTHO\EditOpd.cshtml" />
+    <Content Include="Views\CONS\CreateOpd.cshtml" />
+    <Content Include="Views\CONS\EditOpd.cshtml" />
+    <Content Include="Views\OralPathology\CreateOpd.cshtml" />
+    <Content Include="Views\OralPathology\EditOpd.cshtml" />
+    <Content Include="Views\BillingServices\SubServicesList.cshtml" />
+    <Content Include="Views\Reports\CensusReport.cshtml" />
+    <Content Include="Views\Reports\_HeaderReport.cshtml" />
+    <Content Include="Views\BillingServices\CreateChildService.cshtml" />
+    <Content Include="Views\BillingServices\EditChildService.cshtml" />
+    <Content Include="Views\PERIODiagnosis\_PerioApprovalQueue.cshtml" />
+    <Content Include="Views\PERIODiagnosis\_PerioDiagnosisPrognosis.cshtml" />
+    <Content Include="Views\PERIODiagnosis\_PeriodontalIndex.cshtml" />
+    <Content Include="Views\PERIODiagnosis\_PerioGingivalAndPeriodontal.cshtml" />
+    <Content Include="Views\PERIODiagnosis\_PerioHistory.cshtml" />
+    <Content Include="Views\PERIODiagnosis\_PerioSearchOptions.cshtml" />
+    <Content Include="Views\PERIODiagnosis\_PerioTreatmentPlan.cshtml" />
+    <Content Include="Views\PERIODiagnosis\Approval.cshtml" />
+    <Content Include="Views\PERIODiagnosis\Create.cshtml" />
+    <Content Include="Views\PERIODiagnosis\CreateOpd.cshtml" />
+    <Content Include="Views\PERIODiagnosis\Edit.cshtml" />
+    <Content Include="Views\PERIODiagnosis\EditOpd.cshtml" />
+    <Content Include="Views\PERIODiagnosis\Index.cshtml" />
+    <Content Include="Views\PERIODiagnosis\PerioPatientTreatmentList.cshtml" />
+    <Content Include="Views\PERIODiagnosis\TreatmentIndex.cshtml" />
+    <Content Include="Views\Reports\RefferalReportByDepartment.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Content\fonts\fontello.ttf" />
+    <Content Include="Content\fonts\fontello.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\sourcesanspro\6xK3dSBYKcSV-LCoeQqfX1RYOo3qN67lqDY.woff2" />
+    <Content Include="Content\sourcesanspro\6xK3dSBYKcSV-LCoeQqfX1RYOo3qNa7lqDY.woff2" />
+    <Content Include="Content\sourcesanspro\6xK3dSBYKcSV-LCoeQqfX1RYOo3qNK7lqDY.woff2" />
+    <Content Include="Content\sourcesanspro\6xK3dSBYKcSV-LCoeQqfX1RYOo3qNq7lqDY.woff2" />
+    <Content Include="Content\sourcesanspro\6xK3dSBYKcSV-LCoeQqfX1RYOo3qO67lqDY.woff2" />
+    <Content Include="Content\sourcesanspro\6xK3dSBYKcSV-LCoeQqfX1RYOo3qOK7l.woff2" />
+    <Content Include="Content\sourcesanspro\6xK3dSBYKcSV-LCoeQqfX1RYOo3qPK7lqDY.woff2" />
+    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Account\_ViewStart.cshtml" />
+    <Content Include="Views\Approval\_ApprovalDetails.cshtml" />
+    <Content Include="Views\Approval\_CreateApproval.cshtml" />
+    <Content Include="Views\BillingServices\Create.cshtml" />
+    <Content Include="Views\BillingServices\Edit.cshtml" />
+    <Content Include="Views\BillingServices\Index.cshtml" />
+    <Content Include="Views\Billing\BillingPayment.cshtml" />
+    <Content Include="Views\Billing\BilllingServiceList.cshtml" />
+    <Content Include="Views\Billing\Create.cshtml" />
+    <Content Include="Views\Billing\Edit.cshtml" />
+    <Content Include="Views\Billing\Index.cshtml" />
+    <Content Include="Views\Billing\PaidBillSearch.cshtml" />
+    <Content Include="Views\Billing\ViewBillPayment.cshtml" />
+    <Content Include="Views\Chart\Index.cshtml" />
+    <Content Include="Views\Configuration\IndexNew.cshtml" />
+    <Content Include="Views\CONS\Approval.cshtml" />
+    <Content Include="Views\CONS\CONSPatientTreatmentList.cshtml" />
+    <Content Include="Views\CONS\Create.cshtml" />
+    <Content Include="Views\CONS\Edit.cshtml" />
+    <Content Include="Views\CONS\Index.cshtml" />
+    <Content Include="Views\CONS\TreatmentIndex.cshtml" />
+    <Content Include="Views\CONS\_CONSApprovalQueue.cshtml" />
+    <Content Include="Views\CONS\_CONSBleaching.cshtml" />
+    <Content Include="Views\CONS\_CONSClinicalFinding.cshtml" />
+    <Content Include="Views\CONS\_CONSEstheticCorr.cshtml" />
+    <Content Include="Views\CONS\_CONSExamination.cshtml" />
+    <Content Include="Views\CONS\_CONSHistory.cshtml" />
+    <Content Include="Views\CONS\_CONSIncompleteRootForm.cshtml" />
+    <Content Include="Views\CONS\_CONSPostAndCore.cshtml" />
+    <Content Include="Views\CONS\_CONSReRct.cshtml" />
+    <Content Include="Views\CONS\_CONSRestorativePro.cshtml" />
+    <Content Include="Views\CONS\_CONSRestorativeProDetailsList.cshtml" />
+    <Content Include="Views\CONS\_CONSRootCanal.cshtml" />
+    <Content Include="Views\CONS\_CONSSearchOptions.cshtml" />
+    <Content Include="Views\CONS\_CONSSurgicalPro.cshtml" />
+    <Content Include="Views\CONS\_CONSTraumatisedTooth.cshtml" />
+    <Content Include="Views\CONS\_CONSTreatmentPlan.cshtml" />
+    <Content Include="Views\DCardEnable\Edit.cshtml" />
+    <Content Include="Views\Department\Create.cshtml" />
+    <Content Include="Views\Department\Details.cshtml" />
+    <Content Include="Views\Department\Edit.cshtml" />
+    <Content Include="Views\Department\Index.cshtml" />
+    <Content Include="Views\Designation\Create.cshtml" />
+    <Content Include="Views\Designation\Details.cshtml" />
+    <Content Include="Views\Designation\Edit.cshtml" />
+    <Content Include="Views\Designation\Index.cshtml" />
+    <Content Include="Views\Doctor\Create.cshtml" />
+    <Content Include="Views\Doctor\Details.cshtml" />
+    <Content Include="Views\Doctor\Edit.cshtml" />
+    <Content Include="Views\Doctor\EditApprovalPassword.cshtml" />
+    <Content Include="Views\Doctor\Index.cshtml" />
+    <Content Include="Views\Error\AccessDenied.cshtml" />
+    <Content Include="Views\Error\Error.cshtml" />
+    <Content Include="Views\Error\ErrorWrite.cshtml" />
+    <Content Include="Views\FileUpload\Create.cshtml" />
+    <Content Include="Views\FileUpload\_UploadedFileApprovalDisplay.cshtml" />
+    <Content Include="Views\FileUpload\_UploadFileList.cshtml" />
+    <Content Include="Views\FileUpload\_ViewUploadFileList.cshtml" />
+    <Content Include="Views\Followup\Create.cshtml" />
+    <Content Include="Views\Followup\Index.cshtml" />
+    <Content Include="Views\Followup\_PatientFollowUp.cshtml" />
+    <Content Include="Views\Followup\_PatientFollowUpList.cshtml" />
+    <Content Include="Views\Group\Create.cshtml" />
+    <Content Include="Views\Group\Details.cshtml" />
+    <Content Include="Views\Group\Edit.cshtml" />
+    <Content Include="Views\Group\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\_AllotmentIndex.cshtml" />
+    <Content Include="Views\Home\_DepartmentOMFSIndex.cshtml" />
+    <Content Include="Views\Home\_DeptReferralList.cshtml" />
+    <Content Include="Views\Home\_TreatmentIndex.cshtml" />
+    <Content Include="Views\Investigation\_ApprovalInvestigationList.cshtml" />
+    <Content Include="Views\Investigation\_ApprovalLabRadInvestigationList.cshtml" />
+    <Content Include="Views\Investigation\_ApprovalPaidInvestigationList.cshtml" />
+    <Content Include="Views\Investigation\_Create.cshtml" />
+    <Content Include="Views\Investigation\_InvestigationApprovalList.cshtml" />
+    <Content Include="Views\Investigation\_InvestigationList.cshtml" />
+    <Content Include="Views\Investigation\_LabRadCreate.cshtml" />
+    <Content Include="Views\Investigation\_LabRadInvestigationApprovalList.cshtml" />
+    <Content Include="Views\Investigation\_LabRadInvestigationList.cshtml" />
+    <Content Include="Views\Investigation\_PaidInvestigationList.cshtml" />
+    <Content Include="Views\LaboratoryTemplate\Create.cshtml" />
+    <Content Include="Views\LaboratoryTemplate\Edit.cshtml" />
+    <Content Include="Views\LaboratoryTemplate\Index.cshtml" />
+    <Content Include="Views\LaboratoryTemplate\_ViewCreate.cshtml" />
+    <Content Include="Views\LaboratoryTemplate\_ViewServiceList.cshtml" />
+    <Content Include="Views\Laboratory\Create.cshtml" />
+    <Content Include="Views\Laboratory\Edit.cshtml" />
+    <Content Include="Views\Laboratory\Index.cshtml" />
+    <Content Include="Views\Laboratory\Search.cshtml" />
+    <Content Include="Views\Laboratory\TestItemCreate.cshtml" />
+    <Content Include="Views\Laboratory\_BillInformationDetails.cshtml" />
+    <Content Include="Views\Laboratory\_LabInformationDetails.cshtml" />
+    <Content Include="Views\Laboratory\_TestEditInformationDetails.cshtml" />
+    <Content Include="Views\Laboratory\_TestItemDetails.cshtml" />
+    <Content Include="Views\Laboratory\_TestNameInformationDetails.cshtml" />
+    <Content Include="Views\OMFS\Approval.cshtml" />
+    <Content Include="Views\OMFS\Index.cshtml" />
+    <Content Include="Views\OMFS\OMFSTreatment.cshtml" />
+    <Content Include="Views\OMFS\OPCreate.cshtml" />
+    <Content Include="Views\OMFS\OPEdit.cshtml" />
+    <Content Include="Views\OMFS\OPTreatmentIndex.cshtml" />
+    <Content Include="Views\OMFS\_History.cshtml" />
+    <Content Include="Views\OMFS\_OMFSApprovalQueue.cshtml" />
+    <Content Include="Views\OMFS\_OMFSOPDiagnosis.cshtml" />
+    <Content Include="Views\OMFS\_OMFSOPExamination.cshtml" />
+    <Content Include="Views\OMFS\_OMFSOPExtraOral.cshtml" />
+    <Content Include="Views\OMFS\_OMFSOPHardTissue.cshtml" />
+    <Content Include="Views\OMFS\_OMFSOPTreatment.cshtml" />
+    <Content Include="Views\OMFS\_OMFSSearchOptions.cshtml" />
+    <Content Include="Views\OMFS\_OTConsumableCreate.cshtml" />
+    <Content Include="Views\OMFS\_OTConsumableDetailsList.cshtml" />
+    <Content Include="Views\OMFS\_PatientInformationDetails.cshtml" />
+    <Content Include="Views\OMFS\_ScheduleCreate.cshtml" />
+    <Content Include="Views\OMFS\_ScheduleInformationDetails.cshtml" />
+    <Content Include="Views\OMFS\_VitalsCreate.cshtml" />
+    <Content Include="Views\OMFS\_VitalsDetailsList.cshtml" />
+    <Content Include="Views\OMR\Approval.cshtml" />
+    <Content Include="Views\OMR\Create.cshtml" />
+    <Content Include="Views\OMR\Edit.cshtml" />
+    <Content Include="Views\OMR\Index.cshtml" />
+    <Content Include="Views\OMR\OMRPatientTreatmentList.cshtml" />
+    <Content Include="Views\OMR\TreatmentIndex.cshtml" />
+    <Content Include="Views\OMR\_OMRApprovalQueue.cshtml" />
+    <Content Include="Views\OMR\_OMRDiagnosis.cshtml" />
+    <Content Include="Views\OMR\_OMRExtraOral.cshtml" />
+    <Content Include="Views\OMR\_OMRHistory.cshtml" />
+    <Content Include="Views\OMR\_OMRIntraOral.cshtml" />
+    <Content Include="Views\OMR\_OMRLocalExamination.cshtml" />
+    <Content Include="Views\OMR\_OMRRadiographicDetails.cshtml" />
+    <Content Include="Views\OMR\_OMRSearchOptions.cshtml" />
+    <Content Include="Views\OMR\_OMRTreatment.cshtml" />
+    <Content Include="Views\OPDRevisitRegistration\Create.cshtml" />
+    <Content Include="Views\OPDRevisitRegistration\Edit.cshtml" />
+    <Content Include="Views\OPDRevisitRegistration\FollowupList.cshtml" />
+    <Content Include="Views\OPDRevisitRegistration\FollowupListByDept.cshtml" />
+    <Content Include="Views\OPDRevisitRegistration\_RescheduleCreate.cshtml" />
+    <Content Include="Views\OPDRevisitRegistration\_RevisitPatientSearch.cshtml" />
+    <Content Include="Views\OralPathology\Approval.cshtml" />
+    <Content Include="Views\OralPathology\Create.cshtml" />
+    <Content Include="Views\OralPathology\Edit.cshtml" />
+    <Content Include="Views\OralPathology\Index.cshtml" />
+    <Content Include="Views\OralPathology\OrpathPatientTreatmentList.cshtml" />
+    <Content Include="Views\OralPathology\TreatmentIndex.cshtml" />
+    <Content Include="Views\OralPathology\_CreateInvestigation.cshtml" />
+    <Content Include="Views\OralPathology\_OrpathApprovalQueue.cshtml" />
+    <Content Include="Views\OralPathology\_OrpathBiopsy.cshtml" />
+    <Content Include="Views\OralPathology\_OrpathMicrobiology.cshtml" />
+    <Content Include="Views\OralPathology\_OrpathSearchOptions.cshtml" />
+    <Content Include="Views\OralPathology\_PatientRequisition.cshtml" />
+    <Content Include="Views\OralPathology\_RequisitionInvestigationList.cshtml" />
+    <Content Include="Views\ORPATHRequisition\Create.cshtml" />
+    <Content Include="Views\ORPATHRequisition\Edit.cshtml" />
+    <Content Include="Views\ORPATHRequisition\Index.cshtml" />
+    <Content Include="Views\ORPATHRequisition\_CreateInvestigation.cshtml" />
+    <Content Include="Views\ORPATHRequisition\_PatientRequisition.cshtml" />
+    <Content Include="Views\ORPATHRequisition\_RequisitionBiopsy.cshtml" />
+    <Content Include="Views\ORPATHRequisition\_RequisitionInvestigationList.cshtml" />
+    <Content Include="Views\ORPATHRequisition\_RequisitionMicrobiology.cshtml" />
+    <Content Include="Views\ORPATHTemplate\Create.cshtml" />
+    <Content Include="Views\ORPATHTemplate\Edit.cshtml" />
+    <Content Include="Views\ORPATHTemplate\Index.cshtml" />
+    <Content Include="Views\ORPATHTemplate\_ViewCreate.cshtml" />
+    <Content Include="Views\ORPATHTemplate\_ViewServiceList.cshtml" />
+    <Content Include="Views\ORTHO\Approval.cshtml" />
+    <Content Include="Views\ORTHO\ArnettsSoftEdit.cshtml" />
+    <Content Include="Views\ORTHO\AshleyHowesEdit.cshtml" />
+    <Content Include="Views\ORTHO\BjorksEdit.cshtml" />
+    <Content Include="Views\ORTHO\BoltonEdit.cshtml" />
+    <Content Include="Views\ORTHO\BurstoneHardEdit.cshtml" />
+    <Content Include="Views\ORTHO\BurstoneSoftEdit.cshtml" />
+    <Content Include="Views\ORTHO\CareysEdit.cshtml" />
+    <Content Include="Views\ORTHO\CompositeSoftEdit.cshtml" />
+    <Content Include="Views\ORTHO\CranialBaseEdit.cshtml" />
+    <Content Include="Views\ORTHO\Create.cshtml" />
+    <Content Include="Views\ORTHO\DentoLowerEdit.cshtml" />
+    <Content Include="Views\ORTHO\DentoUpperEdit.cshtml" />
+    <Content Include="Views\ORTHO\DiscrepancyEdit.cshtml" />
+    <Content Include="Views\ORTHO\DiscrepancySagittalEdit.cshtml" />
+    <Content Include="Views\ORTHO\DivergenceEdit.cshtml" />
+    <Content Include="Views\ORTHO\DownsEdit.cshtml" />
+    <Content Include="Views\ORTHO\Edit.cshtml" />
+    <Content Include="Views\ORTHO\EstheticsEdit.cshtml" />
+    <Content Include="Views\ORTHO\GrowthPatternEdit.cshtml" />
+    <Content Include="Views\ORTHO\GrummonsEdit.cshtml" />
+    <Content Include="Views\ORTHO\HoldawaySoftEdit.cshtml" />
+    <Content Include="Views\ORTHO\Index.cshtml" />
+    <Content Include="Views\ORTHO\MaxillaMandibleEdit.cshtml" />
+    <Content Include="Views\ORTHO\McNamaraEdit.cshtml" />
+    <Content Include="Views\ORTHO\MoyersEdit.cshtml" />
+    <Content Include="Views\ORTHO\ORTHOAnalysis.cshtml" />
+    <Content Include="Views\ORTHO\ORTHOCodeSkeletal.cshtml" />
+    <Content Include="Views\ORTHO\ORTHOExamination.cshtml" />
+    <Content Include="Views\ORTHO\ORTHOHistory.cshtml" />
+    <Content Include="Views\ORTHO\ORTHOIntraOral.cshtml" />
+    <Content Include="Views\ORTHO\ORTHOPatientTreatmentList.cshtml" />
+    <Content Include="Views\ORTHO\PontsEdit.cshtml" />
+    <Content Include="Views\ORTHO\RadiographicEdit.cshtml" />
+    <Content Include="Views\ORTHO\RakosiEdit.cshtml" />
+    <Content Include="Views\ORTHO\RickettsEdit.cshtml" />
+    <Content Include="Views\ORTHO\SagittalEdit.cshtml" />
+    <Content Include="Views\ORTHO\SchwarzEdit.cshtml" />
+    <Content Include="Views\ORTHO\ShortCreate.cshtml" />
+    <Content Include="Views\ORTHO\ShortEdit.cshtml" />
+    <Content Include="Views\ORTHO\SkeletalEdit.cshtml" />
+    <Content Include="Views\ORTHO\SoftTissueEdit.cshtml" />
+    <Content Include="Views\ORTHO\SteinerEdit.cshtml" />
+    <Content Include="Views\ORTHO\TanakaJohnstonEdit.cshtml" />
+    <Content Include="Views\ORTHO\TreatmentIndex.cshtml" />
+    <Content Include="Views\ORTHO\TweedsEdit.cshtml" />
+    <Content Include="Views\ORTHO\VerticalEdit.cshtml" />
+    <Content Include="Views\ORTHO\WitsEdit.cshtml" />
+    <Content Include="Views\ORTHO\_ORTHOAllotedList.cshtml" />
+    <Content Include="Views\ORTHO\_ORTHOApprovalQueue.cshtml" />
+    <Content Include="Views\ORTHO\_ORTHOSearchOptions.cshtml" />
+    <Content Include="Views\ORTHO\_ORTHOShortExamination.cshtml" />
+    <Content Include="Views\ORTHO\_ORTHOShortOtherFindings.cshtml" />
+    <Content Include="Views\ORTHO\_ORTHOShortTreatment.cshtml" />
+    <Content Include="Views\ORTHO\_ORTHOTreatmentPlan.cshtml" />
+    <Content Include="Views\ORTHO\_ViewArnettsSoftEdit.cshtml" />
+    <Content Include="Views\ORTHO\_ViewBjorksEdit.cshtml" />
+    <Content Include="Views\ORTHO\_ViewBurstoneHardEdit.cshtml" />
+    <Content Include="Views\ORTHO\_ViewBurstoneSoftEdit.cshtml" />
+    <Content Include="Views\ORTHO\_ViewCompositeSoftEdit.cshtml" />
+    <Content Include="Views\ORTHO\_ViewCranialMandibuleEdit.cshtml" />
+    <Content Include="Views\ORTHO\_ViewCranialMaxillaEdit.cshtml" />
+    <Content Include="Views\ORTHO\_ViewDentoLowerEdit.cshtml" />
+    <Content Include="Views\ORTHO\_ViewDentoUpperEdit.cshtml" />
+    <Content Include="Views\ORTHO\_ViewDiscrepancySagittalEdit.cshtml" />
+    <Content Include="Views\ORTHO\_ViewDivergenceEdit.cshtml" />
+    <Content Include="Views\ORTHO\_ViewDownsEdit.cshtml" />
+    <Content Include="Views\ORTHO\_ViewEstheticsEdit.cshtml" />
+    <Content Include="Views\ORTHO\_ViewGrowthPatternEdit.cshtml" />
+    <Content Include="Views\ORTHO\_ViewGrummonsEdit.cshtml" />
+    <Content Include="Views\ORTHO\_ViewHoldawaySoftEdit.cshtml" />
+    <Content Include="Views\ORTHO\_ViewMaxillaMandibleEdit.cshtml" />
+    <Content Include="Views\ORTHO\_ViewMcNamaraEdit.cshtml" />
+    <Content Include="Views\ORTHO\_ViewRakosiEdit.cshtml" />
+    <Content Include="Views\ORTHO\_ViewRickettsEdit.cshtml" />
+    <Content Include="Views\ORTHO\_ViewSagittalEdit.cshtml" />
+    <Content Include="Views\ORTHO\_ViewSchwarzEdit.cshtml" />
+    <Content Include="Views\ORTHO\_ViewSkeletalEdit.cshtml" />
+    <Content Include="Views\ORTHO\_ViewSoftTissueEdit.cshtml" />
+    <Content Include="Views\ORTHO\_ViewSteinerEdit.cshtml" />
+    <Content Include="Views\ORTHO\_ViewTweedsEdit.cshtml" />
+    <Content Include="Views\ORTHO\_ViewVerticalEdit.cshtml" />
+    <Content Include="Views\PatientInformation\_PatientAllotmentDetails.cshtml" />
+    <Content Include="Views\PatientInformation\_PatientInformationDetails.cshtml" />
+    <Content Include="Views\PatientInformation\_PatientOralPathRequisitionDetails.cshtml" />
+    <Content Include="Views\PEDO\Approval.cshtml" />
+    <Content Include="Views\PEDO\Create.cshtml" />
+    <Content Include="Views\PEDO\Edit.cshtml" />
+    <Content Include="Views\PEDO\Index.cshtml" />
+    <Content Include="Views\PEDO\PEDOPatientTreatmentList.cshtml" />
+    <Content Include="Views\PEDO\TreatmentIndex.cshtml" />
+    <Content Include="Views\PEDO\_PEDOAnalysis.cshtml" />
+    <Content Include="Views\PEDO\_PEDOApprovalQueue.cshtml" />
+    <Content Include="Views\PEDO\_PEDODiagnosis.cshtml" />
+    <Content Include="Views\PEDO\_PEDOExamination.cshtml" />
+    <Content Include="Views\PEDO\_PEDOHistory.cshtml" />
+    <Content Include="Views\PEDO\_PEDOSearchOptions.cshtml" />
+    <Content Include="Views\PEDO\_PEDOTreatmentPlan.cshtml" />
+    <Content Include="Views\PERIO\Approval.cshtml" />
+    <Content Include="Views\PERIO\Create.cshtml" />
+    <Content Include="Views\PERIO\Edit.cshtml" />
+    <Content Include="Views\PERIO\Index.cshtml" />
+    <Content Include="Views\PERIO\PerioPatientTreatmentList.cshtml" />
+    <Content Include="Views\PERIO\TreatmentIndex.cshtml" />
+    <Content Include="Views\PERIO\_PerioApprovalQueue.cshtml" />
+    <Content Include="Views\PERIO\_PerioDiagnosisPrognosis.cshtml" />
+    <Content Include="Views\PERIO\_PeriodontalIndex.cshtml" />
+    <Content Include="Views\PERIO\_PerioGingivalAndPeriodontal.cshtml" />
+    <Content Include="Views\PERIO\_PerioHistory.cshtml" />
+    <Content Include="Views\PERIO\_PerioSearchOptions.cshtml" />
+    <Content Include="Views\PERIO\_PerioTreatmentPlan.cshtml" />
+    <Content Include="Views\PHD\Approval.cshtml" />
+    <Content Include="Views\PHD\Create.cshtml" />
+    <Content Include="Views\PHD\Edit.cshtml" />
+    <Content Include="Views\PHD\Index.cshtml" />
+    <Content Include="Views\PHD\PHDPatientTreatmentList.cshtml" />
+    <Content Include="Views\PHD\TreatmentIndex.cshtml" />
+    <Content Include="Views\PHD\_PHDApprovalQueue.cshtml" />
+    <Content Include="Views\PHD\_PHDChiefComplaint.cshtml" />
+    <Content Include="Views\PHD\_PHDCompreTreatmentPlan.cshtml" />
+    <Content Include="Views\PHD\_PHDDiagnosis.cshtml" />
+    <Content Include="Views\PHD\_PHDExtraOral.cshtml" />
+    <Content Include="Views\PHD\_PHDHistory.cshtml" />
+    <Content Include="Views\PHD\_PHDIndices.cshtml" />
+    <Content Include="Views\PHD\_PHDIntraOral.cshtml" />
+    <Content Include="Views\PHD\_PHDLocalExamination.cshtml" />
+    <Content Include="Views\PHD\_PHDPreventiveProcedures.cshtml" />
+    <Content Include="Views\PHD\_PHDSearchOptions.cshtml" />
+    <Content Include="Views\PHD\_PHDTreatment.cshtml" />
+    <Content Include="Views\PHD\_PHDTreatmentPlan.cshtml" />
+    <Content Include="Views\Prescriptions\_Create.cshtml" />
+    <Content Include="Views\Prescriptions\_CreateMedicalAlert.cshtml" />
+    <Content Include="Views\Prescriptions\_PrescriptionList.cshtml" />
+    <Content Include="Views\Prescriptions\_PreviousPrescriptions.cshtml" />
+    <Content Include="Views\PROSTHO\Index.cshtml" />
+    <Content Include="Views\PROSTHO\PROSCDCreate.cshtml" />
+    <Content Include="Views\PROSTHO\PROSCDEdit.cshtml" />
+    <Content Include="Views\PROSTHO\PROSDIMCreate.cshtml" />
+    <Content Include="Views\PROSTHO\PROSDIMEdit.cshtml" />
+    <Content Include="Views\PROSTHO\PROSFPDCreate.cshtml" />
+    <Content Include="Views\PROSTHO\PROSFPDEdit.cshtml" />
+    <Content Include="Views\PROSTHO\PROSMFPCreate.cshtml" />
+    <Content Include="Views\PROSTHO\PROSMFPEdit.cshtml" />
+    <Content Include="Views\PROSTHO\PROSRPDCreate.cshtml" />
+    <Content Include="Views\PROSTHO\PROSRPDEdit.cshtml" />
+    <Content Include="Views\PROSTHO\PROSTreatment.cshtml" />
+    <Content Include="Views\PROSTHO\TreatmentIndex.cshtml" />
+    <Content Include="Views\PROSTHO\_CDApproval.cshtml" />
+    <Content Include="Views\PROSTHO\_DIMApproval.cshtml" />
+    <Content Include="Views\PROSTHO\_FPDApproval.cshtml" />
+    <Content Include="Views\PROSTHO\_MFPApproval.cshtml" />
+    <Content Include="Views\PROSTHO\_PROSApprovalQueue.cshtml" />
+    <Content Include="Views\PROSTHO\_PROSCDExamination.cshtml" />
+    <Content Include="Views\PROSTHO\_PROSCDHistory.cshtml" />
+    <Content Include="Views\PROSTHO\_PROSCDPreExamination.cshtml" />
+    <Content Include="Views\PROSTHO\_PROSCDTreatmentPlan.cshtml" />
+    <Content Include="Views\PROSTHO\_PROSCDTreatmentRecord.cshtml" />
+    <Content Include="Views\PROSTHO\_PROSDIMDiagnosis.cshtml" />
+    <Content Include="Views\PROSTHO\_PROSDIMExamination - Royal.cshtml" />
+    <Content Include="Views\PROSTHO\_PROSDIMExamination.cshtml" />
+    <Content Include="Views\PROSTHO\_PROSDIMFindings.cshtml" />
+    <Content Include="Views\PROSTHO\_PROSDIMHistory.cshtml" />
+    <Content Include="Views\PROSTHO\_PROSDIMTreatment.cshtml" />
+    <Content Include="Views\PROSTHO\_PROSDIMTreatmentPlan - Royal.cshtml" />
+    <Content Include="Views\PROSTHO\_PROSDIMTreatmentPlan.cshtml" />
+    <Content Include="Views\PROSTHO\_PROSDIMTreatmentRecord.cshtml" />
+    <Content Include="Views\PROSTHO\_PROSFPDDiagnosis.cshtml" />
+    <Content Include="Views\PROSTHO\_PROSFPDExamination.cshtml" />
+    <Content Include="Views\PROSTHO\_PROSFPDHistory.cshtml" />
+    <Content Include="Views\PROSTHO\_PROSFPDTreatmentRecord.cshtml" />
+    <Content Include="Views\PROSTHO\_PROSMFPDiagnosis.cshtml" />
+    <Content Include="Views\PROSTHO\_PROSMFPExamination.cshtml" />
+    <Content Include="Views\PROSTHO\_PROSMFPHistory.cshtml" />
+    <Content Include="Views\PROSTHO\_PROSMFPTreatmentDescription.cshtml" />
+    <Content Include="Views\PROSTHO\_PROSMFPTreatmentRecord.cshtml" />
+    <Content Include="Views\PROSTHO\_PROSRPDClinicalExamination.cshtml" />
+    <Content Include="Views\PROSTHO\_PROSRPDHistory.cshtml" />
+    <Content Include="Views\PROSTHO\_PROSRPDRadiographic.cshtml" />
+    <Content Include="Views\PROSTHO\_PROSRPDTreatmentDetails.cshtml" />
+    <Content Include="Views\PROSTHO\_PROSSearchOptions.cshtml" />
+    <Content Include="Views\PROSTHO\_PROSTHOFPDAbutmentTeeth.cshtml" />
+    <Content Include="Views\PROSTHO\_RPDApproval.cshtml" />
+    <Content Include="Views\Radiography\_LaboratoryDetails.cshtml" />
+    <Content Include="Views\Radiography\_RadiographicDetails.cshtml" />
+    <Content Include="Views\RadiologyTemplate\Create.cshtml" />
+    <Content Include="Views\RadiologyTemplate\Edit.cshtml" />
+    <Content Include="Views\RadiologyTemplate\Index.cshtml" />
+    <Content Include="Views\RadiologyTemplate\_ViewCreate.cshtml" />
+    <Content Include="Views\RadiologyTemplate\_ViewServiceList.cshtml" />
+    <Content Include="Views\Radiology\Create.cshtml" />
+    <Content Include="Views\Radiology\Edit.cshtml" />
+    <Content Include="Views\Radiology\Index.cshtml" />
+    <Content Include="Views\Radiology\Search.cshtml" />
+    <Content Include="Views\Radiology\TestItemCreate.cshtml" />
+    <Content Include="Views\Radiology\_BillInformationDetails.cshtml" />
+    <Content Include="Views\Radiology\_LabInformationDetails.cshtml" />
+    <Content Include="Views\Radiology\_RadiologyFileUpload.cshtml" />
+    <Content Include="Views\Radiology\_TestEditInformationDetails.cshtml" />
+    <Content Include="Views\Radiology\_TestItemDetails.cshtml" />
+    <Content Include="Views\Radiology\_TestNameInformationDetails.cshtml" />
+    <Content Include="Views\ReferralStatus\ApproveReferral.cshtml" />
+    <Content Include="Views\ReferralStatus\Create.cshtml" />
+    <Content Include="Views\ReferralStatus\ReferralCreate.cshtml" />
+    <Content Include="Views\ReferralStatus\ViewReferral.cshtml" />
+    <Content Include="Views\ReferralStatus\_ReferredToOthers.cshtml" />
+    <Content Include="Views\ReferralStatus\_ViewReferredReason.cshtml" />
+    <Content Include="Views\Registration\Create.cshtml" />
+    <Content Include="Views\Registration\Details.cshtml" />
+    <Content Include="Views\Registration\Edit.cshtml" />
+    <Content Include="Views\Registration\Index.cshtml" />
+    <Content Include="Views\Registration\OPRegistrationReport.cshtml" />
+    <Content Include="Views\Registration\_OPDSearchDetails.cshtml" />
+    <Content Include="Views\Registration\_OPDSearchOptions.cshtml" />
+    <Content Include="Views\Reports\BillingReport.cshtml" />
+    <Content Include="Views\Reports\BillwiseCollectionReport.cshtml" />
+    <Content Include="Views\Reports\CategoryPatientDetails.cshtml" />
+    <Content Include="Views\Reports\CategoryWiseCollectionReport.cshtml" />
+    <Content Include="Views\Reports\CollectionReport.cshtml" />
+    <Content Include="Views\Reports\CONSCaserecordReport.cshtml" />
+    <Content Include="Views\Reports\DeptReferralDetails.cshtml" />
+    <Content Include="Views\Reports\DeptTreatmentDetails.cshtml" />
+    <Content Include="Views\Reports\LaboratoryReport.cshtml" />
+    <Content Include="Views\Reports\OMFSIPCasesheetReport.cshtml" />
+    <Content Include="Views\Reports\OMFSOpCaserecordReport.cshtml" />
+    <Content Include="Views\Reports\OMRCaserecordReport.cshtml" />
+    <Content Include="Views\Reports\OPRegistrationCollectionReport.cshtml" />
+    <Content Include="Views\Reports\ORPATHCaserecordReport.cshtml" />
+    <Content Include="Views\Reports\OrthoAnalysisReport.cshtml" />
+    <Content Include="Views\Reports\ORTHOCaserecordReport.cshtml" />
+    <Content Include="Views\Reports\ORTHOShortCaserecordReport.cshtml" />
+    <Content Include="Views\Reports\PEDOCaserecordReport.cshtml" />
+    <Content Include="Views\Reports\PerioCaserecordReport.cshtml" />
+    <Content Include="Views\Reports\PHDCaserecordReport.cshtml" />
+    <Content Include="Views\Reports\PreviousPrescriptionReport.cshtml" />
+    <Content Include="Views\Reports\PROSCDCaserecordReport.cshtml" />
+    <Content Include="Views\Reports\PROSDIMCaserecordReport.cshtml" />
+    <Content Include="Views\Reports\PROSFPDCaserecordReport.cshtml" />
+    <Content Include="Views\Reports\PROSMFPCaserecordReport.cshtml" />
+    <Content Include="Views\Reports\PROSRPDCaserecordReport.cshtml" />
+    <Content Include="Views\Reports\RadiologyReport.cshtml" />
+    <Content Include="Views\Reports\StudentWiseCensusReport.cshtml" />
+    <Content Include="Views\Reports\ViewReferralReport.cshtml" />
+    <Content Include="Views\Reports\VisitTypePatientDetails.cshtml" />
+    <Content Include="Views\Reports\_BillPaymentReportList.cshtml" />
+    <Content Include="Views\Reports\_BillServicesReportList.cshtml" />
+    <Content Include="Views\Reports\_DeptTreatmentList.cshtml" />
+    <Content Include="Views\Reports\_DischargeDrugDetailsListReport.cshtml" />
+    <Content Include="Views\Reports\_DrugDetailsListReport.cshtml" />
+    <Content Include="Views\Reports\_LaboratoryReportHeaderDetails.cshtml" />
+    <Content Include="Views\Reports\_NurseVitalDetailsListReport.cshtml" />
+    <Content Include="Views\Reports\_OMFSIPScheduleDetailListReport.cshtml" />
+    <Content Include="Views\Reports\_OTConsumableDetailsListReport.cshtml" />
+    <Content Include="Views\Reports\_PaidInvestigationList.cshtml" />
+    <Content Include="Views\Reports\_PatientDetailsReportHeader.cshtml" />
+    <Content Include="Views\Reports\_PatientInformationReportHeader.cshtml" />
+    <Content Include="Views\Reports\_PeriodontalIndex.cshtml" />
+    <Content Include="Views\Reports\_PeriodontalIndexPedo.cshtml" />
+    <Content Include="Views\Reports\_PHDIndiciesforReport.cshtml" />
+    <Content Include="Views\Reports\_RadAndPhotoImagesReport.cshtml" />
+    <Content Include="Views\Reports\_RadiologyPatientInformationDetails.cshtml" />
+    <Content Include="Views\Reports\_VitalDetailsListReport.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\Login.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\StudentAllotment\_CreateAllotment.cshtml" />
+    <Content Include="Views\StudentAllotment\_DeleteAllotment.cshtml" />
+    <Content Include="Views\StudentAllotment\_PreviousAllotment.cshtml" />
+    <Content Include="Views\StudentAllotment\_ProcedureNote.cshtml" />
+    <Content Include="Views\StudentAllotment\_ProdedureNoteDetails.cshtml" />
+    <Content Include="Views\StudentAllotment\_StudentAllotment.cshtml" />
+    <Content Include="Views\StudentAllotment\_StudentDeleteAllotment.cshtml" />
+    <Content Include="Views\StudentAllotment\_StudentIPAllotment.cshtml" />
+    <Content Include="Views\StudentRegistration\Create.cshtml" />
+    <Content Include="Views\StudentRegistration\Edit.cshtml" />
+    <Content Include="Views\StudentRegistration\Index.cshtml" />
+    <Content Include="Views\StudentSchedule\Create.cshtml" />
+    <Content Include="Views\StudentSchedule\Index.cshtml" />
+    <Content Include="Views\StudentTransfer\Create.cshtml" />
+    <Content Include="Views\StudentTransfer\Index.cshtml" />
+    <Content Include="Views\User\Create.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\EditPassword.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>59816</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:59725/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

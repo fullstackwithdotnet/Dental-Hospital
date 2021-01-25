@@ -1,0 +1,50 @@
+﻿@model DIMS.ViewModels.PatientInformationViewModel
+
+<div class="form-group form-group-sm">
+    @Html.LabelFor(x => x.OpNo, new { @class = "col-md-1" })
+    <div class="col-md-3">
+        @Html.DisplayFor(x => x.OpNo)
+    </div>
+    @Html.LabelFor(x => x.PatientName, new { @class = "col-md-1 " })
+    <div class="col-md-3">
+        @Html.DisplayFor(x => x.PatientName)
+    </div>
+    @Html.LabelFor(x => x.AgeGender, new { @class = "col-md-1 " })
+    <div class="col-md-3">
+        @Html.DisplayFor(x => x.AgeGender)
+    </div>
+</div>
+
+<div class="form-group form-group-sm ">
+    @Html.LabelFor(x => x.Phone, new { @class = "col-md-1 " })
+    <div class="col-md-3">
+        @Html.DisplayFor(x => x.Phone)
+    </div>
+    @Html.LabelFor(x => x.Area, new { @class = "col-md-1 " })
+    <div class="col-md-3">
+        @Html.DisplayFor(x => x.Area)
+    </div>
+    @Html.LabelFor(x => x.CategoryName, new { @class = "col-md-1 " })
+    <div class="col-md-3">
+        @Html.DisplayFor(x => x.CategoryName)
+    </div>
+</div>
+
+<div class="form-group form-group-sm">
+    @Html.LabelFor(x => x.DoctorId, new { @class = "col-md-1 " })
+    <div class="col-md-3 ">
+        @Html.DisplayFor(x => x.DoctorName, new { @class = "col-md-2 " })        
+    </div>
+    @Html.LabelFor(x => x.AllotedTo, new { @class = "col-md-1" })
+    <div class="col-md-3">
+        @Html.DisplayFor(x => x.StudentName)
+        @Html.HiddenFor(x => x.StudentId)
+        @Html.HiddenFor(x => x.AllotId)
+    </div>
+    @Html.LabelFor(x => x.DeptName, new { @class = "col-md-1" })
+    <div class="col-md-3">
+        @Html.DisplayFor(x => x.DeptName)        
+    </div>    
+</div>
+
+ 

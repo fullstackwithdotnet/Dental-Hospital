@@ -1,0 +1,55 @@
+﻿@model DIMS.ViewModels.ReferralStatusViewModel
+
+
+<form id="ReferredReasonForm">
+    <div class="box box-info">
+        @*<div class="box-header with-border">
+                <h3 class="box-title"> Update Referred Reason</h3>
+            </div>*@
+        <div class="box-body">
+            <div class="row ">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.Priority, new { @class = "col-md-1 control-label" })
+                            <div class="col-md-2">
+                                @Html.TextBoxFor(x => x.Priority, new { @class = "form-control OnlyNumber", @maxLength = "1", required = "required" })
+                                @Html.HiddenFor(x => x.ReferredId)
+                            </div>
+
+                            @Html.LabelFor(x => x.ReferredReason, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(x => x.ReferredReason, new { @class = "form-control", required = "required" })
+                            </div>
+                            <a id="btnReferredReason" class="btn btn-success btn-xs">Submit <i class="fa fa-save"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+
+    $('#btnReferredReason').on('click', function () {
+        
+        var allotform = $("#ReferredReasonForm").serialize();
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("UpdateRefferedReason", "ReferralStatus")',
+            data: allotform,
+            success: function (data) {
+                $("#myModelReferral").modal("hide");
+                //window.location.href = '@Url.Action("Edit", "Quotation")' + '?Id=' + $("#QuoteId").val();
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+        })
+    });
+
+</script>
+
+
+

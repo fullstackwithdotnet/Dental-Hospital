@@ -1,0 +1,90 @@
+﻿@using Metron.Entities
+@model DIMS.ViewModels.PHDViewModel
+
+@functions{
+    public string GetClassFromProperties(string propertyName)
+    {
+        var props = Model.Proplist.FirstOrDefault<PHDCasesheetProperties>(x => x.PropertyName == propertyName);
+
+        if (props != null && props.PropertyVisibility == "N")
+        {
+            return "display:none";
+        }
+
+        return "";
+    }
+}
+<div class="row">
+    <div class="col-md-12">
+        <div id="divSpecificLesion" >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.SpecificLesion, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextAreaFor(x => x.SpecificLesion, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divLocalExaminationchiefComplaint" >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.LocalExaminationchiefComplaint, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextAreaFor(x => x.LocalExaminationchiefComplaint, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divInspection" >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Inspection, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextAreaFor(x => x.Inspection, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divPalpation" >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Palpation, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextAreaFor(x => x.Palpation, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divPercussion" >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Percussion, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextAreaFor(x => x.Percussion, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divAuscultation" >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Auscultation, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextAreaFor(x => x.Auscultation, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divCaseSummary" >
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.CaseSummary, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextAreaFor(x => x.CaseSummary, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

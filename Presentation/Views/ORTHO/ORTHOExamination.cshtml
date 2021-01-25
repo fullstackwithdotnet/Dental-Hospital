@@ -1,0 +1,750 @@
+﻿ @model DIMS.ViewModels.OrthoViewModal
+
+
+
+@helper CreateCheckbox(string value)
+{
+    @Html.CheckBox("chkBox", !string.IsNullOrEmpty(value), new { @class = "checkbox-inline" })
+}
+
+@helper CreateCheckbox_1(string Name, string value)
+{
+string chkName = "chk" + Name;
+    @Html.CheckBox(chkName, !string.IsNullOrEmpty(value), new { @class = "checkbox-inline" })
+}
+@functions {
+    object getHtmlAttributes(string value, string CssClass)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            return new { @class = CssClass, disabled = "disabled" };
+        }
+        return new { @class = CssClass };
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default collapsed-box">
+            <div class="box-header with-border">
+                <h3 class="box-title">GENERAL EXAMINATION </h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.HeightId, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-4 dropdown">
+                                    @Html.DropDownListFor(model => model.HeightId, new SelectList(Model.HeightList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                                </div>
+                                <div class="col-md-3">
+                                    @Html.TextBoxFor(x => x.HeightDesc, new { @class = "form-control" })
+                                </div>
+                                <div class="col-md-1">
+                                    <h5 class="subHeading1">cms</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.WeightId, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-4 dropdown">
+                                    @Html.DropDownListFor(model => model.WeightId, new SelectList(Model.WeightList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                                </div>
+                                <div class="col-md-3">
+                                    @Html.TextBoxFor(x => x.WeightDesc, new { @class = "form-control" })
+                                </div>
+                                <div class="col-md-1">
+                                    <h5 class="subHeading1">kgs</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Gait, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.TextBoxFor(x => x.Gait, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Posture, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.TextBoxFor(x => x.Posture, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.BodyType, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.TextBoxFor(x => x.BodyType, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Built, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.TextBoxFor(x => x.Built, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default collapsed-box">
+            <div class="box-header with-border">
+                <h3 class="box-title">EXTRA ORAL EXAMINATION </h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.ShapeOfHeadId, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.DropDownListFor(model => model.ShapeOfHeadId, new SelectList(Model.HeadShapeList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.FacialFormId, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.DropDownListFor(model => model.FacialFormId, new SelectList(Model.FacialFormList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.LipPostureId, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.DropDownListFor(model => model.LipPostureId, new SelectList(Model.LipPostureList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.LipTonicity, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.TextBoxFor(x => x.LipTonicity, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.LabialGap, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.TextBoxFor(x => x.LabialGap, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.NasoLabialAngleId, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.DropDownListFor(model => model.NasoLabialAngleId, new SelectList(Model.NasolabialAngleList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.MentoLabialSulcusId, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.DropDownListFor(model => model.MentoLabialSulcusId, new SelectList(Model.MentoLabialSulcusList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.VerticalProportion, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.TextBoxFor(x => x.VerticalProportion, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.UpperLipLength, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.TextBoxFor(x => x.UpperLipLength, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.UsfhId, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.DropDownListFor(model => model.UsfhId, new SelectList(Model.UsfhList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.LafhId, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.DropDownListFor(model => model.LafhId, new SelectList(Model.LafhList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.NoseSizeId, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.DropDownListFor(model => model.NoseSizeId, new SelectList(Model.NoseSizeList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.FacialSymmetry, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.TextBoxFor(x => x.FacialSymmetryDesc, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.FacialAsymmetry, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.TextBoxFor(x => x.FacialAsymmetryDesc, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.OcclusalCant, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.TextBoxFor(x => x.OcclusalCant, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.ExtraOralOthers, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.TextBoxFor(x => x.ExtraOralOthers, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default collapsed-box">
+            <div class="box-header with-border">
+                <h3 class="box-title">PROFILE EXAMINATION </h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.FacialProfileId, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.DropDownListFor(model => model.FacialProfileId, new SelectList(Model.FacialProfileOrthoList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.FaceDivergenceId, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.DropDownListFor(model => model.FaceDivergenceId, new SelectList(Model.FacialDivergenceList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.ChinPositionId, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.DropDownListFor(model => model.ChinPositionId, new SelectList(Model.ChinPositionList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.MandibularPlaneId, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.DropDownListFor(model => model.MandibularPlaneId, new SelectList(Model.MandibularPlaneList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.ClinicalFMAId, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.DropDownListFor(model => model.ClinicalFMAId, new SelectList(Model.ClinicalFMAList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default collapsed-box">
+            <div class="box-header with-border">
+                <h3 class="box-title">FUNCTIONAL EXAMINATION </h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.RespirationId, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.DropDownListFor(model => model.RespirationId, new SelectList(Model.RespirationList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.MasticationId, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 dropdown">
+                                    @Html.DropDownListFor(model => model.MasticationId, new SelectList(Model.MasticationList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.DeglutitionId, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 dropdown">
+                                    @Html.DropDownListFor(model => model.DeglutitionId, new SelectList(Model.DeglutitionList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.SpeechId, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 dropdown">
+                                    @Html.DropDownListFor(model => model.SpeechId, new SelectList(Model.SpeechList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.OcclusionClearance, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 ">
+                                    @Html.TextBoxFor(x => x.OcclusionClearance, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.PerioralMuscleActivityId, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8 dropdown">
+                                    @Html.DropDownListFor(model => model.PerioralMuscleActivityId, new SelectList(Model.PerioralMuscleActivityList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.IncisorRest, new { @class = "col-md-6 control-label" })
+                                <div class="col-md-6 ">
+                                    @Html.TextBoxFor(x => x.IncisorRest, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.SpeechDesc, new { @class = "col-md-6 control-label" })
+                                <div class="col-md-6 ">
+                                    @Html.TextBoxFor(x => x.SpeechDesc, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.IncisorSmile, new { @class = "col-md-6 control-label" })
+                                <div class="col-md-6 ">
+                                    @Html.TextBoxFor(x => x.IncisorSmile, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.MandMaxOpening, new { @class = "col-md-6 control-label" })
+
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(x => x.MandMaxOpening, new { @class = "form-control" })
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.LabelFor(x => x.Mm, new { @class = "col-md-4 control-label" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.Protrusion, new { @class = "col-md-6 control-label" })
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(x => x.Protrusion, new { @class = "form-control" })
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.LabelFor(x => x.Mm, new { @class = "col-md-4 control-label" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.ClosurePath, new { @class = "col-md-6 control-label" })
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(x => x.ClosurePath, new { @class = "form-control" })
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.LabelFor(x => x.Mm, new { @class = "col-md-4 control-label" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.ExcursionRight, new { @class = "col-md-6 control-label" })
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(x => x.ExcursionRight, new { @class = "form-control" })
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.LabelFor(x => x.Mm, new { @class = "col-md-4 control-label" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.ExcursionLeft, new { @class = "col-md-6 control-label" })
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(x => x.ExcursionLeft, new { @class = "form-control" })
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.LabelFor(x => x.Mm, new { @class = "col-md-4 control-label" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.TMJComplaintId, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-4 dropdown">
+                                    @Html.DropDownListFor(model => model.TMJComplaintId, new SelectList(Model.YesNoList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(x => x.TMJComplaintDesc, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.JawFunctionId, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-4 dropdown">
+                                    @Html.DropDownListFor(model => model.JawFunctionId, new SelectList(Model.YesNoList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(x => x.JawFunctionDesc, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.PainHistoryId, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-2 dropdown">
+                                    @Html.DropDownListFor(model => model.PainHistoryId, new SelectList(Model.YesNoList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                                </div>
+                                @Html.LabelFor(x => x.SoundsHistoryId, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-2 dropdown">
+                                    @Html.DropDownListFor(model => model.SoundsHistoryId, new SelectList(Model.YesNoList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.TMJPalpationId, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-2 dropdown">
+                                    @Html.DropDownListFor(model => model.TMJPalpationId, new SelectList(Model.YesNoList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                                </div>
+                                <div class="col-md-2 control-label">
+                                    @Html.LabelFor(x => x.TMJRight)
+                                    @Html.CheckBoxFor(x => x.TMJRight)
+                                </div>
+                                <div class="col-md-2 control-label">
+                                    @Html.LabelFor(x => x.TMJLeft)
+                                    @Html.CheckBoxFor(x => x.TMJLeft)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default collapsed-box">
+            <div class="box-header with-border">
+                <h3 class="box-title">MUSCLE EXAMINATION </h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.HyperactiveMentalis, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.HyperactiveMentalis, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.HypertonicUpperLip, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(x => x.HypertonicUpperLip, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(x => x.MusclePalpationId, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-4 dropdown">
+                                    @Html.DropDownListFor(model => model.MusclePalpationId, new SelectList(Model.YesNoList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control col-md-2" })
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(x => x.MusclePalpationDesc, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default collapsed-box">
+            <div class="box-header with-border">
+                <h3 class="box-title">HABITS </h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-2">
+                        <h5 class="subHeading1">Duration</h5>
+                    </div>
+                    <div class="col-md-2">
+                        <h5 class="subHeading1">Intensity</h5>
+                    </div>
+                    <div class="col-md-2">
+                        <h5 class="subHeading1">Frequency</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        <div class="col-md-2 control-label">
+                            @Html.LabelFor(x => x.ThumbSuckingDesc)
+                            @CreateCheckbox(Model.ThumbSuckingDesc)
+                        </div>
+                        <div class="col-md-4 ">
+                            @Html.TextBoxFor(x => x.ThumbSuckingDesc, getHtmlAttributes(Model.ThumbSuckingDesc, "form-control"))
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.HabitsDuration, getHtmlAttributes(Model.HabitsDuration, "form-control"))
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.HabitsIntensity, getHtmlAttributes(Model.HabitsIntensity, "form-control"))
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.HabitsFrequency, getHtmlAttributes(Model.HabitsFrequency, "form-control"))
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        <div class="col-md-2 control-label">
+                            @Html.LabelFor(x => x.TongueThrustDesc)
+                            @CreateCheckbox(Model.TongueThrustDesc)
+                        </div>
+                        <div class="col-md-4 ">
+                            @Html.TextBoxFor(x => x.TongueThrustDesc, getHtmlAttributes(Model.TongueThrustDesc, "form-control"))
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.ToungeDuration, getHtmlAttributes(Model.ToungeDuration, "form-control"))
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.ToungeIntensity, getHtmlAttributes(Model.ToungeIntensity, "form-control"))
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.ToungeFrequency, getHtmlAttributes(Model.ToungeFrequency, "form-control"))
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        <div class="col-md-2 control-label">
+                            @Html.LabelFor(x => x.MouthBreathingDesc)
+                            @CreateCheckbox(Model.MouthBreathingDesc)
+                        </div>
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(x => x.MouthBreathingDesc, getHtmlAttributes(Model.MouthBreathingDesc, "form-control"))
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.MouthDuration, getHtmlAttributes(Model.MouthDuration, "form-control"))
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.MouthIntensity, getHtmlAttributes(Model.MouthIntensity, "form-control"))
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.MouthFrequency, getHtmlAttributes(Model.MouthFrequency, "form-control"))
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        <div class="col-md-2 control-label">
+                            @Html.LabelFor(x => x.NailBitingDesc)
+                            @CreateCheckbox(Model.NailBitingDesc)
+                        </div>
+                        <div class="col-md-4 ">
+                            @Html.TextBoxFor(x => x.NailBitingDesc, getHtmlAttributes(Model.NailBitingDesc, "form-control"))
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.NailDuration, getHtmlAttributes(Model.NailDuration, "form-control"))
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.NailIntensity, getHtmlAttributes(Model.NailIntensity, "form-control"))
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.NailFrequency, getHtmlAttributes(Model.NailFrequency, "form-control"))
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        <div class="col-md-2 control-label">
+                            @Html.LabelFor(x => x.LipSuckingDesc)
+                            @CreateCheckbox(Model.LipSuckingDesc)
+                        </div>
+                        <div class="col-md-4 ">
+                            @Html.TextBoxFor(x => x.LipSuckingDesc, getHtmlAttributes(Model.LipSuckingDesc, "form-control"))
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.LipDuration, getHtmlAttributes(Model.LipDuration, "form-control"))
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.LipIntensity, getHtmlAttributes(Model.LipIntensity, "form-control"))
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.LipFrequency, getHtmlAttributes(Model.LipFrequency, "form-control"))
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        <div class="col-md-2 control-label">
+                            @Html.LabelFor(x => x.GumChewingDesc)
+                            @CreateCheckbox(Model.GumChewingDesc)
+                        </div>
+                        <div class="col-md-4 ">
+                            @Html.TextBoxFor(x => x.GumChewingDesc, getHtmlAttributes(Model.GumChewingDesc, "form-control"))
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.GumDuration, getHtmlAttributes(Model.GumDuration, "form-control"))
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.GumIntensity, getHtmlAttributes(Model.GumIntensity, "form-control"))
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.GumFrequency, getHtmlAttributes(Model.GumFrequency, "form-control"))
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group form-group-sm">
+                        <div class="col-md-2 control-label">
+                            @Html.LabelFor(x => x.AnyOtherHabitsDesc)
+                            @CreateCheckbox(Model.AnyOtherHabitsDesc)
+                        </div>
+                        <div class="col-md-4 ">
+                            @Html.TextBoxFor(x => x.AnyOtherHabitsDesc, getHtmlAttributes(Model.AnyOtherHabitsDesc, "form-control"))
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.OtherDuration, getHtmlAttributes(Model.OtherDuration, "form-control"))
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.OtherIntensity, getHtmlAttributes(Model.OtherIntensity, "form-control"))
+                        </div>
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(x => x.OtherFrequency, getHtmlAttributes(Model.OtherFrequency, "form-control"))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+

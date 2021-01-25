@@ -1,0 +1,46 @@
+﻿@model DIMS.ViewModels.ORPATHRequisitionViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="box box-default box-solid">
+    <div class="box-header with-border">
+        <h3 class="box-title"> Oral Pathology Requisition</h3>
+    </div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    @Html.Partial("../PatientInformation/_PatientOralPathRequisitionDetails", Model.patientInformationViewModel,
+                        new ViewDataDictionary()
+                        {
+                            TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "studentAllotmentViewModel" }
+                        })
+                    @Html.HiddenFor(model => Model.PatientId)
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                @Html.ActionLink("Create New", "Create", new { id = Model.patientInformationViewModel.AllotId })
+            </div>
+        </div>
+
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    @Html.Partial("../ORPATHRequisition/_PatientRequisition", Model.ORPATHDetails,
+                        new ViewDataDictionary()
+                        {
+                            TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "ORPATHDetails" }
+                        })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

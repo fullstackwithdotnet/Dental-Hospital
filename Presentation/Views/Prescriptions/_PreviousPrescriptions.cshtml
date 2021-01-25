@@ -1,0 +1,54 @@
+﻿@model IEnumerable<DIMS.ViewModels.PrescriptionsViewModel>
+@{
+    string modelName = ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix;
+    int index = 0;
+}
+@functions{
+    string GetId(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}]_{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+    string GetName(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}].{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+}
+<div class="table-responsive">
+    <table id="tbPreviousPrescription" class="table">
+        <tr>
+            <th class="col-md-2">
+                @Html.DisplayNameFor(model => model.DisplayDate)
+            </th>
+            <th class="col-md-3">
+                @Html.DisplayNameFor(model => model.Department)
+            </th>
+            <th class="col-md-2">
+                @Html.DisplayNameFor(model => model.Doctor)
+            </th>
+            <th class="col-md-1">
+
+            </th>
+            <th class="col-md-1"></th>
+        </tr>
+
+        @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DisplayDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Department)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Doctor)
+        </td>
+        <td>
+            @Html.ActionLink("View", "PresciptionReport", "Prescriptions", new { AllotId = item.AllotId }, new { target = "_blank" })
+        </td>
+
+    </tr>
+        index++;
+    }
+    </table>
+</div>

@@ -1,0 +1,65 @@
+﻿@model IEnumerable<DIMS.ViewModels.OrthoAnalysisViewModal>
+
+@{
+    string modelName = ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix;
+    int index = 0;
+}
+@functions{
+    string GetId(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}]_{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+    string GetName(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}].{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <tr>
+                <th class="hidden">
+                    @Html.DisplayNameFor(model => model.SoftTissueStaticId)
+                </th>
+                <th class="hidden">
+                    @Html.DisplayNameFor(model => model.SoftTissueId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Measurements)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mean)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.PtValue)
+                </th>
+
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="hidden">
+                        @Html.TextBoxFor(modelItem => item.SoftTissueStaticId, new { @class = "col-sm-2 form-control", @id = GetId("SoftTissueStaticId", index), @Name = GetName("SoftTissueStaticId", index) })
+                    </td>
+                    <td class="hidden">
+                        @Html.TextBoxFor(modelItem => item.SoftTissueId, new { @class = "col-sm-2 form-control", @id = GetId("SoftTissueId", index), @Name = GetName("SoftTissueId", index) })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Measurements)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mean)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(modelItem => item.PtValue, new { @class = "col-sm-2 form-control", @id = GetId("PtValue", index), @Name = GetName("PtValue", index) })
+                    </td>
+                </tr>
+                index++;
+            }
+        </table>
+
+    </div>
+</div>

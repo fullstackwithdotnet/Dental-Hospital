@@ -1,0 +1,266 @@
+﻿ @model DIMS.ViewModels.TemplateViewModal
+
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@functions {
+    object getHtmlAttributes(string value, string CssClass)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            return new { @class = CssClass, disabled = "disabled" };
+        }
+        return new { @class = CssClass };
+    }
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="box box-info ">
+            <div class="box-header with-border" style="background-color:aliceblue;">
+                <h3 class="box-title">Laboratory Test Definer</h3>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.ServiceId, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-7">
+                                        @Html.DropDownListFor(model => model.ServiceId, new SelectList(Model.ServicesList, "ServiceId", "ServiceName"), htmlAttributes: new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            @*<div class="row">
+                                    <div class="form-group form-group-sm">
+                                        @Html.LabelFor(x => x.GroupId, new { @class = "col-md-2 control-label" })
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(model => model.GroupId, new SelectList(Model.GroupList, "GroupId", "GroupName"), htmlAttributes: new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @{
+            if (TempData["message"] != null)
+            {
+                <script type="text/javascript">
+                             alert(@Html.Raw(Json.Encode(TempData["message"])));
+                </script>
+            }
+        }
+        <div class="form-group">
+            <div class="col-md-offset-5 col-md-10">
+                <button type="submit" class="btn btn-success btn-sm" id="btnServices">
+                    Save
+                    <i class="fa fa-save"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="box-body">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.Partial("../LaboratoryTemplate/_ViewCreate", Model.radiologyViewModal)
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.Partial("../LaboratoryTemplate/_ViewServiceList", Model.ServiceListDetails,
+                                new ViewDataDictionary()
+                                {
+                                    TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "ServiceListDetails" }
+                                })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+@section scripts {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $(".js_getIsHeader").click(function () {
+                
+                if ($(".js_getIsHeader").is(':checked')) {
+                    $("#MaleNormalRange").attr("disabled", "disabled");
+                    $("#FemaleNormalRange").attr("disabled", "disabled");
+                    $("#Unit").attr("disabled", "disabled");
+                } else {
+                    $("#MaleNormalRange").removeAttr("disabled");
+                    $("#FemaleNormalRange").removeAttr("disabled");
+                    $("#Unit").removeAttr("disabled");
+                }
+
+            });
+
+            $("#btnOrpathAdd").click(function (e) {
+                
+                var itemIndex = $("#tbOrpathServiceDetails input.iHidden").length;
+                e.preventDefault();
+                var RadioTempDetId = $("#RadioTempDetId").val();
+                var RadioTempId = $("#RadioTempId").val();
+                var ServiceItems = $("#ServiceItems").val();
+                var MaleNormalRange = $("#MaleNormalRange").val();
+                var FemaleNormalRange = $("#FemaleNormalRange").val();
+                var Unit = $("#Unit").val();
+                var DisplayOrder = $("#DisplayOrder").val();
+                var IsChecked = $("#IsChecked").val();//checkbox
+                if ($(".js_getIsHeader").is(':checked')) {
+                    HeadCheck = 'Y';
+                    $(".js_getIsHeader:checked").prop("checked", false)
+                    $("#MaleNormalRange").removeAttr("disabled");
+                    $("#FemaleNormalRange").removeAttr("disabled");
+                    $("#Unit").removeAttr("disabled");
+                } else {
+                    HeadCheck = 'N';
+                }
+                var idArray = [];
+                $('.iHidden').each(function () {
+                    idArray.push($(this).val());
+                });
+                if (HeadCheck == "N") {
+                    var Display = $("#DisplayOrder").val();
+                    if (Display == "") {
+                        alert("Enter Display Order");
+                        $("#DisplayOrder").focus();
+                    }
+                    else if (jQuery.inArray(ServiceItems, idArray) != '-1') {
+                        alert("Already Added");
+                        $("#ServiceItems").val("");
+                        $("#MaleNormalRange").val("");
+                        $("#FemaleNormalRange").val("");
+                        $("#Unit").val("");
+                        $("#DisplayOrder").val("");
+                        $("#ServiceItems").focus();
+                    }
+                    else {
+                        var markupRadioDetId = "<td><input name='ServiceListDetails[" + itemIndex + "].RadioTempDetId' class='form-control js_RadioTempDetId'  id='ServiceListDetails[" + itemIndex + "]_RadioTempDetId' type='hidden' value=" + RadioTempDetId + ">"
+                        var markupRadioId = " <input name='ServiceListDetails[" + itemIndex + "].RadioTempId' id='ServiceListDetails[" + itemIndex + "]_RadioTempId' type='hidden' value=" + RadioTempId + ">"
+                        var markupServiceName = "<input type='hidden' id='ServiceListDetails[" + itemIndex + "]_ServiceItems' class='form-control iHidden'  name='ServiceListDetails[" + itemIndex + "].ServiceItems' value='" + ServiceItems + "'>";
+                        var markupMaleRange = "<td>" + MaleNormalRange + "<input type='hidden' id='ServiceListDetails[" + itemIndex + "]_MaleNormalRange' class='form-control js_Malerange'  name='ServiceListDetails[" + itemIndex + "].MaleNormalRange' value='" + MaleNormalRange + "'></td>";
+                        var markupFemaleRange = "<td>" + FemaleNormalRange + "<input type='hidden' id='ServiceListDetails[" + itemIndex + "]_FemaleNormalRange' class='form-control js_Femalerange'  name='ServiceListDetails[" + itemIndex + "].FemaleNormalRange' value='" + FemaleNormalRange + "'></td>";
+                        var markupUnit = "<td>" + Unit + "<input type='hidden' id='ServiceListDetails[" + itemIndex + "]_Unit' class='form-control js_Unit'  name='ServiceListDetails[" + itemIndex + "].Unit' value='" + Unit + "'></td>";
+                        var markupDisplayOrder = "<td>" + DisplayOrder + "<input type='hidden' id='ServiceListDetails[" + itemIndex + "]_DisplayOrder' class='form-control js_DisplayOrder'  name='ServiceListDetails[" + itemIndex + "].DisplayOrder' value='" + DisplayOrder + "'></td>";
+                        var markupIsChecked = "<td>" + HeadCheck + "<input type='hidden' id='ServiceListDetails[" + itemIndex + "]_IsHeader' class='form-control js_Header'  name='ServiceListDetails[" + itemIndex + "].IsHeader' value=" + HeadCheck + "> </td>";
+                        var Edit = "<td><button type='button' class='LabEdit btn btn-primary btn-xs' data-id='0'> <i class='glyphicon glyphicon-pencil'></i></button> </td>";
+                        var markupFinal = "<tr>" + markupRadioDetId + markupRadioId + ServiceItems + markupServiceName + markupMaleRange + markupFemaleRange + markupUnit + markupDisplayOrder + markupIsChecked + Edit + "</tr>";
+                        $("#tbOrpathServiceDetails tbody").append(markupFinal);
+
+                        $("#ServiceItems").val("");
+                        $("#MaleNormalRange").val("");
+                        $("#FemaleNormalRange").val("");
+                        $("#Unit").val("");
+                        $("#DisplayOrder").val("");
+                        $("#ServiceItems").focus();
+                    }
+                }
+                else {
+                    var markupRadioDetId = "<td><input name='ServiceListDetails[" + itemIndex + "].RadioTempDetId' class='form-control js_RadioTempDetId'  id='ServiceListDetails[" + itemIndex + "]_RadioTempDetId' type='hidden' value=" + RadioTempDetId + ">"
+                    var markupRadioId = " <input name='ServiceListDetails[" + itemIndex + "].RadioTempId' id='ServiceListDetails[" + itemIndex + "]_RadioTempId' type='hidden' value=" + RadioTempId + ">"
+                    var markupServiceName = "<input type='hidden' id='ServiceListDetails[" + itemIndex + "]_ServiceItems' class='form-control iHidden'  name='ServiceListDetails[" + itemIndex + "].ServiceItems' value='" + ServiceItems + "'>";
+                    var markupMaleRange = "<td>" + MaleNormalRange + "<input type='hidden' id='ServiceListDetails[" + itemIndex + "]_MaleNormalRange' class='form-control js_Malerange'  name='ServiceListDetails[" + itemIndex + "].MaleNormalRange' value='" + MaleNormalRange + "'></td>";
+                    var markupFemaleRange = "<td>" + FemaleNormalRange + "<input type='hidden' id='ServiceListDetails[" + itemIndex + "]_FemaleNormalRange' class='form-control js_Femalerange'  name='ServiceListDetails[" + itemIndex + "].FemaleNormalRange' value='" + FemaleNormalRange + "'></td>";
+                    var markupUnit = "<td>" + Unit + "<input type='hidden' id='ServiceListDetails[" + itemIndex + "]_Unit' class='form-control js_Unit'  name='ServiceListDetails[" + itemIndex + "].Unit' value='" + Unit + "'></td>";
+                    var markupDisplayOrder = "<td>" + DisplayOrder + "<input type='hidden' id='ServiceListDetails[" + itemIndex + "]_DisplayOrder' class='form-control js_DisplayOrder'  name='ServiceListDetails[" + itemIndex + "].DisplayOrder' value='" + DisplayOrder + "'></td>";
+                    var markupIsChecked = "<td>" + HeadCheck + "<input type='hidden' id='ServiceListDetails[" + itemIndex + "]_IsHeader' class='form-control js_Header'  name='ServiceListDetails[" + itemIndex + "].IsHeader' value=" + HeadCheck + "> </td>";
+                    var Edit = "<td><button type='button' class='LabEdit btn btn-primary btn-xs' data-id='0'> <i class='glyphicon glyphicon-pencil'></i></button> </td>";
+                    var markupFinal = "<tr>" + markupRadioDetId + markupRadioId + ServiceItems + markupServiceName + markupMaleRange + markupFemaleRange + markupUnit + markupDisplayOrder + markupIsChecked + Edit + "</tr>";
+                    $("#tbOrpathServiceDetails tbody").append(markupFinal);
+
+                    $("#ServiceItems").val("");
+                    $("#MaleNormalRange").val("");
+                    $("#FemaleNormalRange").val("");
+                    $("#Unit").val("");
+                    $("#DisplayOrder").val("");
+                    $("#ServiceItems").focus();
+                }
+            });
+
+
+
+
+            //var url = "/ORPATHTemplate/DeleteServiceListDetails";
+            @*var url = '@Url.Action("DeleteServiceListDetails", "ORPATHTemplate")';
+            $('#tbOrpathServiceDetails').on('click', ".Orpathdelete", function () {
+                var Con = confirm("Are you want to delete ?");
+                if (Con == true) {
+                    var id = $(this).data('id');
+                    var row = $(this).closest('tr');
+                    
+                    if (id == 0) {
+                        row.remove();
+                    }
+                    else {
+                        $.post(url, { ServiceItems: id }, function (response) {
+                            if (response) {
+                                row.remove(); // OK, so remove the row
+                            } else {
+                                // Oops - display and error message?
+                            }
+                        });
+                    }
+                }
+            });*@
+
+
+            $('#tbOrpathServiceDetails').on('click', ".LabEdit", function () {
+                
+                var Con = confirm("Do you want to Edit ?");
+                if (Con == true) {
+                    var Id = $(this).data('id');
+                    var row = $(this).closest('tr');   // Find the row
+                    var $tds = row.find("td");
+                    var varRadioTempDetId = Id;
+                    var varServiceItems = $tds.closest('tr').find('.iHidden').val();
+                    var varMaleRange = $tds.closest('tr').find('.js_Malerange').val();
+                    var varFeMaleRange = $tds.closest('tr').find('.js_Femalerange').val();
+                    var varUnit = $tds.closest('tr').find('.js_Unit').val();
+                    var varDisplayOrder = $tds.closest('tr').find('.js_DisplayOrder').val();
+                    var varIsHeader = $tds.closest('tr').find('.js_Header').val();
+
+                    $("#RadioTempDetId").val(varRadioTempDetId);
+                    $("#ServiceItems").val(varServiceItems);
+                    $("#MaleNormalRange").val(varMaleRange);
+                    $("#FemaleNormalRange").val(varFeMaleRange);
+                    $("#Unit").val(varUnit);
+                    $("#DisplayOrder").val(varDisplayOrder);
+                    if (varIsHeader == "N") {
+                        $(".js_getIsChecked:checked").prop("checked", false)
+                    }
+                    else {
+                        $(".js_getIsChecked:checked").prop("checked", true)
+                    }
+
+                    row.remove();
+                }
+            });
+
+        });
+
+    </script>
+}

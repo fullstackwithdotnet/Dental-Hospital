@@ -1,0 +1,22 @@
+﻿@model IEnumerable<DIMS.ViewModels.FileUploadViewModel>
+
+<style>
+    .colImage {
+        max-height: 300px;
+        max-width: 300px;
+    }
+</style>
+
+<div class="row">
+    @foreach (var item in Model)
+    {        
+        <div class="col-md-6">
+            <strong>@Html.DisplayFor(model => item.FileName)</strong>
+            <br/>
+            <img src="@Url.Content(String.Format("~/Content/Upload/{0}", item.FileDisplayPath))" class="colImage" />            
+        </div>
+    }
+</div>
+
+
+

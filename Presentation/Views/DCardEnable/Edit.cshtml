@@ -1,0 +1,98 @@
+﻿@model DIMS.ViewModels.DCardEnableViewModel
+
+<link href="~/Content/bootstrap-toggle.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-toggle.min.js"></script>
+ 
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)  
+        
+        <div class="col-md-6">
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.IsSearchEnable, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        <input type="checkbox" name="IsSelected" checked='@Model.IsSearchEnable' data-toggle="toggle" id="IsSelectedchk">
+                        @Html.HiddenFor(x => Model.IsSearchEnable)
+                        @Html.HiddenFor(x => x.DummyEnableId)
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.ReportForm, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        <input type="checkbox" name="IsEnable" checked='@Model.IsReportEnable' data-toggle="toggle" id="IsSelectedchkforReport">
+                        @Html.HiddenFor(x => Model.IsReportEnable)                       
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    <div class="col-md-4">                         
+                    </div>                  
+                    <div class="col-md-8">
+                        <a id="UpdateButton"> <i class="fa fa-check fa fa-search btn btn-success"> Submit</i></a>
+                    </div>                      
+                </div>
+            </div>
+        </div>        
+    </div>
+
+}
+
+@section scripts {
+    <script type="text/javascript">
+      $('#UpdateButton').on('click', function () {          
+            var $IsSelected = "";
+            var $IsEnable = "";
+            var $SearchForm = "";
+            var $ReportForm = "";
+
+            if ($("#IsSelectedchk").is(':checked')) {
+                $IsSelected = "true";
+                $SearchForm = "Y";
+
+            } else {
+                $IsSelected = "false";
+                $SearchForm = "N";
+            }
+            if ($("#IsSelectedchkforReport").is(':checked')) {
+                $IsEnable = "true";
+                $ReportForm = "Y";
+            } else {
+                $IsEnable = "false";
+                $ReportForm = "N";
+            }
+            var $DummyEnableId = $("#DummyEnableId").val();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Update", "DCardEnable")',
+                data: '{IsSelected: "' + $IsSelected + ' ",DummyEnableId: "' + $DummyEnableId + ' ",IsEnable: "' + $IsEnable + ' ",SearchForm: "' + $SearchForm + ' ",ReportForm: "' + $ReportForm + ' "}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    alert('Updated Successfully')
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+
+
+        });
+    </script>
+
+    }
+
+
+
+
+
+

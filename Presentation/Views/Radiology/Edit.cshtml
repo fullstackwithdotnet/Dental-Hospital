@@ -1,0 +1,65 @@
+﻿@model DIMS.ViewModels.RadioRegistrationViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true)
+
+
+        <div class="box box-info ">
+            <div class="box-header with-border" style="background-color:aliceblue;">
+                <h3 class="box-title"> Patient Information</h3>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        @Html.Partial("../Radiology/_LabInformationDetails", Model)
+                        @Html.HiddenFor(x => x.LabId)
+                        @Html.HiddenFor(x => x.PatientId)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <center>
+                    @*@Html.ActionLink("Print", "RadiologyReport", "Radiology", new { Id = Model.LabId }, new { @class = "btn btn-success btn-md", target = "_blank" })*@
+                    <a class="btn btn-warning btn-sm" target="_blank" href="@Url.Action("RadiologyReport", "Radiology", new { Id = Model.LabId })">Print <i class="fa fa-print"></i> </a>
+                </center>
+            </div>
+        </div>  
+        <div class="box box-info">
+            <div class="box-header with-border" style="background-color:aliceblue;">
+                <h4 class="box-title"> Test Name Details</h4>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.Partial("../Radiology/_TestEditInformationDetails", Model.TestNameEditList,
+                             new ViewDataDictionary()
+                             {
+                                 TemplateInfo = new TemplateInfo() { HtmlFieldPrefix = "TestNameEditList" }
+                             })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div>
+            @Html.ActionLink("Back to List", "Search")
+        </div>
+    </div>
+}
+
+
+
+ 

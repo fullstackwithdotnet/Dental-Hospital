@@ -1,0 +1,176 @@
+﻿@using Metron.Entities
+@model DIMS.ViewModels.OMFSIPScheduleViewModel
+
+ 
+<link href="~/Content/listbox.css" rel="stylesheet" />
+@helper CreateCheckbox(string value)
+{
+    @Html.CheckBox("chkBox", !string.IsNullOrEmpty(value), new { @class = "checkbox-inline" })
+}
+
+@functions {
+    object getHtmlAttributes(string value, string CssClass)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            return new { @class = CssClass, disabled = "disabled" };
+        }
+        return new { @class = CssClass };
+    }
+}
+@functions{
+    public string GetClassFromProperties(string propertyName)
+    {
+        var props = Model.Proplist.FirstOrDefault<OMFSIPCasesheetProperties>(x => x.PropertyName == propertyName);
+        if (props != null && props.PropertyVisibility == "N")
+        {
+            return "display:none";
+        }
+        return "";
+    }
+}
+
+
+<div class="row">
+    <div class="col-md-6">
+      
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.OperationScheduleFromDate, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(x => x.OperationScheduleFromDate, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.OperationScheduleFromDate)
+                        
+                       
+                    </div>
+                </div>
+            </div>
+       
+        @*<div id="divOperationScheduleToDate" style='@GetClassFromProperties("OperationScheduleToDate")'>
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.OperationScheduleToDate, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(x => x.OperationScheduleToDate, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.OperationScheduleToDate)
+                    </div>
+                </div>
+            </div>
+        </div>*@
+       
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Duration, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.Duration, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Operation, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.Operation, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        
+        @*<div id="divSurgeonId" style='@GetClassFromProperties("SurgeonId")'>
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.SurgeonId, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8 dropdown">
+                        @Html.DropDownListFor(model => model.SurgeonId, new SelectList(Model.DoctorList, "DoctorId", "DoctorName"), htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divAssistantSurgeon" style='@GetClassFromProperties("AssistantSurgeon")'>
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.AssistantSurgeon, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.AssistantSurgeon, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>*@
+        
+    </div>
+    <div class="col-md-6">
+        
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.OperationScheduleFromTime, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.OperationScheduleFromTime, new { @class = "timepicker js_FromTime form-control" })
+                        @Html.ValidationMessageFor(x => x.OperationScheduleFromTime)
+                    </div>
+                </div>
+            </div>
+        
+            <div class="row hidden">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.OperationScheduleToTime, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.OperationScheduleToTime, new { @class = "timepicker js_ToTime" })
+                        @Html.ValidationMessageFor(x => x.OperationScheduleToTime)
+                    </div>
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.TypeId, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8 dropdown">
+                        @Html.DropDownListFor(model => model.TypeId, new SelectList(Model.OperationTypeList, "CodeId", "CodeDescription"), htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+         
+        @*<div id="divAnesthetist" style='@GetClassFromProperties("Anesthetist")'>
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.Anesthetist, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.Anesthetist, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divAssistingNurse" style='@GetClassFromProperties("AssistingNurse")'>
+            <div class="row">
+                <div class="form-group form-group-sm">
+                    @Html.LabelFor(x => x.AssistingNurse, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(x => x.AssistingNurse, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>*@
+        @*<div class="col-md-8">
+            <input type="submit" id="btnScheduleOperation" value="Schedule Operation" class="btn btn-primary">
+        </div>*@
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h5><strong>Select Surgeon</strong></h5>
+        <div class="subject-info-box-1">
+            @Html.ListBoxFor(model => model.FromSelectSurgeon, new MultiSelectList(Model.FromSurgeonList, "DoctorId", "DoctorName", Model.FromSurgeonList), htmlAttributes: new { @id = "lstBox1", @class = "form-control" })
+        </div>
+
+        <div class="subject-info-arrows text-center">
+            <input type='button' id='btnAllRight' value='>>' class="btn btn-default" /><br />
+            <input type='button' id='btnRight' value='>' class="btn btn-default" /><br />
+            <input type='button' id='btnLeft' value='<' class="btn btn-default" /><br />
+            <input type='button' id='btnAllLeft' value='<<' class="btn btn-default" />
+        </div>
+
+        <div class="subject-info-box-2">
+            @Html.ListBoxFor(model => model.ToSelectSurgeon, new MultiSelectList(Model.ToSurgeonList, "DoctorId", "DoctorName", Model.ToSurgeonList), htmlAttributes: new { @id = "lstBox2", @class = "form-control" })
+            @Html.HiddenFor(model => Model.SelectedSurgeon)
+        </div>
+    </div>
+</div>

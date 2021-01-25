@@ -1,0 +1,373 @@
+﻿ @model DIMS.ViewModels.StudentTransferViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<link href="~/Content/listbox.css" rel="stylesheet" />
+
+
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+
+
+        <div class="box box-default box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title"> Student Transfer</h3>
+            </div>
+            <div class="box-body">
+                <div class="col-md-6">
+                    <div class="form-group form-group-sm dropdown">
+                        @Html.LabelFor(x => x.StudentCourseId, new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.DropDownListFor(x => x.StudentCourseId, Model.CourseList, htmlAttributes: new { @class = "form-control", @id = "Course" })
+                            @Html.ValidationMessageFor(x => x.StudentCourseId)
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div id="Department" class="form-group form-group-sm dropdown">
+                        @Html.LabelFor(model => model.DeptId, new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.DropDownListFor(model => model.DeptId, new SelectList(Model.Departmentlist, "DeptId", "DeptName"), htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.DeptId)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Transfer From</h3>
+                </div>
+                <div class="box-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="form-group form-group-sm dropdown">
+                                @Html.LabelFor(x => x.StudentYearId, new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.DropDownListFor(x => x.StudentYearId, Model.Yearlist, "--Select--", htmlAttributes: new { @class = "form-control", @id = "Year" })
+                                    @Html.ValidationMessageFor(x => x.StudentYearId)
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm" id="BatchType">
+                                @Html.LabelFor(model => model.Batch, new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.DropDownListFor(model => model.CodeId, new SelectList(Model.Batchlist, "CodeId", "CodeDescription"), "--Select--", htmlAttributes: new { @class = "js_Pay form-control col-md-2" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="subject-info-box-1" style="width:100%;padding:20px">
+                                @Html.ListBoxFor(model => model.FromSelectStudent, new MultiSelectList(Model.FromStudentList, "StudentId", "StudentName", Model.FromStudentList), htmlAttributes: new { @id = "lstBox1", @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <center>
+                <div class="form-group">
+                </div>
+                <div class="form-group">
+                    <a class="btn btn-app " id='btnAllRight'>
+                        <i class="fa fa-angle-double-right custom"></i> Right All
+                    </a>
+                    <a class="btn btn-app " id='btnRight'>
+                        <i class="fa fa-angle-right custom"></i> Right
+                    </a>
+                    <a class="btn btn-app " id='btnAllLeft'>
+                        <i class="fa fa-angle-double-left custom"></i> Left All
+                    </a>
+                    <a class="btn btn-app" id='btnLeft'>
+                        <i class="fa fa-angle-left custom"></i> Left
+                    </a>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="fa fa-save btn btn-success" />
+                </div>
+            </center>
+        </div>
+        <div class="col-md-5">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Transfer To</h3>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group form-group-sm dropdown" style="display:none;" id="divToYear">
+                            @Html.LabelFor(x => x.StudentYearId, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.DropDownListFor(x => x.ToStudentYearId, Model.ToYearlist, "--Select --", htmlAttributes: new { @class = "form-control", @id = "ToYear" })
+                                @Html.ValidationMessageFor(x => x.StudentYearId)
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm" id="ToBatchType" style="display:none;">
+                            @Html.LabelFor(model => model.Batch, new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.DropDownListFor(model => model.ToCodeId, new SelectList(Model.ToBatchlist, "CodeId", "CodeDescription"), "--Select --", htmlAttributes: new { @class = "js_Pay form-control col-md-2" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        @*<span class="pull-right text-red " id="StudentYearName"> @Html.DisplayFor(x => x.StudentYearName)</span>*@
+                        <div class="form-group">
+                            <div class="subject-info-box-2" style="width:100%;padding:20px">
+                                @Html.ListBoxFor(model => model.ToSelectStudent, new MultiSelectList(Model.ToStudentList, "StudentId", "StudentName", Model.ToStudentList), htmlAttributes: new { @id = "lstBox2", @class = "form-control" })
+                                @Html.HiddenFor(model => Model.SelectedStudents)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+
+
+
+@section scripts {
+    <script type="text/javascript">
+
+        $('#btnRight').click(function (e) {
+            var selectedOpts = $('#lstBox1 option:selected');
+            if (selectedOpts.length == 0) {
+                alert("Nothing to move.");
+                e.preventDefault();
+            }
+
+            $('#lstBox2').append($(selectedOpts).clone());
+            $("select option:last").attr("selected", "selected");
+            $("#lstBox2 select[multiple] option").prop("selected", "selected");
+            $(selectedOpts).remove();
+            popluateSelectedStudents();
+            e.preventDefault();
+        });
+
+        $('#btnAllRight').click(function (e) {
+            var selectedOpts = $('#lstBox1 option');
+            if (selectedOpts.length == 0) {
+                alert("Nothing to move.");
+                e.preventDefault();
+            }
+            
+            $('#lstBox2').append($(selectedOpts).clone());
+            $(selectedOpts).remove();
+            popluateSelectedStudents();
+            e.preventDefault();
+        });
+
+        $('#btnLeft').click(function (e) {
+            var selectedOpts = $('#lstBox2 option:selected');
+            if (selectedOpts.length == 0) {
+                alert("Nothing to move.");
+                e.preventDefault();
+            }
+
+            $('#lstBox1').append($(selectedOpts).clone());
+            $(selectedOpts).remove();
+            popluateSelectedStudents();
+            e.preventDefault();
+        });
+
+        $('#btnAllLeft').click(function (e) {
+            var selectedOpts = $('#lstBox2 option');
+            if (selectedOpts.length == 0) {
+                alert("Nothing to move.");
+                e.preventDefault();
+            }
+
+            $('#lstBox1').append($(selectedOpts).clone());
+            $(selectedOpts).remove();
+            popluateSelectedStudents();
+            e.preventDefault();
+        });
+
+        function popluateSelectedStudents() {
+            var $selectedStudents = $('#SelectedStudents');
+            $selectedStudents.val('');
+            var array = [];
+            $('#lstBox2 option').each(function () {
+                array.push($(this).val());
+            })
+
+            // var array = $('#lstBox2 option').val() || [];
+            $selectedStudents.val(JSON.stringify(array));
+        };
+
+        $(document).ready(function () {
+
+            $("#Year").change(function () {
+                
+                var $SelectStudentCourseId = $("#Course").val();
+                var $SelectStudentYearId = $("#Year").val();
+                var cyear = $("#Year option:selected").text();
+                var $DeptId = 0;
+                if ($("#DeptId").val() != null) {
+                    $DeptId = $("#DeptId").val();
+                }
+
+                if (cyear != "Fourth Year") {
+                    if (($SelectStudentCourseId != "") && ($SelectStudentYearId != "")) {
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("GetAllStudentDetails", "StudentTransfer")',
+                            data: '{StudentCourseId: "' + $SelectStudentCourseId + ' ",StudentYearId: "' + $SelectStudentYearId + ' ",DeptId: ' + $DeptId + ' }',
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (data) {
+                                var $listbox1 = $('#lstBox1');
+                                var $listbox2 = $('#lstBox2')
+                                $listbox1.empty();
+                                $listbox2.empty();
+                                $.each(data[0], function (i, data) {
+                                    $listbox1.append('<option value="' + data.Value + '">' +
+                                         data.Text + '</option>');
+
+                                });
+
+                            },
+                            failure: function (response) {
+                                alert(response.responseText);
+                            },
+                            error: function (response) {
+                                alert(response.responseText);
+                            }
+                        });
+                    }
+                }
+                else if (cyear == "Fourth Year") {
+                    $("#BatchType").show();
+                    $("#divToYear").hide();
+                }
+                else
+                {
+                    $("#BatchType").hide();
+                }
+                $("#divToYear").show();
+            })
+
+            $("#CodeId").change(function () {
+                
+                var $SelectStudentCourseId = $("#Course").val();
+                var $SelectStudentYearId = $("#Year").val();
+                var $SelectBatchId = $("#CodeId").val();
+                var $DeptId = 0;
+                if ($("#DeptId").val()!=null)
+                {
+                    $DeptId = $("#DeptId").val();
+                }
+                if (($SelectStudentCourseId != "") && ($SelectStudentYearId != "") && ($SelectBatchId != "")) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("GetAllStudentDetails", "StudentTransfer")',
+                        data: '{StudentCourseId: "' + $SelectStudentCourseId + ' ",StudentYearId: "' + $SelectStudentYearId + ' ",DeptId: ' + $DeptId + ',BatchTypeId: "' + $SelectBatchId + ' " }',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (data) {
+                            var $listbox1 = $('#lstBox1');
+                            var $listbox2 = $('#lstBox2')
+                            $listbox1.empty();
+                            $listbox2.empty();
+                            $.each(data[0], function (i, data) {
+                                $listbox1.append('<option value="' + data.Value + '">' +
+                                     data.Text + '</option>');
+                            });
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+                }
+            })
+
+            var $listbox1 = $('#lstBox1');
+            var $course = $("#Course"),
+                  $year = $("#Year"),
+                  $ToYear = $("#ToYear")
+            $course.change(function () {
+                $year.empty();
+                $ToYear.empty();
+                $listbox1.empty();
+                $year.append('<option value="0"> --Select --</option>');
+                $ToYear.append('<option value="0"> --Select --</option>');
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetCourseYears")',
+                    dataType: 'json',
+                    data: { id: $course.val() },
+                    success: function (Years) {
+                        $.each(Years, function (i, Year) {
+                            $year.append('<option value="'+ Year.Value + '">'
+                            + Year.Text + '</option>');
+
+                            $ToYear.append('<option value="' + Year.Value + '">'
+                           + Year.Text + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Failed to retrieve Years.' + ex);
+                    }
+                });
+                return false;
+            });
+        })
+
+
+
+        $("#ToYear").change(function () {
+            var dropdowntext = $("#ToYear option:selected").text();
+            if (dropdowntext == "Fourth Year") {
+                $("#ToBatchType").show();
+            }
+            else
+            {
+                $("#ToBatchType").hide();
+            }
+        });
+
+
+        $("#Course").change(function () {
+            MDSDepartment();
+        });
+
+        $("#Year").change(function () {
+
+            MDSDepartment();
+        });
+
+        var MDSDepartment = function () {
+            var dropdowntext = $("#Course option:selected").text();
+            if (dropdowntext == "MDS") {
+                $("#Department").show();
+                $("#BatchType").hide();
+                $("#CodeId").val(0);
+                $("#Batch").hide();
+            }
+            else {
+                var cyear = $("#Year option:selected").text();
+                if (cyear == "Fourth Year") {
+                    $("#Department").hide();
+                    $("#DeptId").val(0);
+                    $("#BatchType").show();
+                    $("#Batch").hide();
+                }
+                else {
+                    $("#Department").hide();
+                    $("#DeptId").val(0);
+                    $("#BatchType").hide();
+                    $("#Batch").hide();
+                }
+            }
+        }
+        MDSDepartment();
+
+    </script>
+}

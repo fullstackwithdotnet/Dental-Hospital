@@ -1,0 +1,92 @@
+﻿@model IEnumerable<DIMS.ViewModels.OMFSIPOperativeVitalsDetailsViewModel>
+
+@{
+    string modelName = ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix;
+    int index = 0;
+}
+@functions{
+    string GetId(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}]_{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+    string GetName(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}].{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+}
+
+ <div class="table-responsive">
+    <table id="tbVitalDetails" class="table table-bordered">
+        <tr>
+            <th class="hidden">
+                @Html.DisplayNameFor(model => model.VitalId)
+                @Html.DisplayNameFor(model => model.OMFSIpId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VitalDateDisplay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VitalTimeDisplay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pulse)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RespiratoryRate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Temperature)
+            </th>
+            <th>Action</th>
+            @{int i = 0;}
+        </tr>
+
+        @foreach (var item in Model)
+    {
+        i++;
+    <tr>
+        <td class="hidden">
+            @Html.TextBoxFor(modelItem => item.VitalId, new { @class = "col-sm-10 ", @id = GetId("VitalId", index), @Name = GetName("VitalId", index) })
+            @Html.TextBoxFor(modelItem => item.OMFSIpId, new { @class = "col-sm-10", @id = GetId("OMFSIpId", index), @Name = GetName("OMFSIpId", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VitalDateDisplay)
+            @Html.HiddenFor(modelItem => item.VitalDateDisplay, new { @class = "form-control iHidden", @id = GetId("VitalDateDisplay", index), @Name = GetName("VitalDateDisplay", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VitalTimeDisplay)
+            @Html.HiddenFor(modelItem => item.VitalTimeDisplay, new { @class = "form-control", @id = GetId("VitalTime", index), @Name = GetName("VitalTime", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Bp)
+            @Html.HiddenFor(modelItem => item.Bp, new { @class = "form-control", @id = GetId("Bp", index), @Name = GetName("Bp", index) })
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Pulse)
+            @Html.HiddenFor(modelItem => item.Pulse, new { @class = "form-control", @id = GetId("Pulse", index), @Name = GetName("Pulse", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RespiratoryRate)
+            @Html.HiddenFor(modelItem => item.RespiratoryRate, new { @class = "form-control", @id = GetId("RespiratoryRate", index), @Name = GetName("RespiratoryRate", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Temperature)
+            @Html.HiddenFor(modelItem => item.Temperature, new { @class = "form-control", @id = GetId("Temperature", index), @Name = GetName("Temperature", index) })
+        </td>
+        <td>
+            <button type="button" class="Vitalsdelete btn btn-danger btn-xs" data-id="@item.VitalId">
+                <i class="glyphicon glyphicon-trash"></i>
+            </button>
+        </td>
+    </tr>
+        index++;
+    }
+
+
+
+    </table>
+     </div>

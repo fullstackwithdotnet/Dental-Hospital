@@ -1,0 +1,109 @@
+﻿@model IEnumerable<DIMS.ViewModels.BillingQueueServiceViewModel>
+
+@{
+    string modelName = ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix;
+    int index = 0;
+}
+@functions{
+    string GetId(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}]_{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+    string GetName(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}].{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+}
+<div class="table-responsive">
+    <table id="tbInvestigationDetails" class="table">
+        <tr>
+
+            <th class="col-md-3">
+                @Html.DisplayNameFor(model => model.ServiceName)
+            </th>
+            <th class="col-md-2">
+                @Html.DisplayNameFor(model => model.TeethNo)
+            </th>
+            <th class="col-md-1">
+                @Html.DisplayNameFor(model => model.Rate)
+            </th>
+            <th class="col-md-1">
+                @Html.DisplayNameFor(model => model.Qty)
+            </th>
+            <th class="col-md-2">
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th class="col-md-1">
+                @Html.DisplayNameFor(model => model.DiscountPer)
+            </th>
+            <th class="col-md-2">
+                @Html.DisplayNameFor(model => model.NetAmount)
+            </th>
+
+
+        </tr>
+        @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+
+            @Html.HiddenFor(modelItem => item.ServiceId, new { @class = "form-control iHidden", @id = GetId("ServiceId", index), @Name = GetName("ServiceId", index) })
+            @Html.DisplayFor(modelItem => item.ServiceName)
+            @Html.HiddenFor(modelItem => item.ServiceName, new { @class = "form-control", @id = GetId("ServiceName", index), @Name = GetName("ServiceName", index) })
+            @Html.HiddenFor(modelItem => item.PatientId, new { @class = "form-control", @id = GetId("PatientId", index), @Name = GetName("PatientId", index) })
+            @Html.HiddenFor(modelItem => item.BillQueueId, new { @class = "form-control", @id = GetId("BillQueueId", index), @Name = GetName("BillQueueId", index) })
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TeethNo)
+            @Html.HiddenFor(modelItem => item.TeethNo, new { @class = "form-control", @id = GetId("TeethNo", index), @Name = GetName("TeethNo", index) })
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rate)
+            @Html.HiddenFor(modelItem => item.Rate, new { @class = "form-control", @id = GetId("Rate", index), @Name = GetName("Rate", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Qty)
+            @Html.HiddenFor(modelItem => item.Qty, new { @class = "form-control js_sumQty", @id = GetId("Qty", index), @Name = GetName("Qty", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Amount)
+            @Html.HiddenFor(modelItem => item.Amount, new { @class = "form-control js_sumAmount", @id = GetId("Amount", index), @Name = GetName("Amount", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiscountPer)
+            @Html.HiddenFor(modelItem => item.DiscountPer, new { @class = "form-control", @id = GetId("DiscountPer", index), @Name = GetName("DiscountPer", index) })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NetAmount)
+            @Html.HiddenFor(modelItem => item.NetAmount, new { @class = "form-control js_sumNetAmount", @id = GetId("NetAmount", index), @Name = GetName("NetAmount", index) })
+        </td>
+
+        <td>
+            <button type="button" class="Investigationdelete btn btn-danger btn-xs" data-id="@item.BillQueueId">
+                <i class="glyphicon glyphicon-trash"></i>
+            </button>
+        </td>
+    </tr>
+        index++;
+    }
+        <tfoot>
+            <tr>
+                <td class="col-md-3"></td>
+                <td class="col-md-2"></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-1">
+                    <input type="text" class="form-control" readonly="readonly" id="TotalQty">
+                </td>
+                <td class="col-md-2">
+                    <input type="text" class="form-control" readonly="readonly" id="TotalAmount">
+                </td>
+                <td class="col-md-1"></td>
+                <td class="col-md-2">
+                    <input type="text" class="form-control" readonly="readonly" id="TotalNetAmount">
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    </div>

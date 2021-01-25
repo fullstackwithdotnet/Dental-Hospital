@@ -1,0 +1,39 @@
+﻿@model DIMS.ViewModels.DeptHomeViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+@functions
+{
+    public string GetUrl()
+    {
+        var user = User as DIMS.Infrastructure.CustomPrincipal;
+        return user.GetRootUrl();
+    }
+}
+
+<h4>Oral Medicine and Radiology Allotment List</h4>
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.Partial("../Home/_AllotmentIndex", Model)
+            </div>
+        </div>
+    </div>
+}
+@Html.Partial("../StudentAllotment/_CreateAllotment")
+
+@section scripts {
+<script src="~/Scripts/helptext.js"></script>
+    <script type="text/javascript">
+        var showModel = function (patientId, referredId) {
+            
+            var url = "@GetUrl()/OMR/Allotment?PatientId=" + patientId + "&ReferredId=" + referredId + "";
+            $("#myModelBodyDiv").load(url, function () {
+                $("#myModel").modal("show");
+            })
+        }          
+    </script>
+}

@@ -1,0 +1,983 @@
+﻿@using Metron.Entities
+@model DIMS.ViewModels.PROSRPDViewModel
+
+@functions{
+    public string GetClassFromProperties(string propertyName)
+    {
+        var props = Model.Proplist.FirstOrDefault<PROSRPDCasesheetProperties>(x => x.PropertyName == propertyName);
+
+        if (props != null && props.PropertyVisibility == "N")
+        {
+            return "display:none";
+        }
+
+        return "";
+    }
+}
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default collapsed-box">
+            <div class="box-header with-border">
+                <h3 class="box-title">EXTRAORAL EXAMINATION </h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="col-md-6">
+                    <h5 class="subHeading1">Skin</h5>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.SkinComplexion, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.SkinComplexion, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <h5 class="subHeading1">Face</h5>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.Form, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.Form, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.Profile, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.Profile, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.Symmetry, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.Symmetry, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.VerticalFaceHeightId, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8 dropdown">
+                                @Html.DropDownListFor(model => model.VerticalFaceHeightId, new SelectList(Model.VerticalFaceHeightList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="subHeading1">Lips</h5>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.Length, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.Length, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.Thickness, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.Thickness, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.Mobility, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.Mobility, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.Support, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.Support, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.Commissure, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.Commissure, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.Others, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextAreaFor(model => model.Others, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.TMJ, new { @class = "control-label col-md-1" })
+                            <div class="col-md-3">
+                                @Html.TextAreaFor(model => model.TMJ, new { @class = "form-control" })
+                            </div>
+                            @Html.LabelFor(model => model.NeuromuscularCoordi, new { @class = "control-label col-md-1" })
+                            <div class="col-md-3">
+                                @Html.TextAreaFor(model => model.NeuromuscularCoordi, new { @class = "form-control" })
+                            </div>
+                            @Html.LabelFor(model => model.Speech, new { @class = "control-label col-md-1" })
+                            <div class="col-md-3">
+                                @Html.TextAreaFor(model => model.Speech, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default collapsed-box">
+            <div class="box-header with-border">
+                <h3 class="box-title">INTRAORAL EXAMINATION </h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="col-md-12">
+                    <div class="row">
+                        <h5 class="subHeading1">Abbreviations</h5>
+                        <input type="text" id="txtSampleAbbreviation" class="hidden" />
+                        <div class="js_Abbr">
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        <button type="button" style="background-color: mediumslateblue; width: 70%" data-id="X" class="btn btn-xs">X-Missing</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" style="background-color: deepskyblue; width: 70%" data-id="Ex" class="btn btn-xs">Ex-Extrusion</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" style="background-color: deepskyblue; width: 70%" data-id="Mo" class="btn btn-xs">Mo-Mobillity</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" style="background-color: deepskyblue; width: 70%" data-id="Ab" class="btn btn-xs">Ab-Abrasion</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        <button type="button" style="background-color: orange; width: 70%" data-id="At" class="btn btn-xs">At-Attrition</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" style="background-color: pink; width: 70%" data-id="Gr" class="btn btn-xs">Gr-Gingival Recession</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" style="background-color: orange; width: 70%" data-id="Rc" class="btn btn-xs">Rc-RCT</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" style="background-color: pink; width: 70%" data-id="C" class="btn btn-xs">C-Caries</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        <button type="button" style="background-color: mediumturquoise; width: 70%" data-id="Dis" class="btn btn-xs">Dis-Discoloration</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" style="background-color: darkkhaki; width: 70%" data-id="Ma" class="btn btn-xs">Ma-Malposition</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" style="background-color: yellowgreen; width: 70%" data-id="Se" class="btn btn-xs">Se-Sensitive</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" style="background-color: yellowgreen; width: 70%" data-id="Er" class="btn btn-xs">Er-Erosion</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        <button type="button" style="background-color: green; width: 70%; " data-id="Fr" class="btn btn-xs">Fr-Fracture</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" style="background-color: LIGHTCORAL; width: 70%" data-id="Po" class="btn btn-xs">Po-Pockets</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" style="background-color: green; width: 70%" data-id="Hy" class="btn btn-xs">Hy-HypoPlasia</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" style="background-color: LIGHTCORAL; width: 70%; " data-id="Re" class="btn btn-xs">Re-Restorations</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        <button type="button" style="background-color: LIGHTCORAL; width: 70%; " data-id="Mi" class="btn btn-xs">Mi-Migration</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" style="background-color: LIGHTCORAL; width: 70%; " data-id="Nv" class="btn btn-xs">Nv-Non-Vital</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" style="width: 100px" data-id="" class="btn btn-xs">Clear</button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        @Html.TextBoxFor(x => x.AbbreviationOthers, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h5 class="subHeading">Permanent Dentition</h5>
+                        <div class="row js_Teeth">
+                            <div class="panel-body">
+                                <table class="table no-border">
+                                    <tr>
+                                        <th class="text-center">
+                                            <center><img src="~/Content/Images/TeethImages/18.png" class="img-responsive" alt="18" /></center>
+                                        </th>
+                                        <th class="text-center">
+                                            <center>
+                                                <img src="~/Content/Images/TeethImages/17.png" class="img-responsive" alt="17" />
+                                            </center>
+                                        </th>
+                                        <th class="text-center">
+                                            <center>
+                                                <img src="~/Content/Images/TeethImages/16.png" class="img-responsive" alt="16" />
+                                            </center>
+
+                                        </th>
+                                        <th class="text-center">
+                                            <center>
+                                                <img src="~/Content/Images/TeethImages/15.png" class="img-responsive" alt="15" />
+                                            </center>
+
+                                        </th>
+                                        <th class="text-center">
+                                            <center>
+                                                <img src="~/Content/Images/TeethImages/14.png" class="img-responsive" alt="14" />
+                                            </center>
+
+                                        </th>
+                                        <th class="text-center">
+                                            <center>
+                                                <img src="~/Content/Images/TeethImages/13.png" class="img-responsive" alt="13" />
+                                            </center>
+
+                                        </th>
+                                        <th class="text-center">
+                                            <center>
+                                                <img src="~/Content/Images/TeethImages/12.png" class="img-responsive" alt="12" />
+                                            </center>
+
+                                        </th>
+                                        <th class="text-center">
+                                            <center>
+                                                <img src="~/Content/Images/TeethImages/11.png" class="img-responsive" alt="11" />
+                                            </center>
+
+                                        </th>
+                                        <th class="text-center">
+                                            <center>
+                                                <img src="~/Content/Images/TeethImages/21.png" class="img-responsive" alt="21" />
+                                            </center>
+
+                                        </th>
+                                        <th class="text-center">
+                                            <center>
+                                                <img src="~/Content/Images/TeethImages/22.png" class="img-responsive" alt="22" />
+                                            </center>
+
+                                        </th>
+                                        <th class="text-center">
+                                            <center>
+                                                <img src="~/Content/Images/TeethImages/23.png" class="img-responsive" alt="23" />
+                                            </center>
+
+                                        </th>
+                                        <th class="text-center">
+                                            <center>
+                                                <img src="~/Content/Images/TeethImages/24.png" class="img-responsive" alt="24" />
+                                            </center>
+
+                                        </th>
+                                        <th class="text-center">
+                                            <center>
+                                                <img src="~/Content/Images/TeethImages/25.png" class="img-responsive" alt="25" />
+                                            </center>
+
+                                        </th>
+                                        <th class="text-center">
+                                            <center>
+                                                <img src="~/Content/Images/TeethImages/26.png" class="img-responsive" alt="26" />
+                                            </center>
+
+                                        </th>
+                                        <th class="text-center">
+                                            <center>
+                                                <img src="~/Content/Images/TeethImages/27.png" class="img-responsive" alt="27" />
+                                            </center>
+
+                                        </th>
+                                        <th class="text-center">
+                                            <center>
+                                                <img src="~/Content/Images/TeethImages/28.png" class="img-responsive" alt="28" />
+                                            </center>
+
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T18)
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T17)
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T16)
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T15)
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T14)
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T13)
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T12)
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T11)
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T21)
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T22)
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T23)
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T24)
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T25)
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T26)
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T27)
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T28)
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T18, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T17, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T16, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T15, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T14, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T13, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T12, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T11, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T21, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T22, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T23, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T24, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T25, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T26, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T27, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T28, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T48, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T47, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T46, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T45, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T44, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T43, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T42, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T41, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T31, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T32, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T33, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T34, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T35, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T36, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T37, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.TextAreaFor(x => x.T38, new { @class = "form-control abbreviations", @readonly = "readonly" })
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T48)
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T47)
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T46)
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T45)
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T44)
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T43)
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T42)
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T41)
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T31)
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T32)
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T33)
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T34)
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T35)
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T36)
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T37)
+                                        </th>
+                                        <th class="text-center">
+                                            @Html.LabelFor(x => x.T38)
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center">
+                                            <center>
+                                                <img src="~/Content/Images/TeethImages/48.png" class="img-responsive" alt="48" />
+                                            </center>
+
+                                        </th>
+                                        <th class="text-center">
+                                            <center>
+                                                <img src="~/Content/Images/TeethImages/47.png" class="img-responsive" alt="47" />
+                                            </center>
+
+                                        </th>
+                                        <th class="text-center">
+                                            <center>
+                                                <img src="~/Content/Images/TeethImages/46.png" class="img-responsive" alt="46" />
+                                            </center>
+
+                                        </th>
+                                        <th class="text-center">
+                                            <center>
+                                                <img src="~/Content/Images/TeethImages/45.png" class="img-responsive" alt="45" />
+                                            </center>
+
+                                        </th>
+                                        <th class="text-center">
+                                            <center>
+                                                <img src="~/Content/Images/TeethImages/44.png" class="img-responsive" alt="44" />
+                                            </center>
+
+                                        </th>
+                                        <th class="text-center">
+                                            <center>
+                                                <img src="~/Content/Images/TeethImages/43.png" class="img-responsive" alt="43" />
+                                            </center>
+
+                                        </th>
+                                        <th class="text-center">
+                                            <center>
+                                                <img src="~/Content/Images/TeethImages/42.png" class="img-responsive" alt="42" />
+                                            </center>
+
+                                        </th>
+                                        <th class="text-center">
+                                            <center>
+                                                <img src="~/Content/Images/TeethImages/41.png" class="img-responsive" alt="41" />
+                                            </center>
+
+                                        </th>
+                                        <th class="text-center">
+                                            <center>
+                                                <img src="~/Content/Images/TeethImages/31.png" class="img-responsive" alt="31" />
+                                            </center>
+
+                                        </th>
+                                        <th class="text-center">
+                                            <center>
+                                                <img src="~/Content/Images/TeethImages/32.png" class="img-responsive" alt="32" />
+                                            </center>
+
+                                        </th>
+                                        <th class="text-center">
+                                            <center>
+                                                <img src="~/Content/Images/TeethImages/33.png" class="img-responsive" alt="33" />
+                                            </center>
+
+                                        </th>
+                                        <th class="text-center">
+                                            <center>
+                                                <img src="~/Content/Images/TeethImages/34.png" class="img-responsive" alt="34" />
+                                            </center>
+
+                                        </th>
+                                        <th class="text-center">
+                                            <center>
+                                                <img src="~/Content/Images/TeethImages/35.png" class="img-responsive" alt="35" />
+                                            </center>
+
+                                        </th>
+                                        <th class="text-center">
+                                            <center>
+                                                <img src="~/Content/Images/TeethImages/36.png" class="img-responsive" alt="36" />
+                                            </center>
+
+                                        </th>
+                                        <th class="text-center">
+                                            <center>
+                                                <img src="~/Content/Images/TeethImages/37.png" class="img-responsive" alt="37" />
+                                            </center>
+
+                                        </th>
+                                        <th class="text-center">
+                                            <center>
+                                                <img src="~/Content/Images/TeethImages/38.png" class="img-responsive" alt="38" />
+                                            </center>
+
+                                        </th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.KennedyClassification, new { @class = "control-label col-md-1" })
+                            <div class="col-md-3">
+                                @Html.TextAreaFor(model => model.KennedyClassification, new { @class = "form-control" })
+                            </div>
+                            @Html.LabelFor(model => model.KennedyCModificationSpace, new { @class = "control-label col-md-1" })
+                            <div class="col-md-3">
+                                @Html.TextAreaFor(model => model.KennedyCModificationSpace, new { @class = "form-control" })
+                            </div>
+                            @Html.LabelFor(model => model.FurcationInvolve, new { @class = "control-label col-md-1" })
+                            <div class="col-md-3">
+                                @Html.TextAreaFor(model => model.FurcationInvolve, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default collapsed-box">
+            <div class="box-header with-border">
+                <h3 class="box-title">OCCLUSION </h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.GeneralAlignmentId, new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8 dropdown">
+                                        @Html.DropDownListFor(model => model.GeneralAlignmentId, new SelectList(Model.GeneralAlignmentList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.VerticalOverlap, new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.VerticalOverlap, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.HorizontalOverlap, new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.HorizontalOverlap, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.TypeOfOcclusionId, new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8 dropdown">
+                                        @Html.DropDownListFor(model => model.TypeOfOcclusionId, new SelectList(Model.TypeOfOcclusionList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.AnyProtrusiveInter, new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.AnyProtrusiveInter, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.AnyWorkingSideInter, new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.AnyWorkingSideInter, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.BalancingSideContacts, new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.BalancingSideContacts, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.SlideInCentricId, new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8 dropdown">
+                                        @Html.DropDownListFor(model => model.SlideInCentricId, new SelectList(Model.SlideInCentricList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default collapsed-box">
+            <div class="box-header with-border">
+                <h3 class="box-title">EVALUATION OF ORAL MUCOSA</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(model => model.EvalutationOfOral, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.EvalutationOfOral, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(model => model.ColorOfMucosaId, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8 dropdown">
+                                    @Html.DropDownListFor(model => model.ColorOfMucosaId, new SelectList(Model.ColorOfMucosaList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(model => model.AnyPathologicChangesId, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8 dropdown">
+                                    @Html.DropDownListFor(model => model.AnyPathologicChangesId, new SelectList(Model.AnyPathologicChangesList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(model => model.TissueReaToWearId, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8 dropdown">
+                                    @Html.DropDownListFor(model => model.TissueReaToWearId, new SelectList(Model.TissueReaToWearList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default collapsed-box">
+            <div class="box-header with-border">
+                <h3 class="box-title">EXAMINATION OF RESIDUAL RIDGE </h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 class="subHeading1">Shape</h5>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(model => model.UpperId, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8 dropdown">
+                                    @Html.DropDownListFor(model => model.UpperId, new SelectList(Model.UpperList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(model => model.LowerId, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8 dropdown">
+                                    @Html.DropDownListFor(model => model.LowerId, new SelectList(Model.LowerList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(model => model.AnyUndercut, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.AnyUndercut, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(model => model.AnyTorusPalatinusId, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8 dropdown">
+                                    @Html.DropDownListFor(model => model.AnyTorusPalatinusId, new SelectList(Model.AnyTorusPalatinusList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(model => model.RidgeDistanceId, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8 dropdown">
+                                    @Html.DropDownListFor(model => model.RidgeDistanceId, new SelectList(Model.RidgeDistanceList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(model => model.AnyHighMuscleAtt, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.AnyHighMuscleAtt, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(model => model.EvalSalivaQuality, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8 dropdown">
+                                    @Html.DropDownListFor(model => model.EvalSalivaQualityId, new SelectList(Model.EvalSalivaQualityList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(model => model.EvalSalivaQuantity, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8 dropdown">
+                                    @Html.DropDownListFor(model => model.EvalSalivaQuantityId, new SelectList(Model.EvalSalivaQuantityList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(model => model.SpaceForMandibularId, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8 dropdown">
+                                    @Html.DropDownListFor(model => model.SpaceForMandibularId, new SelectList(Model.SpaceForMandibularList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="subHeading1">Abutment Evalutaion</h5>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(model => model.Gingiva, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.Gingiva, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(model => model.SulcusPocketDepth, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.SulcusPocketDepth, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(model => model.AttachedGingiva, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.AttachedGingiva, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(model => model.DentalCaries, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.DentalCaries, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(model => model.Restoration, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.Restoration, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(model => model.CrownRootRatio, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.CrownRootRatio, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(model => model.RootAngulation, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.RootAngulation, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

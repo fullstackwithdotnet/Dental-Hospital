@@ -1,0 +1,52 @@
+﻿@model IEnumerable<DIMS.ViewModels.PatientSearchViewModal>
+
+@{
+    ViewBag.Title = "Patient list";
+}
+
+<h4>Patient list</h4>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.OPNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Age)
+        </th>        
+        <th>
+            @Html.DisplayNameFor(model => model.RegDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.HiddenFor(modelItem => item.PatientId)
+            @Html.DisplayFor(modelItem => item.OPNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Age)
+        </td>        
+        <td>
+            @Html.DisplayFor(modelItem => item.RegDate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PatientId}) |
+            @Html.ActionLink("Details", "Details", new { id = item.PatientId }) 
+           
+        </td>
+    </tr>
+}
+
+</table>

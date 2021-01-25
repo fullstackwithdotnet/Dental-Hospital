@@ -1,0 +1,220 @@
+﻿@model DIMS.ViewModels.BillingServicesViewModal
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true)
+
+        <div class="box box-default box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title"> Billing Services</h3>
+            </div>
+            <div class="box-body">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.DeptId, new { @class = " control-label col-md-4" })
+                            <div class="col-md-8 dropdown">
+                                @Html.DropDownListFor(model => model.DeptId, new SelectList(Model.DepartmentList, "DeptId", "DeptName"), "Select", htmlAttributes: new { @class = "form-control col-md-2", @disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.ServiceCode, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.ServiceCode, new { @class = "form-control", @disabled = "disabled" })
+                                @Html.ValidationMessageFor(model => model.ServiceCode)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.Service, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.ServiceName, new { @class = "form-control ", @maxLength = "100" })
+                                @Html.ValidationMessageFor(model => model.Service)
+                            </div>
+                        </div>
+                    </div>
+                    <div id="GroupView" class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.GroupId, new { @class = " control-label col-md-4" })
+                            <div class="col-md-8 dropdown">
+                                @Html.DropDownListFor(model => model.GroupId, Model.GroupList, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.ServiceAmount, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.ServiceAmount, new { @class = "form-control OnlyNumber", @maxLength = "5" })
+                                @Html.ValidationMessageFor(model => model.ServiceAmount)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(model => model.HSNSACCode, new { @class = "control-label col-md-4" })
+                            <div class="col-md-7">
+                                @Html.TextBoxFor(model => model.HSNSACCode, new { @class = "form-control ", @maxLength = "10" })
+                                @Html.ValidationMessageFor(model => model.HSNSACCode)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-group-sm hidden">
+                            @Html.LabelFor(model => model.GSTPercentage, new { @class = "control-label col-md-4" })
+                            <div class="col-md-7">
+                                @Html.TextBoxFor(model => model.GSTPercentage, new { @class = "form-control OnlyNumber", @maxLength = "2" })
+                                @Html.ValidationMessageFor(model => model.GSTPercentage)
+
+                            </div>
+                            <div class="col-md-1">
+                                <div><span style="color:red">(%)</span></div>
+                            </div>
+
+                        </div>
+                        @Html.HiddenFor(model => model.Radio)
+                        @Html.HiddenFor(model => model.Lab)
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group form-group-sm">
+                        <div>
+                            <center>
+                                <input type="submit" value="Update" class="fa fa-update btn btn-success" />
+                            </center>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group form-group-sm">
+                        <div class="table-responsive">
+                            <table id="tbServiceSearch" class="table table-bordered table-hover" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-1">SERVICE CODE </th>
+                                        <th class="col-md-3">SERVICE NAME</th>
+                                        <th class="col-md-2">GROUP</th>
+                                        <th class="col-md-2">AMOUNT</th>
+                                        <th class="col-md-1">GST %</th>
+                                        <th class="col-md-1">DEPARTMENT</th>
+                                        <th class="col-md-1">#</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@section scripts {
+    <script type="text/jscript">
+
+        $(document).ready(function () {
+            $('#GroupView').hide();
+
+            $("#DeptId").change(function () {
+                Searchvalue();
+                showGroup();
+            });
+            var showGroup = function () {
+
+                var $DeptId = $('#DeptId').val();
+                var $Radio = $('#Radio').val();
+                var $Lab = $('#Lab').val();
+                //if (($Radio == $DeptId) || ($Lab == $DeptId)) {
+                //    $('#GroupView').show();
+                //}
+                //else {
+                //    $('#GroupView').hide();
+                //}
+                $('#GroupView').show();
+            }
+            var Searchvalue = function () {
+                var $DeptId = $('#DeptId').val();
+                $('#tbServiceSearch tbody').empty();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetServiceDetailsById", "BillingServices")',
+                    data: '{DeptId: "' + $DeptId + ' "}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        table = $('#tbServiceSearch').DataTable();
+                        table.destroy();
+                        $('#tbServiceSearch').dataTable({
+                            data: data.ServicesList,
+                            columns: [
+                                { 'data': 'ServiceCode' },
+                                { 'data': 'ServiceName' },
+                                { 'data': 'GroupName' },
+                                { 'data': 'ServiceAmount' },
+                                { 'data': 'GSTPercentage' },
+                                { 'data': 'DeptCode' },
+                                {
+                                    "title": "#",
+                                    "className": '',
+                                    "render": function (param1, param2, param3) {
+                                        return '<a class="btn-xs btn-danger glyphicon glyphicon-trash deleteService" href="/BillingServices/DeleteService/" data-attr-id="' + param3.ServiceId+'"></a>';
+                                    }
+                                },
+                            ],
+                            "dom": "Bfrtip",
+                            "buttons": ['Copy', 'excel', 'pdf', 'csv', 'print']
+
+                        })
+                    },
+                })
+            }
+            Searchvalue();
+            showGroup();
+
+            $(document).on('click', 'a.deleteService', function (e) {
+                deleteService($(this).attr('href'), $(this).attr('data-attr-id'));
+                return false;
+            });
+        });
+
+        function deleteService(url, id) {
+            $.ajax({
+               type: "POST",
+                contentType: "application/json; charset=utf-8",
+
+                url: url,
+                data: JSON.stringify({ ServiceId: id }),
+                success: function (data) {
+                    if (data.Success) {
+                        location.reload();
+                    }
+                },
+                error: function (xhr, err) {
+                    //alert("readyState: " + xhr.readyState + "\nstatus: " + xhr.status);
+                    //alert("responseText: " + xhr.responseText);
+                }
+            });
+        }
+    </script>
+}

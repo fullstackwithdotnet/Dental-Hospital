@@ -1,0 +1,242 @@
+﻿@using Metron.Entities
+@model DIMS.ViewModels.PROSDIMViewModel
+@functions{
+    public string GetClassFromProperties(string propertyName)
+    {
+        var props = Model.Proplist.FirstOrDefault<PROSDIMCasesheetProperties>(x => x.PropertyName == propertyName);
+
+        if (props != null && props.PropertyVisibility == "N")
+        {
+            return "display:none";
+        }
+
+        return "";
+    }
+}
+
+<div class="form-horizontal">
+    @Html.ValidationSummary(true)
+
+    <h5 class="subHeading">PHASE I-ETIOTROPHIC PHASE</h5>
+    <div id="divPhase1Therapy">
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(model => model.EtioTrophicPhase, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(x => x.Phase1Therapy, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="divFirstStage">
+        <h5 class="subHeading">PHASE II -SURGICAL PHASE</h5>
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(model => model.SurgicalPhase, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(x => x.FirstStage, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="divOsseousGrafting">
+        <h5 class="subHeading1">Pre-implant reconstructive surgery</h5>
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(model => model.OsseousGrafting, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(x => x.OsseousGrafting, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="divSoftTissueGrafting">
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(model => model.SoftTissueGrafting, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(x => x.SoftTissueGrafting, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <h5 class="subHeading1">Implant Surgery</h5>
+    <div id="divImplantDetails">
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(model => model.ImplantDetails, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(x => x.ImplantDetails, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="divSoftTissueGrafting">
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(model => model.SystemUsed, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(x => x.Type, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="divFirstStage">
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(model => model.SingleStage, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(x => x.FirstStage, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="divSecondStage">
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(model => model.TwoStage, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(x => x.SecondStage, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <h5 class="subHeading1">Dimension</h5>
+    <div id="divLength">
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(model => model.Length, new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.TextBoxFor(x => x.Length, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="divDiameter">
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(model => model.Diameter, new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.TextBoxFor(x => x.Diameter, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="divDiameter">
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(model => model.Flaps, new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.TextBoxFor(x => x.Flaps, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="divDiameter">
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(model => model.MucosalExtension, new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.TextBoxFor(x => x.MucosalExtension, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="divDiameter">
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(model => model.InitialLoading, new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.TextBoxFor(x => x.InitialLoading, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <h5 class="subHeading">PHASE III-Prosthodontics Phase</h5>
+
+
+    <div id="divTemporizationId">
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(model => model.TemporizationId, new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.DropDownListFor(model => model.TemporizationId, new SelectList(Model.TemporizationList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="divLoadingId">
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(model => model.LoadingId, new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.DropDownListFor(model => model.LoadingId, new SelectList(Model.LoadingList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <h5 class="subHeading1">Abutment Preparation</h5>
+    <div id="divAbutmentTypeId">
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(model => model.AbutmentTypeId, new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.DropDownListFor(model => model.AbutmentTypeId, new SelectList(Model.AbutmentTypeList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="divTypeOfImpression">
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(model => model.Impression, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(x => x.TypeOfImpression, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="divTrayTypeId">
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(model => model.TrayTypeId, new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.DropDownListFor(model => model.TrayTypeId, new SelectList(Model.TrayTypeList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="divImpressionTypeId">
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(model => model.ImpressionTypeId, new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.DropDownListFor(model => model.ImpressionTypeId, new SelectList(Model.ImpressionTypeList, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="divDelivery">
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(model => model.Delivery, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(x => x.Delivery, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

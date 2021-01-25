@@ -1,0 +1,50 @@
+﻿@model IEnumerable<DIMS.ViewModels.ORPATHRequisitionViewModel>
+
+<table class="table">
+    <tr>
+        <th>
+
+        </th>
+        <th class="col-md-1">
+            @Html.DisplayNameFor(model => model.RequisitionDateDisplay)
+        </th>
+        <th class="col-md-1">
+            @Html.DisplayNameFor(model => model.DeptName)
+        </th>
+        <th class="col-md-4">
+            @Html.DisplayNameFor(model => model.MicroBiologyChiefComplaint)
+        </th>
+        <th class="col-md-5">
+            @Html.DisplayNameFor(model => model.BiopsyChiefComplaint)
+        </th>
+        <th class="col-md-1">
+        </th>
+    </tr>
+    @{int i = 0;}
+    @foreach (var item in Model)
+    {
+        i++;
+        <tr>
+            <td>
+                <span>@i</span>
+            </td>
+            <td>
+                @Html.HiddenFor(modelItem => item.PatientId)
+                @Html.DisplayFor(modelItem => item.RequisitionDateDisplay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeptName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MChiefComplaint)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BChiefComplaint)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { allotId = item.AllotId,  id = item.RequisitionId })  
+            </td>
+        </tr>
+    }
+
+</table>

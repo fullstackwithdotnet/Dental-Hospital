@@ -1,0 +1,107 @@
+﻿@model DIMS.ViewModels.UserViewModel
+
+@{
+    ViewBag.Title = "User List";
+}
+               
+
+<div class="row">
+    <div class="col-md-10">
+        @Html.ActionLink("Create New", "Create")
+    </div>
+    @*@if (Model.SuperAdminId == (int)DIMS.Enums.SuperAdmin.superadmin)
+    {
+         <div id="DCardEnable" class="col-md-2 pull-right">
+            @Html.ActionLink("Configuration", "ConfigurationDetails", "Configuration")
+        </div>
+    }*@
+</div>
+
+
+<div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title">Users List</h3>
+    </div>
+    <div class="box-body">
+
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <td>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.DeptName, new { @class = "control-label" })
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group form-group-sm">
+                            @Html.DropDownListFor(model => model.DeptId, new SelectList(Model.DepartmentList, "DeptId", "DeptName"), "Select", htmlAttributes: new { @class = "form-control col-md-4" })
+
+                        </div>
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+        <div class="table-responsive">
+            <table id="tblUserSearch" class="table table-bordered table-hover" style="width:100%">
+                <thead>
+                    <tr>
+                        <th class="col-md-3">USER NAME</th>
+                        <th class="col-md-1">ROLE</th>
+                        <th class="col-md-7">NAME</th>
+                        <th class="col-md-1"></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+@section scripts {
+    <script type="text/jscript">
+
+        $(document).ready(function () {
+            $("#DeptId").change(function () {
+                
+                Searchvalue();
+            });
+
+            var Searchvalue = function () {
+                var $DeptId = $('#DeptId').val();
+                $('#tblUserSearch tbody').empty();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetUserDetailsById", "User")',
+                    data: '{DeptId: "' + $DeptId + ' "}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        table = $('#tblUserSearch').DataTable();
+                        table.destroy();
+                        $('#tblUserSearch').dataTable({
+                            data: data,
+                            columns: [
+
+                                { 'data': 'UserName' },
+                                { 'data': 'RoleName' },
+                                { 'data': 'Name' },
+                                {
+                                    'data': 'Link',
+                                    'searchable': false,
+                                    'sortable': false,
+                                    'render': function (Link) {
+                                        return '<a href=' + Link + '>Edit</a>';
+                                    }
+                                },
+                            ]
+                        })
+                    },
+                })
+            }
+            Searchvalue();
+        });
+    </script>
+}

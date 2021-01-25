@@ -1,0 +1,208 @@
+﻿ @model DIMS.ViewModels.OPDFollowupSearchViewModel
+
+
+@functions
+{
+    public string GetUrl()
+    {
+        var user = User as DIMS.Infrastructure.CustomPrincipal;
+        return user.GetRootUrl();
+    }
+}
+<div class="box-header with-border">
+    <h3 class="box-title">@Html.DisplayFor(x => x.DeptName)  Appointment List</h3>
+</div>
+
+<div class="row">
+    @*<div class="col-md-12">
+            <div class="col-md-2 form-group form-group-sm">
+                @Html.LabelFor(x => x.From_Date, new { @class = "control-label" })
+            </div>
+            <div class="col-md-3 form-group form-group-sm">
+                @Html.EditorFor(model => model.From_Date, new { htmlAttributes = new { Value = Model.From_Date.ToString("yyyy-MM-dd") } })
+            </div>
+            <div class="col-md-2 form-group form-group-sm">
+                @Html.LabelFor(x => x.To_Date, new { @class = "control-label" })
+            </div>
+            <div class="col-md-3 form-group form-group-sm">
+                @Html.EditorFor(model => model.To_Date, new { htmlAttributes = new { Value = Model.From_Date.ToString("yyyy-MM-dd") } })
+                @Html.HiddenFor(model => model.DeptId)
+                @Html.HiddenFor(model => model.ControllerName)
+            </div>
+            <div class="col-md-2 form-group form-group-sm">
+                <a id="btnSearchReferral"> <i class="fa fa-search fa fa-search btn btn-success"> Search </i></a>
+            </div>
+        </div>*@
+
+    <div class="col-md-12">
+        <div class="col-md-2 form-group form-group-sm">
+            @Html.LabelFor(x => x.DateRange, new { @class = "control-label" })
+        </div>
+        <div class="col-md-3 form-group form-group-sm">
+            @Html.EditorFor(model => model.DateRange, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+        <div class="col-md-7 form-group form-group-sm">
+            @Html.HiddenFor(x => x.AccessYN)
+            @Html.HiddenFor(x => x.DeptId)
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">Allotment</h3>
+            </div>
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table id="tbOPDFollowupSearch" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="col-md-1">DATE </th>
+                                <th class="col-md-1">TIME</th>
+                                <th class="col-md-1">OP #</th>
+                                <th class="col-md-2">PATIENT NAME</th>
+                                <th class="col-md-1">AGE</th>
+                                <th class="col-md-1">PHONE</th>
+                                <th class="col-md-1">GENDER</th>
+                                <th class="col-md-1">PHONE</th>
+                                <th class="col-md-2">REASON</th>
+                                <th class="col-md-1">REVISIT</th>
+                                <th class="col-md-1">RESCHEDULE</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" style="width:90%;margin-top:2%">
+    <div class="modal fade" id="myModelReschedule">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width:120%">
+                <div class="modal-header">
+                    <a class="close" data-dismiss="modal">&times;</a>
+                    <h3 class="modal-title">Reschedule</h3>
+                </div>
+                <div class="modal-body" id="myModelBodyRescheduleDiv">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section scripts {
+    <script type="text/jscript">
+
+        var showReschedue = function (FollowupId, DeptId) {
+            var url = "@GetUrl()/OPDRevisitRegistration/RescheduleCreate?FollowupId=" + FollowupId + "&DeptId=" + DeptId + "";
+            $("#myModelBodyRescheduleDiv").load(url, function () {
+                $("#myModelReschedule").modal("show");
+            })
+        }
+
+
+        $(document).ready(function () {
+            var start = moment();
+            var end = moment();
+            $('#DateRange').daterangepicker({
+                startDate: start,
+                endDate: end,
+                locale: {
+                    format: 'DD/MM/YYYY'
+                },
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                }
+            }, cb);
+            function cb(start, end) {
+                $('#DateRange span').html(start.format('YYYY/MM/DD') + ' - ' + end.format('YYYY/MM/DD'));
+            }
+            cb(start, end);
+
+
+
+            var Searchvalue = function () {
+                var itemIndex = $("#tbOPDFollowupSearch input.iHidden").length;
+                $('#tbOPDFollowupSearch tbody').empty();
+                var selected = $("#DateRange").val();
+                var from = selected.split("-");
+                var fromdate = $.trim(from[0]);
+                var todate = $.trim(from[1]);
+
+                var $From_Date = fromdate.split("/").reverse().join("-");
+                var $To_Date = todate.split("/").reverse().join("-");
+
+                //var $From_Date = $("#From_Date").val();
+                //var $To_Date = $("#To_Date").val();
+
+                var $DeptId = $("#DeptId").val();
+                var $Access = $("#AccessYN").val();
+                
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetOPDFollowupByDeptSearchList", "OPDRevisitRegistration")',
+                    data: '{From_Date: "' + $From_Date + ' ",To_Date: "' + $To_Date + ' ",DeptId: "' + $DeptId + ' "}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        table = $('#tbOPDFollowupSearch').DataTable();
+                        table.destroy();
+                        $('#tbOPDFollowupSearch').dataTable({
+                            data: data,
+                            columns: [
+                                { 'data': 'FollowupDate' },
+                                { 'data': 'FollowupTime' },
+                                { 'data': 'OPNo' },
+                                { 'data': 'PatientName' },
+                                { 'data': 'Age' },
+                                { 'data': 'Phone' },
+                                { 'data': 'Gender'},
+                                { 'data': 'Phone' },
+                                { 'data': 'FollowupReason' },
+                                {
+                                    'data': 'Revisit',
+                                    'searchable': false,
+                                    'sortable': false,
+                                    'render': function (Revisit) {
+                                        return '<a href=' + Revisit + '>Revisit</a>';
+                                    }
+                                },
+                                 {
+                                     'data': 'Reschedule',
+                                     'searchable': false,
+                                     'sortable': false,
+                                     'render': function (Reschedule) {
+                                         if ($Access=='True') {
+                                             return '<a href=' + Reschedule + '>Reschedule</a>';
+                                         }
+                                         else {
+                                             return '<a href=#</a>';
+                                         }
+                                     }
+                                 },
+
+                            ]
+                        })
+                    },
+                })
+            }
+
+            Searchvalue();
+            $("#DateRange").on("change", function () {
+                Searchvalue();
+            })
+        });
+
+    </script>
+}

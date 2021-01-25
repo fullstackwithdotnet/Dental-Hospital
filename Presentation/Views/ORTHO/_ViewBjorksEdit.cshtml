@@ -1,0 +1,75 @@
+﻿@model IEnumerable<DIMS.ViewModels.OrthoAnalysisViewModal>
+
+@{
+    string modelName = ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix;
+    int index = 0;
+}
+@functions{
+    string GetId(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}]_{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+    string GetName(string fieldName, int index)
+    {
+        return string.Format("{0}[{2}].{1}", ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix, fieldName, index);
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <tr>
+                <th class="hidden">
+                    @Html.DisplayNameFor(model => model.BjroksStaticId)
+                </th>
+                <th class="hidden">
+                    @Html.DisplayNameFor(model => model.BjroksId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Angles)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mean)
+                </th>             
+                <th>
+                    @Html.DisplayNameFor(model => model.PreRx)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.During)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PostRx)
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="hidden">
+                        @Html.TextBoxFor(modelItem => item.BjroksStaticId, new { @class = "col-sm-2 form-control", @id = GetId("BjroksStaticId", index), @Name = GetName("BjroksStaticId", index) })
+                    </td>
+                    <td class="hidden">
+                        @Html.TextBoxFor(modelItem => item.BjroksId, new { @class = "col-sm-2 form-control", @id = GetId("BjroksId", index), @Name = GetName("BjroksId", index) })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Angles)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mean)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(modelItem => item.PreRx, new { @class = "col-sm-2 form-control", @id = GetId("PreRx", index), @Name = GetName("PreRx", index) })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(modelItem => item.During, new { @class = "col-sm-2 form-control", @id = GetId("During", index), @Name = GetName("During", index) })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(modelItem => item.PostRx, new { @class = "col-sm-2 form-control", @id = GetId("PostRx", index), @Name = GetName("PostRx", index) })
+                    </td>
+                </tr>
+                index++;
+            }
+        </table>
+
+    </div>
+</div>

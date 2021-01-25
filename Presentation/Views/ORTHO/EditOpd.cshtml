@@ -1,0 +1,642 @@
+﻿@model DIMS.ViewModels.OPDPatientRegistrationViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel-heading">
+            <h4>Orthodontics Out Patient Registration Department</h4>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm("Edit", "Registration", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h2 class="box-title">Patient Registration</h2>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm">
+                            @Html.HiddenFor(x => x.DepartmentId, new { @Value = Model.DepartmentId })
+                            @Html.LabelFor(x => x.OpNo, new { @class = "col-md-3 control-label" })
+                            <div class="col-md-3">
+                                @Html.TextBoxFor(x => x.OpNo, new { @class = "form-control ", @readonly = "readonly" })
+                                @Html.HiddenFor(x => x.PatientId)
+                                @Html.HiddenFor(x => x.CategoryEditYN)
+                                @Html.HiddenFor(x => x.ReferredId)
+                            </div>
+                            @Html.LabelFor(x => x.RegDateDisplay, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(model => model.RegDateDisplay, new { @class = "form-control ", @readonly = "readonly" })
+                                @Html.HiddenFor(x => x.RegistrationDate)
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm required">
+                            @Html.LabelFor(x => x.PatientName, new { @class = "col-md-3 control-label" })
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(model => model.TitleId, new SelectList(Model.Titlelist, "CodeId", "CodeDescription"), htmlAttributes: new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(x => x.PatientName, new { @class = "form-control OnlyCharacters", required = "required", maxlength = "30" })
+                                @Html.ValidationMessageFor(x => x.PatientName)
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.FatherOrHusband, new { @class = "col-md-3 control-label" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.FatherOrHusband, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.FatherOrHusband)
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.Dob, new { @class = "col-md-3 control-label" })
+                            <div class="col-md-9">
+                                @Html.EditorFor(x => x.Dob, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.Dob)
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm required">
+                            @Html.LabelFor(x => x.Age, new { @class = "col-md-3 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(x => x.Age, new { @class = "form-control OnlyNumber", required = "required", maxlength = "2" })
+                                @Html.ValidationMessageFor(x => x.Age)
+                            </div>
+                            <div class="col-md-5">
+                                @Html.DropDownListFor(x => x.Gender, Model.GenderLister, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.Gender)
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.CategoryId, new { @class = "col-md-3 control-label" })
+                            <div class="col-md-9">
+                                @if (Model.CategoryEditYN == "N")
+                                {
+                                    @Html.DropDownListFor(model => model.CategoryId, new SelectList(Model.Categorylist, "CategoryId", "CategoryName"), htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
+                                    @Html.HiddenFor(x => x.CategoryId)
+                                }
+                                else
+                                {
+                                    @Html.DropDownListFor(model => model.CategoryId, new SelectList(Model.Categorylist, "CategoryId", "CategoryName"), htmlAttributes: new { @class = "form-control" })
+                                }
+                                @Html.ValidationMessageFor(x => x.CategoryId)
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.PaymodeId, new { @class = "col-md-3 control-label" })
+                            <div class="col-md-9">
+                                @Html.DropDownListFor(model => model.PaymodeId, new SelectList(Model.Paymodelist, "PaymodeId", "Paymode"), htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.PaymodeId)
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm hidden">
+                            @Html.LabelFor(x => x.ServiceId, new { @class = "col-md-3 control-label" })
+                            <div class="col-md-4">
+                                @Html.HiddenFor(x => x.ServiceId)
+                                @Html.HiddenFor(x => x.BillId)
+                                @Html.HiddenFor(x => x.BillDetId)
+                                @Html.HiddenFor(x => x.BillQueueId)
+                                @Html.HiddenFor(x => x.BillPayId)
+                                @Html.HiddenFor(x => x.BillDateTime)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.Phone, new { @class = "col-md-3 control-label" })
+                            <div class="col-md-3">
+                                @Html.TextBoxFor(x => x.CountryCode, new { @class = "form-control OnlyNumber", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(x => x.CountryCode)
+                            </div>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(x => x.Phone, new { @maxLength = "10", @class = "form-control OnlyNumber" })
+                                @Html.ValidationMessageFor(x => x.Phone)
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm required ">
+                            @Html.LabelFor(x => x.Area, new { @class = "col-md-3 control-label" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.Area, new { @maxLength = "25", required = "required", @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.Area)
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm ">
+                            @Html.LabelFor(x => x.Address, new { @class = "col-md-3 control-label" })
+                            <div class="col-md-9">
+                                @Html.TextAreaFor(x => x.Address, new { @class = "form-control", style = "min-height:50px!important;" })
+                                @Html.ValidationMessageFor(x => x.Address)
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm hidden">
+                            @Html.LabelFor(x => x.PinCode, new { @class = "col-md-3 control-label" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.PinCode, new { @class = "form-control OnlyNumber ", maxlength = "6" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.CountryId, new { @class = "col-md-3 control-label" })
+                            <div class="col-md-9">
+                                @Html.DropDownListFor(x => x.CountryId, Model.Countries, htmlAttributes: new { @class = "form-control", @id = "Country" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.StateId, new { @class = "col-md-3 control-label" })
+                            <div class="col-md-9">
+                                @Html.DropDownListFor(x => x.StateId, Model.States, htmlAttributes: new { @class = "form-control", @id = "State" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.CityId, new { @class = "col-md-3 control-label" })
+                            <div class="col-md-9">
+                                @Html.DropDownListFor(x => x.CityId, Model.Cities, htmlAttributes: new { @class = "form-control", @id = "City" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm hidden">
+                            @Html.LabelFor(x => x.TotalAmt, new { @class = "col-md-3 control-label" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.TotalAmt, new { @class = "form-control OnlyNumber", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm hidden">
+                            @Html.LabelFor(x => x.NetAmt, new { @class = "col-md-3 control-label" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.NetAmt, new { @class = "form-control OnlyNumber", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(x => x.PaidAmt, new { @class = "col-md-3 control-label" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.PaidAmt, new { @class = "form-control OnlyNumber", @readonly = "readonly" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-default collapsed-box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Consent Form Upload </h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.postedFiles, new { @class = "control-label col-md-3" })
+                                    <div class="col-md-9">
+                                        @Html.TextBoxFor(model => model.postedFiles, new { type = "file" })
+                                        @Html.ValidationMessageFor(model => model.postedFiles)
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-3" })
+                                    <div class="col-md-9">
+                                        @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Description)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.FileName)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Description)
+                                            </th>
+                                            <th colspan="2" class="text-center">
+                                                Actions
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => modelItem.FileName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => modelItem.Description)
+                                            </td>
+                                            <td>
+                                                @if (Model.FilePath != null)
+                                                {
+                                                    @Html.ActionLink("Download", "Download", "Registration", new { fileName = Model.FilePath }, null)
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (Model.FileDisplayPath != null)
+                                                {
+                                                    @Html.ActionLink("View", Model.FileDisplayPath, new { Controller = "Content/Upload/" }, new { target = "_blank" })
+                                                }
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-default collapsed-box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">More Details </h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-primary btn-xs" data-widget="collapse">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.AadharNo, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-3">
+                                        @Html.TextBoxFor(x => x.AadharNo1, new { @maxLength = "4", @class = "form-control OnlyNumber" })
+                                        @Html.ValidationMessageFor(x => x.AadharNo1)
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        @Html.TextBoxFor(x => x.AadharNo2, new { @maxLength = "4", @class = "form-control OnlyNumber" })
+                                        @Html.ValidationMessageFor(x => x.AadharNo2)
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        @Html.TextBoxFor(x => x.AadharNo3, new { @maxLength = "4", @class = "form-control OnlyNumber" })
+                                        @Html.ValidationMessageFor(x => x.AadharNo3)
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.AlterPhone, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-3">
+                                        @Html.TextBoxFor(x => x.CountryCode, new { @class = "form-control OnlyNumber", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(x => x.AlterPhone)
+                                    </div>
+                                    <div class="col-md-6">
+                                        @Html.TextBoxFor(x => x.AlterPhone, new { @maxLength = "10", @class = "form-control OnlyNumber" })
+                                        @Html.ValidationMessageFor(x => x.AlterPhone)
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.MaritalStatus, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-9">
+                                        @Html.DropDownListFor(x => x.MaritalStatus, Model.MaritalStatusLister, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(x => x.MaritalStatus)
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.BloodGroupId, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-9">
+                                        @Html.DropDownListFor(x => x.BloodGroupId, new SelectList(Model.BloodGrouplist, "CodeId", "CodeDescription"), "", htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(x => x.BloodGroupId)
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.Occupation, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-9">
+                                        @Html.TextBoxFor(x => x.Occupation, new { @maxLength = "30", @class = "form-control" })
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.Education, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-9">
+                                        @Html.TextBoxFor(x => x.Education, new { @maxLength = "20", @class = "form-control" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.ReligionId, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-9">
+                                        @Html.DropDownListFor(model => model.Religion, Model.ReligionLister, htmlAttributes: new { @class = "form-control", @id = "City" })
+                                        @Html.ValidationMessageFor(model => model.ReligionId)
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.Email, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-9">
+                                        @Html.TextBoxFor(x => x.Email, new { @maxLength = "30", @class = "form-control" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.Birthmark, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-9">
+                                        @Html.TextBoxFor(x => x.Birthmark, new { @maxLength = "100", @class = "form-control" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(x => x.MLCProblem, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-9">
+                                        @Html.TextBoxFor(x => x.MLCProblem, new { @maxLength = "50", @class = "form-control" })
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group form-group-sm">
+                @if (TempData["Message"] != null)
+                {
+                    <center>
+                        <span class="messagebox">
+                            @TempData["Message"].ToString()
+                        </span>
+                    </center>
+                }
+            </div>
+
+            <div class="col-xs-4">
+            </div>
+            <div class="col-xs-4">
+                <center>
+                    <button class="btn btn-success btn-sm" id="Update">
+                        Update
+                        <i class="fa fa-check"></i>
+                    </button>
+                    <a class="btn btn-warning btn-sm" target="_blank" href="@Url.Action("Details", "Registration", new { id = Model.PatientId })">Print <i class="fa fa-print"></i> </a>
+                    <a class="btn btn-info btn-sm" target="_blank" href="@Url.Action("BillingReport", "Registration", new { BillId = Model.BillId, DeptId=(int)DIMS.Enums.Department.OPD })">Print Bill <i class="fa fa-print"></i> </a>
+                    <a class="btn btn-primary btn-sm" href="@Url.Action("Create", "Registration")">New <i class="fa fa-newspaper-o"></i> </a>
+                </center>
+            </div>
+            <div class="col-xs-4">
+            </div>
+        </div>
+    </div>
+
+}
+
+@section scripts {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#DiscountPer').change(function () {
+                if ($(this).val() <= 100) {
+                    var TotalAmt = $('#TotalAmt').val();
+                    if ($(this).val() >= 0 && $('#TotalAmt').val() > 0) {
+                        var DiscountAmt = (($('#TotalAmt').val() * $(this).val()) / 100);
+                        var NetAmt = ($('#TotalAmt').val() - DiscountAmt).toFixed(2);
+                        $('#NetAmt').val(NetAmt);
+                        $('#PaidAmt').val(NetAmt);
+                    }
+                }
+                else {
+                    var TotalAmt = $('#TotalAmt').val().toFixed(2);
+                    $('#NetAmt').val(TotalAmt);
+                    $('#PaidAmt').val(TotalAmt);
+                    $('#DiscountPer').val(0);
+                    alert("Discount Should not be more than 100%");
+                }
+            });
+        });
+
+
+        $('#Dob').change(function () {
+
+            var dob = $('#Dob').val();
+            var myDate = new Date(dob);
+            var today = new Date();
+            if (myDate > today) {
+                alert("Date Should Not be Greater than Current Date");
+                $('#Age').val('');
+                return false;
+            }
+            else {
+
+                dob = new Date(dob);
+                var today = new Date();
+                var age = Math.floor((today - dob) / (365.25 * 24 * 60 * 60 * 1000));
+
+                $('#Age').val(age);
+            }
+        })
+
+
+        var $country = $("#Country"),
+                        $states = $("#State"),
+                        $cities = $("#City");
+        //Dropdownlist Selected change event
+        $country.change(function () {
+            $states.empty();
+            $cities.empty();
+            $states.append('<option value="0"> --Select --</option>');
+            $cities.append('<option value="0"> --Select --</option>');
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetStates")', // we are calling json method
+
+                dataType: 'json',
+
+                data: { id: $country.val() },
+                // here we are get value of selected country and passing same value
+                // as input to json method GetStates.
+
+                success: function (states) {
+                    // states contains the JSON formatted list
+                    // of states passed from the controller
+
+                    $.each(states, function (i, state) {
+                        $states.append('<option value="' + state.Value + '">' +
+                             state.Text + '</option>');
+                        // here we are adding option for States
+
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+            return false;
+        });
+        $states.change(function () {
+            $cities.empty();
+            $cities.append('<option value="0"> --Select --</option>');
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetCities")',
+                dataType: 'json',
+                data: { id: $states.val() },
+                success: function (citys) {
+
+
+                    // states contains the JSON formatted list
+                    // of states passed from the controller
+                    $.each(citys, function (i, city) {
+                        $cities.append('<option value="'
+                        + city.Value + '">'
+                        + city.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+            return false;
+        });
+
+        $('#AadharNo1').keyup(function () {
+
+            var str = $('#AadharNo1').val();
+            if (str.length > 3) {
+                $('#AadharNo2').focus();
+            }
+
+        })
+        $('#AadharNo2').keyup(function () {
+
+            var str = $('#AadharNo2').val();
+            if (str.length > 3) {
+                $('#AadharNo3').focus();
+            }
+        })
+
+        $('#Age').change(function () {
+            var date = new Date();
+            var year = date.getFullYear();
+            var age = $('#Age').val();
+            var dobyear = year - age;
+            var day = date.getDate();
+            var dobdate = day;
+            var month = date.getMonth();
+            var dobmonth = month + 1;
+            if ((dobmonth > 0) && (dobmonth < 9)) {
+                dobmonth = "0" + dobmonth;
+            }
+            if ((dobdate > 0) && (dobdate < 9)) {
+                dobdate = "0" + dobdate;
+            }
+            var dob = dobyear + "-" + dobmonth + "-" + dobdate;
+            $('#Dob').val(dob);
+        })
+
+        $('#PaymodeId').change(function () {
+            var assign = 0;
+            var startNetVal = $('#TotalAmt').val();
+            var PayMode = $('#PaymodeId').val();
+            if (PayMode == 5) {
+                $('#PaidAmt').val(assign);
+            }
+            else {
+                $('#PaidAmt').val(startNetVal);
+            }
+        })
+
+
+        $('#Update').on('click', function () {
+            var $Age = $("#Age").val();
+            var $Phone = $("#Phone").val();
+            var $Area = $("#Area").val();
+            var $PatientName = $("#PatientName").val();
+            var $Gender = $("#Gender").val();
+            var $TitleId = $("#TitleId").val();
+            var $Country = $("#Country").val();
+            var $State = $("#State").val();
+            var $City = $("#City").val();
+            var $CategoryId = $("#CategoryId").val();
+            var $Area = $("#Area").val();
+
+            if ($.trim($TitleId) == '') {
+                alert("Patient title should not be empty.");
+                return false;
+            }
+            if ($.trim($PatientName) == '') {
+                alert("Patient name should not be empty.");
+                return false;
+            }
+            if ($Age == '') {
+                alert("Age should not be empty.");
+                return false;
+            }
+            else if ($Age == 0) {
+                alert("Age should not be 0.");
+                return false;
+            }
+            else if ($Age > 100 && $Age < 4) {
+                alert("Invalid age.");
+                return false;
+            }
+            else if (isNaN($Age)) {
+                alert("Invalid age.");
+                return false;
+            }
+
+            if ($.trim($Gender) == '') {
+                alert("Gender should not be empty.");
+                return false;
+            }
+
+            //if ($Phone.length < 10) {
+            //    alert("Phone number should not be empty.");
+            //    $("#Phone").focus();
+            //    return false;
+            //}
+            if ($.trim($CategoryId) == '') {
+                alert("Category should not be empty.");
+                return false;
+            }
+            if ($.trim($Country) == '') {
+                alert("Country should not be empty.");
+                return false;
+            }
+            if ($.trim($State) == '') {
+                alert("State should not be empty.");
+                return false;
+            }
+            if ($.trim($City) == '') {
+                alert("City should not be empty.");
+                return false;
+            }
+
+            if ($.trim($Area) == '') {
+                alert("Area should not be empty.");
+                return false;
+            }
+            var Con = confirm("Are you sure you want to save ?");
+            if (Con == true) {
+                var $this = $(this);
+                $this.hide();
+            }
+            else {
+                return false;
+            }
+        });
+    </script>
+
+}
+

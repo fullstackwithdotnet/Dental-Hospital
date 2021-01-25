@@ -1,0 +1,636 @@
+﻿
+@model DIMS.ViewModels.OrthoAnalysisViewModal
+
+@{
+    ViewBag.Title = "Bolton Analysis";
+}
+
+<h2>Bolton's Analysis</h2>
+@using (Html.BeginForm("SaveBolton", "Ortho", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+           
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <div class="col-md-12  ">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            @*<div class="col-md-1"></div>*@
+                                            <div class="col-md-6">
+                                                <h5 style="color: #357ebd"><b>TOOTH MEASUREMENTS</b></h5>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3"></div>
+                                            <div class="col-md-2">
+                                                <h5 style="color: black"><b>UPPER</b></h5>
+                                            </div>
+                                            <div class="col-md-2"></div>
+                                            <div class="col-md-2">
+                                                <h5 style="color: black"><b>LOWER</b></h5>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group form-group-sm">
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(x => x.ToothNo, new { @class = "col-lg-6 control-label" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(x => x.UpperRt, new { @class = "col-md-3 control-label" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(x => x.UpperLt, new { @class = "col-md-3 control-label" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(x => x.LowerRt, new { @class = "col-md-3 control-label" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(x => x.LowerLt, new { @class = "col-md-3 control-label" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group form-group-sm">
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(x => x.ToothNo1, new { @class = "col-lg-6 control-label" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.TextBoxFor(model => model.Upper1Rt, new { @class = "form-control col-sm-4" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.TextBoxFor(model => model.Upper1Lt, new { @class = "form-control" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.TextBoxFor(model => model.Lower1Rt, new { @class = "form-control" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.TextBoxFor(model => model.Lower1Lt, new { @class = "form-control" })
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="row">
+                                            <div class="form-group form-group-sm">
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(x => x.ToothNo2, new { @class = "col-lg-6 control-label" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.TextBoxFor(model => model.Upper2Rt, new { @class = "form-control col-sm-4" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.TextBoxFor(model => model.Upper2Lt, new { @class = "form-control col-sm-4" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.TextBoxFor(model => model.Lower2Rt, new { @class = "form-control col-sm-4" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.TextBoxFor(model => model.Lower2Lt, new { @class = "form-control col-sm-4" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="row">
+                                            <div class="form-group form-group-sm">
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(x => x.ToothNo3, new { @class = "col-lg-6 control-label" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.TextBoxFor(model => model.Upper3Rt, new { @class = "form-control col-sm-4" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.TextBoxFor(model => model.Upper3Lt, new { @class = "form-control col-sm-4" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.TextBoxFor(model => model.Lower3Rt, new { @class = "form-control col-sm-4" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.TextBoxFor(model => model.Lower3Lt, new { @class = "form-control col-sm-4" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="row">
+                                            <div class="form-group form-group-sm">
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(x => x.ToothNo4, new { @class = "col-lg-6 control-label" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.TextBoxFor(model => model.Upper4Rt, new { @class = "form-control col-sm-4" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.TextBoxFor(model => model.Upper4Lt, new { @class = "form-control col-sm-4" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.TextBoxFor(model => model.Lower4Rt, new { @class = "form-control col-sm-4" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.TextBoxFor(model => model.Lower4Lt, new { @class = "form-control col-sm-4" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="row">
+                                            <div class="form-group form-group-sm">
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(x => x.ToothNo5, new { @class = "col-lg-6 control-label" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.TextBoxFor(model => model.Upper5Rt, new { @class = "form-control col-sm-4" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.TextBoxFor(model => model.Upper5Lt, new { @class = "form-control col-sm-4" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.TextBoxFor(model => model.Lower5Rt, new { @class = "form-control col-sm-4" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.TextBoxFor(model => model.Lower5Lt, new { @class = "form-control col-sm-4" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="row">
+                                            <div class="form-group form-group-sm">
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(x => x.ToothNo6, new { @class = "col-lg-6 control-label" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.TextBoxFor(model => model.Upper6Rt, new { @class = "form-control col-sm-4" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.TextBoxFor(model => model.Upper6Lt, new { @class = "form-control col-sm-4" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.TextBoxFor(model => model.Lower6Rt, new { @class = "form-control col-sm-4" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.TextBoxFor(model => model.Lower6Lt, new { @class = "form-control col-sm-4" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="row">
+                                            <div class="form-group form-group-sm">
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(x => x.Upper12Tm, new { @class = "col-lg-6 control-label" })
+                                                </div>
+                                                <div class="col-md-4">
+                                                    @Html.TextBoxFor(model => model.Upper12Tm, new { @class = "form-control col-sm-4", @readonly = "readonly" })
+                                                </div>
+                                                <div class="col-md-4">
+                                                    @Html.TextBoxFor(model => model.Lower12Tm, new { @class = "form-control col-sm-4", @readonly = "readonly" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="row">
+                                            <div class="form-group form-group-sm">
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(x => x.Upper6Tm, new { @class = "col-lg-6 control-label" })
+                                                </div>
+                                                <div class="col-md-4">
+                                                    @Html.TextBoxFor(model => model.Upper6Tm, new { @class = "form-control col-sm-4", @readonly = "readonly" })
+                                                </div>
+                                                <div class="col-md-4">
+                                                    @Html.TextBoxFor(model => model.Lower6Tm, new { @class = "form-control col-sm-4", @readonly = "readonly" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <div class="row">
+                                                        <div class="form-group form-group-sm">
+                                                            <div class="col-md-5">
+                                                                @Html.LabelFor(x => x.AnteriorRatio, new { @class = "col-lg-12 control-label" })
+                                                            </div>
+                                                            <div class="col-md-7">
+                                                                @Html.TextBoxFor(model => model.AnteriorRatio, new { @class = "form-control col-sm-4", @readonly = "readonly" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <br />
+                                                    <div class="row">
+                                                        <div class="col-md-1"></div>
+                                                        <div class="col-md-5">
+                                                            <h5 style="color: #357ebd">ANT 6TM</h5>
+                                                        </div>
+                                                    </div>
+                                                    <br />
+                                                    <div class="row">
+                                                        <div class="form-group form-group-sm">
+                                                            <div class="col-md-5">
+                                                                @Html.LabelFor(x => x.MandibularExcess6Tm, new { @class = "col-lg-12 control-label" })
+                                                            </div>
+                                                            <div class="col-md-7">
+                                                                @Html.TextBoxFor(model => model.MandibularExcess6Tm, new { @class = "form-control col-sm-4", @readonly = "readonly" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <br />
+                                                    <div class="row">
+                                                        <div class="form-group form-group-sm">
+                                                            <div class="col-md-5">
+                                                                @Html.LabelFor(x => x.MaxillaryExcess6Tm, new { @class = "col-lg-12 control-label" })
+                                                            </div>
+                                                            <div class="col-md-7">
+                                                                @Html.TextBoxFor(model => model.MaxillaryExcess6Tm, new { @class = "form-control col-sm-4", @readonly = "readonly" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <div class="row">
+                                                        <div class="form-group form-group-sm">
+                                                            <div class="col-md-5">
+                                                                @Html.LabelFor(x => x.OverallRatio, new { @class = "col-lg-12 control-label" })
+                                                            </div>
+                                                            <div class="col-md-7">
+                                                                @Html.TextBoxFor(model => model.OverallRatio, new { @class = "form-control col-sm-2", @readonly = "readonly" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <br />
+                                                    <div class="row">
+                                                        <div class="col-md-1"></div>
+                                                        <div class="col-md-5">
+                                                            <h5 style="color: #357ebd">12TM</h5>
+                                                        </div>
+                                                    </div>
+                                                    <br />
+                                                    <div class="row">
+                                                        <div class="form-group form-group-sm">
+                                                            <div class="col-md-5">
+                                                                @Html.LabelFor(x => x.MandibularExcess12Tm, new { @class = "col-lg-12 control-label" })
+                                                            </div>
+                                                            <div class="col-md-7">
+                                                                @Html.TextBoxFor(model => model.MandibularExcess12Tm, new { @class = "form-control col-sm-4", @readonly = "readonly" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <br />
+                                                    <div class="row">
+                                                        <div class="form-group form-group-sm">
+                                                            <div class="col-md-5">
+                                                                @Html.LabelFor(x => x.MaxillaryExcess12Tm, new { @class = "col-lg-12 control-label" })
+                                                            </div>
+                                                            <div class="col-md-7">
+                                                                @Html.TextBoxFor(model => model.MaxillaryExcess12Tm, new { @class = "form-control col-sm-4", @readonly = "readonly" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <br />
+                                    <div class="row">
+                                        <div class="form-group form-group-sm">
+                                            <div class="col-md-2">
+                                                @Html.LabelFor(x => x.Inference, new { @class = "col-lg-6 control-label" })
+                                            </div>
+                                            <div class="col-md-8">
+                                                @Html.TextAreaFor(model => model.Inference, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="col-sm-1 col-md-offset-4">
+                                        @Html.HiddenFor(x => x.OrthoId)
+                                        @Html.HiddenFor(x => x.AnalysisId)
+                                        <input type="submit" value="Save" class="fa fa-save btn btn-success"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    @*<div class="col-md-1"></div>*@
+                                    <div class="col-md-5">
+                                        <h5 style="color: #357ebd"><b>BOLTON TOOTH RATIO-Formulas</b></h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div class="col-md-2">
+                                            <b>ANTERIOR RATIO:</b>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <b> Mandibular 6 TM X 100 / Maxillary 6 TM  =  %  =77.2%</b>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div class="col-md-2">
+                                            <b>OVERALL RATIO:</b>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <b>  Mandibular 12 TM X 100 / Maxillary 12 TM  =  %   =91.3%</b>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div class="col-md-2">
+                                            <b>MANDIBULAR EXCESS:</b>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <b> Mandibular 6 TM - Maxillary 6 TM X 77.2 / 100</b>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div class="col-md-2">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <b> Mandibular 12 TM - Maxillary 12 TM X 91.3 / 100</b>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div class="col-md-2">
+                                            <b>MAXILLARY EXCESS:</b>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <b> Maxillary 6 TM - Mandibular 6 TM X 100 / 77.2</b>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group form-group-sm">
+                                        <div class="col-md-2">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <b>  Maxillary 12 TM - Mandibular 12 TM X 100 / 91.3</b>
+                                        </div>
+                                    </div>
+                                </div>    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>                        
+        </div>
+
+    </div>
+
+</div>
+
+    
+
+}
+
+@section scripts {
+    <script type="text/javascript">
+
+
+        $("#Upper1Rt").on("keydown", function () {
+            
+            Upper6Calculation();
+        });
+        $("#Upper2Rt").on("keydown", function () {
+            
+            Upper6Calculation();
+        });
+        $("#Upper3Rt").on("keydown", function () {
+            
+            Upper6Calculation();
+        });
+        $("#Upper1Lt").on("keydown", function () {
+            
+            Upper6Calculation();
+        });
+        $("#Upper2Lt").on("keydown", function () {
+            
+            Upper6Calculation();
+        });
+        $("#Upper3Lt").on("keydown", function () {
+            
+            Upper6Calculation();
+        });
+
+
+        $("#Upper4Rt").on("keydown", function () {
+            
+            Upper6Calculation();
+        });
+        $("#Upper5Rt").on("keydown", function () {
+            
+            Upper6Calculation();
+        });
+        $("#Upper6Rt").on("keydown", function () {
+            
+            Upper6Calculation();
+        });
+        $("#Upper4Lt").on("keydown", function () {
+            
+            Upper6Calculation();
+        });
+        $("#Upper5Lt").on("keydown", function () {
+            
+            Upper6Calculation();
+        });
+        $("#Upper6Lt").on("keydown", function () {
+            
+            Upper6Calculation();
+        });
+
+        $("#Lower1Rt").on("keydown", function () {
+            
+            Lower6Calculation();
+        });
+        $("#Lower2Rt").on("keydown", function () {
+            
+            Lower6Calculation();
+        });
+        $("#Lower3Rt").on("keydown", function () {
+            
+            Lower6Calculation();
+        });
+        $("#Lower1Lt").on("keydown", function () {
+            
+            Lower6Calculation();
+        });
+        $("#Lower2Lt").on("keydown", function () {
+            
+            Lower6Calculation();
+        });
+        $("#Lower3Lt").on("keydown", function () {
+            
+            Lower6Calculation();
+        });
+
+        $("#Lower4Rt").on("keydown", function () {
+            
+            Lower6Calculation();
+        });
+        $("#Lower5Rt").on("keydown", function () {
+            
+            Lower6Calculation();
+        });
+        $("#Lower6Rt").on("keydown", function () {
+            
+            Lower6Calculation();
+        });
+        $("#Lower4Lt").on("keydown", function () {
+            
+            Lower6Calculation();
+        });
+        $("#Lower5Lt").on("keydown", function () {
+            
+            Lower6Calculation();
+        });
+        $("#Lower6Lt").on("keydown", function () {
+            
+            Lower6Calculation();
+        });
+
+
+
+
+        var Upper6Calculation = function () {
+            var $Upper1Rt = 0; var $Upper2Rt = 0; var $Upper3Rt = 0;
+            var $Upper1Lt = 0; var $Upper2Lt = 0; var $Upper3Lt = 0;
+            var $Upper1Rt = 0; var $Upper2Rt = 0; var $Upper3Rt = 0;
+            var $Upper1Lt = 0; var $Upper2Lt = 0; var $Upper3Lt = 0;
+            var $Upper4Rt = 0; var $Upper5Rt = 0; var $Upper6Rt = 0;
+            var $Upper4Lt = 0; var $Upper5Lt = 0; var $Upper6Lt = 0;
+            var TotUpper6Tm = 0; var TotLower6Tm = 0; var TotUpper12 = 0;
+            var TotLower12 = 0; var Incisors = 0; var TotIncisor = 0;
+            var Anterior = 0; var Overall = 0; var Mandibular6Excess = 0;
+            var Maxillary6Excess = 0;
+            $Upper1Rt = parseFloat($("#Upper1Rt").val());
+            $Upper2Rt = parseFloat($("#Upper2Rt").val());
+            $Upper3Rt = parseFloat($("#Upper3Rt").val());
+            $Upper1Lt = parseFloat($("#Upper1Lt").val());
+            $Upper2Lt = parseFloat($("#Upper2Lt").val());
+            $Upper3Lt = parseFloat($("#Upper3Lt").val());
+            $Upper4Rt = parseFloat($("#Upper4Rt").val());
+            $Upper5Rt = parseFloat($("#Upper5Rt").val());
+            $Upper6Rt = parseFloat($("#Upper6Rt").val());
+            $Upper4Lt = parseFloat($("#Upper4Lt").val());
+            $Upper5Lt = parseFloat($("#Upper5Lt").val());
+            $Upper6Lt = parseFloat($("#Upper6Lt").val());
+            TotLower6Tm = parseFloat($("#Lower6Tm").val());
+            TotLower12 = parseFloat($("#Lower12Tm").val());
+
+            TotUpper6Tm =parseFloat( $Upper1Rt + $Upper2Rt + $Upper3Rt + $Upper1Lt + $Upper2Lt + $Upper3Lt);
+            $("#Upper6Tm").val(TotUpper6Tm);
+
+            TotUpper12 = parseFloat(TotUpper6Tm + $Upper4Rt + $Upper5Rt + $Upper6Rt + $Upper4Lt + $Upper5Lt + $Upper6Lt);
+            $("#Upper12Tm").val(TotUpper12);
+
+            Anterior = parseFloat(((TotLower6Tm * 100) / TotUpper6Tm).toFixed(2));
+            $("#AnteriorRatio").val(Anterior);
+
+            Overall = parseFloat(((TotLower12 * 100) / TotUpper12).toFixed(2));
+            $("#OverallRatio").val(Overall);
+
+            TotIncisor = $Upper1Rt + $Upper1Lt + $Upper2Rt + $Upper2Lt;
+            $("#SumIncisors").val(TotIncisor);
+
+            //6TM
+            Mandibular6Excess = parseFloat((TotLower6Tm - ((TotUpper6Tm * 77.2 ) / 100)).toFixed(2));
+            $("#MandibularExcess6Tm").val(Mandibular6Excess);
+
+            Maxillary6Excess = parseFloat((TotUpper6Tm - ((TotLower6Tm * 100) / 77.2 )).toFixed(2));
+            $("#MaxillaryExcess6Tm").val(Maxillary6Excess);
+
+            //12TM
+            Mandibular12Excess = parseFloat((TotLower12 - ((TotUpper12 * 91.3) / 100)).toFixed(2));
+            $("#MandibularExcess12Tm").val(Mandibular12Excess);
+
+            Maxillary12Excess = parseFloat((TotUpper12 - ((TotLower12 * 100) / 91.3)).toFixed(2));
+            $("#MaxillaryExcess12Tm").val(Maxillary12Excess);
+            
+        }
+
+        var Lower6Calculation = function () {
+            var $Lower1Rt = 0; var $Lower2Rt = 0; var $Lower3Rt = 0;
+            var $Lower1Lt = 0; var $Lower2Lt = 0; var $Lower3Lt = 0;
+            var $Lower4Rt = 0; var $Lower5Rt = 0; var $Lower6Rt = 0;
+            var $Lower4Lt = 0; var $Lower5Lt = 0; var $Lower6Lt = 0;
+            var TotUpper6Tm = 0; var TotLower6Tm = 0; var TotUpper12 = 0;
+            var TotLower12 = 0; var Anterior = 0; var Overall = 0;
+            var Mandibular6Excess = 0; var Maxillary6Excess = 0;
+            $Lower1Rt = parseFloat($("#Lower1Rt").val());
+            $Lower2Rt = parseFloat($("#Lower2Rt").val());
+            $Lower3Rt = parseFloat($("#Lower3Rt").val());
+            $Lower1Lt = parseFloat($("#Lower1Lt").val());
+            $Lower2Lt = parseFloat($("#Lower2Lt").val());
+            $Lower3Lt = parseFloat($("#Lower3Lt").val());
+            $Lower4Rt = parseFloat($("#Lower4Rt").val());
+            $Lower5Rt = parseFloat($("#Lower5Rt").val());
+            $Lower6Rt = parseFloat($("#Lower6Rt").val());
+            $Lower4Lt = parseFloat($("#Lower4Lt").val());
+            $Lower5Lt = parseFloat($("#Lower5Lt").val());
+            $Lower6Lt = parseFloat($("#Lower6Lt").val());
+            TotUpper6Tm =parseFloat( $("#Upper6Tm").val());
+            TotUpper12 = parseFloat($("#Upper12Tm").val());
+
+            TotLower6Tm =parseFloat( $Lower1Rt + $Lower2Rt + $Lower3Rt + $Lower1Lt + $Lower2Lt + $Lower3Lt);
+            $("#Lower6Tm").val(TotLower6Tm);
+
+            TotLower12 =parseFloat(TotLower6Tm + $Lower4Rt + $Lower5Rt + $Lower6Rt + $Lower4Lt + $Lower5Lt + $Lower6Lt);
+            $("#Lower12Tm").val(TotLower12);
+
+            Anterior = parseFloat(((TotLower6Tm * 100) / TotUpper6Tm).toFixed(2));
+            $("#AnteriorRatio").val(Anterior);
+
+            Overall = parseFloat(((TotLower12 * 100) / TotUpper12).toFixed(2));
+            $("#OverallRatio").val(Overall);
+            
+            //6TM
+            Mandibular6Excess = parseFloat((TotLower6Tm - ((TotUpper6Tm * 77.2) / 100)).toFixed(2));
+            $("#MandibularExcess6Tm").val(Mandibular6Excess);
+
+            Maxillary6Excess = parseFloat((TotUpper6Tm - ((TotLower6Tm * 100) / 77.2)).toFixed(2));
+            $("#MaxillaryExcess6Tm").val(Maxillary6Excess);
+
+            //12 TM
+            Mandibular12Excess = parseFloat((TotLower12 - ((TotUpper12 * 91.3) / 100)).toFixed(2));
+            $("#MandibularExcess12Tm").val(Mandibular12Excess);
+
+            Maxillary12Excess = parseFloat((TotUpper12 - ((TotLower12 * 100) / 91.3)).toFixed(2));
+            $("#MaxillaryExcess12Tm").val(Maxillary12Excess);
+        }
+
+    
+
+      
+
+       
+
+
+
+
+
+    </script>
+}
